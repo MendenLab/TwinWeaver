@@ -1,0 +1,179 @@
+patientid,date,event_category,event_name,event_value,event_descriptive_name,meta_data,source
+p0,2015-04-19,main_diagnosis,initial_diagnosis,NSCLC,initial cancer diagnosis,Non-Small Cell Lung Cancer,events
+p0,2015-04-19,diagnosis,C34.90,diagnosed,Malignant neoplasm of unspecified part of unspecified bronchus or lung (C34.90),Malignant neoplasm of unspecified part of unspecified bronchus or lung,events
+p0,2015-04-29,biomarker,EGFR,Negative,Epidermal Growth Factor Receptor,WT,events
+p0,2015-04-29,biomarker,ALK,Negative,Anaplastic Lymphoma Kinase,WT,events
+p0,2015-04-29,basic_biomarker,EGFR,Wild Type,EGFR,NGS,genetic
+p0,2015-04-29,basic_biomarker,ALK,Wild Type,ALK,NGS,genetic
+p0,2015-04-29,biomarker_ihc,PD-L1,1-49%,PD-L1 Expression (TPS),IHC 22C3,genetic
+p0,2015-04-29,signature,TMB,14.71,Tumor Mutational Burden,NGS,genetic
+p0,2015-05-06,lot,line_number,1,line number,,events
+p0,2015-05-06,lot,line_name,Carboplatin/Pemetrexed/Pembrolizumab,line of therapy,,events
+p0,2015-05-06,lot,is_maintenance_therapy,FALSE,is maintenance therapy,,events
+p0,2015-05-06,lot,carboplatin,LoT Start,LoT,,events
+p0,2015-05-06,lot,pemetrexed,LoT Start,LoT,,events
+p0,2015-05-06,lot,pembrolizumab,LoT Start,LoT,,events
+p0,2015-05-06,lab,hemoglobin_-_718-7,14.13,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2015-05-06,ecog,ecog,0,ECOG,,events
+p0,2015-05-06,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-05-06,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-05-06,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-05-27,lab,hemoglobin_-_718-7,14.36,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2015-05-27,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-05-27,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-05-27,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-06-17,lab,hemoglobin_-_718-7,13.99,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2015-06-17,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-06-17,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-06-17,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-07-08,lab,hemoglobin_-_718-7,14.13,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2015-07-08,ecog,ecog,0,ECOG,,events
+p0,2015-07-08,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-07-08,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-07-08,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-07-29,lab,hemoglobin_-_718-7,14.01,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2015-07-29,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-07-29,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-07-29,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-08-19,lab,hemoglobin_-_718-7,13.83,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2015-08-19,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-08-19,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-08-19,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-09-09,lab,hemoglobin_-_718-7,13.9,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2015-09-09,ecog,ecog,0,ECOG,,events
+p0,2015-09-09,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-09-09,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-09-09,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-09-30,lab,hemoglobin_-_718-7,13.76,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2015-09-30,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-09-30,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-09-30,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-10-21,lab,hemoglobin_-_718-7,13.75,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2015-10-21,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-10-21,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-10-21,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-11-11,lab,hemoglobin_-_718-7,13.46,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2015-11-11,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-11-11,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-11-11,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-12-02,lab,hemoglobin_-_718-7,13.33,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2015-12-02,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-12-02,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-12-02,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-12-23,lab,hemoglobin_-_718-7,13.68,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2015-12-23,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-12-23,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2015-12-23,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2016-01-13,lab,hemoglobin_-_718-7,13.27,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2016-01-13,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2016-01-13,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2016-01-13,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2016-02-03,lab,hemoglobin_-_718-7,13.47,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2016-02-03,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2016-02-03,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2016-02-03,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2016-02-24,lab,hemoglobin_-_718-7,13.42,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p0,2016-02-24,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2016-02-24,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2016-02-24,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p0,2016-05-13,death,death,death,Death,Cause: Cancer Progression,events
+p1,2015-10-20,main_diagnosis,initial_diagnosis,NSCLC,initial cancer diagnosis,Non-Small Cell Lung Cancer,events
+p1,2015-10-20,diagnosis,C34.90,diagnosed,Malignant neoplasm of unspecified part of unspecified bronchus or lung (C34.90),Malignant neoplasm of unspecified part of unspecified bronchus or lung,events
+p1,2015-11-06,biomarker,EGFR,Negative,Epidermal Growth Factor Receptor,WT,events
+p1,2015-11-06,biomarker,ALK,Negative,Anaplastic Lymphoma Kinase,WT,events
+p1,2015-11-06,basic_biomarker,EGFR,Wild Type,EGFR,NGS,genetic
+p1,2015-11-06,basic_biomarker,ALK,Wild Type,ALK,NGS,genetic
+p1,2015-11-06,gene_sv,TP53,Present,TP53 Missense,NGS,genetic
+p1,2015-11-06,gene_sv,KEAP1,Present,KEAP1 Missense,NGS,genetic
+p1,2015-11-06,biomarker_ihc,PD-L1,>= 50%,PD-L1 Expression (TPS),IHC 22C3,genetic
+p1,2015-11-06,signature,TMB,8.23,Tumor Mutational Burden,NGS,genetic
+p1,2015-11-16,lot,line_number,1,line number,,events
+p1,2015-11-16,lot,line_name,Carboplatin/Pemetrexed/Pembrolizumab,line of therapy,,events
+p1,2015-11-16,lot,is_maintenance_therapy,FALSE,is maintenance therapy,,events
+p1,2015-11-16,lot,carboplatin,LoT Start,LoT,,events
+p1,2015-11-16,lot,pemetrexed,LoT Start,LoT,,events
+p1,2015-11-16,lot,pembrolizumab,LoT Start,LoT,,events
+p1,2015-11-16,lab,hemoglobin_-_718-7,12.02,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2015-11-16,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2015-11-16,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2015-11-16,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2015-12-07,lab,hemoglobin_-_718-7,12.34,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2015-12-07,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2015-12-07,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2015-12-07,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2015-12-28,lab,hemoglobin_-_718-7,12.27,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2015-12-28,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2015-12-28,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2015-12-28,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2016-01-18,lab,hemoglobin_-_718-7,12.49,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-01-18,ecog,ecog,2,ECOG,,events
+p1,2016-01-18,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2016-01-18,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2016-01-18,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2016-02-08,lab,hemoglobin_-_718-7,12.61,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-02-08,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2016-02-08,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2016-02-08,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2016-02-29,lab,hemoglobin_-_718-7,12.96,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-02-29,drug,carboplatin,administered,carboplatin,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2016-02-29,drug,pemetrexed,administered,pemetrexed,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2016-02-29,drug,pembrolizumab,administered,pembrolizumab,"Carboplatin,Pemetrexed,Pembrolizumab",events
+p1,2016-03-13,progression,progression,progression,progression,Radiological PD,events
+p1,2016-04-27,lot,line_number,2,line number,,events
+p1,2016-04-27,lot,line_name,Docetaxel/Ramucirumab,line of therapy,,events
+p1,2016-04-27,lot,is_maintenance_therapy,FALSE,is maintenance therapy,,events
+p1,2016-04-27,lot,docetaxel,LoT Start,LoT,,events
+p1,2016-04-27,lot,ramucirumab,LoT Start,LoT,,events
+p1,2016-04-27,lab,hemoglobin_-_718-7,12.76,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-04-27,ecog,ecog,0,ECOG,,events
+p1,2016-04-27,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2016-04-27,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2016-05-18,lab,hemoglobin_-_718-7,12.84,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-05-18,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2016-05-18,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2016-06-08,lab,hemoglobin_-_718-7,12.87,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-06-08,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2016-06-08,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2016-06-29,lab,hemoglobin_-_718-7,13.01,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-06-29,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2016-06-29,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2016-07-20,lab,hemoglobin_-_718-7,13.45,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-07-20,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2016-07-20,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2016-08-10,lab,hemoglobin_-_718-7,13.35,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-08-10,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2016-08-10,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2016-08-31,lab,hemoglobin_-_718-7,13.39,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-08-31,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2016-08-31,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2016-09-21,lab,hemoglobin_-_718-7,13.39,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-09-21,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2016-09-21,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2016-10-12,lab,hemoglobin_-_718-7,13.57,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-10-12,ecog,ecog,1,ECOG,,events
+p1,2016-10-12,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2016-10-12,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2016-11-02,lab,hemoglobin_-_718-7,13.71,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-11-02,ecog,ecog,0,ECOG,,events
+p1,2016-11-02,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2016-11-02,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2016-11-23,lab,hemoglobin_-_718-7,13.79,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-11-23,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2016-11-23,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2016-12-14,lab,hemoglobin_-_718-7,13.76,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2016-12-14,ecog,ecog,0,ECOG,,events
+p1,2016-12-14,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2016-12-14,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2017-01-04,lab,hemoglobin_-_718-7,14.02,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2017-01-04,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2017-01-04,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2017-01-25,lab,hemoglobin_-_718-7,14.14,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2017-01-25,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2017-01-25,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2017-02-15,lab,hemoglobin_-_718-7,14.16,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2017-02-15,ecog,ecog,1,ECOG,,events
+p1,2017-02-15,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2017-02-15,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events
+p1,2017-03-08,lab,hemoglobin_-_718-7,14.12,hemoglobin - 718-7,"Test: hemoglobin, Cleaned lab units: g/dL",events
+p1,2017-03-08,drug,docetaxel,administered,docetaxel,"Docetaxel,Ramucirumab",events
+p1,2017-03-08,drug,ramucirumab,administered,ramucirumab,"Docetaxel,Ramucirumab",events

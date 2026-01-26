@@ -1,0 +1,60 @@
+[tool.ruff]
+line-length = 120  # Adjust to your preference (e.g., 88, 100, 120)
+
+[tool.ruff.lint]
+# specific rules to enable
+# E501 triggers "Line too long" errors for comments/strings that can't be auto-formatted
+extend-select = ["E501"]
+
+
+[build-system]
+# Specifies the build tools needed to create the package.
+# Setuptools is a common and robust choice.
+requires = ["setuptools>=61.0"] # Minimum version of setuptools required
+build-backend = "setuptools.build_meta" # Standard entry point for setuptools builds
+
+
+[project]
+# --- Core Package Metadata ---
+# This information describes your package for tools like pip and websites like PyPI.
+
+# The distribution name of your package.
+# This is the name used when you run 'pip install ...'. Dashes are conventional.
+name = "twinweaver"
+
+# The current version of your package.
+# It's good practice to follow semantic versioning (e.g., MAJOR.MINOR.PATCH).
+version = "0.1.0"
+
+# A short, one-sentence description of what your package does.
+description = "Converting longitudinal patient data into text for LLM-based event prediction and forecasting."
+
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+
+dependencies = [
+    "numpy",       # We don't really care too much about specific versions for now, since we only use basic functionality
+    "pandas",
+    "transformers",
+    "scikit-learn",
+]
+
+
+
+[tool.setuptools]
+packages = { find = { where = ["."], include = ["twinweaver*"] } }
+
+# Add this new section for Pytest configuration
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+pythonpath = [
+    ".",
+]

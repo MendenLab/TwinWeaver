@@ -1,0 +1,135 @@
+site_name: TwinWeaver
+site_description: TwinWeaver is a Python framework for longitudinal Patient Digital Twins using LLMs.
+site_url: https://example.com/twinweaver/
+
+# 1. Source Code Link (Adds a nice GitHub icon to the header)
+repo_name: TwinWeaver
+repo_url: https://github.com/your-org/twinweaver # Replace with actual
+edit_uri: edit/main/docs/
+
+extra_css:
+  - stylesheets/extra.css
+
+theme:
+  name: material
+  # 2. Custom Logo/Favicon (Use an emoji if you don't have an SVG yet)
+  icon:
+    logo: material/dna
+    favicon: material/dna
+
+  features:
+    - navigation.tabs           # Top-level tabs
+    - navigation.sections       # Sidebar sections
+    - navigation.instant        # Instant loading (SPA feel)
+    - navigation.tracking       # Scroll tracking
+    - navigation.top            # Back to top button
+    - content.code.copy         # Copy code button
+    - content.code.annotate     # Allow inline code annotations (+)
+    - content.tooltips
+    - search.suggest
+    - search.highlight
+
+  # 3. Light/Dark Mode Toggle
+  palette:
+    - scheme: default
+      primary: slate            # Professional grey/blue tone
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: slate
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  # 4. Modern Typography
+  font:
+    text: Inter
+    code: JetBrains Mono
+
+# 5. Social Links (Footer)
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/your-org/twinweaver
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/twinweaver/
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: numpy
+            show_source: true
+            show_root_heading: true   # Shows the class/function name in bold
+            # Moves arguments out of the header line to a block below
+            separate_signature: true
+            show_category_heading: true
+  - mkdocs-jupyter:
+      execute_ignore: ["*"]
+
+markdown_extensions:
+  - admonition
+  - attr_list                   # Essential for styling images/buttons
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  # 6. Math Support
+  - pymdownx.arithmatex:
+      generic: true
+  # 7. Enhanced Code Blocks (Mermaid + Annotations)
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - toc:
+      permalink: true
+
+# 8. MathJax Configuration (Required for Arithmatex)
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - Examples:
+      - Overview: examples/README.md
+      - Data Preparation: examples/01_data_preparation_for_training.ipynb
+      - Inference Prompt Prep: examples/02_inference_prompt_preparation.ipynb
+      - End-to-End Finetuning: examples/03_end_to_end_llm_finetuning.ipynb
+      - Advanced:
+          - Custom Splitting (Training): examples/advanced/custom_splitting/training_individual_splitters.ipynb
+          - Custom Splitting (Inference): examples/advanced/custom_splitting/inference_individual_splitters.md
+          - Pretraining: examples/advanced/pretraining/prepare_pretraining_data.md
+      - Integrations:
+          - MEDS Import: examples/integrations/meds_data_import.ipynb
+  - API Reference:
+      - Common:
+          - Config: reference/common/config.md
+          - Data Manager: reference/common/data_manager.md
+          - Converter Base: reference/common/converter_base.md
+      - Instruction:
+          - Converter Instruction: reference/instruction/converter_instruction.md
+          - Converter Forecasting: reference/instruction/converter_forecasting.md
+          - Converter Forecasting QA: reference/instruction/converter_forecasting_qa.md
+          - Converter Events: reference/instruction/converter_events.md
+          - Main Data Splitter: reference/instruction/data_splitter.md
+          - All Data Splitters: reference/instruction/data_splitters.md
+      - Pretrain:
+          - Converter Pretrain: reference/pretrain/converter_pretrain.md
+      - Utils:
+          - MEDS Importer: reference/utils/meds_importer.md

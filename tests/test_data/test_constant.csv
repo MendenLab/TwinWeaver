@@ -1,0 +1,3 @@
+patientid,birthyear,gender,histology,smoking_history
+p0,1965,Male,Adenocarcinoma,Current
+p1,1966,Male,Squamous Cell Carcinoma,Never

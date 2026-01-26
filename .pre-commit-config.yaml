@@ -1,0 +1,21 @@
+repos:
+  # 1. Standard "Cleanup" Hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace      # Trims trailing whitespace automatically
+      - id: end-of-file-fixer        # Ensures files end with a newline
+      - id: check-yaml               # Checks valid YAML syntax (prevents broken configs)
+        args: [--unsafe]  # <--- ADD THIS LINE
+      - id: check-merge-conflict     # Stops commit if <<<<<<< HEAD is found
+
+  # 2. Ruff (Linting + Formatting)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.10
+    hooks:
+      # Linter: Replaces flake8, isort, pyupgrade
+      - id: ruff
+        args: [ --fix ]
+
+      # Formatter: Replaces Black
+      - id: ruff-format
