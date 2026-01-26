@@ -1,0 +1,75 @@
+/* docs/stylesheets/extra.css */
+
+/* Add spacing and a separator between functions/classes */
+div.doc-object {
+    margin-bottom: 2.5em;
+    padding-bottom: 2.5em;
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* Remove the border from the last item so it doesn't look weird */
+div.doc-object:last-child {
+    border-bottom: none;
+}
+
+/* Optional: Make the signature box (the grey code block) stand out less */
+div.doc-signature {
+    margin-bottom: 1em;
+    border-radius: 4px;
+    background-color: var(--md-code-bg-color);
+}
+
+
+
+
+
+
+
+/* 1. Optically match code font size to body text */
+.md-typeset code {
+    font-size: .85em; /* Shrinks inline code (like 'DataSplitterEvents') */
+}
+
+.md-typeset pre > code {
+    font-size: .9em;  /* Shrinks code blocks slightly */
+}
+
+/* 2. Fix the Table Text Sizes */
+/* Ensures parameters table text and code look balanced */
+.md-typeset__table {
+    font-size: .95rem;
+}
+
+/* Make the Class/Function names (e.g. DataSplitterEvents) stand out */
+.doc-heading {
+    font-weight: 700 !important;
+    font-size: 1.2em !important;
+    letter-spacing: -0.01em;
+    color: var(--md-default-fg-color);
+    margin-top: 1.5em;
+}
+
+/* Style the subtle "Functions", "Classes" labels */
+.doc-label {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--md-default-fg-color--light);
+    margin-bottom: 0.5em;
+}
+
+
+/* Soften the signature code block */
+div.doc-signature {
+    background-color: transparent !important; /* Removes grey box */
+    border-left: 3px solid var(--md-primary-fg-color); /* Adds a colored accent line */
+    padding-left: 1em;
+    margin-left: 0;
+}
+
+/* remove the internal padding since we removed the box */
+div.doc-signature code {
+    padding: 0 !important;
+    background: transparent !important;
+}
