@@ -479,6 +479,62 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="🚀 Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataset-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset Format
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dataset Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-longitudinal-events-eventscsv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Longitudinal Events (events.csv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-patient-constants-constantcsv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Patient Constants (constant.csv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-constant-descriptions-constant_descriptioncsv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Constant Descriptions (constant_description.csv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -600,6 +656,56 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="🤝 Contributing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#development-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contribution-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contribution Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1723,6 +1829,62 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="🚀 Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataset-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset Format
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dataset Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-longitudinal-events-eventscsv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Longitudinal Events (events.csv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-patient-constants-constantcsv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Patient Constants (constant.csv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-constant-descriptions-constant_descriptioncsv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Constant Descriptions (constant_description.csv)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1845,6 +2007,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="🤝 Contributing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#development-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contribution-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contribution Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1959,6 +2171,72 @@
 </span><span id="__span-2-51"><a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a><span class="c1"># training_data now contains (Input, Target) pairs ready for LLM fine-tuning</span>
 </span></code></pre></div>
 <p>For complete tutorials, see the <a href="#-examples">Examples</a> section below.</p>
+<h3 id="dataset-format">Dataset Format<a class="headerlink" href="#dataset-format" title="Permanent link">&para;</a></h3>
+<p>TwinWeaver expects three primary dataframes (or CSV files) as input. Example files can be found in <a href="examples/example_data/"><code>examples/example_data/</code></a>.</p>
+<h4 id="1-longitudinal-events-eventscsv">1. Longitudinal Events (<code>events.csv</code>)<a class="headerlink" href="#1-longitudinal-events-eventscsv" title="Permanent link">&para;</a></h4>
+<p>Contains time-varying clinical data where each row represents a single event.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">patientid</th>
+<th style="text-align: left;">date</th>
+<th style="text-align: left;">event_category</th>
+<th style="text-align: left;">event_name</th>
+<th style="text-align: left;">event_value</th>
+<th style="text-align: left;">event_descriptive_name</th>
+<th style="text-align: left;">meta_data</th>
+<th style="text-align: left;">source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><em>Unique identifier for the patient</em></td>
+<td style="text-align: left;"><em>Date of the event</em></td>
+<td style="text-align: left;"><em>Human-readable name used in the text output</em></td>
+<td style="text-align: left;"><em>(Optional) Category (e.g., <code>lab</code>, <code>drug</code>)</em></td>
+<td style="text-align: left;"><em>(Optional) Specific event identifier</em></td>
+<td style="text-align: left;"><em>Value associated with the event</em></td>
+<td style="text-align: left;"><em>(Optional) Additional metadata</em></td>
+<td style="text-align: left;"><em>(Optional) Source of the data - e.g. events or genetic</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-patient-constants-constantcsv">2. Patient Constants (<code>constant.csv</code>)<a class="headerlink" href="#2-patient-constants-constantcsv" title="Permanent link">&para;</a></h4>
+<p>Contains static patient information (demographics, baseline characteristics). One row per patient.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">patientid</th>
+<th style="text-align: left;">birthyear</th>
+<th style="text-align: left;">gender</th>
+<th style="text-align: left;">...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><em>Unique identifier for the patient</em></td>
+<td style="text-align: left;"><em>Patient's year of birth</em></td>
+<td style="text-align: left;"><em>Patient's gender</em></td>
+<td style="text-align: left;"><em>Any other static patient attributes</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-constant-descriptions-constant_descriptioncsv">3. Constant Descriptions (<code>constant_description.csv</code>)<a class="headerlink" href="#3-constant-descriptions-constant_descriptioncsv" title="Permanent link">&para;</a></h4>
+<p>Maps columns in the <code>constant</code> table to human-readable descriptions for the text prompt.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">variable</th>
+<th style="text-align: left;">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><em>Name of the column in the constant table</em></td>
+<td style="text-align: left;"><em>Description of the variable for the text prompt</em></td>
+</tr>
+</tbody>
+</table>
 <h2 id="examples">💡 Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>The <code>examples/</code> directory provides comprehensive tutorials to help you get up and running.</p>
 <h3 id="core-tutorials">🔰 Core Tutorials<a class="headerlink" href="#core-tutorials" title="Permanent link">&para;</a></h3>
@@ -2042,8 +2320,48 @@
 <h2 id="license">📜 License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
 <p>TwinWeaver is licensed under the Apache License 2.0. See <a href="license.txt">LICENSE</a> for details.</p>
 <h2 id="contributing">🤝 Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
-<p>Install <code>pre-commit</code>.
-Then <code>pre-commit install</code> in root directory of this.</p>
+<p>We welcome contributions to TwinWeaver! Please follow these steps to contribute.</p>
+<h3 id="development-setup">Development Setup<a class="headerlink" href="#development-setup" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Clone the repository and install dependencies:</strong>
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/MendenLab/TwinWeaver
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">cd</span><span class="w"> </span>twinweaver
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>examples/requirements.txt
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>pip<span class="w"> </span>install<span class="w"> </span>pre-commit<span class="w"> </span>pytest<span class="w"> </span>pytest-cov
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>docs/requirements.txt
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>Install pre-commit hooks:</strong>
+    We use <code>pre-commit</code> to ensure code formatting and quality checks run before you commit.
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pre-commit<span class="w"> </span>install
+</span></code></pre></div></p>
+</li>
+</ol>
+<h3 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">&para;</a></h3>
+<p>We use <code>pytest</code> for testing. To run the full test suite:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pytest<span class="w"> </span>tests/
+</span></code></pre></div>
+<h3 id="building-documentation">Building Documentation<a class="headerlink" href="#building-documentation" title="Permanent link">&para;</a></h3>
+<p>The documentation is built with <code>mkdocs</code>. To preview it locally:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>mkdocs<span class="w"> </span>serve
+</span></code></pre></div>
+<h3 id="contribution-workflow">Contribution Workflow<a class="headerlink" href="#contribution-workflow" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Create a New Branch</strong>: Always create a new branch for your feature or fix.
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/my-new-feature
+</span></code></pre></div></li>
+<li><strong>Make Changes</strong>: Implement your feature or fix.</li>
+<li><strong>Run Tests &amp; Linting</strong>: Ensure your code passes all tests and pre-commit hooks.</li>
+<li><strong>Submit a Merge Request</strong>:<ul>
+<li>Push your branch to the repository.</li>
+<li>Open a Merge Request (Pull Request) against the <code>main</code> branch.</li>
+<li>Describe your changes clearly in the MR description.</li>
+</ul>
+</li>
+</ol>
 
 
 
