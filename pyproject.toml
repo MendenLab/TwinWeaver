@@ -15,7 +15,7 @@ build-backend = "setuptools.build_meta" # Standard entry point for setuptools bu
 
 [project]
 name = "twinweaver"
-version = "0.1.0"
+version = "0.1.1"
 description = "Converting longitudinal patient data into text for LLM-based event prediction and forecasting."
 
 # --- NEW/UPDATED FIELDS ---
@@ -49,6 +49,7 @@ dependencies = [
     "pandas",
     "transformers",
     "scikit-learn",
+    "jupyter",
 ]
 
 [project.optional-dependencies]
@@ -59,6 +60,7 @@ dev = [
     "transformers",
     "scikit-learn",
     "ruff",
+    "jupyter",
 ]
 
 # 6. URLs: Links that appear on the PyPI sidebar.

@@ -22,16 +22,13 @@ TwinWeaver is a longitudinal framework for LLM-based Patient Digital Twins. It s
 
 ### Install from Source
 
-To install the package, clone the repository and install it in editable mode:
+To install the package:
 
 ```bash
-git clone https://github.com/your-org/twinweaver.git
-cd twinweaver
-pip install -r requirements.txt
-pip install -e .
+pip install twinweaver
 ```
 
-For running the examples and fine-tuning workflows, install additional dependencies:
+For running the fine-tuning workflows, install additional dependencies:
 
 ```bash
 pip install -r examples/requirements.txt
