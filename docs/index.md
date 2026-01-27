@@ -26,11 +26,6 @@ To install the package:
 pip install twinweaver
 ```
 
-For running the examples and fine-tuning workflows, install additional dependencies:
-
-```bash
-pip install -r examples/requirements.txt
-```
 
 ## 🏗️ Framework Overview
 

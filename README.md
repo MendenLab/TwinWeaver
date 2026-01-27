@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/MendenLab/TwinWeaver/refs/heads/main/docs/images/candidate_dark_bg_jpg.jpg">
     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/MendenLab/TwinWeaver/refs/heads/main/docs/images/candidate_jpg.jpg">
-    <img alt="TwinWeaver Logo" src="https://raw.githubusercontent.com/MendenLab/TwinWeaver/refs/heads/main/docs/images/candidate_jpg.jpg" width="25%" title="Title">
+    <img alt="TwinWeaver Logo" src="https://raw.githubusercontent.com/MendenLab/TwinWeaver/refs/heads/main/docs/images/candidate_jpg.jpg" width="40%" title="Title">
   </picture>
 </p>
 
@@ -160,9 +160,9 @@ Contains time-varying clinical data where each row represents a single event.
 #### 2. Patient Constants (`constant.csv`)
 Contains static patient information (demographics, baseline characteristics). One row per patient.
 
-| patientid | birthyear | gender | ... |
+| patientid | e.g. birthyear | e.g. gender | ... |
 |:---|:---|:---|:---|
-| *Unique identifier for the patient* | *Patient's year of birth* | *Patient's gender* | *Any other static patient attributes* |
+| *Unique identifier for the patient* | *e.g. Patient's year of birth* | *e.g. Patient's gender* | *Any other static patient attributes* |
 
 #### 3. Constant Descriptions (`constant_description.csv`)
 Maps columns in the `constant` table to human-readable descriptions for the text prompt.
