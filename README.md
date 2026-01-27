@@ -31,7 +31,7 @@ To install the package:
 pip install twinweaver
 ```
 
-For running the fine-tuning workflows, install additional dependencies:
+For running the fine-tuning workflows, install additional dependencies (torch CUDA version might need to be adapted to your system):
 
 ```bash
 pip install twinweaver[fine-tuning-example]
