@@ -194,7 +194,7 @@ The logo was generated with Nano Banana Pro.
 
 ## 🧞🧞 Genie Digital Twin (GDT)
 
-> **Note:** The specific implementation, training, and evaluation code for the GDT model mentioned in the TwinWeaver paper is located in a **separate repository**. This repository contains the core `twinweaver` framework.
+> **Note:** The specific implementation, training, and evaluation code for the GDT model mentioned in the TwinWeaver paper is located in [MendenLab/GDT](https://github.com/MendenLab/GDT). This repository contains the core `twinweaver` framework.
 
 GDT is a pan-cancer model instantiated using TwinWeaver, trained on over 93,000 patients across 20 cancer types.
 

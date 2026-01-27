@@ -52,6 +52,43 @@ TwinWeaver addresses the challenge of modeling sparse, multi-modal clinical time
 
 
 
+## 💡 Examples
+
+The `examples/` directory provides comprehensive tutorials to help you get up and running.
+
+### 🔰 Core Tutorials
+
+These notebooks cover the primary workflows for most users:
+
+*   **1. Data Preparation**: [`examples/01_data_preparation_for_training.ipynb`](examples/01_data_preparation_for_training.ipynb)
+    *   Demonstrates how to convert raw patient data (events, constants, genetics) into the instruction-tuning text format used by TwinWeaver. This is the core step for preparing data for fine-tuning.
+*   **2. Inference**: [`examples/02_inference_prompt_preparation.ipynb`](examples/02_inference_prompt_preparation.ipynb)
+    *   Shows how to run inference using the TwinWeaver framework, including setting up the data manager and generating prompts.
+*   **3. End-to-End Workflow**: [`examples/03_end_to_end_llm_finetuning.ipynb`](examples/03_end_to_end_llm_finetuning.ipynb)
+    *   A complete guide covering the entire pipeline from data ingestion to LLM fine-tuning. NOTE: please install the packages required via `pip install -r examples/requirements.txt`
+
+### 🚀 Advanced Usage & Integrations
+
+For users needing custom behavior or specific integrations:
+
+*   **Pretraining Data Conversion**: [`examples/advanced/pretraining/prepare_pretraining_data.py`](examples/advanced/pretraining/prepare_pretraining_data.py)
+    *   A script illustrating how to convert data for the pretraining phase, using template-based generation. Useful if you want to pretrain on your own large-scale unlabeled clinical data.
+*   **Custom Splitting**:
+    *   [`examples/advanced/custom_splitting/inference_individual_splitters.py`](examples/advanced/custom_splitting/inference_individual_splitters.py): Example script for inference using individual splitters.
+    *   [`examples/advanced/custom_splitting/training_individual_splitters.ipynb`](examples/advanced/custom_splitting/training_individual_splitters.ipynb): Notebook demonstrating training data generation with individual splitters.
+*   **MEDS Data Import**: [`examples/integrations/meds_data_import.ipynb`](examples/integrations/meds_data_import.ipynb)
+    *   A tutorial on importing data in the Medical Event Data Standard (MEDS) format and converting it into TwinWeaver's internal format. Includes a synthetic data example.
+
+
+
+## 📚 Documentation
+
+Full documentation is available [https://mendenlab.github.io/TwinWeaver/](https://mendenlab.github.io/TwinWeaver/).
+
+
+
+
+
 ## 🚀 Quick Start
 
 Here's a minimal example to get you started with TwinWeaver:
@@ -145,39 +182,6 @@ Maps columns in the `constant` table to human-readable descriptions for the text
 
 
 
-## 📚 Documentation
-
-Full documentation is available at: [TODO]
-
-
-
-## 💡 Examples
-
-The `examples/` directory provides comprehensive tutorials to help you get up and running.
-
-### 🔰 Core Tutorials
-
-These notebooks cover the primary workflows for most users:
-
-*   **1. Data Preparation**: [`examples/01_data_preparation_for_training.ipynb`](examples/01_data_preparation_for_training.ipynb)
-    *   Demonstrates how to convert raw patient data (events, constants, genetics) into the instruction-tuning text format used by TwinWeaver. This is the core step for preparing data for fine-tuning.
-*   **2. Inference**: [`examples/02_inference_prompt_preparation.ipynb`](examples/02_inference_prompt_preparation.ipynb)
-    *   Shows how to run inference using the TwinWeaver framework, including setting up the data manager and generating prompts.
-*   **3. End-to-End Workflow**: [`examples/03_end_to_end_llm_finetuning.ipynb`](examples/03_end_to_end_llm_finetuning.ipynb)
-    *   A complete guide covering the entire pipeline from data ingestion to LLM fine-tuning. NOTE: please install the packages required via `pip install -r examples/requirements.txt`
-
-### 🚀 Advanced Usage & Integrations
-
-For users needing custom behavior or specific integrations:
-
-*   **Pretraining Data Conversion**: [`examples/advanced/pretraining/prepare_pretraining_data.py`](examples/advanced/pretraining/prepare_pretraining_data.py)
-    *   A script illustrating how to convert data for the pretraining phase, using template-based generation. Useful if you want to pretrain on your own large-scale unlabeled clinical data.
-*   **Custom Splitting**:
-    *   [`examples/advanced/custom_splitting/inference_individual_splitters.py`](examples/advanced/custom_splitting/inference_individual_splitters.py): Example script for inference using individual splitters.
-    *   [`examples/advanced/custom_splitting/training_individual_splitters.ipynb`](examples/advanced/custom_splitting/training_individual_splitters.ipynb): Notebook demonstrating training data generation with individual splitters.
-*   **MEDS Data Import**: [`examples/integrations/meds_data_import.ipynb`](examples/integrations/meds_data_import.ipynb)
-    *   A tutorial on importing data in the Medical Event Data Standard (MEDS) format and converting it into TwinWeaver's internal format. Includes a synthetic data example.
-
 ## 📂 Dataset Types: Instruction vs. Pretraining
 
 TwinWeaver supports two primary data formats, each serving a distinct stage in the model training pipeline:
@@ -218,7 +222,7 @@ For questions or issues, please raise a Github issue or contact [nikita.makarov@
 
 ## 🧞🧞 Genie Digital Twin (GDT)
 
-> **Note:** The specific implementation, training, and evaluation code for the GDT model mentioned in the TwinWeaver paper is located in a **separate repository**. This repository contains the core `twinweaver` framework.
+> **Note:** The specific implementation, training, and evaluation code for the GDT model mentioned in the TwinWeaver paper is located in [MendenLab/GDT](https://github.com/MendenLab/GDT).
 
 GDT is a pan-cancer model instantiated using TwinWeaver, trained on over 93,000 patients across 20 cancer types.
 
