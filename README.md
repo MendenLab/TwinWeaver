@@ -45,7 +45,8 @@ These notebooks cover the primary workflows for most users:
 *   **2. Inference**: [`examples/02_inference_prompt_preparation.ipynb`](examples/02_inference_prompt_preparation.ipynb)
     *   Shows how to run inference using the TwinWeaver framework, including setting up the data manager and generating prompts.
 *   **3. End-to-End Workflow**: [`examples/03_end_to_end_llm_finetuning.ipynb`](examples/03_end_to_end_llm_finetuning.ipynb)
-    *   A complete guide covering the entire pipeline from data ingestion to LLM fine-tuning. NOTE: please install the packages required via the exact following line `pip install twinweaver[fine-tuning-example]` (torch CUDA version might need to be adapted to your system)
+    *   A complete guide covering the entire pipeline from data ingestion to LLM fine-tuning.
+    *   NOTE: please install the packages required via the exact following line `pip install twinweaver[fine-tuning-example]` (torch CUDA version might need to be adapted to your system)
 
 ### 🚀 Advanced Usage & Integrations
 
