@@ -7,7 +7,6 @@
 </p>
 
 
-
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://mendenlab.github.io/TwinWeaver/)
@@ -31,14 +30,9 @@ To install the package:
 pip install twinweaver
 ```
 
-For running the fine-tuning workflows, install additional dependencies (torch CUDA version might need to be adapted to your system):
+The following sections will explain the tutorials/examples and afterwards the [quick start guide](#-quick-start).
 
-```bash
-pip install twinweaver[fine-tuning-example]
-```
-
-
-## 💡 Examples
+## 💡 Tutorials & Examples
 
 The `examples/` directory provides comprehensive tutorials to help you get up and running.
 
@@ -46,12 +40,12 @@ The `examples/` directory provides comprehensive tutorials to help you get up an
 
 These notebooks cover the primary workflows for most users:
 
-*   **1. Data Preparation**: [`examples/01_data_preparation_for_training.ipynb`](examples/01_data_preparation_for_training.ipynb)
+*   **1. Basics Overview**: [`examples/01_data_preparation_for_training.ipynb`](examples/01_data_preparation_for_training.ipynb)
     *   Demonstrates how to convert raw patient data (events, constants, genetics) into the instruction-tuning text format used by TwinWeaver. This is the core step for preparing data for fine-tuning.
 *   **2. Inference**: [`examples/02_inference_prompt_preparation.ipynb`](examples/02_inference_prompt_preparation.ipynb)
     *   Shows how to run inference using the TwinWeaver framework, including setting up the data manager and generating prompts.
 *   **3. End-to-End Workflow**: [`examples/03_end_to_end_llm_finetuning.ipynb`](examples/03_end_to_end_llm_finetuning.ipynb)
-    *   A complete guide covering the entire pipeline from data ingestion to LLM fine-tuning. NOTE: please install the packages required via `pip install -r examples/requirements.txt`
+    *   A complete guide covering the entire pipeline from data ingestion to LLM fine-tuning. NOTE: please install the packages required via the exact following line `pip install twinweaver[fine-tuning-example]` (torch CUDA version might need to be adapted to your system)
 
 ### 🚀 Advanced Usage & Integrations
 
