@@ -18,7 +18,7 @@ TwinWeaver is a longitudinal framework for LLM-based Patient Digital Twins. It s
 - Python 3.8 or higher
 - Core dependencies: `pandas`, `numpy`, `transformers`, `scikit-learn`
 
-### Install from Source
+### Install from PyPi
 
 To install the package:
 
@@ -26,11 +26,38 @@ To install the package:
 pip install twinweaver
 ```
 
-For running the examples and fine-tuning workflows, install additional dependencies:
 
-```bash
-pip install -r examples/requirements.txt
-```
+The following sections will explain the tutorials/examples and afterwards the [quick start guide](#-quick-start).
+
+## 💡 Tutorials & Examples
+
+The `examples/` directory provides comprehensive tutorials to help you get up and running.
+
+### 🔰 Core Tutorials
+
+These notebooks cover the primary workflows for most users:
+
+*   **1. Basics Overview**: [`examples/01_data_preparation_for_training.ipynb`](examples/01_data_preparation_for_training.ipynb)
+    *   Demonstrates how to convert raw patient data (events, constants, genetics) into the instruction-tuning text format used by TwinWeaver. This is the core step for preparing data for fine-tuning.
+*   **2. Inference**: [`examples/02_inference_prompt_preparation.ipynb`](examples/02_inference_prompt_preparation.ipynb)
+    *   Shows how to run inference using the TwinWeaver framework, including setting up the data manager and generating prompts.
+*   **3. End-to-End Workflow**: [`examples/03_end_to_end_llm_finetuning.ipynb`](examples/03_end_to_end_llm_finetuning.ipynb)
+    *   A complete guide covering the entire pipeline from data ingestion to LLM fine-tuning.
+    *   NOTE: please install the packages required via the exact following line `pip install twinweaver[fine-tuning-example]` (torch CUDA version might need to be adapted to your system)
+
+### 🚀 Advanced Usage & Integrations
+
+For users needing custom behavior or specific integrations:
+
+*   **Pretraining Data Conversion**: [`examples/advanced/pretraining/prepare_pretraining_data.py`](examples/advanced/pretraining/prepare_pretraining_data.py)
+    *   A script illustrating how to convert data for the pretraining phase, using template-based generation. Useful if you want to pretrain on your own large-scale unlabeled clinical data.
+*   **Custom Splitting**:
+    *   [`examples/advanced/custom_splitting/inference_individual_splitters.py`](examples/advanced/custom_splitting/inference_individual_splitters.py): Example script for inference using individual splitters.
+    *   [`examples/advanced/custom_splitting/training_individual_splitters.ipynb`](examples/advanced/custom_splitting/training_individual_splitters.ipynb): Notebook demonstrating training data generation with individual splitters.
+*   **MEDS Data Import**: [`examples/integrations/meds_data_import.ipynb`](examples/integrations/meds_data_import.ipynb)
+    *   A tutorial on importing data in the Medical Event Data Standard (MEDS) format and converting it into TwinWeaver's internal format. Includes a synthetic data example.
+
+
 
 ## 🏗️ Framework Overview
 
@@ -43,6 +70,9 @@ TwinWeaver addresses the challenge of modeling sparse, multi-modal clinical time
     *   **Time-Series Forecasting**: Forecasting frequently measured values such as blood biomarkers or vital signs.
     *   **Landmark Event Prediction**: Predicting patient event status (e.g., survival, disease progression) at future time points using a landmarking framework.
 3. **Flexible Horizon:** Supports sampling split times and prediction horizons to avoid overfitting to specific canonical time points.
+
+
+
 
 ## 🚀 Quick Start
 
@@ -102,27 +132,26 @@ training_data = converter.forward_conversion(
 # training_data now contains (Input, Target) pairs ready for LLM fine-tuning
 ```
 
-For complete tutorials, see the [Examples](#-examples) section below.
+For complete tutorials, see the [Tutorials & Examples](#-tutorials--examples) section above.
 
 
-
-### Dataset Format
+## 📊 Dataset Format
 
 TwinWeaver expects three primary dataframes (or CSV files) as input. Example files can be found in [`examples/example_data/`](examples/example_data/).
 
 #### 1. Longitudinal Events (`events.csv`)
 Contains time-varying clinical data where each row represents a single event.
 
-| patientid | date | event_category | event_name | event_value | event_descriptive_name | meta_data | source |
+| patientid | date | event_descriptive_name | event_category | event_name | event_value | meta_data | source |
 |:---|:---|:---|:---|:---|:---|:---|:---|
 | *Unique identifier for the patient* | *Date of the event* | *Human-readable name used in the text output*  | *(Optional) Category (e.g., `lab`, `drug`)* | *(Optional) Specific event identifier* | *Value associated with the event* | *(Optional) Additional metadata* | *(Optional) Source of the data - e.g. events or genetic* |
 
 #### 2. Patient Constants (`constant.csv`)
 Contains static patient information (demographics, baseline characteristics). One row per patient.
 
-| patientid | birthyear | gender | ... |
+| patientid | e.g. birthyear | e.g. gender | ... |
 |:---|:---|:---|:---|
-| *Unique identifier for the patient* | *Patient's year of birth* | *Patient's gender* | *Any other static patient attributes* |
+| *Unique identifier for the patient* | *e.g. Patient's year of birth* | *e.g. Patient's gender* | *Any other static patient attributes* |
 
 #### 3. Constant Descriptions (`constant_description.csv`)
 Maps columns in the `constant` table to human-readable descriptions for the text prompt.
@@ -130,36 +159,6 @@ Maps columns in the `constant` table to human-readable descriptions for the text
 | variable | comment |
 |:---|:---|
 | *Name of the column in the constant table* | *Description of the variable for the text prompt* |
-
-
-
-
-## 💡 Examples
-
-The `examples/` directory provides comprehensive tutorials to help you get up and running.
-
-### 🔰 Core Tutorials
-
-These notebooks cover the primary workflows for most users:
-
-*   **1. Data Preparation**: [Data Preparation](examples/01_data_preparation_for_training.ipynb)
-    *   Demonstrates how to convert raw patient data (events, constants, genetics) into the instruction-tuning text format used by TwinWeaver. This is the core step for preparing data for fine-tuning.
-*   **2. Inference**: [Inference Prompt Preparation](examples/02_inference_prompt_preparation.ipynb)
-    *   Shows how to run inference using the TwinWeaver framework, including setting up the data manager and generating prompts.
-*   **3. End-to-End Workflow**: [End-to-End Finetuning](examples/03_end_to_end_llm_finetuning.ipynb)
-    *   A complete guide covering the entire pipeline from data ingestion to LLM fine-tuning. NOTE: please install the packages required via `pip install -r examples/requirements.txt`
-
-### 🚀 Advanced Usage & Integrations
-
-For users needing custom behavior or specific integrations:
-
-*   **Pretraining Data Conversion**: [Prepare Pretraining Data](examples/advanced/pretraining/prepare_pretraining_data.md)
-    *   A script illustrating how to convert data for the pretraining phase, using template-based generation. Useful if you want to pretrain on your own large-scale unlabeled clinical data.
-*   **Custom Splitting**:
-    *   [Inference Individual Splitters](examples/advanced/custom_splitting/inference_individual_splitters.md): Example script for inference using individual splitters.
-    *   [Training Individual Splitters](examples/advanced/custom_splitting/training_individual_splitters.ipynb): Notebook demonstrating training data generation with individual splitters.
-*   **MEDS Data Import**: [MEDS Data Import](examples/integrations/meds_data_import.ipynb)
-    *   A tutorial on importing data in the Medical Event Data Standard (MEDS) format and converting it into TwinWeaver's internal format. Includes a synthetic data example.
 
 ## 📂 Dataset Types: Instruction vs. Pretraining
 

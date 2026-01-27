@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/MendenLab/TwinWeaver/refs/heads/main/docs/images/candidate_dark_bg_jpg.jpg">
     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/MendenLab/TwinWeaver/refs/heads/main/docs/images/candidate_jpg.jpg">
-    <img alt="TwinWeaver Logo" src="https://raw.githubusercontent.com/MendenLab/TwinWeaver/refs/heads/main/docs/images/candidate_jpg.jpg" width="25%" title="Title">
+    <img alt="TwinWeaver Logo" src="https://raw.githubusercontent.com/MendenLab/TwinWeaver/refs/heads/main/docs/images/candidate_jpg.jpg" width="40%" title="Title">
   </picture>
 </p>
 
@@ -22,7 +22,7 @@ TwinWeaver is a longitudinal framework for LLM-based Patient Digital Twins. It s
 - Python 3.8 or higher
 - Core dependencies: `pandas`, `numpy`, `transformers`, `scikit-learn`
 
-### Install from Source
+### Install from PyPi
 
 To install the package:
 
@@ -45,7 +45,8 @@ These notebooks cover the primary workflows for most users:
 *   **2. Inference**: [`examples/02_inference_prompt_preparation.ipynb`](examples/02_inference_prompt_preparation.ipynb)
     *   Shows how to run inference using the TwinWeaver framework, including setting up the data manager and generating prompts.
 *   **3. End-to-End Workflow**: [`examples/03_end_to_end_llm_finetuning.ipynb`](examples/03_end_to_end_llm_finetuning.ipynb)
-    *   A complete guide covering the entire pipeline from data ingestion to LLM fine-tuning. NOTE: please install the packages required via the exact following line `pip install twinweaver[fine-tuning-example]` (torch CUDA version might need to be adapted to your system)
+    *   A complete guide covering the entire pipeline from data ingestion to LLM fine-tuning.
+    *   NOTE: please install the packages required via the exact following line `pip install twinweaver[fine-tuning-example]` (torch CUDA version might need to be adapted to your system)
 
 ### 🚀 Advanced Usage & Integrations
 
@@ -142,26 +143,26 @@ training_data = converter.forward_conversion(
 # training_data now contains (Input, Target) pairs ready for LLM fine-tuning
 ```
 
-For complete tutorials, see the [Examples](#-examples) section below.
+For complete tutorials, see the [Tutorials & Examples](#-tutorials--examples) section above.
 
 
-### Dataset Format
+## 📊 Dataset Format
 
 TwinWeaver expects three primary dataframes (or CSV files) as input. Example files can be found in [`examples/example_data/`](examples/example_data/).
 
 #### 1. Longitudinal Events (`events.csv`)
 Contains time-varying clinical data where each row represents a single event.
 
-| patientid | date | event_category | event_name | event_value | event_descriptive_name | meta_data | source |
+| patientid | date | event_descriptive_name | event_category | event_name | event_value | meta_data | source |
 |:---|:---|:---|:---|:---|:---|:---|:---|
 | *Unique identifier for the patient* | *Date of the event* | *Human-readable name used in the text output*  | *(Optional) Category (e.g., `lab`, `drug`)* | *(Optional) Specific event identifier* | *Value associated with the event* | *(Optional) Additional metadata* | *(Optional) Source of the data - e.g. events or genetic* |
 
 #### 2. Patient Constants (`constant.csv`)
 Contains static patient information (demographics, baseline characteristics). One row per patient.
 
-| patientid | birthyear | gender | ... |
+| patientid | e.g. birthyear | e.g. gender | ... |
 |:---|:---|:---|:---|
-| *Unique identifier for the patient* | *Patient's year of birth* | *Patient's gender* | *Any other static patient attributes* |
+| *Unique identifier for the patient* | *e.g. Patient's year of birth* | *e.g. Patient's gender* | *Any other static patient attributes* |
 
 #### 3. Constant Descriptions (`constant_description.csv`)
 Maps columns in the `constant` table to human-readable descriptions for the text prompt.
