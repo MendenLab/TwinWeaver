@@ -22,7 +22,7 @@ TwinWeaver is a longitudinal framework for LLM-based Patient Digital Twins. It s
 - Python 3.8 or higher
 - Core dependencies: `pandas`, `numpy`, `transformers`, `scikit-learn`
 
-### Install from Source
+### Install from PyPi
 
 To install the package:
 
