@@ -142,17 +142,17 @@ training_data = converter.forward_conversion(
 # training_data now contains (Input, Target) pairs ready for LLM fine-tuning
 ```
 
-For complete tutorials, see the [Examples](#-examples) section below.
+For complete tutorials, see the [Tutorials & Examples](#-tutorials--examples) section above.
 
 
-### Dataset Format
+## 📊 Dataset Format
 
 TwinWeaver expects three primary dataframes (or CSV files) as input. Example files can be found in [`examples/example_data/`](examples/example_data/).
 
 #### 1. Longitudinal Events (`events.csv`)
 Contains time-varying clinical data where each row represents a single event.
 
-| patientid | date | event_category | event_name | event_value | event_descriptive_name | meta_data | source |
+| patientid | date | event_descriptive_name | event_category | event_name | event_value | meta_data | source |
 |:---|:---|:---|:---|:---|:---|:---|:---|
 | *Unique identifier for the patient* | *Date of the event* | *Human-readable name used in the text output*  | *(Optional) Category (e.g., `lab`, `drug`)* | *(Optional) Specific event identifier* | *Value associated with the event* | *(Optional) Additional metadata* | *(Optional) Source of the data - e.g. events or genetic* |
 
