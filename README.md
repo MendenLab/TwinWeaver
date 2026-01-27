@@ -10,6 +10,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://mendenlab.github.io/TwinWeaver/)
 
 TwinWeaver is a longitudinal framework for LLM-based Patient Digital Twins. It serializes longitudinal patient histories into text, enabling unified event prediction as well as forecasting with large language models (LLMs). This framework transforms structured patient history—including demographics, labs, treatments, and genetics—into a single, human-readable text prompt, enabling LLMs to jointly forecast continuous biomarkers and predict discrete clinical events.
 
@@ -35,21 +36,6 @@ For running the fine-tuning workflows, install additional dependencies:
 ```bash
 pip install -r examples/requirements.txt
 ```
-
-
-
-## 🏗️ Framework Overview
-
-TwinWeaver addresses the challenge of modeling sparse, multi-modal clinical time series by leveraging the generative capabilities of LLMs.
-
-### Core Components
-
-1.  **Text Serialization**: Transforms multi-modal inputs (diagnoses, laboratory measurements, genetic mutation panels) into a structured textual representation of longitudinal patient trajectories.
-2.  **Unified Task Support**:
-    *   **Time-Series Forecasting**: Forecasting frequently measured values such as blood biomarkers or vital signs.
-    *   **Landmark Event Prediction**: Predicting patient event status (e.g., survival, disease progression) at future time points using a landmarking framework.
-3. **Flexible Horizon:** Supports sampling split times and prediction horizons to avoid overfitting to specific canonical time points.
-
 
 
 ## 💡 Examples
@@ -78,6 +64,21 @@ For users needing custom behavior or specific integrations:
     *   [`examples/advanced/custom_splitting/training_individual_splitters.ipynb`](examples/advanced/custom_splitting/training_individual_splitters.ipynb): Notebook demonstrating training data generation with individual splitters.
 *   **MEDS Data Import**: [`examples/integrations/meds_data_import.ipynb`](examples/integrations/meds_data_import.ipynb)
     *   A tutorial on importing data in the Medical Event Data Standard (MEDS) format and converting it into TwinWeaver's internal format. Includes a synthetic data example.
+
+
+
+## 🏗️ Framework Overview
+
+TwinWeaver addresses the challenge of modeling sparse, multi-modal clinical time series by leveraging the generative capabilities of LLMs.
+
+### Core Components
+
+1.  **Text Serialization**: Transforms multi-modal inputs (diagnoses, laboratory measurements, genetic mutation panels) into a structured textual representation of longitudinal patient trajectories.
+2.  **Unified Task Support**:
+    *   **Time-Series Forecasting**: Forecasting frequently measured values such as blood biomarkers or vital signs.
+    *   **Landmark Event Prediction**: Predicting patient event status (e.g., survival, disease progression) at future time points using a landmarking framework.
+3. **Flexible Horizon:** Supports sampling split times and prediction horizons to avoid overfitting to specific canonical time points.
+
 
 
 
