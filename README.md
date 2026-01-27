@@ -34,7 +34,7 @@ pip install twinweaver
 For running the fine-tuning workflows, install additional dependencies:
 
 ```bash
-pip install -r examples/requirements.txt
+pip install twinweaver[fine-tuning-example]
 ```
 
 

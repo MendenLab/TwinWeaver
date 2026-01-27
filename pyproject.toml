@@ -63,6 +63,18 @@ dev = [
     "jupyter",
 ]
 
+# This enables: pip install twinweaver[fine-tuning-example]
+fine-tuning-example = [
+    "torch==2.9.1",
+    "ipykernel==7.1.0",
+    "transformers==4.57.6",
+    "datasets==4.5.0",
+    "peft==0.18.1",
+    "trl==0.27.0",
+    "bitsandbytes==0.49.1",
+    "accelerate==1.12.0",
+]
+
 # 6. URLs: Links that appear on the PyPI sidebar.
 [project.urls]
 "Homepage" = "https://github.com/MendenLab/TwinWeaver"
