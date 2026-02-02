@@ -73,3 +73,27 @@ div.doc-signature code {
     padding: 0 !important;
     background: transparent !important;
 }
+
+/* Hide emojis in the table of contents (TOC) while keeping them in main content */
+.md-nav__link .twemoji,
+.md-nav__link .emojione,
+.md-nav__link svg.twemoji,
+.md-sidebar--secondary .md-nav__link .twemoji {
+    display: none !important;
+}
+
+/* Hide unicode emojis in TOC links using font feature settings */
+.md-sidebar--secondary .md-nav__link,
+.md-nav--secondary .md-nav__link {
+    font-variant-emoji: text;
+}
+
+/* Alternative: Hide common emoji unicode ranges in TOC */
+.md-sidebar--secondary .md-nav__link {
+    text-indent: 0;
+}
+
+/* Use JavaScript-injected class approach - wrap emoji in span with this class */
+.md-nav__link .toc-emoji {
+    display: none !important;
+}

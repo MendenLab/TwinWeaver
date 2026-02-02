@@ -100,7 +100,8 @@ markdown_extensions:
 
 # 8. MathJax Configuration (Required for Arithmatex)
 extra_javascript:
-  - javascripts/mathjax.js
+  - javascript/mathjax.js
+  - javascript/toc-emoji-remover.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
