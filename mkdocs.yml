@@ -77,6 +77,9 @@ markdown_extensions:
   - attr_list                   # Essential for styling images/buttons
   - md_in_html
   - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.inlinehilite
   - pymdownx.snippets:
       check_paths: true
@@ -106,7 +109,15 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
-  - Home: index.md
+  - Home:
+      - index.md
+      - Installation: installation.md
+      - Tutorials: tutorials.md
+      - Quick Start: quickstart.md
+      - Framework Overview: framework.md
+      - Dataset Format: dataset-format.md
+      - Contributing: contributing.md
+      - Citation: citation.md
   - Examples:
       - Overview: examples/README.md
       - Data Preparation: examples/01_data_preparation_for_training.ipynb

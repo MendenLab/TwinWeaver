@@ -219,7 +219,7 @@ If you use the package, please cite
       archivePrefix={arXiv},
       primaryClass={cs.LG},
       url={https://arxiv.org/abs/2601.20906},
-
+}
 ```
 
 The logo was generated with Nano Banana Pro.
