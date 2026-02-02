@@ -2,90 +2,118 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://example.com/twinweaver/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/twinweaver/citation/</loc>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/twinweaver/contributing/</loc>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/twinweaver/dataset-format/</loc>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/twinweaver/framework/</loc>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/twinweaver/installation/</loc>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/twinweaver/quickstart/</loc>
+         <lastmod>2026-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://example.com/twinweaver/tutorials/</loc>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/examples/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/examples/01_data_preparation_for_training/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/examples/02_inference_prompt_preparation/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/examples/03_end_to_end_llm_finetuning/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/examples/advanced/custom_splitting/inference_individual_splitters/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/examples/advanced/custom_splitting/inference_individual_splitters/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/examples/advanced/custom_splitting/training_individual_splitters/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/examples/advanced/pretraining/prepare_pretraining_data/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/examples/advanced/pretraining/prepare_pretraining_data/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/examples/integrations/meds_data_import/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/reference/common/config/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/reference/common/converter_base/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/reference/common/data_manager/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/reference/instruction/converter_events/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/reference/instruction/converter_forecasting/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/reference/instruction/converter_forecasting_qa/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/reference/instruction/converter_instruction/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/reference/instruction/data_splitter/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/reference/instruction/data_splitters/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/reference/pretrain/converter_pretrain/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
     <url>
          <loc>https://example.com/twinweaver/reference/utils/meds_importer/</loc>
-         <lastmod>2026-01-27</lastmod>
+         <lastmod>2026-02-02</lastmod>
     </url>
 </urlset>
