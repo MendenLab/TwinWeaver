@@ -281,7 +281,9 @@ class Config:
         self.event_category_lot: str = "lot"
         self.event_category_death: str = "death"
         self.event_category_labs: str = "lab"
+
         self.event_category_forecast: list = ["lab"]  # List of event categories to be used for forecasting
+
         self.split_event_category: str = "lot"  # Event category used for data splitting (e.g., LoT)
 
         self.source_genetic: str = "genetic"
