@@ -51,7 +51,7 @@ class Config:
         Default value to assign to `meta_data_col` if it is missing. Default: pd.NA.
     source_col_default_value : str
         Default value to assign to `source_col` if it is missing. Default: "events".
-    lot_date_col : str
+    split_date_col : str
         Column name specifically used for dates related to line of therapy (LoT) events. Default: "lot_date".
     lot_name_col : str
         Column name for the name or identifier of the line of therapy (e.g., "First Line"). Default: "lot".
@@ -76,6 +76,8 @@ class Config:
         Specific string value used in `event_category_col` to identify 'lab result' events. Default: "lab".
     event_category_forecast : list[str]
         List of event categories to be considered for forecasting tasks. Default: ["lab"].
+    split_event_category : str
+        Event category used for data splitting (e.g., LoT). Default: "lot".
     source_genetic : str
         Specific string value used in `source_col` to identify data originating from genetic testing.
         Default: "genetic".
@@ -259,7 +261,7 @@ class Config:
         self.event_category_default_value = "general"  # Default value for event category if not present
         self.event_meta_default_value = pd.NA  # Default value for event meta data if not present
         self.source_col_default_value: str = "events"  # Default value for source column if not present
-        self.lot_date_col: str = "lot_date"
+        self.split_date_col: str = "lot_date"
         self.lot_name_col: str = "lot"
         self.event_value_lot_start: str = "LoT Start"
         self.skip_future_lot_filtering: bool = False  # Whether to skip filtering future LoT events, by default False.
@@ -280,6 +282,8 @@ class Config:
         self.event_category_death: str = "death"
         self.event_category_labs: str = "lab"
         self.event_category_forecast: list = ["lab"]  # List of event categories to be used for forecasting
+
+        self.split_event_category: str = "lot"  # Event category used for data splitting (e.g., LoT)
 
         self.source_genetic: str = "genetic"
         self.source_standard_events: str = "events"

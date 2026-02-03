@@ -787,7 +787,7 @@ class DataSplitterForecasting(BaseDataSplitter):
 
         if curr_date is None or pd.isna(curr_date):
             # Generate empty meta and return
-            date_splits_meta = [{self.config.date_col: curr_date, self.config.lot_date_col: lot_date}]
+            date_splits_meta = [{self.config.date_col: curr_date, self.config.split_date_col: lot_date}]
             date_splits_meta = pd.DataFrame(date_splits_meta)
 
             return (
@@ -886,7 +886,7 @@ class DataSplitterForecasting(BaseDataSplitter):
             date_splits.append(new_option)
 
         # Turn into 1 row dataframe
-        date_splits_meta = [{self.config.date_col: curr_date, self.config.lot_date_col: lot_date}]
+        date_splits_meta = [{self.config.date_col: curr_date, self.config.split_date_col: lot_date}]
         date_splits_meta = pd.DataFrame(date_splits_meta)
 
         return (
@@ -1023,23 +1023,23 @@ class DataSplitterForecasting(BaseDataSplitter):
                         {
                             self.config.date_col: split_date,
                             self.config.event_name_col: variable_to_predict,
-                            self.config.lot_date_col: "override",
+                            self.config.split_date_col: "override",
                         }
                     )
             all_possible_split_dates = pd.DataFrame(all_possible_split_dates)
             all_possible_split_dates_no_vars = all_possible_split_dates.copy()
             all_possible_split_dates_no_vars = all_possible_split_dates_no_vars[
-                [self.config.date_col, self.config.lot_date_col]
+                [self.config.date_col, self.config.split_date_col]
             ].drop_duplicates()
 
         #: loop through 1 to nr_samples_per_split
-        all_lots_dates = all_possible_split_dates_no_vars[[self.config.date_col, self.config.lot_date_col]]
+        all_lots_dates = all_possible_split_dates_no_vars[[self.config.date_col, self.config.split_date_col]]
 
         ret_splits = []
         ret_split_dates = []
 
-        for lot_date in all_lots_dates[self.config.lot_date_col].unique():
-            all_dates_in_lot = all_lots_dates[all_lots_dates[self.config.lot_date_col] == lot_date][
+        for lot_date in all_lots_dates[self.config.split_date_col].unique():
+            all_dates_in_lot = all_lots_dates[all_lots_dates[self.config.split_date_col] == lot_date][
                 self.config.date_col
             ]
 
@@ -1095,7 +1095,7 @@ class DataSplitterForecasting(BaseDataSplitter):
                         date_split_meta = [
                             {
                                 self.config.date_col: curr_date,
-                                self.config.lot_date_col: lot_date,
+                                self.config.split_date_col: lot_date,
                             }
                         ]
                         date_split_meta = pd.DataFrame(date_split_meta)
