@@ -18,7 +18,7 @@ class DataSplitter:
     def get_splits_from_patient_with_target(
         self,
         patient_data: dict,
-        max_num_splits_per_lot: int = 1,
+        max_num_splits_per_split_event: int = 1,
         forecasting_nr_samples_per_split: int = 1,
         events_max_nr_samples_per_split: int = 1,
         forecasting_filter_outliers: bool = False,
@@ -40,7 +40,7 @@ class DataSplitter:
         ----------
         patient_data : dict
             Dictionary containing the patient's data ('events' and 'constant').
-        max_num_splits_per_lot : int
+        max_num_splits_per_split_event : int
             Maximum number of random split dates to select per Line of Therapy. Defaults to 1.
         forecasting_nr_samples_per_split : int
             Number of forecasting task variants (variable subsets) to generate per split date. Defaults to 1.
@@ -76,7 +76,7 @@ class DataSplitter:
             patient_data,
             nr_samples_per_split=forecasting_nr_samples_per_split,
             include_metadata=True,
-            max_num_splits_per_lot=max_num_splits_per_lot,
+            max_num_splits_per_split_event=max_num_splits_per_split_event,
             filter_outliers=forecasting_filter_outliers,
             override_categories_to_predict=forecasting_override_categories_to_predict,
             override_variables_to_predict=forecasting_override_variables_to_predict,
