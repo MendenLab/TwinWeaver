@@ -1125,9 +1125,9 @@ class ConverterBase:
         lot_info = lot_info.sort_values(self.config.date_col)
 
         # Create selections based on event name and event value using config constants
-        if self.config.lot_name_col is not None and self.config.event_value_lot_start is not None:
+        if self.config.lot_event_name is not None and self.config.event_value_lot_start is not None:
             lot_selection_1 = lot_info[
-                lot_info[self.config.event_name_col] == self.config.lot_name_col
+                lot_info[self.config.event_name_col] == self.config.lot_event_name
             ]  # Using config attribute
             lot_selection_2 = lot_info[
                 lot_info[self.config.event_value_col] == self.config.event_value_lot_start

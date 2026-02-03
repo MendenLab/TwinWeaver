@@ -53,7 +53,7 @@ class Config:
         Default value to assign to `source_col` if it is missing. Default: "events".
     split_date_col : str
         Column name specifically used for dates related to line of therapy (LoT) events. Default: "lot_date".
-    lot_name_col : str
+    lot_event_name : str
         Column name for the name or identifier of the line of therapy (e.g., "First Line"). Default: "lot".
     event_value_lot_start : str
         Specific string value used in `event_value_col` to denote the start of a line of therapy. Default: "LoT Start".
@@ -261,8 +261,8 @@ class Config:
         self.event_category_default_value = "general"  # Default value for event category if not present
         self.event_meta_default_value = pd.NA  # Default value for event meta data if not present
         self.source_col_default_value: str = "events"  # Default value for source column if not present
-        self.split_date_col: str = "lot_date"
-        self.lot_name_col: str = "lot"
+        self.split_date_col: str = "split_date"
+        self.lot_event_name: str = "lot"
         self.event_value_lot_start: str = "LoT Start"
         self.skip_future_lot_filtering: bool = False  # Whether to skip filtering future LoT events, by default False.
         self.lot_concatenate_descriptive_and_value: bool = (
