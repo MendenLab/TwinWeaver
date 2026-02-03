@@ -63,6 +63,7 @@ A script illustrating how to convert data for the pretraining phase, using templ
 
 - **Inference**: [`examples/advanced/custom_splitting/inference_individual_splitters.py`](examples/advanced/custom_splitting/inference_individual_splitters.py) — Example script for inference using individual splitters.
 - **Training**: [`examples/advanced/custom_splitting/training_individual_splitters.ipynb`](examples/advanced/custom_splitting/training_individual_splitters.ipynb) — Notebook demonstrating training data generation with individual splitters.
+- **Custom Split Events**: [`examples/advanced/custom_splitting/training_custom_split_events.ipynb`](examples/advanced/custom_splitting/training_custom_split_events.ipynb) — Notebook showing how to customize split events and forecast different event categories (e.g., using genetic events as split points and forecasting vitals).
 
 ---
 
