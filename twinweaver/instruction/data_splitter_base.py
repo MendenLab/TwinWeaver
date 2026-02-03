@@ -14,7 +14,7 @@ class BaseDataSplitter:
         self,
         data_manager: DataManager,
         config: Config,
-        max_split_length_after_lot: pd.Timedelta = pd.Timedelta(days=90),
+        max_split_length_after_split_event: pd.Timedelta = pd.Timedelta(days=90),
         max_lookback_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
         max_forecast_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
     ):
@@ -27,7 +27,7 @@ class BaseDataSplitter:
             the data manager object that holds the data.
         config: Config
             Configuration object holding constants.
-        max_split_length_after_lot: pd.Timedelta
+        max_split_length_after_split_event: pd.Timedelta
             the maximum number of days after a LoT event that we want to consider as
             a starting point.
         max_lookback_time_for_value: pd.Timedelta
@@ -40,7 +40,7 @@ class BaseDataSplitter:
 
         self.dm = data_manager
         self.config = config
-        self.max_split_length_after_lot = max_split_length_after_lot
+        self.max_split_length_after_split_event = max_split_length_after_split_event
         self.max_lookback_time_for_value = max_lookback_time_for_value
         self.max_forecast_time_for_value = max_forecast_time_for_value
 
@@ -48,7 +48,7 @@ class BaseDataSplitter:
         self,
         patient_data_dic: dict,
         time_before_lot_start: pd.Timedelta,
-        max_split_length_after_lot: pd.Timedelta,
+        max_split_length_after_split_event: pd.Timedelta,
     ) -> pd.DataFrame:
         """
         Get all possible valid split dates for a given patient data dictionary, without
@@ -89,12 +89,12 @@ class BaseDataSplitter:
         all_dates = list(set(all_dates.tolist()))
         all_dates.sort()
 
-        #: restrict search space to only events that are within max_split_length_after_lot days after LoT
+        #: restrict search space to only events that are within max_split_length_after_split_event days after LoT
         all_possible_dates = []
         for curr_split_date in all_split_dates:
             for curr_date in all_dates:
                 if (
-                    curr_date <= curr_split_date + max_split_length_after_lot
+                    curr_date <= curr_split_date + max_split_length_after_split_event
                     and curr_date >= curr_split_date - time_before_lot_start
                 ):
                     all_possible_dates.append((curr_date, curr_split_date))
@@ -113,11 +113,11 @@ class BaseDataSplitter:
         return df
 
     def select_random_splits(
-        self, all_possible_split_dates: pd.DataFrame, max_num_splits_per_lot: int = 1
+        self, all_possible_split_dates: pd.DataFrame, max_num_splits_per_split_event: int = 1
     ) -> pd.DataFrame:
         """
         Select random splits within a given lot, based on the input split dates.
-        Thus each LoT has max_num_splits_per_lot random split.
+        Thus each LoT has max_num_splits_per_split_event random split.
 
 
         Parameters
@@ -127,7 +127,7 @@ class BaseDataSplitter:
             It has columns self.config.date_col, self.config.split_date_col.
             Each row is a date which is valid for a split.
 
-        max_num_splits_per_lot: int
+        max_num_splits_per_split_event: int
             the maximum number of samples per lot that we want to sample.
 
         Returns
@@ -141,7 +141,7 @@ class BaseDataSplitter:
         #: select one randomly per unique LOT_self.config.date_col
         randomly_selected_per_lot = (
             all_possible_split_dates.groupby(self.config.split_date_col)
-            .sample(n=max_num_splits_per_lot, replace=True, random_state=1)
+            .sample(n=max_num_splits_per_split_event, replace=True, random_state=1)
             .reset_index(drop=True)
         )
 

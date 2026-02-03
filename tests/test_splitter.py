@@ -59,12 +59,12 @@ def test_get_splits_from_patient(initialized_dm, mock_config):
 
     # Generate Splits
     forecasting_splits, events_splits, ref_dates = data_splitter.get_splits_from_patient_with_target(
-        patient_data, max_num_splits_per_lot=1
+        patient_data, max_num_splits_per_split_event=1
     )
 
     # Assertions
-    assert len(forecasting_splits) == 1  # Only one split due to max_num_splits_per_lot=1
-    assert len(events_splits) == 1  # Only one split due to max_num_splits_per_lot=1
+    assert len(forecasting_splits) == 1  # Only one split due to max_num_splits_per_split_event=1
+    assert len(events_splits) == 1  # Only one split due to max_num_splits_per_split_event=1
     assert len(forecasting_splits) == len(events_splits)
 
     # Check structure of a split

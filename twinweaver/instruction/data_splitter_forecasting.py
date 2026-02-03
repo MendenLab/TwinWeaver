@@ -113,7 +113,7 @@ class DataSplitterForecasting(BaseDataSplitter):
         self,
         config: Config,
         data_manager: DataManager,
-        max_split_length_after_lot: pd.Timedelta = pd.Timedelta(days=90),
+        max_split_length_after_split_event: pd.Timedelta = pd.Timedelta(days=90),
         max_lookback_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
         max_forecast_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
         min_num_samples_for_statistics: int = 10,
@@ -136,7 +136,7 @@ class DataSplitterForecasting(BaseDataSplitter):
             Configuration object containing shared settings like column names.
         data_manager : DataManager
             Provides access to patient data for a single indication.
-        max_split_length_after_lot : pd.Timedelta
+        max_split_length_after_split_event : pd.Timedelta
             Max days after LoT start to consider for split dates. Defaults to 90.
         max_lookback_time_for_value : pd.Timedelta
             Max days before a split date to look for past variable occurrences.
@@ -178,7 +178,7 @@ class DataSplitterForecasting(BaseDataSplitter):
         super().__init__(
             data_manager,
             config,
-            max_split_length_after_lot,
+            max_split_length_after_split_event,
             max_lookback_time_for_value,
             max_forecast_time_for_value,
         )
@@ -248,7 +248,7 @@ class DataSplitterForecasting(BaseDataSplitter):
             temp_splits = self._get_all_dates_within_range_of_split_event(
                 temp_patient_data,
                 time_before_lot_start=self.max_lookback_time_for_value,
-                max_split_length_after_lot=self.max_forecast_time_for_value,
+                max_split_length_after_split_event=self.max_forecast_time_for_value,
             )
             temp_splits[self.config.patient_id_col] = patientid
             temp_splits = temp_splits[[self.config.date_col, self.config.patient_id_col]]
@@ -568,7 +568,7 @@ class DataSplitterForecasting(BaseDataSplitter):
         min_nr_variable_seen_after: int = 1,
         list_of_valid_categories: list = None,
         subselect_random_within_lot: int = False,
-        max_num_splits_per_lot: int = 1,
+        max_num_splits_per_split_event: int = 1,
     ) -> pd.DataFrame:
         """
         Identifies all potential (date, variable) pairs for forecasting tasks.
@@ -585,7 +585,7 @@ class DataSplitterForecasting(BaseDataSplitter):
 
         If `subselect_random_within_lot` is True, it first identifies all potential
         split dates per LoT using `_get_all_dates_within_range_of_split_event` and then
-        randomly selects up to `max_num_splits_per_lot` dates from those associated
+        randomly selects up to `max_num_splits_per_split_event` dates from those associated
         with each LoT before checking variable validity.
 
         Parameters
@@ -600,7 +600,7 @@ class DataSplitterForecasting(BaseDataSplitter):
             Categories of variables to consider.
         subselect_random_within_lot : bool
             If True, randomly sample dates per LoT before checking variable validity.
-        max_num_splits_per_lot : int
+        max_num_splits_per_split_event : int
             Max dates to sample per LoT if `subselect_random_within_lot` is True.
 
         Returns
@@ -630,13 +630,13 @@ class DataSplitterForecasting(BaseDataSplitter):
         all_possible_dates = self._get_all_dates_within_range_of_split_event(
             patient_data_dic,
             time_before_lot_start=pd.Timedelta(0),
-            max_split_length_after_lot=self.max_split_length_after_lot,
+            max_split_length_after_split_event=self.max_split_length_after_split_event,
         )
 
         # If needed, select only those within an lot
         if subselect_random_within_lot:
             all_possible_dates = self.select_random_splits(
-                all_possible_dates, max_num_splits_per_lot=max_num_splits_per_lot
+                all_possible_dates, max_num_splits_per_split_event=max_num_splits_per_split_event
             )
 
         # Go over all dates and check all variables with which are eligible for a split
@@ -900,7 +900,7 @@ class DataSplitterForecasting(BaseDataSplitter):
         self,
         patient_data: dict,
         nr_samples_per_split: int,
-        max_num_splits_per_lot: int = 1,
+        max_num_splits_per_split_event: int = 1,
         include_metadata: bool = False,
         filter_outliers: bool = True,
         override_categories_to_predict: list[str] = None,
@@ -912,7 +912,7 @@ class DataSplitterForecasting(BaseDataSplitter):
 
         This is the main method for creating forecasting tasks for a single patient.
         It first identifies potential split dates, typically by randomly selecting
-        up to `max_num_splits_per_lot` valid dates associated with each Line of
+        up to `max_num_splits_per_split_event` valid dates associated with each Line of
         Therapy (LoT) using `_get_all_possible_splits`. Alternatively, specific
         dates can be provided via `override_split_dates`.
 
@@ -927,7 +927,7 @@ class DataSplitterForecasting(BaseDataSplitter):
             Dictionary containing the patient's 'events' and 'constant' data.
         nr_samples_per_split : int
             The number of variable sets to sample per selected split date.
-        max_num_splits_per_lot : int, optional
+        max_num_splits_per_split_event : int, optional
             The maximum number of dates to randomly sample per LoT when `override_split_dates` is None. Defaults to 1.
         include_metadata : bool, optional
             If True, returns both the generated splits and a DataFrame of the split dates used. Defaults to False.
@@ -997,7 +997,7 @@ class DataSplitterForecasting(BaseDataSplitter):
                 min_nr_variable_seen_after=self.min_nr_variable_seen_after,
                 list_of_valid_categories=self.list_of_valid_categories,
                 subselect_random_within_lot=True,
-                max_num_splits_per_lot=max_num_splits_per_lot,
+                max_num_splits_per_split_event=max_num_splits_per_split_event,
             )
 
             if all_possible_split_dates.shape[0] == 0:
