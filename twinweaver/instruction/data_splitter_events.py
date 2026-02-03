@@ -336,10 +336,10 @@ class DataSplitterEvents(BaseDataSplitter):
 
         if reference_split_dates is None and override_split_dates is None:
             #: get unique dates, if needed
-            pot_all_possible_split_dates = self._get_all_dates_within_range_of_lot(
+            pot_all_possible_split_dates = self._get_all_dates_within_range_of_split_event(
                 patient_data, pd.Timedelta(0), self.max_split_length_after_lot
             )
-            pot_all_possible_split_dates = self.select_random_splits_within_lot(
+            pot_all_possible_split_dates = self.select_random_splits(
                 pot_all_possible_split_dates,
                 max_num_splits_per_lot=max_num_splits_per_lot,
             )

@@ -245,7 +245,7 @@ class DataSplitterForecasting(BaseDataSplitter):
                 logging.info(f"Processing patient ({idx + 1}/{len(self.dm.all_patientids)})")
             temp_patient_data = {"events": event_data}
 
-            temp_splits = self._get_all_dates_within_range_of_lot(
+            temp_splits = self._get_all_dates_within_range_of_split_event(
                 temp_patient_data,
                 time_before_lot_start=self.max_lookback_time_for_value,
                 max_split_length_after_lot=self.max_forecast_time_for_value,
@@ -584,7 +584,7 @@ class DataSplitterForecasting(BaseDataSplitter):
            within the `max_forecast_for_value` period after the date.
 
         If `subselect_random_within_lot` is True, it first identifies all potential
-        split dates per LoT using `_get_all_dates_within_range_of_lot` and then
+        split dates per LoT using `_get_all_dates_within_range_of_split_event` and then
         randomly selects up to `max_num_splits_per_lot` dates from those associated
         with each LoT before checking variable validity.
 
@@ -614,8 +614,8 @@ class DataSplitterForecasting(BaseDataSplitter):
                values for date/event_name/category is added for that lot_date.
             2. `all_possible_dates`: DataFrame containing the potential split dates
                considered, along with their associated 'lot_date'. This reflects
-               the output of `_get_all_dates_within_range_of_lot`, potentially
-               filtered by `select_random_splits_within_lot`. Columns: 'date', 'lot_date'.
+               the output of `_get_all_dates_within_range_of_split_event`, potentially
+               filtered by `select_random_splits`. Columns: 'date', 'lot_date'.
         """
 
         #: setup data
@@ -627,7 +627,7 @@ class DataSplitterForecasting(BaseDataSplitter):
         all_events.sort()
 
         #: get all starting LoTs dates
-        all_possible_dates = self._get_all_dates_within_range_of_lot(
+        all_possible_dates = self._get_all_dates_within_range_of_split_event(
             patient_data_dic,
             time_before_lot_start=pd.Timedelta(0),
             max_split_length_after_lot=self.max_split_length_after_lot,
@@ -635,7 +635,7 @@ class DataSplitterForecasting(BaseDataSplitter):
 
         # If needed, select only those within an lot
         if subselect_random_within_lot:
-            all_possible_dates = self.select_random_splits_within_lot(
+            all_possible_dates = self.select_random_splits(
                 all_possible_dates, max_num_splits_per_lot=max_num_splits_per_lot
             )
 

@@ -44,7 +44,7 @@ class BaseDataSplitter:
         self.max_lookback_time_for_value = max_lookback_time_for_value
         self.max_forecast_time_for_value = max_forecast_time_for_value
 
-    def _get_all_dates_within_range_of_lot(
+    def _get_all_dates_within_range_of_split_event(
         self,
         patient_data_dic: dict,
         time_before_lot_start: pd.Timedelta,
@@ -112,7 +112,7 @@ class BaseDataSplitter:
 
         return df
 
-    def select_random_splits_within_lot(
+    def select_random_splits(
         self, all_possible_split_dates: pd.DataFrame, max_num_splits_per_lot: int = 1
     ) -> pd.DataFrame:
         """
