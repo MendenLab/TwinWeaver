@@ -150,6 +150,9 @@ def convert_meds_to_dtc(
     #: add in empty meta_data column
     converted_events["meta_data"] = pd.NA
 
+    # Concert events to string
+    converted_events["event_value"] = converted_events["event_value"].astype(str)
+
     #: issue warning if duplicates are present
     all_duplicate_rows = converted_events[
         converted_events.duplicated(subset=["patientid", "date", "event_name", "event_value"], keep=False)
