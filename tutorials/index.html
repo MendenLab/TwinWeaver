@@ -593,6 +593,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#end-to-end-llm-training-with-pretraining-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        End-to-End LLM Training with Pretraining Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#custom-splitting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1902,6 +1913,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#end-to-end-llm-training-with-pretraining-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        End-to-End LLM Training with Pretraining Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#custom-splitting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2005,6 +2027,16 @@ The torch CUDA version might need to be adapted to your system.</p>
 <h3 id="pretraining-data-conversion">Pretraining Data Conversion<a class="headerlink" href="#pretraining-data-conversion" title="Permanent link">&para;</a></h3>
 <p><a href="../examples/advanced/pretraining/prepare_pretraining_data/"><code>examples/advanced/pretraining/prepare_pretraining_data.py</code></a></p>
 <p>A script illustrating how to convert data for the pretraining phase, using template-based generation. Useful if you want to pretrain on your own large-scale unlabeled clinical data.</p>
+<h3 id="end-to-end-llm-training-with-pretraining-data">End-to-End LLM Training with Pretraining Data<a class="headerlink" href="#end-to-end-llm-training-with-pretraining-data" title="Permanent link">&para;</a></h3>
+<p><a href="../examples/advanced/pretraining/end_to_end_llm_training_with_pretrain/"><code>examples/advanced/pretraining/end_to_end_llm_training_with_pretrain.ipynb</code></a></p>
+<p>A complete notebook demonstrating how to train LLMs on full patient histories without a specific task. This approach can be used to develop models that generate synthetic patients or embeddings.</p>
+<div class="admonition warning">
+<p class="admonition-title">Installation Note</p>
+<p>Please install the packages required via:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>twinweaver<span class="o">[</span>fine-tuning-example<span class="o">]</span>
+</span></code></pre></div>
+Requires a GPU with at least 30GB of memory.</p>
+</div>
 <h3 id="custom-splitting">Custom Splitting<a class="headerlink" href="#custom-splitting" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Inference</strong>: <a href="../examples/advanced/custom_splitting/inference_individual_splitters/"><code>examples/advanced/custom_splitting/inference_individual_splitters.py</code></a> — Example script for inference using individual splitters.</li>
