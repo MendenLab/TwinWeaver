@@ -20,6 +20,7 @@ Located in the `advanced/` directory, these examples cover more specific use cas
 ### Pretraining (`advanced/pretraining/`)
 
 *   **[prepare_pretraining_data.py](advanced/pretraining/prepare_pretraining_data.py)**: A script to prepare data for the pretraining phase.
+*   **[end_to_end_llm_training_with_pretrain.ipynb](advanced/pretraining/end_to_end_llm_training_with_pretrain.ipynb)**: An end-to-end example for training LLMs on full patient histories without a specific task, useful for developing models that can generate synthetic patients or embeddings.
 
 ## Integrations
 

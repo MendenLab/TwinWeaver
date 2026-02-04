@@ -49,7 +49,6 @@ class ConvertToText:
             "patientid": patientid,
             "split": self.dm.get_patient_split(patientid=patientid),
             "constant": p_converted["meta"]["processed_constant"].to_json(orient="split"),
-            "events": p_converted["meta"]["events"].to_json(orient="split"),
         }
 
         return [(p_converted, internal_meta)]
@@ -66,13 +65,16 @@ class ConvertToText:
 
         # Split up
         converted_data, internal_meta = all_patient_data[0]
+        first_event_date = internal_meta["events"]["date"].min()
 
         # Log that testing patient
         print("Assessing reverse conversion for patient" + str(converted_data["meta"]["patientid"]))
 
         #: do reverse conversion using ConverterPretrain
         p_reverse_converted = self.converter.reverse_conversion(
-            converted_data["text"], internal_meta, self.dm.unique_events
+            converted_data["text"],
+            data_manager=self.dm,
+            init_date=first_event_date,
         )
 
         #: check differences appropriately

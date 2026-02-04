@@ -59,6 +59,19 @@ For users needing custom behavior or specific integrations:
 
 A script illustrating how to convert data for the pretraining phase, using template-based generation. Useful if you want to pretrain on your own large-scale unlabeled clinical data.
 
+### End-to-End LLM Training with Pretraining Data
+
+[`examples/advanced/pretraining/end_to_end_llm_training_with_pretrain.ipynb`](examples/advanced/pretraining/end_to_end_llm_training_with_pretrain.ipynb)
+
+A complete notebook demonstrating how to train LLMs on full patient histories without a specific task. This approach can be used to develop models that generate synthetic patients or embeddings.
+
+!!! warning "Installation Note"
+    Please install the packages required via:
+    ```bash
+    pip install twinweaver[fine-tuning-example]
+    ```
+    Requires a GPU with at least 30GB of memory.
+
 ### Custom Splitting
 
 - **Inference**: [`examples/advanced/custom_splitting/inference_individual_splitters.py`](examples/advanced/custom_splitting/inference_individual_splitters.py) — Example script for inference using individual splitters.
