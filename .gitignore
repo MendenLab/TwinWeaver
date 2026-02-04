@@ -25,3 +25,4 @@ site/
 .pytest_cache/
 dist/
 dev/
+examples/advanced/pretraining/results/

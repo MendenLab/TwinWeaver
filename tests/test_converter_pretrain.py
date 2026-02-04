@@ -82,7 +82,9 @@ def test_pretrain_roundtrip_integrity(setup_pretrain_components):
 
     # 2. Reverse
     # Reverse conversion needs unique events mapping from DM
-    reverse_result = converter.reverse_conversion(text=text, meta_data=meta, unique_events=dm.unique_events)
+    reverse_result = converter.reverse_conversion(text=text,
+                                                data_manager=dm,
+                                                init_date=meta["events"]["date"].min())
 
     # 3. Check Integrity
     # Helper to compare
