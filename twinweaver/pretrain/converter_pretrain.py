@@ -151,7 +151,7 @@ class ConverterPretrain(ConverterBase):
             }
         """
         # Extract constant data
-        constant_data = self._extract_constant_data(text, data_manager.constant_description)
+        constant_data = self._extract_constant_data(text, data_manager.data_frames["constant_description"])
 
         # Extract event data
         event_data = self._extract_event_data(text=text, unique_events=data_manager.unique_events, init_date=init_date)
