@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://example.com/twinweaver/examples/advanced/custom_splitting/inference_individual_splitters/">
+        <link rel="canonical" href="https://example.com/twinweaver/examples/advanced/custom_splitting/training_custom_split_events/">
       
       
       
@@ -23,7 +23,7 @@
     
     
       
-        <title>Inference individual splitters - TwinWeaver</title>
+        <title>Example for custom split and forecasting events - TwinWeaver</title>
       
     
     
@@ -77,6 +77,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#example-for-custom-split-and-forecasting-events" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -107,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Inference individual splitters
+              Example for custom split and forecasting events
             
           </span>
         </div>
@@ -1639,6 +1644,127 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-and-data-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration and Data Manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialize-splitters-and-converter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initialize Splitters and Converter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examine-patient-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examine patient data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convert-patient-data-to-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convert patient data to string
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Convert patient data to string">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate-training-splits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate Training Splits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-the-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect the Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reverse-conversion-text-to-structured-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reverse Conversion: Text to Structured Data
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1657,8 +1783,6 @@
   
   
 
-
-  <h1>Inference individual splitters</h1>
 
 <script>
 (function (global, factory) {
@@ -2096,8 +2220,29 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </style>
 <!-- End of mermaid configuration --><div class="jupyter-wrapper">
 <div class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b5185e2f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="example-for-custom-split-and-forecasting-events">Example for custom split and forecasting events<a class="anchor-link" href="#example-for-custom-split-and-forecasting-events">¶</a></h1>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>This notebook demonstrates how to adjust the splitters to split at custom events, as well to forecast different categories (rather than the default labs).</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2115,30 +2260,56 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">twinweaver</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">DataSplitterForecasting</span><span class="p">,</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">twinweaver</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">DataManager</span><span class="p">,</span>
+    <span class="n">Config</span><span class="p">,</span>
+    <span class="n">DataSplitterForecasting</span><span class="p">,</span>
     <span class="n">DataSplitterEvents</span><span class="p">,</span>
     <span class="n">ConverterInstruction</span><span class="p">,</span>
-    <span class="n">Config</span><span class="p">,</span>
+    <span class="n">DataSplitter</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-1">from twinweaver import (
-    DataSplitterForecasting,
+<div class="clipboard-copy-txt" id="cell-1">import pandas as pd
+
+from twinweaver import (
     DataManager,
+    Config,
+    DataSplitterForecasting,
     DataSplitterEvents,
     ConverterInstruction,
-    Config,
-)
-import pandas as pd</div>
+    DataSplitter,
+)</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="basic-setup">Basic Setup<a class="anchor-link" href="#basic-setup">¶</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="load-data">Load Data<a class="anchor-link" href="#load-data">¶</a></h3>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=dd8084b3">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2156,206 +2327,33 @@ import pandas as pd</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ConvertToText</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-    <span class="p">):</span>
-        <span class="c1"># Set basics</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">constant_columns_to_use</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">"birthyear"</span><span class="p">,</span>
-            <span class="s2">"gender"</span><span class="p">,</span>
-            <span class="s2">"histology"</span><span class="p">,</span>
-            <span class="s2">"smoking_history"</span><span class="p">,</span>
-        <span class="p">]</span>  <span class="c1"># Manually set from constant</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">constant_birthdate_column</span> <span class="o">=</span> <span class="s2">"birthyear"</span>
-
-        <span class="c1"># Load data</span>
-        <span class="n">df_events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"./examples/example_data/events.csv"</span><span class="p">)</span>
-        <span class="n">df_constant</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"./examples/example_data/constant.csv"</span><span class="p">)</span>
-        <span class="n">df_constant_description</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"./examples/example_data/constant_description.csv"</span><span class="p">)</span>
-
-        <span class="c1"># Init data managers</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">load_indication_data</span><span class="p">(</span>
-            <span class="n">df_events</span><span class="o">=</span><span class="n">df_events</span><span class="p">,</span> <span class="n">df_constant</span><span class="o">=</span><span class="n">df_constant</span><span class="p">,</span> <span class="n">df_constant_description</span><span class="o">=</span><span class="n">df_constant_description</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">process_indication_data</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">setup_unique_mapping_of_events</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">setup_dataset_splits</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">infer_var_types</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_splitter_events</span> <span class="o">=</span> <span class="n">DataSplitterEvents</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_splitter_events</span><span class="o">.</span><span class="n">setup_variables</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_splitter_forecasting</span> <span class="o">=</span> <span class="n">DataSplitterForecasting</span><span class="p">(</span><span class="n">data_manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">setup_statistics</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">converter</span> <span class="o">=</span> <span class="n">ConverterInstruction</span><span class="p">(</span>
-            <span class="n">nr_tokens_budget_total</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
-            <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span>
-            <span class="n">dm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="p">,</span>
-        <span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">convert_full_to_string_for_one_patient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patientid</span><span class="p">,</span> <span class="n">override_events_or_forecasting</span><span class="o">=</span><span class="s2">"forecasting"</span><span class="p">):</span>
-        <span class="n">patient_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
-        <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"date"</span><span class="p">)</span>
-
-        <span class="c1"># To simulate that we only have input, half the events</span>
-        <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)]</span>
-
-        <span class="c1"># Here then split date</span>
-        <span class="n">split_date</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">][</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-        <span class="c1">#: generate event split - NOTE: this if statement is only to exemplify both cases!</span>
-        <span class="k">if</span> <span class="n">override_events_or_forecasting</span> <span class="o">==</span> <span class="s2">"events"</span><span class="p">:</span>
-            <span class="c1">####### Example if we want to override for events</span>
-
-            <span class="n">events_splits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_splitter_events</span><span class="o">.</span><span class="n">get_splits_from_patient</span><span class="p">(</span>
-                <span class="n">patient_data</span><span class="p">,</span>
-                <span class="n">max_nr_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                <span class="n">override_split_dates</span><span class="o">=</span><span class="p">[</span><span class="n">split_date</span><span class="p">],</span>
-                <span class="n">override_category</span><span class="o">=</span><span class="s2">"death"</span><span class="p">,</span>
-                <span class="n">override_end_week_delta</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="c1"># We just pick the first one</span>
-            <span class="n">events_split</span> <span class="o">=</span> <span class="n">events_splits</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-
-            <span class="c1">#: no forecasting split</span>
-            <span class="n">forecast_split</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">forecasting_times_to_predict</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1">####### Example if we want to override for forecasting</span>
-
-            <span class="c1">#: generate forecasting split</span>
-            <span class="n">forecast_splits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">get_splits_from_patient</span><span class="p">(</span>
-                <span class="n">patient_data</span><span class="p">,</span>
-                <span class="n">nr_samples_per_split</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                <span class="n">filter_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">override_split_dates</span><span class="o">=</span><span class="p">[</span><span class="n">split_date</span><span class="p">],</span>
-                <span class="n">override_variables_to_predict</span><span class="o">=</span><span class="p">[</span><span class="s2">"lab_26499_4"</span><span class="p">],</span>
-            <span class="p">)</span>
-            <span class="c1"># We just pick the first one</span>
-            <span class="n">forecast_split</span> <span class="o">=</span> <span class="n">forecast_splits</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-
-            <span class="c1"># We set which weeks to predict</span>
-            <span class="n">forecasting_times_to_predict</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">"lab_26499_4"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
-            <span class="p">}</span>
-
-            <span class="c1">#: no events split</span>
-            <span class="n">events_split</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="c1"># Convert to text</span>
-        <span class="n">converted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion_inference</span><span class="p">(</span>
-            <span class="n">forecasting_split</span><span class="o">=</span><span class="n">forecast_split</span><span class="p">,</span>
-            <span class="n">forecasting_future_weeks_per_variable</span><span class="o">=</span><span class="n">forecasting_times_to_predict</span><span class="p">,</span>
-            <span class="n">event_split</span><span class="o">=</span><span class="n">events_split</span><span class="p">,</span>
-            <span class="n">custom_tasks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="n">converted</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Load data - generated example data</span>
+<span class="n">df_events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../../example_data/events.csv"</span><span class="p">)</span>
+<span class="n">df_constant</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../../example_data/constant.csv"</span><span class="p">)</span>
+<span class="n">df_constant_description</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../../example_data/constant_description.csv"</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-2">class ConvertToText:
-    def __init__(
-        self,
-    ):
-        # Set basics
-        self.config = Config()
-        self.config.constant_columns_to_use = [
-            "birthyear",
-            "gender",
-            "histology",
-            "smoking_history",
-        ]  # Manually set from constant
-        self.config.constant_birthdate_column = "birthyear"
-
-        # Load data
-        df_events = pd.read_csv("./examples/example_data/events.csv")
-        df_constant = pd.read_csv("./examples/example_data/constant.csv")
-        df_constant_description = pd.read_csv("./examples/example_data/constant_description.csv")
-
-        # Init data managers
-        self.dm = DataManager(config=self.config)
-        self.dm.load_indication_data(
-            df_events=df_events, df_constant=df_constant, df_constant_description=df_constant_description
-        )
-        self.dm.process_indication_data()
-        self.dm.setup_unique_mapping_of_events()
-        self.dm.setup_dataset_splits()
-        self.dm.infer_var_types()
-
-        self.data_splitter_events = DataSplitterEvents(self.dm, config=self.config)
-        self.data_splitter_events.setup_variables()
-        self.data_splitter_forecasting = DataSplitterForecasting(data_manager=self.dm, config=self.config)
-        self.data_splitter_forecasting.setup_statistics()
-        self.converter = ConverterInstruction(
-            nr_tokens_budget_total=8192,
-            config=self.config,
-            dm=self.dm,
-        )
-
-    def convert_full_to_string_for_one_patient(self, patientid, override_events_or_forecasting="forecasting"):
-        patient_data = self.dm.get_patient_data(patientid)
-        patient_data["events"] = patient_data["events"].sort_values("date")
-
-        # To simulate that we only have input, half the events
-        patient_data["events"] = patient_data["events"].iloc[: int(len(patient_data["events"]) / 2)]
-
-        # Here then split date
-        split_date = patient_data["events"]["date"].iloc[-1]
-
-        #: generate event split - NOTE: this if statement is only to exemplify both cases!
-        if override_events_or_forecasting == "events":
-            ####### Example if we want to override for events
-
-            events_splits = self.data_splitter_events.get_splits_from_patient(
-                patient_data,
-                max_nr_samples=1,
-                override_split_dates=[split_date],
-                override_category="death",
-                override_end_week_delta=52,
-            )
-            # We just pick the first one
-            events_split = events_splits[0][0]
-
-            #: no forecasting split
-            forecast_split = None
-            forecasting_times_to_predict = None
-        else:
-            ####### Example if we want to override for forecasting
-
-            #: generate forecasting split
-            forecast_splits = self.data_splitter_forecasting.get_splits_from_patient(
-                patient_data,
-                nr_samples_per_split=1,
-                filter_outliers=False,
-                override_split_dates=[split_date],
-                override_variables_to_predict=["lab_26499_4"],
-            )
-            # We just pick the first one
-            forecast_split = forecast_splits[0][0]
-
-            # We set which weeks to predict
-            forecasting_times_to_predict = {
-                "lab_26499_4": [1, 2, 8, 11],
-            }
-
-            #: no events split
-            events_split = None
-
-        # Convert to text
-        converted = self.converter.forward_conversion_inference(
-            forecasting_split=forecast_split,
-            forecasting_future_weeks_per_variable=forecasting_times_to_predict,
-            event_split=events_split,
-            custom_tasks=None,
-        )
-        return converted</div>
+<div class="clipboard-copy-txt" id="cell-2"># Load data - generated example data
+df_events = pd.read_csv("../../example_data/events.csv")
+df_constant = pd.read_csv("../../example_data/constant.csv")
+df_constant_description = pd.read_csv("../../example_data/constant_description.csv")</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="configuration-and-data-manager">Configuration and Data Manager<a class="anchor-link" href="#configuration-and-data-manager">¶</a></h3>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=990063ab">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2373,41 +2371,54 @@ import pandas as pd</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1">################################### Running the example #######################################</span>
-<span class="n">converter</span> <span class="o">=</span> <span class="n">ConvertToText</span><span class="p">()</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>  <span class="c1"># Override values here to customize pipeline</span>
+<span class="n">config</span><span class="o">.</span><span class="n">constant_columns_to_use</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"birthyear"</span><span class="p">,</span>
+    <span class="s2">"gender"</span><span class="p">,</span>
+    <span class="s2">"histology"</span><span class="p">,</span>
+    <span class="s2">"smoking_history"</span><span class="p">,</span>
+<span class="p">]</span>  <span class="c1"># Manually set from constant DF</span>
+<span class="n">config</span><span class="o">.</span><span class="n">constant_birthdate_column</span> <span class="o">=</span> <span class="s2">"birthyear"</span>
+
+<span class="c1"># &lt;---------------------- IMPORTANT PARTS ----------------------------&gt;</span>
+
+
+<span class="c1"># To setup the different split events, we set this in the config</span>
+<span class="c1"># In this example, we use genetic events as custom split events</span>
+<span class="n">config</span><span class="o">.</span><span class="n">split_event_category</span> <span class="o">=</span> <span class="s2">"basic_biomarker"</span>
+
+
+<span class="c1"># And to forecast different categories, we set this in the config as well</span>
+<span class="c1"># In this example, lets say we want to forecast vitals (i.e. body weight in the example data)</span>
+<span class="n">config</span><span class="o">.</span><span class="n">event_category_forecast</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"vitals"</span><span class="p">]</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-3">################################### Running the example #######################################
-converter = ConvertToText()</div>
+<div class="clipboard-copy-txt" id="cell-3">config = Config()  # Override values here to customize pipeline
+config.constant_columns_to_use = [
+    "birthyear",
+    "gender",
+    "histology",
+    "smoking_history",
+]  # Manually set from constant DF
+config.constant_birthdate_column = "birthyear"
+
+# &lt;---------------------- IMPORTANT PARTS ----------------------------&gt;
+
+
+# To setup the different split events, we set this in the config
+# In this example, we use genetic events as custom split events
+config.split_event_category = "basic_biomarker"
+
+
+# And to forecast different categories, we set this in the config as well
+# In this example, lets say we want to forecast vitals (i.e. body weight in the example data)
+config.event_category_forecast = ["vitals"]</div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4b72b47c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Example on how to run conversion for inference (i.e. we do not have target)
-Here we predict 52 week survival (as an event), and no forecasting</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dd8f47d5">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>NOTE: run this from the root folder of twinweaver</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=23cc66a9">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2425,18 +2436,39 @@ Here we predict 52 week survival (as an event), and no forecasting</p>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">all_patientids</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">all_patientids</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">all_patientids</span> <span class="o">=</span> <span class="n">all_patientids</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Setup the data manager</span>
+<span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">load_indication_data</span><span class="p">(</span><span class="n">df_events</span><span class="o">=</span><span class="n">df_events</span><span class="p">,</span> <span class="n">df_constant</span><span class="o">=</span><span class="n">df_constant</span><span class="p">,</span> <span class="n">df_constant_description</span><span class="o">=</span><span class="n">df_constant_description</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">process_indication_data</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">setup_unique_mapping_of_events</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">setup_dataset_splits</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">infer_var_types</span><span class="p">()</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-4">all_patientids = converter.dm.all_patientids.copy()
-all_patientids = all_patientids[:10]</div>
+<div class="clipboard-copy-txt" id="cell-4"># Setup the data manager
+dm = DataManager(config=config)
+dm.load_indication_data(df_events=df_events, df_constant=df_constant, df_constant_description=df_constant_description)
+dm.process_indication_data()
+dm.setup_unique_mapping_of_events()
+dm.setup_dataset_splits()
+dm.infer_var_types()</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="initialize-splitters-and-converter">Initialize Splitters and Converter<a class="anchor-link" href="#initialize-splitters-and-converter">¶</a></h3>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=85180d65">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=10">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2454,30 +2486,80 @@ all_patientids = all_patientids[:10]</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">patientid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_patientids</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># This data splitter handles event prediction tasks</span>
+<span class="n">data_splitter_events</span> <span class="o">=</span> <span class="n">DataSplitterEvents</span><span class="p">(</span><span class="n">dm</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<span class="n">data_splitter_events</span><span class="o">.</span><span class="n">setup_variables</span><span class="p">()</span>
 
-    <span class="c1">#: go through all patients and convert them</span>
-    <span class="n">patient_data</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">convert_full_to_string_for_one_patient</span><span class="p">(</span>
-        <span class="n">patientid</span><span class="p">,</span> <span class="n">override_events_or_forecasting</span><span class="o">=</span><span class="s2">"forecasting"</span>
-    <span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">patient_data</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">])</span>
+<span class="c1"># This data splitter handles forecasting tasks</span>
+<span class="n">data_splitter_forecasting</span> <span class="o">=</span> <span class="n">DataSplitterForecasting</span><span class="p">(</span>
+    <span class="n">data_manager</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># If you don't want to do forecasting QA, proportional sampling, or 3-sigma filtering, you can skip this step</span>
+<span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">setup_statistics</span><span class="p">()</span>
+
+<span class="c1"># We will also use the easier interface that combines both data splitters</span>
+<span class="n">data_splitter</span> <span class="o">=</span> <span class="n">DataSplitter</span><span class="p">(</span><span class="n">data_splitter_events</span><span class="p">,</span> <span class="n">data_splitter_forecasting</span><span class="p">)</span>
+
+<span class="c1"># Set up the converter instruction</span>
+<span class="n">converter</span> <span class="o">=</span> <span class="n">ConverterInstruction</span><span class="p">(</span>
+    <span class="n">nr_tokens_budget_total</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+    <span class="n">dm</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
+    <span class="n">variable_stats</span><span class="o">=</span><span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">variable_stats</span><span class="p">,</span>  <span class="c1"># Optional, needed for forecasting QA tasks</span>
+<span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-5">for idx, patientid in enumerate(all_patientids):
-    print(idx)
+<div class="clipboard-copy-txt" id="cell-5"># This data splitter handles event prediction tasks
+data_splitter_events = DataSplitterEvents(dm, config=config)
+data_splitter_events.setup_variables()
 
-    #: go through all patients and convert them
-    patient_data = converter.convert_full_to_string_for_one_patient(
-        patientid, override_events_or_forecasting="forecasting"
-    )
-    print(patient_data["instruction"])</div>
+# This data splitter handles forecasting tasks
+data_splitter_forecasting = DataSplitterForecasting(
+    data_manager=dm,
+    config=config,
+)
+# If you don't want to do forecasting QA, proportional sampling, or 3-sigma filtering, you can skip this step
+data_splitter_forecasting.setup_statistics()
+
+# We will also use the easier interface that combines both data splitters
+data_splitter = DataSplitter(data_splitter_events, data_splitter_forecasting)
+
+# Set up the converter instruction
+converter = ConverterInstruction(
+    nr_tokens_budget_total=8192,
+    config=config,
+    dm=dm,
+    variable_stats=data_splitter_forecasting.variable_stats,  # Optional, needed for forecasting QA tasks
+)</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=11">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="examine-patient-data">Examine patient data<a class="anchor-link" href="#examine-patient-data">¶</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=12">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>From the data manager we can get the patient, for example this patientid.</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b461c9b2">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=13">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2495,9 +2577,273 @@ all_patientids = all_patientids[:10]</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Finished"</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patientid</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">all_patientids</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">patient_data</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-6">print("Finished")</div>
+<div class="clipboard-copy-txt" id="cell-6">patientid = dm.all_patientids[4]
+patient_data = dm.get_patient_data(patientid)</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=14">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="convert-patient-data-to-string">Convert patient data to string<a class="anchor-link" href="#convert-patient-data-to-string">¶</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=15">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="generate-training-splits">Generate Training Splits<a class="anchor-link" href="#generate-training-splits">¶</a></h3>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=16">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-7">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">forecasting_splits</span><span class="p">,</span> <span class="n">events_splits</span><span class="p">,</span> <span class="n">reference_dates</span> <span class="o">=</span> <span class="n">data_splitter</span><span class="o">.</span><span class="n">get_splits_from_patient_with_target</span><span class="p">(</span>
+    <span class="n">patient_data</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-7">forecasting_splits, events_splits, reference_dates = data_splitter.get_splits_from_patient_with_target(
+    patient_data,
+)</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=17">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Now for each split, we can generate these strings. We just pick the first one as an example.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=18">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-8">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">split_idx</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">p_converted</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion</span><span class="p">(</span>
+    <span class="n">forecasting_splits</span><span class="o">=</span><span class="n">forecasting_splits</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
+    <span class="n">event_splits</span><span class="o">=</span><span class="p">[],</span>  <span class="c1"># For this example we only do forecasting, so we skip the event splits</span>
+    <span class="n">override_mode_to_select_forecasting</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-8">split_idx = 0
+p_converted = converter.forward_conversion(
+    forecasting_splits=forecasting_splits[split_idx],
+    event_splits=[],  # For this example we only do forecasting, so we skip the event splits
+    override_mode_to_select_forecasting="both",
+)</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=19">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-9">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">forecasting_splits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-9">forecasting_splits[0]</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=20">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="inspect-the-output">Inspect the Output<a class="anchor-link" href="#inspect-the-output">¶</a></h3>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=21">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-10">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">])</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-10">print(p_converted["instruction"])</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=22">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-11">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">])</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-11">print(p_converted["answer"])</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=23">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-12">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">]</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-12">p_converted["answer"]</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=24">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="reverse-conversion-text-to-structured-data">Reverse Conversion: Text to Structured Data<a class="anchor-link" href="#reverse-conversion-text-to-structured-data">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=25">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-13">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">date</span> <span class="o">=</span> <span class="n">reference_dates</span><span class="p">[</span><span class="s2">"date"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">return_list</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">reverse_conversion</span><span class="p">(</span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">],</span> <span class="n">dm</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
+<span class="n">return_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"result"</span><span class="p">]</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-13">date = reference_dates["date"][0]
+return_list = converter.reverse_conversion(p_converted["answer"], dm, date)
+return_list[0]["result"]</div>
 </div>
 </div>
 </div>
@@ -2507,6 +2853,10 @@ all_patientids = all_patientids[:10]</div>
 </div> <!-- jp-Notebook -->
 </div> <!-- jupyter-wrapper -->
 
+        <style>
+        ['pre { line-height: 125%; }\ntd.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }\nspan.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }\ntd.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }\nspan.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }\n.highlight-ipynb .hll { background-color: var(--jp-cell-editor-active-background) }\n.highlight-ipynb { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }\n.highlight-ipynb .c { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment */\n.highlight-ipynb .err { color: var(--jp-mirror-editor-error-color) } /* Error */\n.highlight-ipynb .k { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword */\n.highlight-ipynb .o { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator */\n.highlight-ipynb .p { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation */\n.highlight-ipynb .ch { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Hashbang */\n.highlight-ipynb .cm { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Multiline */\n.highlight-ipynb .cp { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Preproc */\n.highlight-ipynb .cpf { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.PreprocFile */\n.highlight-ipynb .c1 { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Single */\n.highlight-ipynb .cs { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Special */\n.highlight-ipynb .kc { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Constant */\n.highlight-ipynb .kd { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Declaration */\n.highlight-ipynb .kn { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Namespace */\n.highlight-ipynb .kp { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Pseudo */\n.highlight-ipynb .kr { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Reserved */\n.highlight-ipynb .kt { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Type */\n.highlight-ipynb .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */\n.highlight-ipynb .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */\n.highlight-ipynb .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */\n.highlight-ipynb .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */\n.highlight-ipynb .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */\n.highlight-ipynb .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */\n.highlight-ipynb .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */\n.highlight-ipynb .mh { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Hex */\n.highlight-ipynb .mi { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer */\n.highlight-ipynb .mo { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Oct */\n.highlight-ipynb .sa { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Affix */\n.highlight-ipynb .sb { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Backtick */\n.highlight-ipynb .sc { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Char */\n.highlight-ipynb .dl { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Delimiter */\n.highlight-ipynb .sd { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Doc */\n.highlight-ipynb .s2 { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Double */\n.highlight-ipynb .se { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Escape */\n.highlight-ipynb .sh { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Heredoc */\n.highlight-ipynb .si { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Interpol */\n.highlight-ipynb .sx { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Other */\n.highlight-ipynb .sr { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Regex */\n.highlight-ipynb .s1 { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Single */\n.highlight-ipynb .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */\n.highlight-ipynb .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */']
+        </style>
+        
 
 
 

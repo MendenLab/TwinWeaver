@@ -874,7 +874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/advanced/custom_splitting/inference_individual_splitters/" class="md-nav__link">
+      <a href="../../../examples/advanced/custom_splitting/inference_individual_splitters.md" class="md-nav__link">
         
   
   
@@ -902,7 +902,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/advanced/pretraining/prepare_pretraining_data/" class="md-nav__link">
+      <a href="../../../examples/advanced/pretraining/prepare_pretraining_data.md" class="md-nav__link">
         
   
   
@@ -2270,7 +2270,10 @@ the combination of "patientid", "date", "event_name", and "event_value".</p>
 <span class="normal"><a href="#__codelineno-0-159">159</a></span>
 <span class="normal"><a href="#__codelineno-0-160">160</a></span>
 <span class="normal"><a href="#__codelineno-0-161">161</a></span>
-<span class="normal"><a href="#__codelineno-0-162">162</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">convert_meds_to_dtc</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-162">162</a></span>
+<span class="normal"><a href="#__codelineno-0-163">163</a></span>
+<span class="normal"><a href="#__codelineno-0-164">164</a></span>
+<span class="normal"><a href="#__codelineno-0-165">165</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">convert_meds_to_dtc</span><span class="p">(</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>    <span class="n">df_codes</span><span class="p">,</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>    <span class="n">df_data</span><span class="p">,</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>    <span class="n">df_split</span><span class="p">,</span>
@@ -2419,16 +2422,19 @@ the combination of "patientid", "date", "event_name", and "event_value".</p>
 </span><span id="__span-0-150"><a id="__codelineno-0-150" name="__codelineno-0-150"></a>    <span class="c1">#: add in empty meta_data column</span>
 </span><span id="__span-0-151"><a id="__codelineno-0-151" name="__codelineno-0-151"></a>    <span class="n">converted_events</span><span class="p">[</span><span class="s2">&quot;meta_data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span>
 </span><span id="__span-0-152"><a id="__codelineno-0-152" name="__codelineno-0-152"></a>
-</span><span id="__span-0-153"><a id="__codelineno-0-153" name="__codelineno-0-153"></a>    <span class="c1">#: issue warning if duplicates are present</span>
-</span><span id="__span-0-154"><a id="__codelineno-0-154" name="__codelineno-0-154"></a>    <span class="n">all_duplicate_rows</span> <span class="o">=</span> <span class="n">converted_events</span><span class="p">[</span>
-</span><span id="__span-0-155"><a id="__codelineno-0-155" name="__codelineno-0-155"></a>        <span class="n">converted_events</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;patientid&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;event_name&quot;</span><span class="p">,</span> <span class="s2">&quot;event_value&quot;</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="__span-0-156"><a id="__codelineno-0-156" name="__codelineno-0-156"></a>    <span class="p">]</span>
-</span><span id="__span-0-157"><a id="__codelineno-0-157" name="__codelineno-0-157"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">all_duplicate_rows</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-</span><span id="__span-0-158"><a id="__codelineno-0-158" name="__codelineno-0-158"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Duplicates found in converted events data. Please make sure to handle them appropriately!&quot;</span><span class="p">)</span>
-</span><span id="__span-0-159"><a id="__codelineno-0-159" name="__codelineno-0-159"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">all_duplicate_rows</span><span class="p">)</span>
-</span><span id="__span-0-160"><a id="__codelineno-0-160" name="__codelineno-0-160"></a>
-</span><span id="__span-0-161"><a id="__codelineno-0-161" name="__codelineno-0-161"></a>    <span class="c1">#: retrun constant, constant_description, events</span>
-</span><span id="__span-0-162"><a id="__codelineno-0-162" name="__codelineno-0-162"></a>    <span class="k">return</span> <span class="n">converted_constant</span><span class="p">,</span> <span class="n">converted_constant_description</span><span class="p">,</span> <span class="n">converted_events</span>
+</span><span id="__span-0-153"><a id="__codelineno-0-153" name="__codelineno-0-153"></a>    <span class="c1"># Concert events to string</span>
+</span><span id="__span-0-154"><a id="__codelineno-0-154" name="__codelineno-0-154"></a>    <span class="n">converted_events</span><span class="p">[</span><span class="s2">&quot;event_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">converted_events</span><span class="p">[</span><span class="s2">&quot;event_value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+</span><span id="__span-0-155"><a id="__codelineno-0-155" name="__codelineno-0-155"></a>
+</span><span id="__span-0-156"><a id="__codelineno-0-156" name="__codelineno-0-156"></a>    <span class="c1">#: issue warning if duplicates are present</span>
+</span><span id="__span-0-157"><a id="__codelineno-0-157" name="__codelineno-0-157"></a>    <span class="n">all_duplicate_rows</span> <span class="o">=</span> <span class="n">converted_events</span><span class="p">[</span>
+</span><span id="__span-0-158"><a id="__codelineno-0-158" name="__codelineno-0-158"></a>        <span class="n">converted_events</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;patientid&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;event_name&quot;</span><span class="p">,</span> <span class="s2">&quot;event_value&quot;</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-0-159"><a id="__codelineno-0-159" name="__codelineno-0-159"></a>    <span class="p">]</span>
+</span><span id="__span-0-160"><a id="__codelineno-0-160" name="__codelineno-0-160"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">all_duplicate_rows</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+</span><span id="__span-0-161"><a id="__codelineno-0-161" name="__codelineno-0-161"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Duplicates found in converted events data. Please make sure to handle them appropriately!&quot;</span><span class="p">)</span>
+</span><span id="__span-0-162"><a id="__codelineno-0-162" name="__codelineno-0-162"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">all_duplicate_rows</span><span class="p">)</span>
+</span><span id="__span-0-163"><a id="__codelineno-0-163" name="__codelineno-0-163"></a>
+</span><span id="__span-0-164"><a id="__codelineno-0-164" name="__codelineno-0-164"></a>    <span class="c1">#: retrun constant, constant_description, events</span>
+</span><span id="__span-0-165"><a id="__codelineno-0-165" name="__codelineno-0-165"></a>    <span class="k">return</span> <span class="n">converted_constant</span><span class="p">,</span> <span class="n">converted_constant_description</span><span class="p">,</span> <span class="n">converted_events</span>
 </span></code></pre></div></td></tr></table></div>
             </details>
     </div>

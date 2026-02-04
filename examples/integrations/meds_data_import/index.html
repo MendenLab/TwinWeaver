@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://example.com/twinweaver/examples/integrations/meds_data_import/">
       
       
-        <link rel="prev" href="../../advanced/pretraining/prepare_pretraining_data/">
+        <link rel="prev" href="../../advanced/custom_splitting/training_individual_splitters/">
       
       
         <link rel="next" href="../../../reference/common/config/">
@@ -882,7 +882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/custom_splitting/inference_individual_splitters/" class="md-nav__link">
+      <a href="../../advanced/custom_splitting/inference_individual_splitters.md" class="md-nav__link">
         
   
   
@@ -910,7 +910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/pretraining/prepare_pretraining_data/" class="md-nav__link">
+      <a href="../../advanced/pretraining/prepare_pretraining_data.md" class="md-nav__link">
         
   
   
@@ -3233,7 +3233,6 @@ config.event_value_lot_start = None</div>
 <span class="n">data_splitter_events</span> <span class="o">=</span> <span class="n">DataSplitterEvents</span><span class="p">(</span><span class="n">dm</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
 <span class="n">data_splitter_events</span><span class="o">.</span><span class="n">setup_variables</span><span class="p">()</span>
 <span class="n">converter</span> <span class="o">=</span> <span class="n">ConverterInstruction</span><span class="p">(</span>
-    <span class="n">dm</span><span class="o">.</span><span class="n">data_frames</span><span class="p">[</span><span class="s2">"constant_description"</span><span class="p">],</span>
     <span class="n">nr_tokens_budget_total</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
     <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
     <span class="n">dm</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
@@ -3254,7 +3253,6 @@ dm.setup_dataset_splits()
 data_splitter_events = DataSplitterEvents(dm, config=config)
 data_splitter_events.setup_variables()
 converter = ConverterInstruction(
-    dm.data_frames["constant_description"],
     nr_tokens_budget_total=8192,
     config=config,
     dm=dm,
@@ -3284,7 +3282,7 @@ converter = ConverterInstruction(
 </clipboard-copy>
 </div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Set example patient</span>
-<span class="n">patientid</span> <span class="o">=</span> <span class="mi">101</span>
+<span class="n">patientid</span> <span class="o">=</span> <span class="s2">"101"</span>
 
 <span class="c1"># Get data</span>
 <span class="n">patient_data</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
@@ -3321,7 +3319,7 @@ converter = ConverterInstruction(
 <span class="nb">print</span><span class="p">(</span><span class="n">converted</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">])</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-9"># Set example patient
-patientid = 101
+patientid = "101"
 
 # Get data
 patient_data = dm.get_patient_data(patientid)

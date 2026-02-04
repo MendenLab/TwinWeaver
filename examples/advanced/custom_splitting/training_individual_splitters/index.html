@@ -16,7 +16,7 @@
         <link rel="prev" href="../../../03_end_to_end_llm_finetuning/">
       
       
-        <link rel="next" href="../inference_individual_splitters/">
+        <link rel="next" href="../../../integrations/meds_data_import/">
       
       
         
@@ -964,7 +964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../inference_individual_splitters/" class="md-nav__link">
+      <a href="../inference_individual_splitters.md" class="md-nav__link">
         
   
   
@@ -992,7 +992,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pretraining/prepare_pretraining_data/" class="md-nav__link">
+      <a href="../../pretraining/prepare_pretraining_data.md" class="md-nav__link">
         
   
   
@@ -2410,7 +2410,6 @@ df_constant_description = pd.read_csv("../../example_data/constant_description.c
 <span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">setup_statistics</span><span class="p">()</span>
 
 <span class="n">converter</span> <span class="o">=</span> <span class="n">ConverterInstruction</span><span class="p">(</span>
-    <span class="n">dm</span><span class="o">.</span><span class="n">data_frames</span><span class="p">[</span><span class="s2">"constant_description"</span><span class="p">],</span>
     <span class="n">nr_tokens_budget_total</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
     <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
     <span class="n">dm</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
@@ -2439,7 +2438,6 @@ data_splitter_forecasting = DataSplitterForecasting(
 data_splitter_forecasting.setup_statistics()
 
 converter = ConverterInstruction(
-    dm.data_frames["constant_description"],
     nr_tokens_budget_total=8192,
     config=config,
     dm=dm,
