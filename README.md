@@ -163,7 +163,7 @@ Contains time-varying clinical data where each row represents a single event.
 
 | patientid | date | event_descriptive_name | event_category | event_name | event_value | meta_data | source |
 |:---|:---|:---|:---|:---|:---|:---|:---|
-| *Unique identifier for the patient* | *Date of the event* | *Human-readable name used in the text output*  | *(Optional) Category (e.g., `lab`, `drug`)* | *(Optional) Specific event identifier* | *Value associated with the event* | *(Optional) Additional metadata* | *(Optional) Source of the data - e.g. events or genetic* |
+| *Unique identifier for the patient* | *Date of the event* | *Human-readable name used in the text output*  | *(Optional) Category (e.g., `lab`, `drug`), used for determining splits & tasks* | *(Optional) Specific event identifier* | *Value associated with the event* | *(Optional) Additional metadata* | *(Optional) Modality of data - default to "events", alternatively "genetic"* |
 
 #### 2. Patient Constants (`constant.csv`)
 Contains static patient information (demographics, baseline characteristics). One row per patient.
@@ -180,7 +180,7 @@ Maps columns in the `constant` table to human-readable descriptions for the text
 | *Name of the column in the constant table* | *Description of the variable for the text prompt* |
 
 
-
+Generally, we prefer to keep as much as possible inot the long events table, and only put things into constant that cannot go anywhere else.
 
 
 

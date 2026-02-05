@@ -56,6 +56,9 @@ extra:
       link: https://github.com/your-org/twinweaver
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/twinweaver/
+  analytics:
+    provider: google
+    property: G-RHFJVCCEDM
 
 plugins:
   - search

@@ -11,11 +11,11 @@ Contains time-varying clinical data where each row represents a single event.
 | `patientid` | Unique identifier for the patient |
 | `date` | Date of the event |
 | `event_descriptive_name` | Human-readable name used in the text output |
-| `event_category` | *(Optional)* Category (e.g., `lab`, `drug`) |
+| `event_category` | *(Optional)* Category (e.g., `lab`, `drug`), used for determining splits & tasks |
 | `event_name` | *(Optional)* Specific event identifier |
 | `event_value` | Value associated with the event |
 | `meta_data` | *(Optional)* Additional metadata |
-| `source` | *(Optional)* Source of the data - e.g. events or genetic |
+| `source` | *(Optional)* Modality of data - default to "events", alternatively "genetic" |
 
 **Example:**
 
@@ -68,6 +68,10 @@ diagnosis_stage,Cancer stage at diagnosis
 ```
 
 ---
+
+
+Generally, we prefer to keep as much as possible inot the long events table, and only put things into constant that cannot go anywhere else.
+
 
 ## Loading Data
 
