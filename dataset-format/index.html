@@ -60,6 +60,16 @@
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-RHFJVCCEDM"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-RHFJVCCEDM",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-RHFJVCCEDM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -1845,7 +1855,7 @@
 </tr>
 <tr>
 <td><code>event_category</code></td>
-<td><em>(Optional)</em> Category (e.g., <code>lab</code>, <code>drug</code>)</td>
+<td><em>(Optional)</em> Category (e.g., <code>lab</code>, <code>drug</code>), used for determining splits &amp; tasks</td>
 </tr>
 <tr>
 <td><code>event_name</code></td>
@@ -1861,7 +1871,7 @@
 </tr>
 <tr>
 <td><code>source</code></td>
-<td><em>(Optional)</em> Source of the data - e.g. events or genetic</td>
+<td><em>(Optional)</em> Modality of data - default to "events", alternatively "genetic"</td>
 </tr>
 </tbody>
 </table>
@@ -1933,6 +1943,7 @@
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>diagnosis_stage,Cancer stage at diagnosis
 </span></code></pre></div>
 <hr />
+<p>Generally, we prefer to keep as much as possible inot the long events table, and only put things into constant that cannot go anywhere else.</p>
 <h2 id="loading-data">Loading Data<a class="headerlink" href="#loading-data" title="Permanent link">&para;</a></h2>
 <p>Data can be loaded as pandas DataFrames directly:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -1961,6 +1972,8 @@
 
 
 
+
+  
 
 
 
