@@ -175,7 +175,7 @@ training_data = converter.forward_conversion(
 # training_data now contains (Input, Target) pairs ready for LLM fine-tuning
 ```
 
-For complete tutorials, see the [Tutorials & Examples](#-tutorials--examples) section above.
+For complete tutorials, see the [Tutorials & Examples](#-tutorials--examples) section above, and the full documentation at [https://mendenlab.github.io/TwinWeaver/](https://mendenlab.github.io/TwinWeaver/).
 
 
 ## 📊 Dataset Format
@@ -206,6 +206,8 @@ Maps columns in the `constant` table to human-readable descriptions for the text
 
 Generally, we prefer to keep as much as possible inot the long events table, and only put things into constant that cannot go anywhere else.
 
+Further details at [https://mendenlab.github.io/TwinWeaver/dataset-format/](https://mendenlab.github.io/TwinWeaver/dataset-format/).
+
 
 
 
@@ -228,6 +230,8 @@ TwinWeaver supports two primary data formats, each serving a distinct stage in t
     *   **Goal**: Optimizes the model for specific downstream applications like forecasting and risk stratification.
     *   **Converter**: `twinweaver.instruction.converter_manual_instruction.ConverterInstruction`
 
+
+Further details at [https://mendenlab.github.io/TwinWeaver/framework/](https://mendenlab.github.io/TwinWeaver/framework/).
 
 
 ## 📝 Paper, Authors & Citation
