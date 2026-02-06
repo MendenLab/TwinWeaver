@@ -577,6 +577,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../pro-tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pro Tips
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../contributing/" class="md-nav__link">
         
   
@@ -755,6 +811,17 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#basic-examples" class="md-nav__link">
@@ -1758,6 +1825,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/utils/preprocessing_helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preprocessing Helpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1798,6 +1893,17 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#basic-examples" class="md-nav__link">
@@ -1893,9 +1999,10 @@
 
 <h1 id="twinweaver-examples">TwinWeaver Examples<a class="headerlink" href="#twinweaver-examples" title="Permanent link">&para;</a></h1>
 <p>This directory contains examples demonstrating how to use TwinWeaver for various tasks including data preparation, inference, and fine-tuning.</p>
-<blockquote>
-<p><strong>NOTE:</strong> The data used in this directory can be found in the Github repo in <a href="redacted">redacted</a>.</p>
-</blockquote>
+<h2 id="data-preprocessing">Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><a href="data_preprocessing/raw_data_preprocessing/">data_preprocessing/raw_data_preprocessing.ipynb</a></strong>: <strong>Start here if you have raw clinical data.</strong> Shows how to transform raw EHR exports into the three TwinWeaver dataframes (<code>df_events</code>, <code>df_constant</code>, <code>df_constant_description</code>), including handling death events and other time-to-event outcomes.</li>
+</ul>
 <h2 id="basic-examples">Basic Examples<a class="headerlink" href="#basic-examples" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><a href="01_data_preparation_for_training/">01_data_preparation_for_training.ipynb</a></strong>: A basic example showing how to convert data for a single patient using the instruction setup with a custom dataset.</li>
@@ -1907,11 +2014,12 @@
 <h3 id="custom-splitting-advancedcustom_splitting">Custom Splitting (<code>advanced/custom_splitting/</code>)<a class="headerlink" href="#custom-splitting-advancedcustom_splitting" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><a href="advanced/custom_splitting/training_individual_splitters/">training_individual_splitters.ipynb</a></strong>: Demonstrates data preparation using individual data splitters for more granular control.</li>
-<li><strong><a href="advanced/custom_splitting/inference_individual_splitters.md">inference_individual_splitters.py</a></strong>: A Python script showing how to run inference using the individual splitter setup.</li>
+<li><strong><a href="advanced/custom_splitting/inference_individual_splitters/">inference_individual_splitters.py</a></strong>: A Python script showing how to run inference using the individual splitter setup.</li>
 </ul>
 <h3 id="pretraining-advancedpretraining">Pretraining (<code>advanced/pretraining/</code>)<a class="headerlink" href="#pretraining-advancedpretraining" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong><a href="advanced/pretraining/prepare_pretraining_data.md">prepare_pretraining_data.py</a></strong>: A script to prepare data for the pretraining phase.</li>
+<li><strong><a href="advanced/pretraining/prepare_pretraining_data/">prepare_pretraining_data.py</a></strong>: A script to prepare data for the pretraining phase.</li>
+<li><strong><a href="advanced/pretraining/end_to_end_llm_training_with_pretrain/">end_to_end_llm_training_with_pretrain.ipynb</a></strong>: An end-to-end example for training LLMs on full patient histories without a specific task, useful for developing models that can generate synthetic patients or embeddings.</li>
 </ul>
 <h2 id="integrations">Integrations<a class="headerlink" href="#integrations" title="Permanent link">&para;</a></h2>
 <p>Located in the <code>integrations/</code> directory.</p>

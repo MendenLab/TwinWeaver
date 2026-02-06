@@ -577,6 +577,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../pro-tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pro Tips
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../contributing/" class="md-nav__link">
         
   
@@ -1721,6 +1777,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/utils/preprocessing_helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preprocessing Helpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2399,10 +2483,73 @@ df_constant_description = pd.read_csv("../../example_data/constant_description.c
 </clipboard-copy>
 </div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>  <span class="c1"># Override values here to customize pipeline</span>
+
+<span class="c1"># &lt;---------------------- CRITICAL CONFIGURATION ----------------------&gt;</span>
+<span class="c1"># 1. Event category used for data splitting (e.g., split data around Lines of Therapy 'lot')</span>
+<span class="c1"># Has to be set for all instruction tasks</span>
+<span class="n">config</span><span class="o">.</span><span class="n">split_event_category</span> <span class="o">=</span> <span class="s2">"lot"</span>
+
+<span class="c1"># 2. List of event categories we want to forecast (e.g., forecasting 'lab' values)</span>
+<span class="c1"># Only needs to be set if you want to forecast variables</span>
+<span class="n">config</span><span class="o">.</span><span class="n">event_category_forecast</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"lab"</span><span class="p">]</span>
+
+<span class="c1"># 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')</span>
+<span class="c1"># Only needs to be set if you want to do time to event prediction</span>
+<span class="n">config</span><span class="o">.</span><span class="n">data_splitter_events_variables_category_mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"death"</span><span class="p">:</span> <span class="s2">"death"</span><span class="p">,</span>
+    <span class="s2">"progression"</span><span class="p">:</span> <span class="s2">"next progression"</span><span class="p">,</span>  <span class="c1"># Custom name in prompt: "next progression" instead of "progression"</span>
+<span class="p">}</span>
+
+<span class="c1"># Constant setup</span>
 <span class="n">config</span><span class="o">.</span><span class="n">constant_columns_to_use</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"birthyear"</span><span class="p">,</span> <span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"histology"</span><span class="p">,</span> <span class="s2">"smoking_history"</span><span class="p">]</span>  <span class="c1"># Manually set from constant</span>
 <span class="n">config</span><span class="o">.</span><span class="n">constant_birthdate_column</span> <span class="o">=</span> <span class="s2">"birthyear"</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-3">config = Config()  # Override values here to customize pipeline
 
-<span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+# &lt;---------------------- CRITICAL CONFIGURATION ----------------------&gt;
+# 1. Event category used for data splitting (e.g., split data around Lines of Therapy 'lot')
+# Has to be set for all instruction tasks
+config.split_event_category = "lot"
+
+# 2. List of event categories we want to forecast (e.g., forecasting 'lab' values)
+# Only needs to be set if you want to forecast variables
+config.event_category_forecast = ["lab"]
+
+# 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')
+# Only needs to be set if you want to do time to event prediction
+config.data_splitter_events_variables_category_mapping = {
+    "death": "death",
+    "progression": "next progression",  # Custom name in prompt: "next progression" instead of "progression"
+}
+
+# Constant setup
+config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]  # Manually set from constant
+config.constant_birthdate_column = "birthyear"</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-4">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">load_indication_data</span><span class="p">(</span><span class="n">df_events</span><span class="o">=</span><span class="n">df_events</span><span class="p">,</span> <span class="n">df_constant</span><span class="o">=</span><span class="n">df_constant</span><span class="p">,</span> <span class="n">df_constant_description</span><span class="o">=</span><span class="n">df_constant_description</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">process_indication_data</span><span class="p">()</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">setup_unique_mapping_of_events</span><span class="p">()</span>
@@ -2426,11 +2573,7 @@ df_constant_description = pd.read_csv("../../example_data/constant_description.c
     <span class="n">variable_stats</span><span class="o">=</span><span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">variable_stats</span><span class="p">,</span>  <span class="c1"># Optional, needed for forecasting QA tasks</span>
 <span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-3">config = Config()  # Override values here to customize pipeline
-config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]  # Manually set from constant
-config.constant_birthdate_column = "birthyear"
-
-dm = DataManager(config=config)
+<div class="clipboard-copy-txt" id="cell-4">dm = DataManager(config=config)
 dm.load_indication_data(df_events=df_events, df_constant=df_constant, df_constant_description=df_constant_description)
 dm.process_indication_data()
 dm.setup_unique_mapping_of_events()
@@ -2459,7 +2602,7 @@ converter = ConverterInstruction(
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2470,7 +2613,7 @@ converter = ConverterInstruction(
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=10">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2481,54 +2624,7 @@ converter = ConverterInstruction(
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=10">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-4">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patientid</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">all_patientids</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-<span class="n">patientid</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-4">patientid = dm.all_patientids[2]
-patientid</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=11">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Let's checkout the data of the patient. <code>patient_data</code> is a dictionary containing the patient's data, with two keys:</p>
-<ul>
-<li>"events": A pandas DataFrame containing all time-series events
-(original events and molecular data combined and sorted
-by date).</li>
-<li>"constant": A pandas DataFrame containing the static (constant)
-data for the patient.</li>
-</ul>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=12">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=11">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2546,13 +2642,31 @@ data for the patient.</li>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patient_data</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
-<span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patientid</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">all_patientids</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">patientid</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-5">patient_data = dm.get_patient_data(patientid)
-patient_data["events"].head(20)</div>
+<div class="clipboard-copy-txt" id="cell-5">patientid = dm.all_patientids[2]
+patientid</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=12">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Let's checkout the data of the patient. <code>patient_data</code> is a dictionary containing the patient's data, with two keys:</p>
+<ul>
+<li>"events": A pandas DataFrame containing all time-series events
+(original events and molecular data combined and sorted
+by date).</li>
+<li>"constant": A pandas DataFrame containing the static (constant)
+data for the patient.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -2575,16 +2689,45 @@ patient_data["events"].head(20)</div>
 </div>
 </clipboard-copy>
 </div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patient_data</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
+<span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-6">patient_data = dm.get_patient_data(patientid)
+patient_data["events"].head(20)</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=14">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-7">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patient_data</span><span class="p">[</span><span class="s2">"constant"</span><span class="p">]</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-6">patient_data["constant"]</div>
+<div class="clipboard-copy-txt" id="cell-7">patient_data["constant"]</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=14">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=15">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2595,7 +2738,7 @@ patient_data["events"].head(20)</div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=15">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=16">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2607,7 +2750,7 @@ patient_data["events"].head(20)</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=16">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=17">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2615,7 +2758,7 @@ patient_data["events"].head(20)</div>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-7">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-8">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -2639,7 +2782,7 @@ patient_data["events"].head(20)</div>
     <span class="n">max_nr_samples_per_split</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-7">processed_splits_fc, split_dates = data_splitter_forecasting.get_splits_from_patient(
+<div class="clipboard-copy-txt" id="cell-8">processed_splits_fc, split_dates = data_splitter_forecasting.get_splits_from_patient(
     patient_data,
     nr_samples_per_split=4,
     filter_outliers=False,
@@ -2658,7 +2801,7 @@ processed_splits_ev = data_splitter_events.get_splits_from_patient(
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=17">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=18">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2669,62 +2812,7 @@ processed_splits_ev = data_splitter_events.get_splits_from_patient(
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=18">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-8">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">split_idx</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">p_converted</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion</span><span class="p">(</span>
-    <span class="n">forecasting_splits</span><span class="o">=</span><span class="n">processed_splits_fc</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
-    <span class="n">event_splits</span><span class="o">=</span><span class="n">processed_splits_ev</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
-    <span class="n">override_mode_to_select_forecasting</span><span class="o">=</span><span class="s2">"forecasting_qa"</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-8">split_idx = 0
-p_converted = converter.forward_conversion(
-    forecasting_splits=processed_splits_fc[split_idx],
-    event_splits=processed_splits_ev[split_idx],
-    override_mode_to_select_forecasting="forecasting_qa",
-)</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=19">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>p_converted</code> is a dictionary containing the final formatted data:</p>
-<ul>
-<li>'instruction': The complete input string for the model (context + multi-task prompt).</li>
-<li>'answer': The complete target string for the model (multi-task answer).</li>
-<li>'meta': A dictionary holding metadata including patient ID, structured constant and
-history data used, split date, combined metadata from sub-converters, and
-a list of detailed metadata for each individual task generated ('target_meta_detailed').</li>
-</ul>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=20">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=19">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2742,11 +2830,39 @@ a list of detailed metadata for each individual task generated ('target_meta_det
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">])</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">split_idx</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">p_converted</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion</span><span class="p">(</span>
+    <span class="n">forecasting_splits</span><span class="o">=</span><span class="n">processed_splits_fc</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
+    <span class="n">event_splits</span><span class="o">=</span><span class="n">processed_splits_ev</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
+    <span class="n">override_mode_to_select_forecasting</span><span class="o">=</span><span class="s2">"forecasting_qa"</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-9">print(p_converted["instruction"])</div>
+<div class="clipboard-copy-txt" id="cell-9">split_idx = 0
+p_converted = converter.forward_conversion(
+    forecasting_splits=processed_splits_fc[split_idx],
+    event_splits=processed_splits_ev[split_idx],
+    override_mode_to_select_forecasting="forecasting_qa",
+)</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=20">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><code>p_converted</code> is a dictionary containing the final formatted data:</p>
+<ul>
+<li>'instruction': The complete input string for the model (context + multi-task prompt).</li>
+<li>'answer': The complete target string for the model (multi-task answer).</li>
+<li>'meta': A dictionary holding metadata including patient ID, structured constant and
+history data used, split date, combined metadata from sub-converters, and
+a list of detailed metadata for each individual task generated ('target_meta_detailed').</li>
+</ul>
 </div>
 </div>
 </div>
@@ -2769,9 +2885,9 @@ a list of detailed metadata for each individual task generated ('target_meta_det
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">])</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">])</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-10">print(p_converted["answer"])</div>
+<div class="clipboard-copy-txt" id="cell-10">print(p_converted["instruction"])</div>
 </div>
 </div>
 </div>
@@ -2796,11 +2912,38 @@ a list of detailed metadata for each individual task generated ('target_meta_det
 </div>
 </clipboard-copy>
 </div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">])</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-11">print(p_converted["answer"])</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=23">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-12">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="n">date</span> <span class="o">=</span> <span class="n">split_dates</span><span class="p">[</span><span class="s2">"date"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">return_list</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">reverse_conversion</span><span class="p">(</span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">],</span> <span class="n">dm</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
 <span class="n">return_list</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s2">"result"</span><span class="p">]</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-11">date = split_dates["date"][0]
+<div class="clipboard-copy-txt" id="cell-12">date = split_dates["date"][0]
 return_list = converter.reverse_conversion(p_converted["answer"], dm, date)
 return_list[2]["result"]</div>
 </div>

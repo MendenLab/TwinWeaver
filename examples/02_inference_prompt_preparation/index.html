@@ -577,6 +577,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pro-tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pro Tips
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../contributing/" class="md-nav__link">
         
   
@@ -1708,6 +1764,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/utils/preprocessing_helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preprocessing Helpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2344,10 +2428,73 @@ df_constant_description = pd.read_csv("./example_data/constant_description.csv")
 </clipboard-copy>
 </div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>  <span class="c1"># Override values here to customize pipeline</span>
+
+<span class="c1"># &lt;---------------------- CRITICAL CONFIGURATION ----------------------&gt;</span>
+<span class="c1"># 1. Event category used for data splitting (e.g., split data around Lines of Therapy 'lot')</span>
+<span class="c1"># Has to be set for all instruction tasks</span>
+<span class="n">config</span><span class="o">.</span><span class="n">split_event_category</span> <span class="o">=</span> <span class="s2">"lot"</span>
+
+<span class="c1"># 2. List of event categories we want to forecast (e.g., forecasting 'lab' values)</span>
+<span class="c1"># Only needs to be set if you want to forecast variables</span>
+<span class="n">config</span><span class="o">.</span><span class="n">event_category_forecast</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"lab"</span><span class="p">]</span>
+
+<span class="c1"># 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')</span>
+<span class="c1"># Only needs to be set if you want to do time to event prediction</span>
+<span class="n">config</span><span class="o">.</span><span class="n">data_splitter_events_variables_category_mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"death"</span><span class="p">:</span> <span class="s2">"death"</span><span class="p">,</span>
+    <span class="s2">"progression"</span><span class="p">:</span> <span class="s2">"next progression"</span><span class="p">,</span>  <span class="c1"># Custom name in prompt: "next progression" instead of "progression"</span>
+<span class="p">}</span>
+
+<span class="c1"># Optional configs, here to correctly use the static information</span>
 <span class="n">config</span><span class="o">.</span><span class="n">constant_columns_to_use</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"birthyear"</span><span class="p">,</span> <span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"histology"</span><span class="p">,</span> <span class="s2">"smoking_history"</span><span class="p">]</span>  <span class="c1"># Manually set from constant</span>
 <span class="n">config</span><span class="o">.</span><span class="n">constant_birthdate_column</span> <span class="o">=</span> <span class="s2">"birthyear"</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-3">config = Config()  # Override values here to customize pipeline
 
-<span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+# &lt;---------------------- CRITICAL CONFIGURATION ----------------------&gt;
+# 1. Event category used for data splitting (e.g., split data around Lines of Therapy 'lot')
+# Has to be set for all instruction tasks
+config.split_event_category = "lot"
+
+# 2. List of event categories we want to forecast (e.g., forecasting 'lab' values)
+# Only needs to be set if you want to forecast variables
+config.event_category_forecast = ["lab"]
+
+# 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')
+# Only needs to be set if you want to do time to event prediction
+config.data_splitter_events_variables_category_mapping = {
+    "death": "death",
+    "progression": "next progression",  # Custom name in prompt: "next progression" instead of "progression"
+}
+
+# Optional configs, here to correctly use the static information
+config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]  # Manually set from constant
+config.constant_birthdate_column = "birthyear"</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-4">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">load_indication_data</span><span class="p">(</span><span class="n">df_events</span><span class="o">=</span><span class="n">df_events</span><span class="p">,</span> <span class="n">df_constant</span><span class="o">=</span><span class="n">df_constant</span><span class="p">,</span> <span class="n">df_constant_description</span><span class="o">=</span><span class="n">df_constant_description</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">process_indication_data</span><span class="p">()</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">setup_unique_mapping_of_events</span><span class="p">()</span>
@@ -2374,11 +2521,7 @@ df_constant_description = pd.read_csv("./example_data/constant_description.csv")
     <span class="n">variable_stats</span><span class="o">=</span><span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">variable_stats</span><span class="p">,</span>  <span class="c1"># Optional, needed for forecasting QA tasks</span>
 <span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-3">config = Config()  # Override values here to customize pipeline
-config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]  # Manually set from constant
-config.constant_birthdate_column = "birthyear"
-
-dm = DataManager(config=config)
+<div class="clipboard-copy-txt" id="cell-4">dm = DataManager(config=config)
 dm.load_indication_data(df_events=df_events, df_constant=df_constant, df_constant_description=df_constant_description)
 dm.process_indication_data()
 dm.setup_unique_mapping_of_events()
@@ -2410,42 +2553,13 @@ converter = ConverterInstruction(
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="example-patient-data">Example patient data<a class="anchor-link" href="#example-patient-data">¶</a></h2>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-4">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patientid</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">all_patientids</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-<span class="n">patientid</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-4">patientid = dm.all_patientids[2]
-patientid</div>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -2468,17 +2582,11 @@ patientid</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patient_data</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
-<span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"date"</span><span class="p">)</span>
-
-<span class="c1"># To simulate that we only have input, half the events</span>
-<span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)]</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patientid</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">all_patientids</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">patientid</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-5">patient_data = dm.get_patient_data(patientid)
-patient_data["events"] = patient_data["events"].sort_values("date")
-
-# To simulate that we only have input, half the events
-patient_data["events"] = patient_data["events"].iloc[: int(len(patient_data["events"]) / 2)]</div>
+<div class="clipboard-copy-txt" id="cell-5">patientid = dm.all_patientids[2]
+patientid</div>
 </div>
 </div>
 </div>
@@ -2503,21 +2611,17 @@ patient_data["events"] = patient_data["events"].iloc[: int(len(patient_data["eve
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">forecast_split</span><span class="p">,</span> <span class="n">events_split</span> <span class="o">=</span> <span class="n">data_splitter</span><span class="o">.</span><span class="n">get_splits_from_patient_inference</span><span class="p">(</span>
-    <span class="n">patient_data</span><span class="p">,</span>
-    <span class="n">inference_type</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span>
-    <span class="n">forecasting_override_variables_to_predict</span><span class="o">=</span><span class="p">[</span><span class="s2">"hemoglobin_-_718-7"</span><span class="p">],</span>
-    <span class="n">events_override_category</span><span class="o">=</span><span class="s2">"death"</span><span class="p">,</span>
-    <span class="n">events_override_observation_time_delta</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">52</span> <span class="o">*</span> <span class="mi">7</span><span class="p">),</span>
-<span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patient_data</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
+<span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"date"</span><span class="p">)</span>
+
+<span class="c1"># To simulate that we only have input, half the events</span>
+<span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)]</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-6">forecast_split, events_split = data_splitter.get_splits_from_patient_inference(
-    patient_data,
-    inference_type="both",
-    forecasting_override_variables_to_predict=["hemoglobin_-_718-7"],
-    events_override_category="death",
-    events_override_observation_time_delta=pd.Timedelta(days=52 * 7),
-)</div>
+<div class="clipboard-copy-txt" id="cell-6">patient_data = dm.get_patient_data(patientid)
+patient_data["events"] = patient_data["events"].sort_values("date")
+
+# To simulate that we only have input, half the events
+patient_data["events"] = patient_data["events"].iloc[: int(len(patient_data["events"]) / 2)]</div>
 </div>
 </div>
 </div>
@@ -2542,15 +2646,21 @@ patient_data["events"] = patient_data["events"].iloc[: int(len(patient_data["eve
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># We also need to setup when we want to forecast into the future for each variable, in weeks</span>
-<span class="n">forecasting_times_to_predict</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"hemoglobin_-_718-7"</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
-<span class="p">}</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">forecast_split</span><span class="p">,</span> <span class="n">events_split</span> <span class="o">=</span> <span class="n">data_splitter</span><span class="o">.</span><span class="n">get_splits_from_patient_inference</span><span class="p">(</span>
+    <span class="n">patient_data</span><span class="p">,</span>
+    <span class="n">inference_type</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span>
+    <span class="n">forecasting_override_variables_to_predict</span><span class="o">=</span><span class="p">[</span><span class="s2">"hemoglobin_-_718-7"</span><span class="p">],</span>
+    <span class="n">events_override_category</span><span class="o">=</span><span class="s2">"death"</span><span class="p">,</span>
+    <span class="n">events_override_observation_time_delta</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">52</span> <span class="o">*</span> <span class="mi">7</span><span class="p">),</span>
+<span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-7"># We also need to setup when we want to forecast into the future for each variable, in weeks
-forecasting_times_to_predict = {
-    "hemoglobin_-_718-7": [4, 8, 12],
-}</div>
+<div class="clipboard-copy-txt" id="cell-7">forecast_split, events_split = data_splitter.get_splits_from_patient_inference(
+    patient_data,
+    inference_type="both",
+    forecasting_override_variables_to_predict=["hemoglobin_-_718-7"],
+    events_override_category="death",
+    events_override_observation_time_delta=pd.Timedelta(days=52 * 7),
+)</div>
 </div>
 </div>
 </div>
@@ -2575,21 +2685,17 @@ forecasting_times_to_predict = {
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Convert to instruction</span>
-<span class="n">converted</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion_inference</span><span class="p">(</span>
-    <span class="n">forecasting_split</span><span class="o">=</span><span class="n">forecast_split</span><span class="p">,</span>
-    <span class="n">forecasting_future_weeks_per_variable</span><span class="o">=</span><span class="n">forecasting_times_to_predict</span><span class="p">,</span>
-    <span class="n">event_split</span><span class="o">=</span><span class="n">events_split</span><span class="p">,</span>
-    <span class="n">custom_tasks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># We also need to setup when we want to forecast into the future for each variable, in weeks</span>
+<span class="c1"># By default the system tries to map the name below to event_name, and backup just uses the provided value</span>
+<span class="n">forecasting_times_to_predict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"hemoglobin_-_718-7"</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+<span class="p">}</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-8"># Convert to instruction
-converted = converter.forward_conversion_inference(
-    forecasting_split=forecast_split,
-    forecasting_future_weeks_per_variable=forecasting_times_to_predict,
-    event_split=events_split,
-    custom_tasks=None,
-)</div>
+<div class="clipboard-copy-txt" id="cell-8"># We also need to setup when we want to forecast into the future for each variable, in weeks
+# By default the system tries to map the name below to event_name, and backup just uses the provided value
+forecasting_times_to_predict = {
+    "hemoglobin_-_718-7": [4, 8, 12],
+}</div>
 </div>
 </div>
 </div>
@@ -2614,9 +2720,48 @@ converted = converter.forward_conversion_inference(
 </div>
 </clipboard-copy>
 </div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Convert to instruction</span>
+<span class="n">converted</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion_inference</span><span class="p">(</span>
+    <span class="n">forecasting_split</span><span class="o">=</span><span class="n">forecast_split</span><span class="p">,</span>
+    <span class="n">forecasting_future_weeks_per_variable</span><span class="o">=</span><span class="n">forecasting_times_to_predict</span><span class="p">,</span>
+    <span class="n">event_split</span><span class="o">=</span><span class="n">events_split</span><span class="p">,</span>
+    <span class="n">custom_tasks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-9"># Convert to instruction
+converted = converter.forward_conversion_inference(
+    forecasting_split=forecast_split,
+    forecasting_future_weeks_per_variable=forecasting_times_to_predict,
+    event_split=events_split,
+    custom_tasks=None,
+)</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=12">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-10">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">converted</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">])</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-9">print(converted["instruction"])</div>
+<div class="clipboard-copy-txt" id="cell-10">print(converted["instruction"])</div>
 </div>
 </div>
 </div>

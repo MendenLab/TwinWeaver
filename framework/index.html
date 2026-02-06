@@ -746,6 +746,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../pro-tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pro Tips
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../contributing/" class="md-nav__link">
         
   
@@ -1797,6 +1853,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/utils/preprocessing_helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preprocessing Helpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2050,6 +2134,16 @@
 <li><strong>Input</strong>: Patient history up to a specific time point + a list of specific questions (e.g., "Forecast the next 3 weeks of hemoglobin values")</li>
 <li><strong>Target</strong>: The ground truth answers to those questions</li>
 </ul>
+<div class="admonition important">
+<p class="admonition-title">Configuration Required</p>
+<p>Instruction tuning requires explicit configuration of splitting and prediction variables:</p>
+<ul>
+<li><code>config.split_event_category</code>: Event category used to anchor split points (e.g., <code>"lot"</code> for line of therapy)</li>
+<li><code>config.event_category_forecast</code>: List of event categories to forecast (e.g., <code>["lab"]</code>)</li>
+<li><code>config.data_splitter_events_variables_category_mapping</code>: Mapping of events to prediction tasks (e.g., death, progression)</li>
+</ul>
+<p>See the <a href="../quickstart/">Quick Start</a> or <a href="../examples/01_data_preparation_for_training/">Data Preparation Tutorial</a> for examples.</p>
+</div>
 <hr />
 <h2 id="genie-digital-twin-gdt">Genie Digital Twin (GDT)<a class="headerlink" href="#genie-digital-twin-gdt" title="Permanent link">&para;</a></h2>
 <div class="admonition note">

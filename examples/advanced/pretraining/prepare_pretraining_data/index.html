@@ -571,6 +571,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../pro-tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pro Tips
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../contributing/" class="md-nav__link">
         
   
@@ -1622,6 +1678,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/utils/preprocessing_helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preprocessing Helpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2131,7 +2215,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <!-- End of mermaid configuration --><div class="jupyter-wrapper">
 <div class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=09e16b3d">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=bdf2959c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2160,7 +2244,7 @@ import pandas as pd</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2756b92c">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a988a912">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2225,7 +2309,6 @@ import pandas as pd</div>
             <span class="s2">"patientid"</span><span class="p">:</span> <span class="n">patientid</span><span class="p">,</span>
             <span class="s2">"split"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">get_patient_split</span><span class="p">(</span><span class="n">patientid</span><span class="o">=</span><span class="n">patientid</span><span class="p">),</span>
             <span class="s2">"constant"</span><span class="p">:</span> <span class="n">p_converted</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">][</span><span class="s2">"processed_constant"</span><span class="p">]</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"split"</span><span class="p">),</span>
-            <span class="s2">"events"</span><span class="p">:</span> <span class="n">p_converted</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">][</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"split"</span><span class="p">),</span>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="p">[(</span><span class="n">p_converted</span><span class="p">,</span> <span class="n">internal_meta</span><span class="p">)]</span>
@@ -2242,13 +2325,16 @@ import pandas as pd</div>
 
         <span class="c1"># Split up</span>
         <span class="n">converted_data</span><span class="p">,</span> <span class="n">internal_meta</span> <span class="o">=</span> <span class="n">all_patient_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">first_event_date</span> <span class="o">=</span> <span class="n">internal_meta</span><span class="p">[</span><span class="s2">"events"</span><span class="p">][</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
 
         <span class="c1"># Log that testing patient</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">"Assessing reverse conversion for patient"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">converted_data</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">][</span><span class="s2">"patientid"</span><span class="p">]))</span>
 
         <span class="c1">#: do reverse conversion using ConverterPretrain</span>
         <span class="n">p_reverse_converted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="o">.</span><span class="n">reverse_conversion</span><span class="p">(</span>
-            <span class="n">converted_data</span><span class="p">[</span><span class="s2">"text"</span><span class="p">],</span> <span class="n">internal_meta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">unique_events</span>
+            <span class="n">converted_data</span><span class="p">[</span><span class="s2">"text"</span><span class="p">],</span>
+            <span class="n">data_manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="p">,</span>
+            <span class="n">init_date</span><span class="o">=</span><span class="n">first_event_date</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1">#: check differences appropriately</span>
@@ -2309,7 +2395,6 @@ import pandas as pd</div>
             "patientid": patientid,
             "split": self.dm.get_patient_split(patientid=patientid),
             "constant": p_converted["meta"]["processed_constant"].to_json(orient="split"),
-            "events": p_converted["meta"]["events"].to_json(orient="split"),
         }
 
         return [(p_converted, internal_meta)]
@@ -2326,13 +2411,16 @@ import pandas as pd</div>
 
         # Split up
         converted_data, internal_meta = all_patient_data[0]
+        first_event_date = internal_meta["events"]["date"].min()
 
         # Log that testing patient
         print("Assessing reverse conversion for patient" + str(converted_data["meta"]["patientid"]))
 
         #: do reverse conversion using ConverterPretrain
         p_reverse_converted = self.converter.reverse_conversion(
-            converted_data["text"], internal_meta, self.dm.unique_events
+            converted_data["text"],
+            data_manager=self.dm,
+            init_date=first_event_date,
         )
 
         #: check differences appropriately
@@ -2351,7 +2439,7 @@ import pandas as pd</div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4c32f5d3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=60f4fd1a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2363,7 +2451,7 @@ NOTE: run this from the root folder of twinweaver</p>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5dfea23c">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=ba5b94be">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2390,7 +2478,7 @@ NOTE: run this from the root folder of twinweaver</p>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=747f02a5">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=79713e83">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2419,7 +2507,7 @@ all_patientids = all_patientids[:10]</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=05df280e">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6ae47d64">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2460,7 +2548,7 @@ all_patientids = all_patientids[:10]</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3541b706">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=55182b98">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>

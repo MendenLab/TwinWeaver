@@ -571,6 +571,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../pro-tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pro Tips
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../contributing/" class="md-nav__link">
         
   
@@ -1622,6 +1678,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/utils/preprocessing_helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preprocessing Helpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2401,6 +2485,11 @@ df_constant_description = pd.read_csv("../../example_data/constant_description.c
 <span class="c1"># And to forecast different categories, we set this in the config as well</span>
 <span class="c1"># In this example, lets say we want to forecast vitals (i.e. body weight in the example data)</span>
 <span class="n">config</span><span class="o">.</span><span class="n">event_category_forecast</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"vitals"</span><span class="p">]</span>
+
+<span class="c1"># To predict different variables for the event categories, we set up a mapping here</span>
+<span class="n">config</span><span class="o">.</span><span class="n">data_splitter_events_variables_category_mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"lot"</span><span class="p">:</span> <span class="s2">"time to next lot"</span><span class="p">,</span>  <span class="c1"># Custom name in prompt: "time to next lot" instead of "lot"</span>
+<span class="p">}</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-3">config = Config()  # Override values here to customize pipeline
 config.constant_columns_to_use = [
@@ -2421,7 +2510,12 @@ config.split_event_category = "basic_biomarker"
 
 # And to forecast different categories, we set this in the config as well
 # In this example, lets say we want to forecast vitals (i.e. body weight in the example data)
-config.event_category_forecast = ["vitals"]</div>
+config.event_category_forecast = ["vitals"]
+
+# To predict different variables for the event categories, we set up a mapping here
+config.data_splitter_events_variables_category_mapping = {
+    "lot": "time to next lot",  # Custom name in prompt: "time to next lot" instead of "lot"
+}</div>
 </div>
 </div>
 </div>
@@ -2683,14 +2777,14 @@ patient_data = dm.get_patient_data(patientid)</div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="n">split_idx</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">p_converted</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion</span><span class="p">(</span>
     <span class="n">forecasting_splits</span><span class="o">=</span><span class="n">forecasting_splits</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
-    <span class="n">event_splits</span><span class="o">=</span><span class="p">[],</span>  <span class="c1"># For this example we only do forecasting, so we skip the event splits</span>
+    <span class="n">event_splits</span><span class="o">=</span><span class="n">events_splits</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
     <span class="n">override_mode_to_select_forecasting</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-8">split_idx = 0
 p_converted = converter.forward_conversion(
     forecasting_splits=forecasting_splits[split_idx],
-    event_splits=[],  # For this example we only do forecasting, so we skip the event splits
+    event_splits=events_splits[split_idx],
     override_mode_to_select_forecasting="both",
 )</div>
 </div>
@@ -2790,8 +2884,19 @@ p_converted = converter.forward_conversion(
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=23">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="reverse-conversion-text-to-structured-data">Reverse Conversion: Text to Structured Data<a class="anchor-link" href="#reverse-conversion-text-to-structured-data">¶</a></h2>
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=23">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=24">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2809,49 +2914,11 @@ p_converted = converter.forward_conversion(
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">]</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-12">p_converted["answer"]</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=24">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="reverse-conversion-text-to-structured-data">Reverse Conversion: Text to Structured Data<a class="anchor-link" href="#reverse-conversion-text-to-structured-data">¶</a></h2>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=25">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-13">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="n">date</span> <span class="o">=</span> <span class="n">reference_dates</span><span class="p">[</span><span class="s2">"date"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">return_list</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">reverse_conversion</span><span class="p">(</span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">],</span> <span class="n">dm</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
 <span class="n">return_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"result"</span><span class="p">]</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-13">date = reference_dates["date"][0]
+<div class="clipboard-copy-txt" id="cell-12">date = reference_dates["date"][0]
 return_list = converter.reverse_conversion(p_converted["answer"], dm, date)
 return_list[0]["result"]</div>
 </div>

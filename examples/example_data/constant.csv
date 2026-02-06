@@ -1,0 +1,51 @@
+patientid,birthyear,gender,histology,smoking_history
+p0,1965,Male,Adenocarcinoma,Current
+p1,1966,Male,Squamous Cell Carcinoma,Never
+p2,1972,Male,Adenocarcinoma,Current
+p3,1975,Male,Adenocarcinoma,Current
+p4,1950,Female,Squamous Cell Carcinoma,Former
+p5,1948,Male,Adenocarcinoma,Current
+p6,1947,Female,Squamous Cell Carcinoma,Never
+p7,1970,Male,Squamous Cell Carcinoma,Never
+p8,1966,Male,Squamous Cell Carcinoma,Current
+p9,1974,Male,Squamous Cell Carcinoma,Never
+p10,1975,Male,Squamous Cell Carcinoma,Former
+p11,1964,Male,Adenocarcinoma,Never
+p12,1947,Female,Adenocarcinoma,Former
+p13,1948,Male,Squamous Cell Carcinoma,Never
+p14,1947,Male,Squamous Cell Carcinoma,Current
+p15,1969,Female,Adenocarcinoma,Current
+p16,1968,Female,Squamous Cell Carcinoma,Never
+p17,1972,Male,Adenocarcinoma,Never
+p18,1966,Male,Adenocarcinoma,Current
+p19,1965,Male,Squamous Cell Carcinoma,Current
+p20,1963,Female,Adenocarcinoma,Never
+p21,1946,Female,Adenocarcinoma,Former
+p22,1964,Male,Adenocarcinoma,Never
+p23,1945,Female,Adenocarcinoma,Current
+p24,1949,Female,Adenocarcinoma,Former
+p25,1954,Female,Squamous Cell Carcinoma,Never
+p26,1969,Female,Adenocarcinoma,Current
+p27,1952,Female,Adenocarcinoma,Never
+p28,1965,Male,Adenocarcinoma,Never
+p29,1956,Female,Adenocarcinoma,Current
+p30,1952,Male,Adenocarcinoma,Never
+p31,1958,Male,Squamous Cell Carcinoma,Current
+p32,1960,Female,Squamous Cell Carcinoma,Never
+p33,1967,Female,Squamous Cell Carcinoma,Current
+p34,1961,Female,Squamous Cell Carcinoma,Never
+p35,1974,Male,Squamous Cell Carcinoma,Current
+p36,1955,Male,Squamous Cell Carcinoma,Current
+p37,1967,Female,Adenocarcinoma,Current
+p38,1974,Male,Adenocarcinoma,Current
+p39,1975,Female,Squamous Cell Carcinoma,Current
+p40,1968,Male,Adenocarcinoma,Former
+p41,1969,Male,Squamous Cell Carcinoma,Never
+p42,1947,Female,Squamous Cell Carcinoma,Former
+p43,1970,Male,Squamous Cell Carcinoma,Never
+p44,1950,Female,Squamous Cell Carcinoma,Current
+p45,1959,Male,Adenocarcinoma,Former
+p46,1967,Male,Adenocarcinoma,Never
+p47,1957,Male,Adenocarcinoma,Former
+p48,1948,Male,Squamous Cell Carcinoma,Never
+p49,1965,Female,Adenocarcinoma,Current

@@ -542,6 +542,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#0-raw-data-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Raw Data Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#1-data-preparation-for-training" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -618,6 +629,17 @@
     <span class="md-ellipsis">
       
         Custom Splitting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-text-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Text Generation
       
     </span>
   </a>
@@ -737,6 +759,62 @@
     
   
     Dataset Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pro-tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pro Tips
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Index
   
 
     
@@ -1808,6 +1886,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/utils/preprocessing_helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preprocessing Helpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1860,6 +1966,17 @@
   
     <nav class="md-nav" aria-label="🔰 Core Tutorials">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-raw-data-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Raw Data Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#1-data-preparation-for-training" class="md-nav__link">
@@ -1944,6 +2061,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#custom-text-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Text Generation
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2001,6 +2129,18 @@
 <p>The <code>examples/</code> directory provides comprehensive tutorials to help you get up and running with TwinWeaver.</p>
 <h2 id="core-tutorials">🔰 Core Tutorials<a class="headerlink" href="#core-tutorials" title="Permanent link">&para;</a></h2>
 <p>These notebooks cover the primary workflows for most users:</p>
+<h3 id="0-raw-data-preprocessing">0. Raw Data Preprocessing<a class="headerlink" href="#0-raw-data-preprocessing" title="Permanent link">&para;</a></h3>
+<p><a href="../examples/data_preprocessing/raw_data_preprocessing/"><code>examples/data_preprocessing/raw_data_preprocessing.ipynb</code></a></p>
+<p><strong>Start here if you have raw clinical data.</strong> This tutorial demonstrates how to transform raw clinical data (e.g., EHR exports, clinical trial databases) into the standardized TwinWeaver format.</p>
+<p><strong>What you'll learn:</strong></p>
+<ul>
+<li>Creating the three required TwinWeaver dataframes (<code>df_events</code>, <code>df_constant</code>, <code>df_constant_description</code>)</li>
+<li>Best practices for deciding what goes into events vs. constants</li>
+<li>Handling time-to-event outcomes like death and progression</li>
+<li>Using preprocessing helpers for data aggregation and column classification</li>
+<li>Validating your data format before training</li>
+</ul>
+<hr />
 <h3 id="1-data-preparation-for-training">1. Data Preparation for Training<a class="headerlink" href="#1-data-preparation-for-training" title="Permanent link">&para;</a></h3>
 <p><a href="../examples/01_data_preparation_for_training/"><code>examples/01_data_preparation_for_training.ipynb</code></a></p>
 <p>Demonstrates how to convert raw patient data (events, constants, genetics) into the instruction-tuning text format used by TwinWeaver. This is the core step for preparing data for fine-tuning.</p>
@@ -2052,6 +2192,20 @@ Requires a GPU with at least 30GB of memory.</p>
 <li><strong>Inference</strong>: <a href="../examples/advanced/custom_splitting/inference_individual_splitters/"><code>examples/advanced/custom_splitting/inference_individual_splitters.py</code></a> — Example script for inference using individual splitters.</li>
 <li><strong>Training</strong>: <a href="../examples/advanced/custom_splitting/training_individual_splitters/"><code>examples/advanced/custom_splitting/training_individual_splitters.ipynb</code></a> — Notebook demonstrating training data generation with individual splitters.</li>
 <li><strong>Custom Split Events</strong>: <a href="../examples/advanced/custom_splitting/training_custom_split_events/"><code>examples/advanced/custom_splitting/training_custom_split_events.ipynb</code></a> — Notebook showing how to customize split events and forecast different event categories (e.g., using genetic events as split points and forecasting vitals).</li>
+</ul>
+<h3 id="custom-text-generation">Custom Text Generation<a class="headerlink" href="#custom-text-generation" title="Permanent link">&para;</a></h3>
+<p><a href="../examples/advanced/custom_output/customizing_text_generation/"><code>examples/advanced/custom_output/customizing_text_generation.ipynb</code></a></p>
+<p>A comprehensive tutorial on customizing <strong>every textual component</strong> of the instruction generation pipeline. TwinWeaver provides extensive configuration options to tailor generated text prompts to your specific use case.</p>
+<p><strong>What you'll learn:</strong></p>
+<ul>
+<li>Customizing preamble and introduction text</li>
+<li>Modifying demographics section formatting</li>
+<li>Changing event day and time interval descriptions</li>
+<li>Switching time units between days and weeks</li>
+<li>Customizing genetic data tags and placeholder text</li>
+<li>Modifying forecasting, time-to-event, and QA task prompts</li>
+<li>Configuring multi-task instruction formatting</li>
+<li>Fine-grained control over specific event categories with overrides</li>
 </ul>
 <hr />
 <h2 id="integrations">🔗 Integrations<a class="headerlink" href="#integrations" title="Permanent link">&para;</a></h2>

@@ -577,6 +577,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pro-tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pro Tips
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../contributing/" class="md-nav__link">
         
   
@@ -1719,6 +1775,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/utils/preprocessing_helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preprocessing Helpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2356,9 +2440,11 @@ from twinweaver import (
 </div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Some key settings</span>
 <span class="n">BASE_MODEL</span> <span class="o">=</span> <span class="s2">"microsoft/Phi-4-mini-instruct"</span>  <span class="c1"># NOTE: we haven't tested the performance of this model beyond examples</span>
+<span class="n">MAX_CONTEXT_LENGTH</span> <span class="o">=</span> <span class="mi">8192</span>  <span class="c1"># Set this based on memory and model capabilities</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-2"># Some key settings
-BASE_MODEL = "microsoft/Phi-4-mini-instruct"  # NOTE: we haven't tested the performance of this model beyond examples</div>
+BASE_MODEL = "microsoft/Phi-4-mini-instruct"  # NOTE: we haven't tested the performance of this model beyond examples
+MAX_CONTEXT_LENGTH = 8192  # Set this based on memory and model capabilities</div>
 </div>
 </div>
 </div>
@@ -2382,7 +2468,7 @@ BASE_MODEL = "microsoft/Phi-4-mini-instruct"  # NOTE: we haven't tested the perf
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>First, we need to set up the configuration. This includes specifying which constant variables to use.</p>
+<p>First, we need to set up the configuration. This includes specifying where we want to split, which variables we want to predict and which constant variables to use.</p>
 </div>
 </div>
 </div>
@@ -2409,19 +2495,78 @@ BASE_MODEL = "microsoft/Phi-4-mini-instruct"  # NOTE: we haven't tested the perf
 <span class="n">df_events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"./example_data/events.csv"</span><span class="p">)</span>
 <span class="n">df_constant</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"./example_data/constant.csv"</span><span class="p">)</span>
 <span class="n">df_constant_description</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"./example_data/constant_description.csv"</span><span class="p">)</span>
-
-<span class="c1"># Manually set up which constant columns we want to use</span>
-<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>  <span class="c1"># Override values here to customize pipeline</span>
-<span class="n">config</span><span class="o">.</span><span class="n">constant_columns_to_use</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"birthyear"</span><span class="p">,</span> <span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"histology"</span><span class="p">,</span> <span class="s2">"smoking_history"</span><span class="p">]</span>
-<span class="n">config</span><span class="o">.</span><span class="n">constant_birthdate_column</span> <span class="o">=</span> <span class="s2">"birthyear"</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-3"># Load data
 df_events = pd.read_csv("./example_data/events.csv")
 df_constant = pd.read_csv("./example_data/constant.csv")
-df_constant_description = pd.read_csv("./example_data/constant_description.csv")
+df_constant_description = pd.read_csv("./example_data/constant_description.csv")</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-4">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Manually set up which constant columns we want to use</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>  <span class="c1"># Override values here to customize pipeline</span>
 
-# Manually set up which constant columns we want to use
+<span class="c1"># &lt;---------------------- CRITICAL CONFIGURATION ----------------------&gt;</span>
+<span class="c1"># 1. Event category used for data splitting (e.g., split data around Lines of Therapy 'lot')</span>
+<span class="c1"># Has to be set for all instruction tasks</span>
+<span class="n">config</span><span class="o">.</span><span class="n">split_event_category</span> <span class="o">=</span> <span class="s2">"lot"</span>
+
+<span class="c1"># 2. List of event categories we want to forecast (e.g., forecasting 'lab' values)</span>
+<span class="c1"># Only needs to be set if you want to forecast variables</span>
+<span class="n">config</span><span class="o">.</span><span class="n">event_category_forecast</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"lab"</span><span class="p">]</span>
+
+<span class="c1"># 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')</span>
+<span class="c1"># Only needs to be set if you want to do time to event prediction</span>
+<span class="n">config</span><span class="o">.</span><span class="n">data_splitter_events_variables_category_mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"death"</span><span class="p">:</span> <span class="s2">"death"</span><span class="p">,</span>
+    <span class="s2">"progression"</span><span class="p">:</span> <span class="s2">"next progression"</span><span class="p">,</span>  <span class="c1"># Custom name in prompt: "next progression" instead of "progression"</span>
+<span class="p">}</span>
+
+<span class="c1"># Optional configs, here to correctly use the static information</span>
+<span class="n">config</span><span class="o">.</span><span class="n">constant_columns_to_use</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"birthyear"</span><span class="p">,</span> <span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"histology"</span><span class="p">,</span> <span class="s2">"smoking_history"</span><span class="p">]</span>
+<span class="n">config</span><span class="o">.</span><span class="n">constant_birthdate_column</span> <span class="o">=</span> <span class="s2">"birthyear"</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-4"># Manually set up which constant columns we want to use
 config = Config()  # Override values here to customize pipeline
+
+# &lt;---------------------- CRITICAL CONFIGURATION ----------------------&gt;
+# 1. Event category used for data splitting (e.g., split data around Lines of Therapy 'lot')
+# Has to be set for all instruction tasks
+config.split_event_category = "lot"
+
+# 2. List of event categories we want to forecast (e.g., forecasting 'lab' values)
+# Only needs to be set if you want to forecast variables
+config.event_category_forecast = ["lab"]
+
+# 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')
+# Only needs to be set if you want to do time to event prediction
+config.data_splitter_events_variables_category_mapping = {
+    "death": "death",
+    "progression": "next progression",  # Custom name in prompt: "next progression" instead of "progression"
+}
+
+# Optional configs, here to correctly use the static information
 config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
 config.constant_birthdate_column = "birthyear"</div>
 </div>
@@ -2430,7 +2575,7 @@ config.constant_birthdate_column = "birthyear"</div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2447,7 +2592,7 @@ config.constant_birthdate_column = "birthyear"</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2455,7 +2600,7 @@ config.constant_birthdate_column = "birthyear"</div>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-4">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-5">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -2487,13 +2632,13 @@ config.constant_birthdate_column = "birthyear"</div>
 <span class="n">data_splitter</span> <span class="o">=</span> <span class="n">DataSplitter</span><span class="p">(</span><span class="n">data_splitter_events</span><span class="p">,</span> <span class="n">data_splitter_forecasting</span><span class="p">)</span>
 
 <span class="n">converter</span> <span class="o">=</span> <span class="n">ConverterInstruction</span><span class="p">(</span>
-    <span class="n">nr_tokens_budget_total</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
+    <span class="n">nr_tokens_budget_total</span><span class="o">=</span><span class="n">MAX_CONTEXT_LENGTH</span><span class="p">,</span>
     <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
     <span class="n">dm</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
     <span class="n">variable_stats</span><span class="o">=</span><span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">variable_stats</span><span class="p">,</span>  <span class="c1"># Optional, needed for forecasting QA tasks</span>
 <span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-4">dm = DataManager(config=config)
+<div class="clipboard-copy-txt" id="cell-5">dm = DataManager(config=config)
 dm.load_indication_data(df_events=df_events, df_constant=df_constant, df_constant_description=df_constant_description)
 dm.process_indication_data()
 dm.setup_unique_mapping_of_events()
@@ -2515,7 +2660,7 @@ data_splitter_forecasting.setup_statistics()
 data_splitter = DataSplitter(data_splitter_events, data_splitter_forecasting)
 
 converter = ConverterInstruction(
-    nr_tokens_budget_total=8192,
+    nr_tokens_budget_total=MAX_CONTEXT_LENGTH,
     config=config,
     dm=dm,
     variable_stats=data_splitter_forecasting.variable_stats,  # Optional, needed for forecasting QA tasks
@@ -2526,7 +2671,7 @@ converter = ConverterInstruction(
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2534,7 +2679,7 @@ converter = ConverterInstruction(
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-5">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-6">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -2548,7 +2693,7 @@ converter = ConverterInstruction(
 <span class="n">training_patientids</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_all_patientids_in_split</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">train_split_name</span><span class="p">)</span>
 <span class="n">validation_patientids</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_all_patientids_in_split</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">validation_split_name</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-5"># Get all training + validation patientids
+<div class="clipboard-copy-txt" id="cell-6"># Get all training + validation patientids
 training_patientids = dm.get_all_patientids_in_split(config.train_split_name)
 validation_patientids = dm.get_all_patientids_in_split(config.validation_split_name)</div>
 </div>
@@ -2557,7 +2702,7 @@ validation_patientids = dm.get_all_patientids_in_split(config.validation_split_n
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=10">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2570,7 +2715,7 @@ The result is a DataFrame with "prompt" and "completion" columns.</p>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=10">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=11">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2578,7 +2723,7 @@ The result is a DataFrame with "prompt" and "completion" columns.</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-6">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-7">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -2615,7 +2760,7 @@ The result is a DataFrame with "prompt" and "completion" columns.</p>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-6">def generate_transformers_df(patientids_list):
+<div class="clipboard-copy-txt" id="cell-7">def generate_transformers_df(patientids_list):
     df = []
 
     for patientid in patientids_list:
@@ -2647,37 +2792,6 @@ The result is a DataFrame with "prompt" and "completion" columns.</p>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=11">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-7">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Generate training and validation dfs</span>
-<span class="n">df_train</span> <span class="o">=</span> <span class="n">generate_transformers_df</span><span class="p">(</span><span class="n">training_patientids</span><span class="p">)</span>
-<span class="n">df_validation</span> <span class="o">=</span> <span class="n">generate_transformers_df</span><span class="p">(</span><span class="n">validation_patientids</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-7"># Generate training and validation dfs
-df_train = generate_transformers_df(training_patientids)
-df_validation = generate_transformers_df(validation_patientids)</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=12">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -2696,22 +2810,42 @@ df_validation = generate_transformers_df(validation_patientids)</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">df_train</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Generate training and validation dfs</span>
+<span class="n">df_train</span> <span class="o">=</span> <span class="n">generate_transformers_df</span><span class="p">(</span><span class="n">training_patientids</span><span class="p">)</span>
+<span class="n">df_validation</span> <span class="o">=</span> <span class="n">generate_transformers_df</span><span class="p">(</span><span class="n">validation_patientids</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-8">df_train</div>
+<div class="clipboard-copy-txt" id="cell-8"># Generate training and validation dfs
+df_train = generate_transformers_df(training_patientids)
+df_validation = generate_transformers_df(validation_patientids)</div>
 </div>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=13">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=13">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="fine-tune-llm">Fine-tune LLM<a class="anchor-link" href="#fine-tune-llm">¶</a></h2>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-9">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">df_train</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-9">df_train</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2722,12 +2856,23 @@ df_validation = generate_transformers_df(validation_patientids)</div>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="fine-tune-llm">Fine-tune LLM<a class="anchor-link" href="#fine-tune-llm">¶</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=15">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>We start by setting up the tokenizer. We set the padding token to be the same as the EOS (End of Sequence) token, which is a common practice for causal language models.</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=15">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=16">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2735,7 +2880,7 @@ df_validation = generate_transformers_df(validation_patientids)</div>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-9">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-10">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -2755,7 +2900,7 @@ df_validation = generate_transformers_df(validation_patientids)</div>
 <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span>
 <span class="n">validation_dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">df_validation</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-9"># Setup tokenizer and datasets
+<div class="clipboard-copy-txt" id="cell-10"># Setup tokenizer and datasets
 tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL)
 
 # Set padding token to eos_token
@@ -2770,7 +2915,7 @@ validation_dataset = Dataset.from_pandas(df_validation)</div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=16">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=17">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2782,7 +2927,7 @@ We use <code>format_chat_template</code> to structure our raw prompt/completion 
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=17">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=18">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2790,7 +2935,7 @@ We use <code>format_chat_template</code> to structure our raw prompt/completion 
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-10">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-11">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -2813,7 +2958,7 @@ We use <code>format_chat_template</code> to structure our raw prompt/completion 
 <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">format_chat_template</span><span class="p">)</span>
 <span class="n">validation_dataset</span> <span class="o">=</span> <span class="n">validation_dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">format_chat_template</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-10"># Format data for chat template
+<div class="clipboard-copy-txt" id="cell-11"># Format data for chat template
 def format_chat_template(example):
     """Convert prompt/completion pairs to proper prompt/completion format"""
     return {
@@ -2831,7 +2976,7 @@ validation_dataset = validation_dataset.map(format_chat_template)</div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=18">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=19">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2842,7 +2987,7 @@ validation_dataset = validation_dataset.map(format_chat_template)</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=19">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=20">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2850,7 +2995,7 @@ validation_dataset = validation_dataset.map(format_chat_template)</div>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-11">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-12">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -2868,7 +3013,7 @@ validation_dataset = validation_dataset.map(format_chat_template)</div>
     <span class="n">bnb_4bit_use_double_quant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-11"># Define Quantization Config (4-bit loading)
+<div class="clipboard-copy-txt" id="cell-12"># Define Quantization Config (4-bit loading)
 bnb_config = BitsAndBytesConfig(
     load_in_4bit=True,
     bnb_4bit_quant_type="nf4",
@@ -2881,7 +3026,7 @@ bnb_config = BitsAndBytesConfig(
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=20">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=21">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2892,7 +3037,7 @@ bnb_config = BitsAndBytesConfig(
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=21">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=22">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2900,7 +3045,7 @@ bnb_config = BitsAndBytesConfig(
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-12">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-13">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -2920,7 +3065,7 @@ bnb_config = BitsAndBytesConfig(
     <span class="n">target_modules</span><span class="o">=</span><span class="p">[</span><span class="s2">"q_proj"</span><span class="p">,</span> <span class="s2">"k_proj"</span><span class="p">,</span> <span class="s2">"v_proj"</span><span class="p">,</span> <span class="s2">"o_proj"</span><span class="p">,</span> <span class="s2">"gate_proj"</span><span class="p">,</span> <span class="s2">"up_proj"</span><span class="p">,</span> <span class="s2">"down_proj"</span><span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-12">peft_config = LoraConfig(
+<div class="clipboard-copy-txt" id="cell-13">peft_config = LoraConfig(
     lora_alpha=16,
     lora_dropout=0.1,
     r=8,  # Rank (higher = more parameters to train)
@@ -2935,7 +3080,7 @@ bnb_config = BitsAndBytesConfig(
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=22">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=23">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2946,7 +3091,7 @@ bnb_config = BitsAndBytesConfig(
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=23">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=24">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2954,7 +3099,7 @@ bnb_config = BitsAndBytesConfig(
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-13">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-14">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -2983,12 +3128,12 @@ bnb_config = BitsAndBytesConfig(
     <span class="n">group_by_length</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">save_total_limit</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">lr_scheduler_type</span><span class="o">=</span><span class="s2">"cosine"</span><span class="p">,</span>
-    <span class="n">max_length</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
+    <span class="n">max_length</span><span class="o">=</span><span class="n">MAX_CONTEXT_LENGTH</span><span class="p">,</span>
     <span class="n">packing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># Disable packing for instruction tuning</span>
     <span class="n">completion_only_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Only compute loss on assistant responses</span>
 <span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-13">training_arguments = SFTConfig(
+<div class="clipboard-copy-txt" id="cell-14">training_arguments = SFTConfig(
     output_dir="./results",
     num_train_epochs=2,
     per_device_train_batch_size=1,
@@ -3007,53 +3152,10 @@ bnb_config = BitsAndBytesConfig(
     group_by_length=True,
     save_total_limit=1,
     lr_scheduler_type="cosine",
-    max_length=8192,
+    max_length=MAX_CONTEXT_LENGTH,
     packing=False,  # Disable packing for instruction tuning
     completion_only_loss=True,  # Only compute loss on assistant responses
 )</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=24">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-14">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
-    <span class="n">BASE_MODEL</span><span class="p">,</span>
-    <span class="n">quantization_config</span><span class="o">=</span><span class="n">bnb_config</span><span class="p">,</span>
-    <span class="n">device_map</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
-    <span class="n">trust_remote_code</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Disable cache for training (required for gradient checkpointing)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">use_cache</span> <span class="o">=</span> <span class="kc">False</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-14">model = AutoModelForCausalLM.from_pretrained(
-    BASE_MODEL,
-    quantization_config=bnb_config,
-    device_map="auto",
-    trust_remote_code=False,
-)
-
-# Disable cache for training (required for gradient checkpointing)
-model.config.use_cache = False</div>
 </div>
 </div>
 </div>
@@ -3078,23 +3180,25 @@ model.config.use_cache = False</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">SFTTrainer</span><span class="p">(</span>
-    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
-    <span class="n">train_dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span>
-    <span class="n">processing_class</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">,</span>
-    <span class="n">args</span><span class="o">=</span><span class="n">training_arguments</span><span class="p">,</span>
-    <span class="n">eval_dataset</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">,</span>
-    <span class="n">peft_config</span><span class="o">=</span><span class="n">peft_config</span><span class="p">,</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+    <span class="n">BASE_MODEL</span><span class="p">,</span>
+    <span class="n">quantization_config</span><span class="o">=</span><span class="n">bnb_config</span><span class="p">,</span>
+    <span class="n">device_map</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
+    <span class="n">trust_remote_code</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="c1"># Disable cache for training (required for gradient checkpointing)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">use_cache</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-15">trainer = SFTTrainer(
-    model=model,
-    train_dataset=train_dataset,
-    processing_class=tokenizer,
-    args=training_arguments,
-    eval_dataset=validation_dataset,
-    peft_config=peft_config,
-)</div>
+<div class="clipboard-copy-txt" id="cell-15">model = AutoModelForCausalLM.from_pretrained(
+    BASE_MODEL,
+    quantization_config=bnb_config,
+    device_map="auto",
+    trust_remote_code=False,
+)
+
+# Disable cache for training (required for gradient checkpointing)
+model.config.use_cache = False</div>
 </div>
 </div>
 </div>
@@ -3119,11 +3223,23 @@ model.config.use_cache = False</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Start training - takes around 5 mins, depending on hardware</span>
-<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">SFTTrainer</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">train_dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span>
+    <span class="n">processing_class</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="n">training_arguments</span><span class="p">,</span>
+    <span class="n">eval_dataset</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">,</span>
+    <span class="n">peft_config</span><span class="o">=</span><span class="n">peft_config</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-16"># Start training - takes around 5 mins, depending on hardware
-trainer.train()</div>
+<div class="clipboard-copy-txt" id="cell-16">trainer = SFTTrainer(
+    model=model,
+    train_dataset=train_dataset,
+    processing_class=tokenizer,
+    args=training_arguments,
+    eval_dataset=validation_dataset,
+    peft_config=peft_config,
+)</div>
 </div>
 </div>
 </div>
@@ -3148,6 +3264,35 @@ trainer.train()</div>
 </div>
 </clipboard-copy>
 </div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Start training - takes around 5 mins, depending on hardware</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-17"># Start training - takes around 5 mins, depending on hardware
+trainer.train()</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=28">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-18">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Save the fine-tuned adapter</span>
 <span class="n">adapter_path</span> <span class="o">=</span> <span class="s2">"./results/final_adapter"</span>
 <span class="n">trainer</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">adapter_path</span><span class="p">)</span>
@@ -3158,7 +3303,7 @@ trainer.train()</div>
 <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">empty_cache</span><span class="p">()</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-17"># Save the fine-tuned adapter
+<div class="clipboard-copy-txt" id="cell-18"># Save the fine-tuned adapter
 adapter_path = "./results/final_adapter"
 trainer.save_model(adapter_path)
 print(f"Adapter saved to {adapter_path}")
@@ -3173,7 +3318,7 @@ torch.cuda.empty_cache()</div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=28">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=29">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3184,7 +3329,7 @@ torch.cuda.empty_cache()</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=29">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=30">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3192,7 +3337,7 @@ torch.cuda.empty_cache()</div>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-18">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-19">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -3216,7 +3361,7 @@ torch.cuda.empty_cache()</div>
 <span class="c1"># Only keep data until (and including) first line of therapy</span>
 <span class="n">df_events_patient</span> <span class="o">=</span> <span class="n">df_events_patient</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_events_patient</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">date_of_first_lot</span><span class="p">]</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-18"># Get the first test set patient
+<div class="clipboard-copy-txt" id="cell-19"># Get the first test set patient
 test_patientid = dm.get_all_patientids_in_split(config.test_split_name)[0]
 patient_data = dm.get_patient_data(test_patientid)
 
@@ -3235,7 +3380,7 @@ df_events_patient = df_events_patient.loc[df_events_patient["date"] &lt;= date_o
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=30">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=31">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3243,7 +3388,7 @@ df_events_patient = df_events_patient.loc[df_events_patient["date"] &lt;= date_o
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-19">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-20">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -3267,7 +3412,7 @@ df_events_patient = df_events_patient.loc[df_events_patient["date"] &lt;= date_o
     <span class="n">events_override_observation_time_delta</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">52</span> <span class="o">*</span> <span class="mi">7</span><span class="p">),</span>
 <span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-19"># Lets forecast hemoglobin at 4, 8, and 12 weeks
+<div class="clipboard-copy-txt" id="cell-20"># Lets forecast hemoglobin at 4, 8, and 12 weeks
 # and death within 52 weeks
 forecasting_times_to_predict = {
     "hemoglobin_-_718-7": [4, 8, 12],
@@ -3286,7 +3431,7 @@ forecast_split, events_split = data_splitter.get_splits_from_patient_inference(
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=31">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=32">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3297,7 +3442,7 @@ forecast_split, events_split = data_splitter.get_splits_from_patient_inference(
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=32">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=33">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3305,7 +3450,7 @@ forecast_split, events_split = data_splitter.get_splits_from_patient_inference(
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-20">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-21">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -3323,7 +3468,7 @@ forecast_split, events_split = data_splitter.get_splits_from_patient_inference(
     <span class="n">custom_tasks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-20"># Convert to instruction
+<div class="clipboard-copy-txt" id="cell-21"># Convert to instruction
 converted = converter.forward_conversion_inference(
     forecasting_split=forecast_split,
     forecasting_future_weeks_per_variable=forecasting_times_to_predict,
@@ -3336,7 +3481,7 @@ converted = converter.forward_conversion_inference(
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=33">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=34">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3347,7 +3492,7 @@ converted = converter.forward_conversion_inference(
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=34">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=35">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3358,7 +3503,7 @@ converted = converter.forward_conversion_inference(
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=35">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=36">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3366,7 +3511,7 @@ converted = converter.forward_conversion_inference(
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-21">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-22">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -3391,7 +3536,7 @@ converted = converter.forward_conversion_inference(
 <span class="c1"># 3. Switch to evaluation mode</span>
 <span class="n">inference_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-21"># 1. Load the Base Model again (clean instance)
+<div class="clipboard-copy-txt" id="cell-22"># 1. Load the Base Model again (clean instance)
 base_model_inference = AutoModelForCausalLM.from_pretrained(
     BASE_MODEL,
     quantization_config=bnb_config,  # Reuse the 4-bit config
@@ -3405,39 +3550,6 @@ inference_model = PeftModel.from_pretrained(base_model_inference, adapter_path)
 
 # 3. Switch to evaluation mode
 inference_model.eval()</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=36">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-22">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Create text generation pipeline</span>
-<span class="c1"># Re-enable cache for inference</span>
-<span class="n">inference_model</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">use_cache</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">text_gen_pipeline</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">"text-generation"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">inference_model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-22"># Create text generation pipeline
-# Re-enable cache for inference
-inference_model.config.use_cache = True
-text_gen_pipeline = pipeline("text-generation", model=inference_model, tokenizer=tokenizer)</div>
 </div>
 </div>
 </div>
@@ -3462,25 +3574,15 @@ text_gen_pipeline = pipeline("text-generation", model=inference_model, tokenizer
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Generate with LLM</span>
-<span class="n">generated_answer</span> <span class="o">=</span> <span class="n">text_gen_pipeline</span><span class="p">(</span>
-    <span class="p">[{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">converted</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">]}],</span>
-    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
-    <span class="n">return_full_text</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">do_sample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Using nucleus sampling</span>
-    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
-    <span class="n">top_p</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
-<span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"generated_text"</span><span class="p">]</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Create text generation pipeline</span>
+<span class="c1"># Re-enable cache for inference</span>
+<span class="n">inference_model</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">use_cache</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">text_gen_pipeline</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">"text-generation"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">inference_model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-23"># Generate with LLM
-generated_answer = text_gen_pipeline(
-    [{"role": "user", "content": converted["instruction"]}],
-    max_new_tokens=128,
-    return_full_text=False,
-    do_sample=True,  # Using nucleus sampling
-    temperature=0.7,
-    top_p=0.9,
-)[0]["generated_text"]</div>
+<div class="clipboard-copy-txt" id="cell-23"># Create text generation pipeline
+# Re-enable cache for inference
+inference_model.config.use_cache = True
+text_gen_pipeline = pipeline("text-generation", model=inference_model, tokenizer=tokenizer)</div>
 </div>
 </div>
 </div>
@@ -3505,29 +3607,32 @@ generated_answer = text_gen_pipeline(
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Show the generated answer</span>
-<span class="n">generated_answer</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Generate with LLM</span>
+<span class="n">generated_answer</span> <span class="o">=</span> <span class="n">text_gen_pipeline</span><span class="p">(</span>
+    <span class="p">[{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">converted</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">]}],</span>
+    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+    <span class="n">return_full_text</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">do_sample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Using nucleus sampling</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+    <span class="n">top_p</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+<span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"generated_text"</span><span class="p">]</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-24"># Show the generated answer
-generated_answer</div>
+<div class="clipboard-copy-txt" id="cell-24"># Generate with LLM
+generated_answer = text_gen_pipeline(
+    [{"role": "user", "content": converted["instruction"]}],
+    max_new_tokens=128,
+    return_full_text=False,
+    do_sample=True,  # Using nucleus sampling
+    temperature=0.7,
+    top_p=0.9,
+)[0]["generated_text"]</div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=39">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The raw text output from the model needs to be parsed back into structured data. <code>reverse_conversion</code> handles this, returning a list of dictionaries with the predicted results for each task.</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=40">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=39">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3545,13 +3650,24 @@ generated_answer</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Reverse convert</span>
-<span class="n">return_list</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">reverse_conversion</span><span class="p">(</span><span class="n">generated_answer</span><span class="p">,</span> <span class="n">dm</span><span class="p">,</span> <span class="n">date_of_first_lot</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Show the generated answer</span>
+<span class="n">generated_answer</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-25"># Reverse convert
-return_list = converter.reverse_conversion(generated_answer, dm, date_of_first_lot)</div>
+<div class="clipboard-copy-txt" id="cell-25"># Show the generated answer
+generated_answer</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=40">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The raw text output from the model needs to be parsed back into structured data. <code>reverse_conversion</code> handles this, returning a list of dictionaries with the predicted results for each task.</p>
 </div>
 </div>
 </div>
@@ -3574,11 +3690,11 @@ return_list = converter.reverse_conversion(generated_answer, dm, date_of_first_l
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Task 1 reverse conversion</span>
-<span class="n">return_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"result"</span><span class="p">]</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Reverse convert</span>
+<span class="n">return_list</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">reverse_conversion</span><span class="p">(</span><span class="n">generated_answer</span><span class="p">,</span> <span class="n">dm</span><span class="p">,</span> <span class="n">date_of_first_lot</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-26"># Task 1 reverse conversion
-return_list[0]["result"]</div>
+<div class="clipboard-copy-txt" id="cell-26"># Reverse convert
+return_list = converter.reverse_conversion(generated_answer, dm, date_of_first_lot)</div>
 </div>
 </div>
 </div>
@@ -3603,10 +3719,39 @@ return_list[0]["result"]</div>
 </div>
 </clipboard-copy>
 </div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Task 1 reverse conversion</span>
+<span class="n">return_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"result"</span><span class="p">]</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-27"># Task 1 reverse conversion
+return_list[0]["result"]</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=43">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-28">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Task 2 reverse conversion</span>
 <span class="n">return_list</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"result"</span><span class="p">]</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-27"># Task 2 reverse conversion
+<div class="clipboard-copy-txt" id="cell-28"># Task 2 reverse conversion
 return_list[1]["result"]</div>
 </div>
 </div>

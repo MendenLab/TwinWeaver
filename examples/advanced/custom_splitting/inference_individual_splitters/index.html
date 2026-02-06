@@ -566,6 +566,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../pro-tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pro Tips
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../api-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../contributing/" class="md-nav__link">
         
   
@@ -1617,6 +1673,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/utils/preprocessing_helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preprocessing Helpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2107,7 +2191,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <!-- End of mermaid configuration --><div class="jupyter-wrapper">
 <div class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=97d1ac4e">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7e8ab341">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2148,7 +2232,7 @@ import pandas as pd</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=630a94e8">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=aeac0850">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2170,8 +2254,16 @@ import pandas as pd</div>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="c1"># Set basics</span>
+        <span class="c1"># Set splitting and predictions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">split_event_category</span> <span class="o">=</span> <span class="s2">"lot"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">event_category_forecast</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"lab"</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">data_splitter_events_variables_category_mapping</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"death"</span><span class="p">:</span> <span class="s2">"death"</span><span class="p">,</span>
+            <span class="s2">"progression"</span><span class="p">:</span> <span class="s2">"next progression"</span><span class="p">,</span>  <span class="c1"># Custom name in prompt: "next progression" instead of "progression"</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Set constant</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">constant_columns_to_use</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s2">"birthyear"</span><span class="p">,</span>
             <span class="s2">"gender"</span><span class="p">,</span>
@@ -2241,14 +2333,14 @@ import pandas as pd</div>
                 <span class="n">nr_samples_per_split</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                 <span class="n">filter_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="n">override_split_dates</span><span class="o">=</span><span class="p">[</span><span class="n">split_date</span><span class="p">],</span>
-                <span class="n">override_variables_to_predict</span><span class="o">=</span><span class="p">[</span><span class="s2">"lab_26499_4"</span><span class="p">],</span>
+                <span class="n">override_variables_to_predict</span><span class="o">=</span><span class="p">[</span><span class="s2">"Neutrophils"</span><span class="p">],</span>
             <span class="p">)</span>
             <span class="c1"># We just pick the first one</span>
             <span class="n">forecast_split</span> <span class="o">=</span> <span class="n">forecast_splits</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
             <span class="c1"># We set which weeks to predict</span>
             <span class="n">forecasting_times_to_predict</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">"lab_26499_4"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
+                <span class="s2">"Neutrophils"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
             <span class="p">}</span>
 
             <span class="c1">#: no events split</span>
@@ -2267,8 +2359,16 @@ import pandas as pd</div>
     def __init__(
         self,
     ):
-        # Set basics
+        # Set splitting and predictions
         self.config = Config()
+        self.config.split_event_category = "lot"
+        self.config.event_category_forecast = ["lab"]
+        self.config.data_splitter_events_variables_category_mapping = {
+            "death": "death",
+            "progression": "next progression",  # Custom name in prompt: "next progression" instead of "progression"
+        }
+
+        # Set constant
         self.config.constant_columns_to_use = [
             "birthyear",
             "gender",
@@ -2338,14 +2438,14 @@ import pandas as pd</div>
                 nr_samples_per_split=1,
                 filter_outliers=False,
                 override_split_dates=[split_date],
-                override_variables_to_predict=["lab_26499_4"],
+                override_variables_to_predict=["Neutrophils"],
             )
             # We just pick the first one
             forecast_split = forecast_splits[0][0]
 
             # We set which weeks to predict
             forecasting_times_to_predict = {
-                "lab_26499_4": [1, 2, 8, 11],
+                "Neutrophils": [1, 2, 8, 11],
             }
 
             #: no events split
@@ -2365,7 +2465,7 @@ import pandas as pd</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=1d63e970">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=28614700">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2394,7 +2494,7 @@ converter = ConvertToText()</div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a942bc3e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9d01c1f9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2406,7 +2506,7 @@ Here we predict 52 week survival (as an event), and no forecasting</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=53a43ac7">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8df5b98f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2417,7 +2517,7 @@ Here we predict 52 week survival (as an event), and no forecasting</p>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=70a0ea7f">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4e3e2ddf">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2446,7 +2546,7 @@ all_patientids = all_patientids[:10]</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6c28998c">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=dfac1a81">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2487,7 +2587,7 @@ all_patientids = all_patientids[:10]</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=d836ddff">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=33a393dd">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
