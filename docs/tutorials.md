@@ -94,6 +94,23 @@ A complete notebook demonstrating how to train LLMs on full patient histories wi
 - **Training**: [`examples/advanced/custom_splitting/training_individual_splitters.ipynb`](examples/advanced/custom_splitting/training_individual_splitters.ipynb) — Notebook demonstrating training data generation with individual splitters.
 - **Custom Split Events**: [`examples/advanced/custom_splitting/training_custom_split_events.ipynb`](examples/advanced/custom_splitting/training_custom_split_events.ipynb) — Notebook showing how to customize split events and forecast different event categories (e.g., using genetic events as split points and forecasting vitals).
 
+### Custom Text Generation
+
+[`examples/advanced/custom_output/customizing_text_generation.ipynb`](examples/advanced/custom_output/customizing_text_generation.ipynb)
+
+A comprehensive tutorial on customizing **every textual component** of the instruction generation pipeline. TwinWeaver provides extensive configuration options to tailor generated text prompts to your specific use case.
+
+**What you'll learn:**
+
+- Customizing preamble and introduction text
+- Modifying demographics section formatting
+- Changing event day and time interval descriptions
+- Switching time units between days and weeks
+- Customizing genetic data tags and placeholder text
+- Modifying forecasting, time-to-event, and QA task prompts
+- Configuring multi-task instruction formatting
+- Fine-grained control over specific event categories with overrides
+
 ---
 
 ## 🔗 Integrations
