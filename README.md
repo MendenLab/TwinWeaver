@@ -187,7 +187,7 @@ Contains time-varying clinical data where each row represents a single event.
 
 | patientid | date | event_descriptive_name | event_category | event_name | event_value | meta_data | source |
 |:---|:---|:---|:---|:---|:---|:---|:---|
-| *Unique identifier for the patient* | *Date of the event* | *Human-readable name used in the text output*  | *(Optional) Category (e.g., `lab`, `drug`), used for determining splits & tasks* | *(Optional) Specific event identifier* | *Value associated with the event, used in text output* | *(Optional) Additional metadata* | *(Optional) Modality of data - default to "events", alternatively "genetic"* |
+| *Unique identifier for the patient* | *Date of the event (processable by pandas.to_datetime)* | *Human-readable name used in the text output*  | *(Optional) Category (e.g., `lab`, `drug`), used for determining splits & tasks* | *(Optional) Specific event identifier* | *Value associated with the event, used in text output* | *(Optional) Additional metadata* | *(Optional) Modality of data - default to "events", alternatively "genetic"* |
 
 #### 2. Patient Constants (`constant.csv`)
 Contains static patient information (demographics, baseline characteristics). One row per patient.

@@ -9,7 +9,7 @@ Contains time-varying clinical data where each row represents a single event.
 | Column | Description |
 |--------|-------------|
 | `patientid` | Unique identifier for the patient |
-| `date` | Date of the event |
+| `date` | Date of the event (processable by pandas.to_datetime) |
 | `event_descriptive_name` | Human-readable name used in the text output |
 | `event_category` | *(Optional)* Category (e.g., `lab`, `drug`), used for determining splits & tasks |
 | `event_name` | *(Optional)* Specific event identifier |
