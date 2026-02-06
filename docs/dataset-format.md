@@ -69,6 +69,60 @@ diagnosis_stage,Cancer stage at diagnosis
 
 ---
 
+## Conceptual Overview of Text Transformation
+
+The `Converter` transforms the structured data splits into natural language:
+
+#### Constants → Demographics Text
+
+Static patient information is converted into readable sentences:
+
+| Input (DataFrame) | Output (Text) |
+|-------------------|---------------|
+| `birthyear: 1965` | "Year of birth is 1965" |
+| `gender: Female` | "Patient gender is female" |
+
+#### Events → Temporal Narrative
+
+Longitudinal events are organized by visit date and converted to natural language with relative time references:
+
+**Input (Events DataFrame):**
+```
+date        | event_descriptive_name | event_value
+2024-01-15  | Hemoglobin            | 12.5
+2024-01-15  | White Blood Cells     | 7.2
+2024-01-29  | Hemoglobin            | 11.8
+```
+
+**Output (Text):**
+```
+On the first visit, the patient experienced the following:
+    Hemoglobin is 12.5,
+    White Blood Cells is 7.2.
+
+2 weeks later, the patient visited and experienced the following:
+    Hemoglobin is 11.8.
+```
+
+### Final Output Structure
+
+For training, TwinWeaver produces input-target pairs:
+
+```
+Input:
+    [Preamble explaining data structure]
+    [Demographics section]
+    [Chronological event narrative]
+    [Task-specific prompt]
+
+Target:
+    [Expected model response - predicted values or outcomes]
+```
+
+For inference, only the input portion is generated, and the model produces the target predictions.
+
+---
+
 ## Best Practices for Data Processing
 
 When transforming raw clinical data into TwinWeaver format, following these principles will help you get the most out of your data.
