@@ -2,8 +2,6 @@
 
 This directory contains examples demonstrating how to use TwinWeaver for various tasks including data preparation, inference, and fine-tuning.
 
-> **NOTE:** The data used in this directory can be found in the Github repo in [redacted](redacted).
-
 ## Data Preprocessing
 
 *   **[data_preprocessing/raw_data_preprocessing.ipynb](data_preprocessing/raw_data_preprocessing.ipynb)**: **Start here if you have raw clinical data.** Shows how to transform raw EHR exports into the three TwinWeaver dataframes (`df_events`, `df_constant`, `df_constant_description`), including handling death events and other time-to-event outcomes.
@@ -21,11 +19,12 @@ Located in the `advanced/` directory, these examples cover more specific use cas
 ### Custom Splitting (`advanced/custom_splitting/`)
 
 *   **[training_individual_splitters.ipynb](advanced/custom_splitting/training_individual_splitters.ipynb)**: Demonstrates data preparation using individual data splitters for more granular control.
-*   **[inference_individual_splitters.py](advanced/custom_splitting/inference_individual_splitters.md)**: A Python script showing how to run inference using the individual splitter setup.
+*   **[inference_individual_splitters.py](advanced/custom_splitting/inference_individual_splitters.py)**: A Python script showing how to run inference using the individual splitter setup.
 
 ### Pretraining (`advanced/pretraining/`)
 
-*   **[prepare_pretraining_data.py](advanced/pretraining/prepare_pretraining_data.md)**: A script to prepare data for the pretraining phase.
+*   **[prepare_pretraining_data.py](advanced/pretraining/prepare_pretraining_data.py)**: A script to prepare data for the pretraining phase.
+*   **[end_to_end_llm_training_with_pretrain.ipynb](advanced/pretraining/end_to_end_llm_training_with_pretrain.ipynb)**: An end-to-end example for training LLMs on full patient histories without a specific task, useful for developing models that can generate synthetic patients or embeddings.
 
 ## Integrations
 

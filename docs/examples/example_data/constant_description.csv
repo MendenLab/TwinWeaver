@@ -1,0 +1,6 @@
+variable,comment
+patientid,Unique patient identifier
+birthyear,Age of patient at first event
+gender,Gender of the patient
+histology,Histological subtype of NSCLC
+smoking_history,Smoking status at diagnosis
