@@ -21,11 +21,6 @@ This project is a collaboration between Roche and Helmholtz Munich, as part of t
 
 ## ⚙️ Installation
 
-### Requirements
-
-- Python 3.8 or higher
-- Core dependencies: `pandas`, `numpy`, `transformers`, `scikit-learn`
-
 ### Install from PyPi
 
 To install the package:
@@ -34,7 +29,19 @@ To install the package:
 pip install twinweaver
 ```
 
+### Requirements
+
+- Python 3.8 or higher
+- Core dependencies: `pandas`, `numpy`, `transformers`, `scikit-learn`
+
+
 The following sections will explain the tutorials/examples and afterwards the [quick start guide](#-quick-start).
+
+
+## 📚 Documentation
+
+Full documentation is available [https://mendenlab.github.io/TwinWeaver/](https://mendenlab.github.io/TwinWeaver/).
+
 
 ## 💡 Tutorials & Examples
 
@@ -85,13 +92,6 @@ TwinWeaver addresses the challenge of modeling sparse, multi-modal clinical time
     *   **Time-Series Forecasting**: Forecasting frequently measured values such as blood biomarkers or vital signs.
     *   **Landmark Event Prediction**: Predicting patient event status (e.g., survival, disease progression) at future time points using a landmarking framework.
 3. **Flexible Horizon:** Supports sampling split times and prediction horizons to avoid overfitting to specific canonical time points.
-
-
-
-
-## 📚 Documentation
-
-Full documentation is available [https://mendenlab.github.io/TwinWeaver/](https://mendenlab.github.io/TwinWeaver/).
 
 
 

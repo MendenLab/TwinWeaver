@@ -49,6 +49,14 @@ TwinWeaver is a longitudinal framework for LLM-based Patient Digital Twins. It s
 
     [:octicons-arrow-right-24: Dataset Format](dataset-format.md)
 
+-   :material-lightbulb-on:{ .lg .middle } **Pro Tips**
+
+    ---
+
+    Debugging, scaling, and optimization advice
+
+    [:octicons-arrow-right-24: Pro Tips](pro-tips.md)
+
 </div>
 
 ---

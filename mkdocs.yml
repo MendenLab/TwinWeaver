@@ -119,6 +119,7 @@ nav:
       - Quick Start: quickstart.md
       - Framework Overview: framework.md
       - Dataset Format: dataset-format.md
+      - Pro Tips: pro-tips.md
       - Contributing: contributing.md
       - Citation: citation.md
   - Examples:
