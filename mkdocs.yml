@@ -148,3 +148,4 @@ nav:
           - Converter Pretrain: reference/pretrain/converter_pretrain.md
       - Utils:
           - MEDS Importer: reference/utils/meds_importer.md
+          - Preprocessing Helpers: reference/utils/preprocessing_helpers.md
