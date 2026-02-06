@@ -48,6 +48,15 @@ TwinWeaver supports two primary data formats, each serving a distinct stage in t
 - **Input**: Patient history up to a specific time point + a list of specific questions (e.g., "Forecast the next 3 weeks of hemoglobin values")
 - **Target**: The ground truth answers to those questions
 
+!!! important "Configuration Required"
+    Instruction tuning requires explicit configuration of splitting and prediction variables:
+
+    - `config.split_event_category`: Event category used to anchor split points (e.g., `"lot"` for line of therapy)
+    - `config.event_category_forecast`: List of event categories to forecast (e.g., `["lab"]`)
+    - `config.data_splitter_events_variables_category_mapping`: Mapping of events to prediction tasks (e.g., death, progression)
+
+    See the [Quick Start](quickstart.md) or [Data Preparation Tutorial](examples/01_data_preparation_for_training.ipynb) for examples.
+
 ---
 
 ## Genie Digital Twin (GDT)

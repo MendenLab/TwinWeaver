@@ -96,7 +96,7 @@ class DataSplitterForecasting(BaseDataSplitter):
     min_nr_variable_seen_after : int
         Minimum occurrences of a variable required within the forecast period after a split date.
     list_of_valid_categories : list
-        Event categories (e.g., ['LABS']) to consider for forecasting tasks.
+        Event categories (e.g., ['lab']) to consider for forecasting tasks.
     save_path_for_variable_stats : str | None
         Optional path to save the computed `variable_stats` DataFrame.
     min_nr_variables_to_sample : int
@@ -181,6 +181,12 @@ class DataSplitterForecasting(BaseDataSplitter):
             max_split_length_after_split_event,
             max_lookback_time_for_value,
             max_forecast_time_for_value,
+        )
+
+        assert self.config.event_category_forecast is not None or list_of_valid_categories is not None, (
+            "event_category_forecast must be set in Config for DataSplitterForecasting."
+            "For example: ['lab']"
+            " Alternatively, provide list_of_valid_categories directly."
         )
 
         self.variable_stats = None
@@ -966,14 +972,14 @@ class DataSplitterForecasting(BaseDataSplitter):
         events = patient_data["events"]
 
         # Do some quick sanity checks
-        if self.config.warning_for_splitters_patient_without_lots:
+        if self.config.warning_for_splitters_patient_without_splits:
             lot_events = events[events[self.config.event_category_col] == self.config.event_category_lot]
             if lot_events.shape[0] == 0:
                 logging.warning(
                     "Patient "
                     + str(patient_data["constant"][self.config.patient_id_col].iloc[0])
-                    + " has no LoT events. Forecasting splits may be invalid."
-                    "To disable this warning, set warning_for_splitters_patient_without_lots to False in config."
+                    + " has no split events. Forecasting splits may be invalid."
+                    "To disable this warning, set warning_for_splitters_patient_without_splits to False in config."
                 )
 
         if override_categories_to_predict is not None:

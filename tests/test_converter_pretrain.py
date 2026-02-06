@@ -16,7 +16,6 @@ def setup_pretrain_components(mock_config, sample_data):
     dm.process_indication_data()
     dm.setup_unique_mapping_of_events()
     dm.setup_dataset_splits()
-    dm.infer_var_types()
 
     converter = ConverterPretrain(config=mock_config, dm=dm)
 
@@ -82,9 +81,7 @@ def test_pretrain_roundtrip_integrity(setup_pretrain_components):
 
     # 2. Reverse
     # Reverse conversion needs unique events mapping from DM
-    reverse_result = converter.reverse_conversion(text=text,
-                                                data_manager=dm,
-                                                init_date=meta["events"]["date"].min())
+    reverse_result = converter.reverse_conversion(text=text, data_manager=dm, init_date=meta["events"]["date"].min())
 
     # 3. Check Integrity
     # Helper to compare

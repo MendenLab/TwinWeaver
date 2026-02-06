@@ -6,6 +6,22 @@ The `examples/` directory provides comprehensive tutorials to help you get up an
 
 These notebooks cover the primary workflows for most users:
 
+### 0. Raw Data Preprocessing
+
+[`examples/data_preprocessing/raw_data_preprocessing.ipynb`](examples/data_preprocessing/raw_data_preprocessing.ipynb)
+
+**Start here if you have raw clinical data.** This tutorial demonstrates how to transform raw clinical data (e.g., EHR exports, clinical trial databases) into the standardized TwinWeaver format.
+
+**What you'll learn:**
+
+- Creating the three required TwinWeaver dataframes (`df_events`, `df_constant`, `df_constant_description`)
+- Best practices for deciding what goes into events vs. constants
+- Handling time-to-event outcomes like death and progression
+- Using preprocessing helpers for data aggregation and column classification
+- Validating your data format before training
+
+---
+
 ### 1. Data Preparation for Training
 
 [`examples/01_data_preparation_for_training.ipynb`](examples/01_data_preparation_for_training.ipynb)
@@ -77,6 +93,23 @@ A complete notebook demonstrating how to train LLMs on full patient histories wi
 - **Inference**: [`examples/advanced/custom_splitting/inference_individual_splitters.py`](examples/advanced/custom_splitting/inference_individual_splitters.py) — Example script for inference using individual splitters.
 - **Training**: [`examples/advanced/custom_splitting/training_individual_splitters.ipynb`](examples/advanced/custom_splitting/training_individual_splitters.ipynb) — Notebook demonstrating training data generation with individual splitters.
 - **Custom Split Events**: [`examples/advanced/custom_splitting/training_custom_split_events.ipynb`](examples/advanced/custom_splitting/training_custom_split_events.ipynb) — Notebook showing how to customize split events and forecast different event categories (e.g., using genetic events as split points and forecasting vitals).
+
+### Custom Text Generation
+
+[`examples/advanced/custom_output/customizing_text_generation.ipynb`](examples/advanced/custom_output/customizing_text_generation.ipynb)
+
+A comprehensive tutorial on customizing **every textual component** of the instruction generation pipeline. TwinWeaver provides extensive configuration options to tailor generated text prompts to your specific use case.
+
+**What you'll learn:**
+
+- Customizing preamble and introduction text
+- Modifying demographics section formatting
+- Changing event day and time interval descriptions
+- Switching time units between days and weeks
+- Customizing genetic data tags and placeholder text
+- Modifying forecasting, time-to-event, and QA task prompts
+- Configuring multi-task instruction formatting
+- Fine-grained control over specific event categories with overrides
 
 ---
 

@@ -42,7 +42,10 @@ def test_data_manager_processing(mock_config, sample_data):
     """Test the full processing pipeline of DataManager."""
     df_events, df_constant, df_constant_desc = sample_data
 
-    # Override config to match test data columns
+    # Override config
+    mock_config.split_event_category = "lot"
+    mock_config.event_category_forecast = ["lab"]
+    mock_config.data_splitter_events_variables_category_mapping = None
     mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
 
     dm = DataManager(config=mock_config)

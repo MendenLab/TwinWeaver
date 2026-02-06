@@ -119,6 +119,8 @@ nav:
       - Quick Start: quickstart.md
       - Framework Overview: framework.md
       - Dataset Format: dataset-format.md
+      - Pro Tips: pro-tips.md
+      - API Index: api-index.md
       - Contributing: contributing.md
       - Citation: citation.md
   - Examples:
@@ -148,3 +150,4 @@ nav:
           - Converter Pretrain: reference/pretrain/converter_pretrain.md
       - Utils:
           - MEDS Importer: reference/utils/meds_importer.md
+          - Preprocessing Helpers: reference/utils/preprocessing_helpers.md

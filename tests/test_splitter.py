@@ -10,6 +10,9 @@ from twinweaver.instruction.data_splitter import DataSplitter
 def initialized_dm(mock_config, sample_data):
     """Fixture that returns a fully processed DataManager."""
     df_events, df_constant, df_constant_desc = sample_data
+    mock_config.split_event_category = "lot"
+    mock_config.event_category_forecast = ["lab"]
+    mock_config.data_splitter_events_variables_category_mapping = {"death": "death", "progression": "next progression"}
     mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
 
     dm = DataManager(config=mock_config)
@@ -82,8 +85,9 @@ def test_get_splits_from_patient(initialized_dm, mock_config):
 
     # Check specifics of e_split - all calculated manually given the random seed and sample data
     assert e_split.event_censored is None
-    assert not e_split.event_occurred
+    assert e_split.event_occurred
     assert e_split.observation_end_date == pd.Timestamp("2016-11-23 00:00:00")
+    assert e_split.sampled_category == "death"
 
     # Check specifics of f_split - all calculated manually given the random seed and sample data
     assert f_split.sampled_variables.tolist() == ["hemoglobin_-_718-7"]
@@ -116,7 +120,7 @@ def test_inference_split(initialized_dm, mock_config):
 
     # Manually calculated - defaults to random selection since we didn't provide explicit override
     assert e_split.split_date_included_in_input == last_date
-    assert e_split.sampled_category == "death"
-    assert e_split.observation_end_date == pd.Timestamp("2016-08-26 00:00:00")
+    assert e_split.sampled_category == "progression"
+    assert e_split.observation_end_date == pd.Timestamp("2018-02-23 00:00:00")
     assert e_split.event_censored == "end_of_data"
     assert not e_split.event_occurred

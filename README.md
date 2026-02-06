@@ -21,11 +21,6 @@ This project is a collaboration between Roche and Helmholtz Munich, as part of t
 
 ## ⚙️ Installation
 
-### Requirements
-
-- Python 3.8 or higher
-- Core dependencies: `pandas`, `numpy`, `transformers`, `scikit-learn`
-
 ### Install from PyPi
 
 To install the package:
@@ -34,7 +29,19 @@ To install the package:
 pip install twinweaver
 ```
 
+### Requirements
+
+- Python 3.8 or higher
+- Core dependencies: `pandas`, `numpy`, `transformers`, `scikit-learn`
+
+
 The following sections will explain the tutorials/examples and afterwards the [quick start guide](#-quick-start).
+
+
+## 📚 Documentation
+
+Full documentation is available [https://mendenlab.github.io/TwinWeaver/](https://mendenlab.github.io/TwinWeaver/).
+
 
 ## 💡 Tutorials & Examples
 
@@ -44,6 +51,8 @@ The `examples/` directory provides comprehensive tutorials to help you get up an
 
 These notebooks cover the primary workflows for most users:
 
+*   **0. Raw Data Preprocessing**: [`examples/data_preprocessing/raw_data_preprocessing.ipynb`](examples/data_preprocessing/raw_data_preprocessing.ipynb)
+    *   Start here if you have raw clinical data (e.g., EHR exports). Shows how to transform raw data into the three TwinWeaver dataframes (`df_events`, `df_constant`, `df_constant_description`), including handling death events and other time-to-event outcomes.
 *   **1. Basics Overview**: [`examples/01_data_preparation_for_training.ipynb`](examples/01_data_preparation_for_training.ipynb)
     *   Demonstrates how to convert raw patient data (events, constants, genetics) into the instruction-tuning text format used by TwinWeaver. This is the core step for preparing data for fine-tuning.
 *   **2. Inference**: [`examples/02_inference_prompt_preparation.ipynb`](examples/02_inference_prompt_preparation.ipynb)
@@ -65,6 +74,8 @@ For users needing custom behavior or specific integrations:
     *   [`examples/advanced/custom_splitting/inference_individual_splitters.py`](examples/advanced/custom_splitting/inference_individual_splitters.py): Example script for inference using individual splitters.
     *   [`examples/advanced/custom_splitting/training_individual_splitters.ipynb`](examples/advanced/custom_splitting/training_individual_splitters.ipynb): Notebook demonstrating training data generation with individual splitters.
     *   [`examples/advanced/custom_splitting/training_custom_split_events.ipynb`](examples/advanced/custom_splitting/training_custom_split_events.ipynb): Notebook showing how to customize split events and forecast different event categories.
+*   **Custom Text Generation**: [`examples/advanced/custom_output/customizing_text_generation.ipynb`](examples/advanced/custom_output/customizing_text_generation.ipynb)
+    *   A comprehensive tutorial on customizing every textual component of the instruction generation pipeline. Learn how to modify preambles, event formatting, time units, genetic data tags, forecasting prompts, and more to adapt outputs for different LLMs, languages, or institutional requirements.
 *   **MEDS Data Import**: [`examples/integrations/meds_data_import.ipynb`](examples/integrations/meds_data_import.ipynb)
     *   A tutorial on importing data in the Medical Event Data Standard (MEDS) format and converting it into TwinWeaver's internal format. Includes a synthetic data example.
 
@@ -85,13 +96,6 @@ TwinWeaver addresses the challenge of modeling sparse, multi-modal clinical time
 
 
 
-## 📚 Documentation
-
-Full documentation is available [https://mendenlab.github.io/TwinWeaver/](https://mendenlab.github.io/TwinWeaver/).
-
-
-
-
 
 ## 🚀 Quick Start
 
@@ -108,6 +112,25 @@ from twinweaver import (
     ConverterInstruction,
     DataSplitter,
 )
+
+# Initialize config and set up splitting/prediction variables
+config = Config()
+
+# <---------------------- CRITICAL CONFIGURATION ---------------------->
+# 1. Event category used for data splitting (e.g., split data around Lines of Therapy 'lot')
+# Has to be set for all instruction tasks
+config.split_event_category = "lot"
+
+# 2. List of event categories we want to forecast (e.g., forecasting 'lab' values)
+# Only needs to be set if you want to forecast variables
+config.event_category_forecast = ["lab"]
+
+# 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')
+# Only needs to be set if you want to do time to event prediction
+config.data_splitter_events_variables_category_mapping = {
+    "death": "death",
+    "progression": "next progression",  # Custom name in prompt: "next progression" instead of "progression"
+}
 
 # Load your patient data <----- assuming your data is in df_events, df_constant and df_constant_description
 dm = DataManager(config=config)
@@ -142,6 +165,7 @@ patient_data = dm.get_patient_data("patient_id_0")  # <--- Set your patient id h
 
 forecasting_splits, events_splits, reference_dates = data_splitter.get_splits_from_patient_with_target(patient_data)
 
+split_idx = 0
 training_data = converter.forward_conversion(
     forecasting_splits=forecasting_splits[split_idx],
     event_splits=events_splits[split_idx],
@@ -151,7 +175,7 @@ training_data = converter.forward_conversion(
 # training_data now contains (Input, Target) pairs ready for LLM fine-tuning
 ```
 
-For complete tutorials, see the [Tutorials & Examples](#-tutorials--examples) section above.
+For complete tutorials, see the [Tutorials & Examples](#-tutorials--examples) section above, and the full documentation at [https://mendenlab.github.io/TwinWeaver/](https://mendenlab.github.io/TwinWeaver/).
 
 
 ## 📊 Dataset Format
@@ -163,7 +187,7 @@ Contains time-varying clinical data where each row represents a single event.
 
 | patientid | date | event_descriptive_name | event_category | event_name | event_value | meta_data | source |
 |:---|:---|:---|:---|:---|:---|:---|:---|
-| *Unique identifier for the patient* | *Date of the event* | *Human-readable name used in the text output*  | *(Optional) Category (e.g., `lab`, `drug`), used for determining splits & tasks* | *(Optional) Specific event identifier* | *Value associated with the event* | *(Optional) Additional metadata* | *(Optional) Modality of data - default to "events", alternatively "genetic"* |
+| *Unique identifier for the patient* | *Date of the event (processable by pandas.to_datetime)* | *Human-readable name used in the text output*  | *(Optional) Category (e.g., `lab`, `drug`), used for determining splits & tasks* | *(Optional) Specific event identifier* | *Value associated with the event, used in text output* | *(Optional) Additional metadata* | *(Optional) Modality of data - default to "events", alternatively "genetic"* |
 
 #### 2. Patient Constants (`constant.csv`)
 Contains static patient information (demographics, baseline characteristics). One row per patient.
@@ -181,6 +205,8 @@ Maps columns in the `constant` table to human-readable descriptions for the text
 
 
 Generally, we prefer to keep as much as possible inot the long events table, and only put things into constant that cannot go anywhere else.
+
+Further details at [https://mendenlab.github.io/TwinWeaver/dataset-format/](https://mendenlab.github.io/TwinWeaver/dataset-format/).
 
 
 
@@ -204,6 +230,8 @@ TwinWeaver supports two primary data formats, each serving a distinct stage in t
     *   **Goal**: Optimizes the model for specific downstream applications like forecasting and risk stratification.
     *   **Converter**: `twinweaver.instruction.converter_manual_instruction.ConverterInstruction`
 
+
+Further details at [https://mendenlab.github.io/TwinWeaver/framework/](https://mendenlab.github.io/TwinWeaver/framework/).
 
 
 ## 📝 Paper, Authors & Citation

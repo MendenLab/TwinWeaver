@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+import random
 
 
 class Config:
@@ -66,23 +68,21 @@ class Config:
     lot_concatenate_string : str
         String used to concatenate the descriptive name and value for line of therapy events when
         `lot_concatenate_descriptive_and_value` is True. Default: " - ".
-    warning_for_splitters_patient_without_lots : bool
-        Whether to warn if a patient has no LoT events in DataSplitterEvents. Default: True.
+    warning_for_splitters_patient_without_splits : bool
+        Whether to warn if a patient has no split events. Default: True.
     event_category_lot : str
         Specific string value used in `event_category_col` to identify 'line of therapy' events. Default: "lot".
     event_category_death : str
         Specific string value used in `event_category_col` to identify 'death' events. Default: "death".
     event_category_labs : str
         Specific string value used in `event_category_col` to identify 'lab result' events. Default: "lab".
-    event_category_forecast : list[str]
-        List of event categories to be considered for forecasting tasks. Default: ["lab"].
-    split_event_category : str
-        Event category used for data splitting (e.g., LoT). Default: "lot".
+    event_category_forecast : list[str] | None
+        List of event categories to be considered for forecasting tasks. Default: None.
+    split_event_category : str | None
+        Event category used for data splitting (e.g., LoT). Default: None.
     source_genetic : str
         Specific string value used in `source_col` to identify data originating from genetic testing.
         Default: "genetic".
-    source_standard_events : str
-        Source identifier for standard clinical events. Default: "events".
     genetic_skip_text_value : str
         A specific event value (often for genetic data) that might be skipped during text generation to avoid
         redundancy if its presence is implied elsewhere. Default: "present".
@@ -225,18 +225,37 @@ class Config:
         conversion. *Note: Age might be handled separately.* Default: ["race", "gender", "ethnicity", "indication"].
     constant_birthdate_column : str | None
         Column name in the constant table representing the patient's birth date or birth year.
-        If provided, age calculation is performed relative to the first event date. Default: None.
+        If provided, age calculation is performed relative to the first event date.
+        Depends on constant_birthdate_column_format for different calculations:
+        - constant_birthdate_column_format="age": The column represents age directly in years.
+        - "date": The column represents the birth date (format: "YYYY-MM-DD" or "YYYY").
+        Default: None.
     constant_birthdate_column_format : str
         Format of the birthdate column, either "date" or "age". Default: "date".
-    data_splitter_events_variables_category_mapping : dict
+    data_splitter_events_variables_category_mapping : dict | None
         Mapping defining which event categories correspond to specific prediction types in DataSplitterEvents.
         Keys are event categories (e.g., 'death', 'progression'), values are descriptive names for the target variable.
+        Default: None.
     data_splitter_events_backup_category_mapping : dict
          Fallback mapping for event categories in DataSplitterEvents. Used if the primary category variables are not
          found. Keys are the missing categories, values are the backup categories to use.
+         Default: {"progression": "death"}.
     """
 
     def __init__(self):
+        # Critical parameters for instruction mode - need to be set!
+        self.split_event_category: str = None  # e.g. "lot" -Event category used for data splitting (e.g., LoT)
+
+        # Needs to be set if using forecasting in instructions!
+        self.event_category_forecast: list = None  # e.g. ["lab"] - List of event categories to be used for forecasting
+
+        # Needs to be set if using DataSplitterEvents!
+        # Used to identify which variables correspond to which event categories for
+        # different event types as well as how they should be written down (since based on categories),
+        # for example, based on GDT: { "death": "death", "progression": "next progression", "lot":
+        # "next line of therapy", "metastasis": "next metastasis"}
+        self.data_splitter_events_variables_category_mapping = None
+
         # --- Import data parameters ---
         self.date_cutoff = None  # If set, only use data before this date (format: "YYYY-MM-DD"), censored after
         self.delta_time_unit: str = (
@@ -273,7 +292,7 @@ class Config:
         )
 
         # Warnings and logs
-        self.warning_for_splitters_patient_without_lots: bool = (
+        self.warning_for_splitters_patient_without_splits: bool = (
             True  # Whether to warn if a patient has no LoT events in DataSplitterEvents
         )
 
@@ -282,12 +301,7 @@ class Config:
         self.event_category_death: str = "death"
         self.event_category_labs: str = "lab"
 
-        self.event_category_forecast: list = ["lab"]  # List of event categories to be used for forecasting
-
-        self.split_event_category: str = "lot"  # Event category used for data splitting (e.g., LoT)
-
         self.source_genetic: str = "genetic"
-        self.source_standard_events: str = "events"
         self.genetic_skip_text_value: str = "present"
         self.genetic_tag_opening: str = "<genetic>"
         self.genetic_tag_closing: str = "</genetic>"
@@ -403,7 +417,8 @@ class Config:
         )
 
         # Seeds
-        self.seed = 768921  # I like both of these numbers
+        self._seed = 768921  # I like both of these numbers
+        self._set_all_seeds(self._seed)
 
         # Token budgets
         self.nr_tokens_budget_padding: int = 200  # Might need to be set to 500 for pretrain
@@ -420,16 +435,6 @@ class Config:
         ]  # Which columns to use from the constant data
         self.constant_birthdate_column: str = None  # If set, use this column for age calculation
         self.constant_birthdate_column_format: str = "date"  # Either "date" or "age"
-
-        # --- Data splitter events setup ---
-        # Used to identify which variables correspond to which event categories for
-        # different event types, by default set for the 4 used in GDT
-        self.data_splitter_events_variables_category_mapping = {
-            "death": "death",
-            "progression": "next progression",
-            "lot": "next line of therapy",
-            "metastasis": "next metastasis",
-        }
 
         # Used to backup event categories for event types if no variables are found
         # e.g. progression -> death
@@ -454,3 +459,19 @@ class Config:
         self.forecasting_prompt_var_time = self._forecasting_prompt_var_time_template.format(unit=unit)
         self.forecasting_tte_prompt_mid = self._forecasting_tte_prompt_mid_template.format(unit=unit)
         self.qa_prompt_start = self._qa_prompt_start_template.format(unit=unit_sing)
+
+    @property
+    def seed(self) -> int:
+        """Get the current seed value."""
+        return self._seed
+
+    @seed.setter
+    def seed(self, value: int):
+        """Set the seed value and update all random seeds (numpy, pandas, random)."""
+        self._seed = value
+        self._set_all_seeds(value)
+
+    def _set_all_seeds(self, seed: int):
+        """Set seeds for numpy, pandas, and random modules."""
+        np.random.seed(seed)
+        random.seed(seed)

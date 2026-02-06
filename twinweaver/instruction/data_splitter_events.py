@@ -128,6 +128,11 @@ class DataSplitterEvents(BaseDataSplitter):
         self.min_length_to_sample = min_length_to_sample
         self.unit_length_to_sample = unit_length_to_sample
 
+        assert self.config.data_splitter_events_variables_category_mapping is not None, (
+            "data_splitter_events_variables_category_mapping must be set in Config for DataSplitterEvents."
+            "For example: { 'death': 'death', 'progression': 'next progression'}"
+        )
+
         self.manual_variables_category_mapping = self.config.data_splitter_events_variables_category_mapping
 
     def setup_variables(self):
@@ -324,14 +329,14 @@ class DataSplitterEvents(BaseDataSplitter):
         events = events.sort_values(self.config.date_col)
 
         # Do some quick sanity checks
-        if self.config.warning_for_splitters_patient_without_lots:
+        if self.config.warning_for_splitters_patient_without_splits:
             lot_events = events[events[self.config.event_category_col] == self.config.event_category_lot]
             if lot_events.shape[0] == 0:
                 logging.warning(
                     "Patient "
                     + str(patient_data["constant"][self.config.patient_id_col].iloc[0])
-                    + " has no LoT events. Forecasting splits may be invalid."
-                    "To disable this warning, set warning_for_splitters_patient_without_lots to False in config."
+                    + " has no split events."
+                    "To disable this warning, set warning_for_splitters_patient_without_splits to False in config."
                 )
 
         if reference_split_dates is None and override_split_dates is None:
