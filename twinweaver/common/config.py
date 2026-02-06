@@ -237,6 +237,19 @@ class Config:
     """
 
     def __init__(self):
+        # Critical parameters for instruction mode - need to be set!
+        self.split_event_category: str = None  # e.g. "lot" -Event category used for data splitting (e.g., LoT)
+
+        # Needs to be set if using forecasting in instructions!
+        self.event_category_forecast: list = None  # e.g. ["lab"] - List of event categories to be used for forecasting
+
+        # Needs to be set if using DataSplitterEvents!
+        # Used to identify which variables correspond to which event categories for
+        # different event types as well as how they should be written down (since based on categories),
+        # for example, based on GDT: { "death": "death", "progression": "next progression", "lot":
+        # "next line of therapy", "metastasis": "next metastasis"}
+        self.data_splitter_events_variables_category_mapping = None
+
         # --- Import data parameters ---
         self.date_cutoff = None  # If set, only use data before this date (format: "YYYY-MM-DD"), censored after
         self.delta_time_unit: str = (
@@ -281,10 +294,6 @@ class Config:
         self.event_category_lot: str = "lot"
         self.event_category_death: str = "death"
         self.event_category_labs: str = "lab"
-
-        self.event_category_forecast: list = ["lab"]  # List of event categories to be used for forecasting
-
-        self.split_event_category: str = "lot"  # Event category used for data splitting (e.g., LoT)
 
         self.source_genetic: str = "genetic"
         self.source_standard_events: str = "events"
@@ -420,16 +429,6 @@ class Config:
         ]  # Which columns to use from the constant data
         self.constant_birthdate_column: str = None  # If set, use this column for age calculation
         self.constant_birthdate_column_format: str = "date"  # Either "date" or "age"
-
-        # --- Data splitter events setup ---
-        # Used to identify which variables correspond to which event categories for
-        # different event types, by default set for the 4 used in GDT
-        self.data_splitter_events_variables_category_mapping = {
-            "death": "death",
-            "progression": "next progression",
-            "lot": "next line of therapy",
-            "metastasis": "next metastasis",
-        }
 
         # Used to backup event categories for event types if no variables are found
         # e.g. progression -> death

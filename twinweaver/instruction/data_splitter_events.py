@@ -128,6 +128,11 @@ class DataSplitterEvents(BaseDataSplitter):
         self.min_length_to_sample = min_length_to_sample
         self.unit_length_to_sample = unit_length_to_sample
 
+        assert self.config.data_splitter_events_variables_category_mapping is not None, (
+            "data_splitter_events_variables_category_mapping must be set in Config for DataSplitterEvents."
+            "For example: { 'death': 'death', 'progression': 'next progression'}"
+        )
+
         self.manual_variables_category_mapping = self.config.data_splitter_events_variables_category_mapping
 
     def setup_variables(self):

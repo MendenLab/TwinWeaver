@@ -38,6 +38,8 @@ class BaseDataSplitter:
             the value of the target variable when filtering.
         """
 
+        assert config.split_event_category is not None, "config.split_event_category must be set (e.g. ['lab'])."
+
         self.dm = data_manager
         self.config = config
         self.max_split_length_after_split_event = max_split_length_after_split_event
