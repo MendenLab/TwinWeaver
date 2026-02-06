@@ -83,8 +83,6 @@ class Config:
     source_genetic : str
         Specific string value used in `source_col` to identify data originating from genetic testing.
         Default: "genetic".
-    source_standard_events : str
-        Source identifier for standard clinical events. Default: "events".
     genetic_skip_text_value : str
         A specific event value (often for genetic data) that might be skipped during text generation to avoid
         redundancy if its presence is implied elsewhere. Default: "present".
@@ -300,7 +298,6 @@ class Config:
         self.event_category_labs: str = "lab"
 
         self.source_genetic: str = "genetic"
-        self.source_standard_events: str = "events"
         self.genetic_skip_text_value: str = "present"
         self.genetic_tag_opening: str = "<genetic>"
         self.genetic_tag_closing: str = "</genetic>"

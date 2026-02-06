@@ -410,9 +410,9 @@ class ConverterBase:
                     events_string += ",\n"
 
             #: sort rest alphabetically using config constants
-            # Keeping "events" source hardcoded as it seems distinct from genetic source
+            # Keeping non genetic events
             event_subset = all_events_curr_date[
-                all_events_curr_date[self.config.source_col] == self.config.source_standard_events
+                all_events_curr_date[self.config.source_col] != self.config.source_genetic
             ]
             event_subset = event_subset.sort_values(by=[self.config.event_category_col, self.config.event_name_col])
 

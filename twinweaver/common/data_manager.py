@@ -177,7 +177,9 @@ class DataManager:
 
         logging.info("Data loaded for indication")
 
-    def process_indication_data(self) -> None:
+    def process_indication_data(
+        self, skip_missing_dates: bool = False, drop_missing_event_values: bool = False
+    ) -> None:
         """
         Performs initial processing on the loaded indication data.
 
@@ -185,13 +187,13 @@ class DataManager:
         This method converts the date columns (specified by `config.date_col`)
         in the 'events' DataFrame to datetime objects.
         It also checks for and removes rows with missing dates in these tables,
-        logging a warning if any are found.
+        logging an error if any are found, unless `skip_missing_dates` is True.
 
         Raises
         ------
         ValueError
             If `load_indication_data` has not been successfully called before
-            this method.
+            this method, or if missing dates are found and `skip_missing_dates` is False.
         """
 
         # Check that we already have self.data_frames
@@ -212,11 +214,36 @@ class DataManager:
         def handle_missing_dates(df_key, missing_count, total_count, col_date):
             if missing_count > 0:
                 warning_msg = f"Found {missing_count} out of {total_count} missing dates in {df_key} "
-                logging.warning(warning_msg)
+                if not skip_missing_dates:
+                    raise ValueError(warning_msg + "- please fix the dates or set skip_missing_dates=True")
                 self.data_frames[df_key] = self.data_frames[df_key].dropna(subset=[col_date])
 
         # Use table keys and config.date_col
         handle_missing_dates(events_table_key, missing_date_events, total_events, date_col)
+
+        # Assert that no missing values in event_value
+        missing_event_values = self.data_frames[events_table_key][self.config.event_value_col].isnull().sum()
+        total_events = len(self.data_frames[events_table_key])
+        if drop_missing_event_values:
+            if missing_event_values > 0:
+                logging.warning(
+                    f"Dropping {missing_event_values} out of {total_events} rows with missing event "
+                    "values in events table"
+                )
+                self.data_frames[events_table_key] = self.data_frames[events_table_key].dropna(
+                    subset=[self.config.event_value_col]
+                )
+        else:
+            if missing_event_values > 0:
+                raise ValueError(
+                    f"Found {missing_event_values} out of {total_events} missing event values in events table"
+                    "please fix the data or set drop_missing_event_values=True"
+                )
+
+        # Convert all event values to string
+        self.data_frames[events_table_key][self.config.event_value_col] = self.data_frames[events_table_key][
+            self.config.event_value_col
+        ].astype(str)
 
         logging.info("Data processed")
 
