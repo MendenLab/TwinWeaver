@@ -5,8 +5,6 @@ __pycache__/*
 *.pyc
 *.pyo
 *.pyd
-*.venv*
-*.venv/
 .ruff_cache/
 build/*
 dist/*
@@ -15,8 +13,6 @@ build/
 .vscode/
 *.egg-info/
 *__pycache__/
-.venv_gpu/
-.venv_gpu/*
 */results/
 */results/*
 .github/
@@ -26,3 +22,4 @@ site/
 dist/
 dev/
 examples/advanced/pretraining/results/
+.venv*

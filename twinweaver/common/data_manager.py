@@ -552,6 +552,10 @@ class DataManager:
         can be parsed as numeric, otherwise "categorical".
         """
 
+        assert self.config.event_category_forecast is not None, (
+            "event_category_forecast must be set in config, e.g. to ['lab']"
+        )
+
         events = self.data_frames[self.config.event_table_name]
         name_col = self.config.event_name_col
         value_col = self.config.event_value_col

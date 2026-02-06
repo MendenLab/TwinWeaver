@@ -12,8 +12,16 @@ class ConvertToText:
     def __init__(
         self,
     ):
-        # Set basics
+        # Set splitting and predictions
         self.config = Config()
+        self.config.split_event_category = "lot"
+        self.config.event_category_forecast = ["lab"]
+        self.config.data_splitter_events_variables_category_mapping = {
+            "death": "death",
+            "progression": "next progression",  # Custom name in prompt: "next progression" instead of "progression"
+        }
+
+        # Set constant
         self.config.constant_columns_to_use = [
             "birthyear",
             "gender",
@@ -83,14 +91,14 @@ class ConvertToText:
                 nr_samples_per_split=1,
                 filter_outliers=False,
                 override_split_dates=[split_date],
-                override_variables_to_predict=["lab_26499_4"],
+                override_variables_to_predict=["Neutrophils"],
             )
             # We just pick the first one
             forecast_split = forecast_splits[0][0]
 
             # We set which weeks to predict
             forecasting_times_to_predict = {
-                "lab_26499_4": [1, 2, 8, 11],
+                "Neutrophils": [1, 2, 8, 11],
             }
 
             #: no events split
