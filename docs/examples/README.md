@@ -4,6 +4,10 @@ This directory contains examples demonstrating how to use TwinWeaver for various
 
 > **NOTE:** The data used in this directory can be found in the Github repo in [redacted](redacted).
 
+## Data Preprocessing
+
+*   **[data_preprocessing/raw_data_preprocessing.ipynb](data_preprocessing/raw_data_preprocessing.ipynb)**: **Start here if you have raw clinical data.** Shows how to transform raw EHR exports into the three TwinWeaver dataframes (`df_events`, `df_constant`, `df_constant_description`), including handling death events and other time-to-event outcomes.
+
 ## Basic Examples
 
 *   **[01_data_preparation_for_training.ipynb](01_data_preparation_for_training.ipynb)**: A basic example showing how to convert data for a single patient using the instruction setup with a custom dataset.

@@ -119,4 +119,4 @@ dm.load_indication_data(
     - **`event_category_forecast`**: Which event categories to forecast as time-series values
     - **`data_splitter_events_variables_category_mapping`**: Maps event names to prediction tasks (e.g., survival, progression)
 
-See the [Data Preparation Tutorial](examples/01_data_preparation_for_training.ipynb) for a complete walkthrough.
+See the [Raw Data Preprocessing Tutorial](examples/data_preprocessing/raw_data_preprocessing.ipynb) for transforming raw clinical data into TwinWeaver format, or the [Data Preparation Tutorial](examples/01_data_preparation_for_training.ipynb) for a complete walkthrough of instruction-tuning data generation.

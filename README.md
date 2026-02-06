@@ -44,6 +44,8 @@ The `examples/` directory provides comprehensive tutorials to help you get up an
 
 These notebooks cover the primary workflows for most users:
 
+*   **0. Raw Data Preprocessing**: [`examples/data_preprocessing/raw_data_preprocessing.ipynb`](examples/data_preprocessing/raw_data_preprocessing.ipynb)
+    *   Start here if you have raw clinical data (e.g., EHR exports). Shows how to transform raw data into the three TwinWeaver dataframes (`df_events`, `df_constant`, `df_constant_description`), including handling death events and other time-to-event outcomes.
 *   **1. Basics Overview**: [`examples/01_data_preparation_for_training.ipynb`](examples/01_data_preparation_for_training.ipynb)
     *   Demonstrates how to convert raw patient data (events, constants, genetics) into the instruction-tuning text format used by TwinWeaver. This is the core step for preparing data for fine-tuning.
 *   **2. Inference**: [`examples/02_inference_prompt_preparation.ipynb`](examples/02_inference_prompt_preparation.ipynb)

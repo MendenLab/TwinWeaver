@@ -3,7 +3,7 @@
 This page provides a minimal code example to get you started with TwinWeaver. For detailed explanations, see the [Tutorials](tutorials.md).
 
 !!! tip "Recommended Path"
-    If you're new to TwinWeaver, we recommend starting with the [Data Preparation Tutorial](examples/01_data_preparation_for_training.ipynb) which provides a step-by-step walkthrough with explanations.
+    If you're new to TwinWeaver and have raw clinical data, start with the [Raw Data Preprocessing Tutorial](examples/data_preprocessing/raw_data_preprocessing.ipynb) to learn how to transform your data into TwinWeaver format. Then proceed to the [Data Preparation Tutorial](examples/01_data_preparation_for_training.ipynb) for instruction-tuning data generation.
 
 ## Minimal Example
 
