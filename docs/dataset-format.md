@@ -86,8 +86,26 @@ df_events = pd.read_csv("events.csv")
 df_constant = pd.read_csv("constant.csv")
 df_constant_description = pd.read_csv("constant_description.csv")
 
-# Initialize DataManager
+# Initialize configuration
 config = Config()
+
+# <---------------------- CRITICAL CONFIGURATION ---------------------->
+# 1. Event category used for data splitting (e.g., split data around Lines of Therapy 'lot')
+# Has to be set for all instruction tasks
+config.split_event_category = "lot"
+
+# 2. List of event categories we want to forecast (e.g., forecasting 'lab' values)
+# Only needs to be set if you want to forecast variables
+config.event_category_forecast = ["lab"]
+
+# 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')
+# Only needs to be set if you want to do time to event prediction
+config.data_splitter_events_variables_category_mapping = {
+    "death": "death",
+    "progression": "next progression",  # Custom name in prompt
+}
+
+# Initialize DataManager
 dm = DataManager(config=config)
 dm.load_indication_data(
     df_events=df_events,
@@ -95,5 +113,10 @@ dm.load_indication_data(
     df_constant_description=df_constant_description
 )
 ```
+
+!!! tip "Configuration Parameters"
+    - **`split_event_category`**: The event category used to anchor split points for generating training samples (required for instruction tuning)
+    - **`event_category_forecast`**: Which event categories to forecast as time-series values
+    - **`data_splitter_events_variables_category_mapping`**: Maps event names to prediction tasks (e.g., survival, progression)
 
 See the [Data Preparation Tutorial](examples/01_data_preparation_for_training.ipynb) for a complete walkthrough.

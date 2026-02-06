@@ -22,6 +22,22 @@ from twinweaver import (
 # Initialize configuration
 config = Config()
 
+# <---------------------- CRITICAL CONFIGURATION ---------------------->
+# 1. Event category used for data splitting (e.g., split data around Lines of Therapy 'lot')
+# Has to be set for all instruction tasks
+config.split_event_category = "lot"
+
+# 2. List of event categories we want to forecast (e.g., forecasting 'lab' values)
+# Only needs to be set if you want to forecast variables
+config.event_category_forecast = ["lab"]
+
+# 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')
+# Only needs to be set if you want to do time to event prediction
+config.data_splitter_events_variables_category_mapping = {
+    "death": "death",
+    "progression": "next progression",  # Custom name in prompt
+}
+
 # Load your patient data
 # Assuming your data is in df_events, df_constant, df_constant_description
 dm = DataManager(config=config)

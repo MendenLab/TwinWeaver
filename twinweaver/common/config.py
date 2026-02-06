@@ -74,10 +74,10 @@ class Config:
         Specific string value used in `event_category_col` to identify 'death' events. Default: "death".
     event_category_labs : str
         Specific string value used in `event_category_col` to identify 'lab result' events. Default: "lab".
-    event_category_forecast : list[str]
-        List of event categories to be considered for forecasting tasks. Default: ["lab"].
-    split_event_category : str
-        Event category used for data splitting (e.g., LoT). Default: "lot".
+    event_category_forecast : list[str] | None
+        List of event categories to be considered for forecasting tasks. Default: None.
+    split_event_category : str | None
+        Event category used for data splitting (e.g., LoT). Default: None.
     source_genetic : str
         Specific string value used in `source_col` to identify data originating from genetic testing.
         Default: "genetic".
@@ -228,12 +228,14 @@ class Config:
         If provided, age calculation is performed relative to the first event date. Default: None.
     constant_birthdate_column_format : str
         Format of the birthdate column, either "date" or "age". Default: "date".
-    data_splitter_events_variables_category_mapping : dict
+    data_splitter_events_variables_category_mapping : dict | None
         Mapping defining which event categories correspond to specific prediction types in DataSplitterEvents.
         Keys are event categories (e.g., 'death', 'progression'), values are descriptive names for the target variable.
+        Default: None.
     data_splitter_events_backup_category_mapping : dict
          Fallback mapping for event categories in DataSplitterEvents. Used if the primary category variables are not
          found. Keys are the missing categories, values are the backup categories to use.
+         Default: {"progression": "death"}.
     """
 
     def __init__(self):
