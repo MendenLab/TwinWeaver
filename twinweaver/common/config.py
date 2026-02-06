@@ -68,8 +68,8 @@ class Config:
     lot_concatenate_string : str
         String used to concatenate the descriptive name and value for line of therapy events when
         `lot_concatenate_descriptive_and_value` is True. Default: " - ".
-    warning_for_splitters_patient_without_lots : bool
-        Whether to warn if a patient has no LoT events in DataSplitterEvents. Default: True.
+    warning_for_splitters_patient_without_splits : bool
+        Whether to warn if a patient has no split events. Default: True.
     event_category_lot : str
         Specific string value used in `event_category_col` to identify 'line of therapy' events. Default: "lot".
     event_category_death : str
@@ -290,7 +290,7 @@ class Config:
         )
 
         # Warnings and logs
-        self.warning_for_splitters_patient_without_lots: bool = (
+        self.warning_for_splitters_patient_without_splits: bool = (
             True  # Whether to warn if a patient has no LoT events in DataSplitterEvents
         )
 

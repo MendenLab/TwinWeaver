@@ -972,14 +972,14 @@ class DataSplitterForecasting(BaseDataSplitter):
         events = patient_data["events"]
 
         # Do some quick sanity checks
-        if self.config.warning_for_splitters_patient_without_lots:
+        if self.config.warning_for_splitters_patient_without_splits:
             lot_events = events[events[self.config.event_category_col] == self.config.event_category_lot]
             if lot_events.shape[0] == 0:
                 logging.warning(
                     "Patient "
                     + str(patient_data["constant"][self.config.patient_id_col].iloc[0])
-                    + " has no LoT events. Forecasting splits may be invalid."
-                    "To disable this warning, set warning_for_splitters_patient_without_lots to False in config."
+                    + " has no split events. Forecasting splits may be invalid."
+                    "To disable this warning, set warning_for_splitters_patient_without_splits to False in config."
                 )
 
         if override_categories_to_predict is not None:
