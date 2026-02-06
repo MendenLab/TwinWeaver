@@ -11,6 +11,9 @@ from twinweaver.common.data_manager import DataManager
 def setup_components(mock_config, sample_data):
     """Helper to get converter and splitters ready."""
     df_events, df_constant, df_constant_desc = sample_data
+    mock_config.split_event_category = "lot"
+    mock_config.event_category_forecast = ["lab"]
+    mock_config.data_splitter_events_variables_category_mapping = {"death": "death", "progression": "next progression"}
     mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
     mock_config.constant_birthdate_column = "birthyear"
 
@@ -109,7 +112,7 @@ def test_forward_conversion_inference(setup_components):
     assert "Task 1 is time to event prediction:" in result["instruction"]  # Events task present
     assert "Task 2 is forecasting:" in result["instruction"]  # Forecasting task present
     # Events are randomly selected since we don't provide override values in splitter above
-    assert "whether the following event was censored 15 weeks from the last clinical" in result["instruction"]
+    assert "whether the following event was censored 93 weeks from the last clinical" in result["instruction"]
 
 
 def test_reverse_conversion(setup_components):

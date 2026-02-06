@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+import random
 
 
 class Config:
@@ -414,7 +416,8 @@ class Config:
         )
 
         # Seeds
-        self.seed = 768921  # I like both of these numbers
+        self._seed = 768921  # I like both of these numbers
+        self._set_all_seeds(self._seed)
 
         # Token budgets
         self.nr_tokens_budget_padding: int = 200  # Might need to be set to 500 for pretrain
@@ -455,3 +458,19 @@ class Config:
         self.forecasting_prompt_var_time = self._forecasting_prompt_var_time_template.format(unit=unit)
         self.forecasting_tte_prompt_mid = self._forecasting_tte_prompt_mid_template.format(unit=unit)
         self.qa_prompt_start = self._qa_prompt_start_template.format(unit=unit_sing)
+
+    @property
+    def seed(self) -> int:
+        """Get the current seed value."""
+        return self._seed
+
+    @seed.setter
+    def seed(self, value: int):
+        """Set the seed value and update all random seeds (numpy, pandas, random)."""
+        self._seed = value
+        self._set_all_seeds(value)
+
+    def _set_all_seeds(self, seed: int):
+        """Set seeds for numpy, pandas, and random modules."""
+        np.random.seed(seed)
+        random.seed(seed)
