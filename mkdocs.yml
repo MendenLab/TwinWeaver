@@ -120,6 +120,7 @@ nav:
       - Framework Overview: framework.md
       - Dataset Format: dataset-format.md
       - Pro Tips: pro-tips.md
+      - API Index: api-index.md
       - Contributing: contributing.md
       - Citation: citation.md
   - Examples:
