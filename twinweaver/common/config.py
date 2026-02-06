@@ -225,7 +225,11 @@ class Config:
         conversion. *Note: Age might be handled separately.* Default: ["race", "gender", "ethnicity", "indication"].
     constant_birthdate_column : str | None
         Column name in the constant table representing the patient's birth date or birth year.
-        If provided, age calculation is performed relative to the first event date. Default: None.
+        If provided, age calculation is performed relative to the first event date.
+        Depends on constant_birthdate_column_format for different calculations:
+        - constant_birthdate_column_format="age": The column represents age directly in years.
+        - "date": The column represents the birth date (format: "YYYY-MM-DD" or "YYYY").
+        Default: None.
     constant_birthdate_column_format : str
         Format of the birthdate column, either "date" or "age". Default: "date".
     data_splitter_events_variables_category_mapping : dict | None
