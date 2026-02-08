@@ -2376,16 +2376,53 @@
 <li><strong>It could change over time</strong> (e.g., acquired resistance mutations, re-staging)</li>
 <li><strong>Temporal context matters</strong> clinically (when was this information known?)</li>
 </ul>
-<p>Examples:
-| Data Type | Recommended Table | Rationale |
-|-----------|------------------|-----------|
-| Birth year, biological sex | <code>constant</code> | Truly immutable |
-| Biomarker results (EGFR, ALK, PD-L1) | <code>events</code> | Has test date, could change |
-| Cancer stage | <code>events</code> | Stage at diagnosis date, may be re-staged |
-| Diagnosis information | <code>events</code> | Occurred at a specific date |
-| Lab values, vitals | <code>events</code> | Longitudinal measurements |
-| Treatment administrations | <code>events</code> | Time-varying interventions |
-| Death, progression | <code>events</code> | Time-to-event outcomes |</p>
+<p>Examples:</p>
+<table>
+<thead>
+<tr>
+<th>Data Type</th>
+<th>Recommended Table</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Birth year, biological sex</td>
+<td><code>constant</code></td>
+<td>Truly immutable</td>
+</tr>
+<tr>
+<td>Biomarker results (EGFR, ALK, PD-L1)</td>
+<td><code>events</code></td>
+<td>Has test date, could change</td>
+</tr>
+<tr>
+<td>Cancer stage</td>
+<td><code>events</code></td>
+<td>Stage at diagnosis date, may be re-staged</td>
+</tr>
+<tr>
+<td>Diagnosis information</td>
+<td><code>events</code></td>
+<td>Occurred at a specific date</td>
+</tr>
+<tr>
+<td>Lab values, vitals</td>
+<td><code>events</code></td>
+<td>Longitudinal measurements</td>
+</tr>
+<tr>
+<td>Treatment administrations</td>
+<td><code>events</code></td>
+<td>Time-varying interventions</td>
+</tr>
+<tr>
+<td>Death, progression</td>
+<td><code>events</code></td>
+<td>Time-to-event outcomes</td>
+</tr>
+</tbody>
+</table>
 <h3 id="2-include-all-available-data-first">2. Include All Available Data First<a class="headerlink" href="#2-include-all-available-data-first" title="Permanent link">&para;</a></h3>
 <p>Start by including everything, then trim during data generation if needed:</p>
 <ul>
