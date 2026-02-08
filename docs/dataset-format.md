@@ -138,6 +138,7 @@ Even data that appears "constant" is often better represented as events because:
 - **Temporal context matters** clinically (when was this information known?)
 
 Examples:
+
 | Data Type | Recommended Table | Rationale |
 |-----------|------------------|-----------|
 | Birth year, biological sex | `constant` | Truly immutable |
