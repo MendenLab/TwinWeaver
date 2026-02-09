@@ -97,5 +97,6 @@ print("Target:", training_data["target"])
 
 - **[Tutorials](tutorials.md)**: Detailed notebooks with step-by-step explanations
 - **[Dataset Format](dataset-format.md)**: Understand the expected data structure
+- **[Data Splitting](data-splitting.md)**: Deep dive into how splits are generated
 - **[Framework Overview](framework.md)**: Learn about TwinWeaver's architecture
 - **[API Reference](reference/common/config.md)**: Full API documentation

@@ -34,6 +34,8 @@ Demonstrates how to convert raw patient data (events, constants, genetics) into 
 - Configuring variables and data splits
 - Converting data to text format for LLM training
 
+For an in-depth explanation of the splitting logic, see the [Data Splitting](data-splitting.md) page.
+
 ---
 
 ### 2. Inference Prompt Preparation
