@@ -118,6 +118,7 @@ nav:
       - Tutorials: tutorials.md
       - Quick Start: quickstart.md
       - Framework Overview: framework.md
+      - Data Splitting: data-splitting.md
       - Dataset Format: dataset-format.md
       - Pro Tips: pro-tips.md
       - API Index: api-index.md
