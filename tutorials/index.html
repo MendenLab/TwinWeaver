@@ -646,6 +646,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#custom-summarized-row" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Summarized Row
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2100,6 +2111,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#custom-summarized-row" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Summarized Row
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2235,6 +2257,16 @@ Requires a GPU with at least 30GB of memory.</p>
 <li>Modifying forecasting, time-to-event, and QA task prompts</li>
 <li>Configuring multi-task instruction formatting</li>
 <li>Fine-grained control over specific event categories with overrides</li>
+</ul>
+<h3 id="custom-summarized-row">Custom Summarized Row<a class="headerlink" href="#custom-summarized-row" title="Permanent link">&para;</a></h3>
+<p><a href="../examples/advanced/custom_output/custom_summarized_row/"><code>examples/advanced/custom_output/custom_summarized_row.ipynb</code></a></p>
+<p>Shows how to customize the <strong>summarized row</strong> section of the instruction prompt using <code>set_custom_summarized_row_fn()</code>. The summarized row is a compact summary inserted just before the task questions ensuring that the LLM sees the most critical information, and by default includes recent genetic info, Line of Therapy starts, and last known target values.</p>
+<p><strong>What you'll learn:</strong></p>
+<ul>
+<li>Generating output with the default summarized row</li>
+<li>Writing and applying a custom summarized row function</li>
+<li>Building an advanced summary with event counts, latest treatments, and trend indicators</li>
+<li>Error handling for invalid function signatures and runtime errors</li>
 </ul>
 <hr />
 <h2 id="integrations">🔗 Integrations<a class="headerlink" href="#integrations" title="Permanent link">&para;</a></h2>
