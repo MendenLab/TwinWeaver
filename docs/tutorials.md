@@ -113,6 +113,19 @@ A comprehensive tutorial on customizing **every textual component** of the instr
 - Configuring multi-task instruction formatting
 - Fine-grained control over specific event categories with overrides
 
+### Custom Summarized Row
+
+[`examples/advanced/custom_output/custom_summarized_row.ipynb`](examples/advanced/custom_output/custom_summarized_row.ipynb)
+
+Shows how to customize the **summarized row** section of the instruction prompt using `set_custom_summarized_row_fn()`. The summarized row is a compact summary inserted just before the task questions ensuring that the LLM sees the most critical information, and by default includes recent genetic info, Line of Therapy starts, and last known target values.
+
+**What you'll learn:**
+
+- Generating output with the default summarized row
+- Writing and applying a custom summarized row function
+- Building an advanced summary with event counts, latest treatments, and trend indicators
+- Error handling for invalid function signatures and runtime errors
+
 ---
 
 ## 🔗 Integrations

@@ -76,6 +76,8 @@ For users needing custom behavior or specific integrations:
     *   [`examples/advanced/custom_splitting/training_custom_split_events.ipynb`](examples/advanced/custom_splitting/training_custom_split_events.ipynb): Notebook showing how to customize split events and forecast different event categories.
 *   **Custom Text Generation**: [`examples/advanced/custom_output/customizing_text_generation.ipynb`](examples/advanced/custom_output/customizing_text_generation.ipynb)
     *   A comprehensive tutorial on customizing every textual component of the instruction generation pipeline. Learn how to modify preambles, event formatting, time units, genetic data tags, forecasting prompts, and more to adapt outputs for different LLMs, languages, or institutional requirements.
+*   **Custom Summarized Row**: [`examples/advanced/custom_output/custom_summarized_row.ipynb`](examples/advanced/custom_output/custom_summarized_row.ipynb)
+    *   Shows how to customize the summarized row section of the instruction prompt using `set_custom_summarized_row_fn()`. Includes minimal and advanced examples, plus error handling guidance.
 *   **MEDS Data Import**: [`examples/integrations/meds_data_import.ipynb`](examples/integrations/meds_data_import.ipynb)
     *   A tutorial on importing data in the Medical Event Data Standard (MEDS) format and converting it into TwinWeaver's internal format. Includes a synthetic data example.
 
