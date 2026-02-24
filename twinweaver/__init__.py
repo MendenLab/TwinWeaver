@@ -18,4 +18,5 @@ from twinweaver.utils.tte_inference import (
     build_scored_prompt,
     compute_length_normalized_probabilities,
     run_tte_probability_estimation,
+    run_tte_probability_estimation_notebook,
 )

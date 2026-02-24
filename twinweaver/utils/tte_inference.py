@@ -150,7 +150,7 @@ def build_scored_prompt(
     config: Config,
     *,
     system_prompt: str | None = None,
-) -> tuple[str, int, list[tuple[str, str]]]:
+) -> tuple[str, list[tuple[str, str]]]:
     """Construct the full prompt prefix and the three scored completions.
 
     This is the **model-agnostic** equivalent of the prompt assembly that was
@@ -176,12 +176,21 @@ def build_scored_prompt(
     prompt_prefix : str
         The fully assembled prompt up to (and including) the
         ``config.target_prompt_start`` fragment.
-    slicing_index : int
-        The number of tokens in *prompt_prefix* (used to split log-probs
-        returned by the API into input vs. completion tokens).
     completions : list[tuple[str, str]]
         The three ``(label, suffix_text)`` pairs to score.
+
+    Notes
+    -----
+    The slicing index (to separate prefix tokens from completion tokens)
+    is **not** computed here because BPE tokenizers can merge tokens across
+    the prefix/suffix boundary.  The caller should compute the slicing
+    index from the full concatenated prompt instead.
     """
+
+    # TODO: use config.task_prompt_each_task, task_prompt_events etc to start the correct build
+    # raise NotImplementedError("This function is not yet implemented. It needs to be updated.")
+    print("TODO: adjust to use config initial prompt building blocks.")
+
     event_name = _extract_event_name_from_instruction(instruction, config)
     target_start = config.target_prompt_start.format(event_name=event_name)
     completions = _build_tte_completion_strings(config)
@@ -213,11 +222,7 @@ def build_scored_prompt(
         parts.append(instruction_clean)
         prompt_prefix = "\n\n".join(parts) + target_start
 
-    # Compute slicing index (number of tokens in the prefix)
-    prompt_tokens = tokenizer.encode(prompt_prefix, add_special_tokens=False)
-    slicing_index = len(prompt_tokens)
-
-    return prompt_prefix, slicing_index, completions
+    return prompt_prefix, completions
 
 
 # ---------------------------------------------------------------------------
@@ -269,9 +274,7 @@ async def _call_llm_for_prediction_async(
         log-probabilities for the corresponding completion.  Returns
         *None* on unrecoverable API errors.
     """
-    prompt_prefix, slicing_index, completions = build_scored_prompt(
-        instruction, tokenizer, config, system_prompt=system_prompt
-    )
+    prompt_prefix, completions = build_scored_prompt(instruction, tokenizer, config, system_prompt=system_prompt)
 
     async with semaphore:
         try:
@@ -279,6 +282,20 @@ async def _call_llm_for_prediction_async(
 
             for label, suffix in completions:
                 combined_prompt = prompt_prefix + suffix
+
+                # Compute the slicing index from the *full* combined prompt.
+                # We cannot pre-compute this from prompt_prefix alone because
+                # BPE tokenizers may merge tokens across the prefix/suffix
+                # boundary, shifting the split point.
+                #
+                # Strategy: tokenize the full combined string and the suffix
+                # independently, then find the split by looking at the token
+                # count of the suffix portion.  Even this can be off by a
+                # token, so after the API call we also verify using the
+                # server's own tokenization and fall back to searching for
+                # the suffix in the returned token list.
+                suffix_tokens = tokenizer.encode(suffix, add_special_tokens=False)
+                n_suffix_tokens = len(suffix_tokens)
 
                 response = await client.completions.create(
                     model=model_to_use,
@@ -289,16 +306,40 @@ async def _call_llm_for_prediction_async(
                 )
 
                 logprobs = response.choices[0].logprobs.token_logprobs
+                tokens = response.choices[0].logprobs.tokens
+
+                # Use the server's own tokenization to find the split.
+                # The total token count minus the number of suffix tokens
+                # (as counted by the local tokenizer) gives us a good
+                # initial estimate.  We then verify with a sanity check.
+                total_tokens = len(tokens)
+                slicing_index = total_tokens - n_suffix_tokens
+
+                # Verify: the joined suffix tokens should contain the suffix text.
+                # If not, search nearby indices (±2) to handle boundary merging.
+                output_text = "".join(tokens[slicing_index:]).strip()
+                if suffix.strip() not in output_text:
+                    # Try shifting the slicing index by ±1 or ±2
+                    found = False
+                    for offset in [-1, 1, -2, 2]:
+                        candidate = slicing_index + offset
+                        if 0 <= candidate <= total_tokens:
+                            candidate_text = "".join(tokens[candidate:]).strip()
+                            if suffix.strip() in candidate_text:
+                                slicing_index = candidate
+                                output_text = candidate_text
+                                found = True
+                                break
+                    if not found:
+                        raise ValueError(
+                            f"Completion mismatch for label '{label}': "
+                            f"expected '{suffix}' in output tokens, got "
+                            f"'{output_text}'. Could not find a valid "
+                            f"slicing index (tried offsets ±2)."
+                        )
 
                 # Slice to keep only the completion part
                 completion_logprobs = logprobs[slicing_index:]
-
-                # --- sanity checks (mirror the reference impl) -----------
-                tokens = response.choices[0].logprobs.tokens
-                output_text = "".join(tokens[slicing_index:])
-                assert suffix in output_text, (
-                    f"Completion mismatch for label '{label}': expected '{suffix}' in output, got '{output_text}'"
-                )
 
                 return_dic[label] = completion_logprobs
 
@@ -419,6 +460,68 @@ def run_tte_probability_estimation(
             api_key=api_key,
             timeout=timeout,
         )
+    )
+
+
+def run_tte_probability_estimation_notebook(
+    instructions_with_ids: list[tuple[str, str]],
+    tokenizer: Any,
+    config: Config,
+    *,
+    prediction_url: str = "http://0.0.0.0:8000/v1/",
+    prediction_model: str = "default-model",
+    max_concurrent_requests: int = 40,
+    system_prompt: str | None = None,
+    api_key: str = "EMPTY",
+    timeout: float = 600.0,
+) -> list[dict | None]:
+    """Score all patients against an OpenAI-compatible API and return raw log-probs.
+
+    This is the main entry-point for running TTE probability estimation, for use in Jupyter notebooks.
+    It is asynchronous and returns a coroutine, so it can be awaited directly in notebooks.
+
+    Parameters
+    ----------
+    instructions_with_ids : list[tuple[str, str]]
+        Each element is ``(patientid, instruction_text)``.
+    tokenizer
+        HuggingFace-compatible tokenizer (used for token counting).
+    config : Config
+        TwinWeaver configuration object.
+    prediction_url : str
+        Base URL of the OpenAI-compatible inference server.
+    prediction_model : str
+        Model name / path served by the inference server.
+    max_concurrent_requests : int
+        Maximum number of concurrent API requests.
+    system_prompt : str or None
+        Optional system prompt.
+    api_key : str
+        API key (``"EMPTY"`` for local vLLM servers).
+    timeout : float
+        Per-request timeout in seconds.
+
+    Returns
+    -------
+    list[dict or None]
+        One dict per patient with keys ``"patientid"``,
+        ``"occurred"``, ``"not_occurred"``, ``"censored"``
+        whose values are lists of per-token log-probabilities.
+        ``None`` entries indicate API failures.
+    """
+
+    # No need for a separate function in the notebook – just call the async version directly.
+
+    return _run_tte_probability_estimation_async(
+        instructions_with_ids,
+        tokenizer,
+        config,
+        prediction_url=prediction_url,
+        prediction_model=prediction_model,
+        max_concurrent_requests=max_concurrent_requests,
+        system_prompt=system_prompt,
+        api_key=api_key,
+        timeout=timeout,
     )
 
 
