@@ -308,6 +308,7 @@ We welcome contributions to TwinWeaver! Please follow these steps to contribute.
 2.  **Install pre-commit hooks:**
     We use `pre-commit` to ensure code formatting and quality checks run before you commit.
     ```bash
+    pip install pre-commit
     pre-commit install
     ```
 
