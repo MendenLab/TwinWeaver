@@ -187,6 +187,16 @@ def build_scored_prompt(
     index from the full concatenated prompt instead.
     """
 
+    # Do basic assertion that only the first task is present, since this approach doesn't support multiple tasks now.
+    assert config.task_prompt_each_task.format(task_nr=1).strip() in instruction, "Task 1 not in instruction."
+    assert config.task_prompt_each_task.format(task_nr=2).strip() not in instruction, (
+        "Task 2 found in instruction (not supported)."
+    )
+    assert config.task_prompt_each_task.format(task_nr=3).strip() not in instruction, (
+        "Task 3 found in instruction (not supported)."
+    )
+
+    # Extract the event name from the instruction to fill in the target prompt.
     event_name = _extract_event_name_from_instruction(instruction, config)
     target_start = config.target_prompt_start.format(event_name=event_name)
     completions = _build_tte_completion_strings(config)
@@ -342,6 +352,11 @@ async def _call_llm_for_prediction_async(
                             f"'{output_text}'. Could not find a valid "
                             f"slicing index (tried offsets ±2)."
                         )
+
+                # Do assertions to ensure nothing except the suffix is included in the completion portion.
+                prefix_text = "".join(tokens[:slicing_index]).strip()
+                assert suffix.strip() in output_text, f"Suffix '{suffix}' not found in output text '{output_text}'"
+                assert suffix.strip() not in prefix_text, f"Suffix '{suffix}' found in prefix text '{prefix_text}'"
 
                 # Slice to keep only the completion part
                 completion_logprobs = logprobs[slicing_index:]
@@ -538,7 +553,7 @@ def run_tte_probability_estimation_notebook(
 def compute_length_normalized_probabilities(
     raw_results: list[dict | None],
     *,
-    drop_failures: bool = True,
+    drop_failures: bool = False,
 ) -> pd.DataFrame:
     """Convert raw per-token log-probs into length-normalized softmax probabilities.
 
