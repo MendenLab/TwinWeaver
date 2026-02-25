@@ -26,6 +26,10 @@ Located in the `advanced/` directory, these examples cover more specific use cas
 *   **[prepare_pretraining_data.py](advanced/pretraining/prepare_pretraining_data.py)**: A script to prepare data for the pretraining phase.
 *   **[end_to_end_llm_training_with_pretrain.ipynb](advanced/pretraining/end_to_end_llm_training_with_pretrain.ipynb)**: An end-to-end example for training LLMs on full patient histories without a specific task, useful for developing models that can generate synthetic patients or embeddings.
 
+### TTE Probability Inference (`advanced/tte_inference/`)
+
+*   **[tte_probability_inference.ipynb](advanced/tte_inference/tte_probability_inference.ipynb)**: Demonstrates how to estimate probabilities for time-to-event outcomes (e.g., death, disease progression) using a fine-tuned LLM served via vLLM. Scores three mutually exclusive completions per patient and derives softmax probabilities from length-normalised log-probabilities. Includes evaluation across multiple time horizons. **Requires a fine-tuned model and a GPU with enough memory for vLLM.**
+
 ## Integrations
 
 Located in the `integrations/` directory.

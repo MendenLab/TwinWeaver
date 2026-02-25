@@ -96,6 +96,27 @@ A complete notebook demonstrating how to train LLMs on full patient histories wi
 - **Training**: [`examples/advanced/custom_splitting/training_individual_splitters.ipynb`](examples/advanced/custom_splitting/training_individual_splitters.ipynb) — Notebook demonstrating training data generation with individual splitters.
 - **Custom Split Events**: [`examples/advanced/custom_splitting/training_custom_split_events.ipynb`](examples/advanced/custom_splitting/training_custom_split_events.ipynb) — Notebook showing how to customize split events and forecast different event categories (e.g., using genetic events as split points and forecasting vitals).
 
+### TTE Probability Inference
+
+[`examples/advanced/tte_inference/tte_probability_inference.ipynb`](examples/advanced/tte_inference/tte_probability_inference.ipynb)
+
+Demonstrates how to estimate **probabilities** for time-to-event outcomes (e.g., death, disease progression) using a fine-tuned LLM served via [vLLM](https://github.com/vllm-project/vllm). Instead of generating free-text answers, the pipeline scores three mutually exclusive completions (censored, occurred, not occurred) and derives softmax probabilities from length-normalised log-probabilities.
+
+**What you'll learn:**
+
+- Building events-only instruction prompts for TTE inference
+- Launching a vLLM server and scoring completions via the OpenAI-compatible API
+- Computing length-normalised softmax probabilities with `compute_length_normalized_probabilities()`
+- Evaluating predictions across multiple time horizons
+
+!!! warning "Requirements"
+    Requires a **fine-tuned model** for meaningful results. An off-the-shelf instruction model will potentially produce random probabilities. Also requires a GPU with enough memory for vLLM (≥ 16 GB for a 4-bit 8B model).
+    ```bash
+    pip install twinweaver[fine-tuning-example] vllm openai
+    ```
+
+For a detailed explanation of the mechanism and future research directions, see the [TTE Probability Inference](tte-inference.md) documentation page.
+
 ### Custom Text Generation
 
 [`examples/advanced/custom_output/customizing_text_generation.ipynb`](examples/advanced/custom_output/customizing_text_generation.ipynb)

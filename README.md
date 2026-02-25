@@ -78,6 +78,9 @@ For users needing custom behavior or specific integrations:
     *   A comprehensive tutorial on customizing every textual component of the instruction generation pipeline. Learn how to modify preambles, event formatting, time units, genetic data tags, forecasting prompts, and more to adapt outputs for different LLMs, languages, or institutional requirements.
 *   **Custom Summarized Row**: [`examples/advanced/custom_output/custom_summarized_row.ipynb`](examples/advanced/custom_output/custom_summarized_row.ipynb)
     *   Shows how to customize the summarized row section of the instruction prompt using `set_custom_summarized_row_fn()`. Includes minimal and advanced examples, plus error handling guidance.
+*   **TTE Probability Inference**: [`examples/advanced/tte_inference/tte_probability_inference.ipynb`](examples/advanced/tte_inference/tte_probability_inference.ipynb)
+    *   Demonstrates how to estimate calibrated probabilities for time-to-event outcomes (e.g., death, disease progression) using a fine-tuned LLM served via vLLM. Scores three mutually exclusive completions per patient and derives softmax probabilities from length-normalised log-probabilities. Includes evaluation across multiple time horizons. See the [TTE Probability Inference documentation](https://mendenlab.github.io/TwinWeaver/tte-inference/) for a detailed explanation of the mechanism.
+    *   NOTE: Requires a fine-tuned model for meaningful results and a GPU with enough memory for vLLM.
 *   **MEDS Data Import**: [`examples/integrations/meds_data_import.ipynb`](examples/integrations/meds_data_import.ipynb)
     *   A tutorial on importing data in the Medical Event Data Standard (MEDS) format and converting it into TwinWeaver's internal format. Includes a synthetic data example.
 
