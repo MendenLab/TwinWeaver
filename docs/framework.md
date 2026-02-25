@@ -21,6 +21,8 @@ Supports sampling split times and prediction horizons to avoid overfitting to sp
 
 [:octicons-arrow-right-24: Learn more about data splitting](data-splitting.md)
 
+[:octicons-arrow-right-24: Learn more about TTE probability inference](tte-inference.md)
+
 ---
 
 ## Dataset Types: Instruction vs. Pretraining

@@ -2,7 +2,7 @@
 
 ## Paper
 
-The paper can be found [on Arxiv](todo).
+The paper can be found [on Arxiv](https://arxiv.org/abs/2601.20906).
 
 ### Authors
 

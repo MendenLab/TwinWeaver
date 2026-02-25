@@ -118,8 +118,9 @@ nav:
       - Tutorials: tutorials.md
       - Quick Start: quickstart.md
       - Framework Overview: framework.md
-      - Data Splitting: data-splitting.md
       - Dataset Format: dataset-format.md
+      - Data Splitting: data-splitting.md
+      - TTE Probability Inference: tte-inference.md
       - Pro Tips: pro-tips.md
       - API Index: api-index.md
       - Contributing: contributing.md
@@ -133,6 +134,7 @@ nav:
           - Custom Splitting (Training): examples/advanced/custom_splitting/training_individual_splitters.ipynb
           - Custom Splitting (Inference): examples/advanced/custom_splitting/inference_individual_splitters.md
           - Pretraining: examples/advanced/pretraining/prepare_pretraining_data.md
+          - TTE Probability Inference: examples/advanced/tte_inference/tte_probability_inference.ipynb
       - Integrations:
           - MEDS Import: examples/integrations/meds_data_import.ipynb
   - API Reference:
@@ -152,3 +154,4 @@ nav:
       - Utils:
           - MEDS Importer: reference/utils/meds_importer.md
           - Preprocessing Helpers: reference/utils/preprocessing_helpers.md
+          - TTE Inference: reference/utils/tte_inference.md
