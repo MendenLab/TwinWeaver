@@ -187,13 +187,18 @@ def build_scored_prompt(
     index from the full concatenated prompt instead.
     """
 
-    # TODO: use config.task_prompt_each_task, task_prompt_events etc to start the correct build
-    # raise NotImplementedError("This function is not yet implemented. It needs to be updated.")
-    print("TODO: adjust to use config initial prompt building blocks.")
-
     event_name = _extract_event_name_from_instruction(instruction, config)
     target_start = config.target_prompt_start.format(event_name=event_name)
     completions = _build_tte_completion_strings(config)
+
+    # --- Build the task target prefix that precedes the actual prediction ---
+    # During training, _generate_target_string wraps each task's target with:
+    #   task_target_start.format(task_nr=N) + task_type + task_text + task_target_end
+    # For TTE inference there is always exactly one events task (task_nr=1),
+    # so the target the model learned to produce starts with:
+    #   "Task 1 is time to event prediction:\nHere is the prediction: ..."
+    # We must replicate this prefix so that the scored prompt matches training.
+    task_target_prefix = config.task_target_start.format(task_nr=1) + config.task_prompt_events + target_start
 
     instruction_clean = instruction.strip()
 
@@ -213,14 +218,14 @@ def build_scored_prompt(
             tokenize=False,
             add_generation_prompt=True,
         )
-        prompt_prefix = chat_prefix + target_start
+        prompt_prefix = chat_prefix + task_target_prefix
     else:
         # Simple fallback – just concatenate.
         parts = []
         if system_prompt is not None:
             parts.append(system_prompt)
         parts.append(instruction_clean)
-        prompt_prefix = "\n\n".join(parts) + target_start
+        prompt_prefix = "\n\n".join(parts) + task_target_prefix
 
     return prompt_prefix, completions
 
