@@ -636,6 +636,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#tte-probability-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TTE Probability Inference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#custom-text-generation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -762,6 +773,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../dataset-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dataset Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../data-splitting/" class="md-nav__link">
         
   
@@ -790,14 +829,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../dataset-format/" class="md-nav__link">
+      <a href="../tte-inference/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Dataset Format
+    TTE Probability Inference
   
 
     
@@ -1217,6 +1256,34 @@
     
   
     Pretraining
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/advanced/tte_inference/tte_probability_inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-to-Event (TTE) Probability Inference with TwinWeaver
   
 
     
@@ -1953,6 +2020,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/utils/tte_inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TTE Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2094,6 +2189,17 @@
     <span class="md-ellipsis">
       
         Custom Splitting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tte-probability-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TTE Probability Inference
       
     </span>
   </a>
@@ -2244,6 +2350,23 @@ Requires a GPU with at least 30GB of memory.</p>
 <li><strong>Training</strong>: <a href="../examples/advanced/custom_splitting/training_individual_splitters/"><code>examples/advanced/custom_splitting/training_individual_splitters.ipynb</code></a> — Notebook demonstrating training data generation with individual splitters.</li>
 <li><strong>Custom Split Events</strong>: <a href="../examples/advanced/custom_splitting/training_custom_split_events/"><code>examples/advanced/custom_splitting/training_custom_split_events.ipynb</code></a> — Notebook showing how to customize split events and forecast different event categories (e.g., using genetic events as split points and forecasting vitals).</li>
 </ul>
+<h3 id="tte-probability-inference">TTE Probability Inference<a class="headerlink" href="#tte-probability-inference" title="Permanent link">&para;</a></h3>
+<p><a href="../examples/advanced/tte_inference/tte_probability_inference/"><code>examples/advanced/tte_inference/tte_probability_inference.ipynb</code></a></p>
+<p>Demonstrates how to estimate <strong>probabilities</strong> for time-to-event outcomes (e.g., death, disease progression) using a fine-tuned LLM served via <a href="https://github.com/vllm-project/vllm">vLLM</a>. Instead of generating free-text answers, the pipeline scores three mutually exclusive completions (censored, occurred, not occurred) and derives softmax probabilities from length-normalised log-probabilities.</p>
+<p><strong>What you'll learn:</strong></p>
+<ul>
+<li>Building events-only instruction prompts for TTE inference</li>
+<li>Launching a vLLM server and scoring completions via the OpenAI-compatible API</li>
+<li>Computing length-normalised softmax probabilities with <code>compute_length_normalized_probabilities()</code></li>
+<li>Evaluating predictions across multiple time horizons</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Requirements</p>
+<p>Requires a <strong>fine-tuned model</strong> for meaningful results. An off-the-shelf instruction model will potentially produce random probabilities. Also requires a GPU with enough memory for vLLM (≥ 16 GB for a 4-bit 8B model).
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>twinweaver<span class="o">[</span>fine-tuning-example<span class="o">]</span><span class="w"> </span>vllm<span class="w"> </span>openai
+</span></code></pre></div></p>
+</div>
+<p>For a detailed explanation of the mechanism and future research directions, see the <a href="../tte-inference/">TTE Probability Inference</a> documentation page.</p>
 <h3 id="custom-text-generation">Custom Text Generation<a class="headerlink" href="#custom-text-generation" title="Permanent link">&para;</a></h3>
 <p><a href="../examples/advanced/custom_output/customizing_text_generation/"><code>examples/advanced/custom_output/customizing_text_generation.ipynb</code></a></p>
 <p>A comprehensive tutorial on customizing <strong>every textual component</strong> of the instruction generation pipeline. TwinWeaver provides extensive configuration options to tailor generated text prompts to your specific use case.</p>

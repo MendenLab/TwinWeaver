@@ -10,27 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://example.com/twinweaver/examples/hackathon/">
+        <link rel="canonical" href="https://example.com/twinweaver/tte-inference/">
       
       
+        <link rel="prev" href="../data-splitting/">
+      
+      
+        <link rel="next" href="../pro-tips/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>🏆 TwinWeaver Hackathon Challenges - TwinWeaver</title>
+        <title>TTE Probability Inference - TwinWeaver</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,11 +53,11 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -88,7 +92,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#twinweaver-hackathon-challenges" class="md-skip">
+        <a href="#time-to-event-tte-probability-inference" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +106,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="TwinWeaver" class="md-header__button md-logo" aria-label="TwinWeaver" data-md-component="logo">
+    <a href=".." title="TwinWeaver" class="md-header__button md-logo" aria-label="TwinWeaver" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 2h2v2c0 1.44.68 2.61 1.88 3.78.86.83 2.01 1.63 3.21 2.42l-1.83 1.19C8.27 10.72 7.31 10 6.5 9.21 5.07 7.82 4 6.1 4 4zm14 0h2v2c0 2.1-1.07 3.82-2.5 5.21-1.41 1.38-3.21 2.52-4.96 3.63-1.75 1.12-3.45 2.21-4.66 3.38C6.68 17.39 6 18.56 6 20v2H4v-2c0-2.1 1.07-3.82 2.5-5.21 1.41-1.38 3.21-2.52 4.96-3.63 1.75-1.12 3.45-2.21 4.66-3.38C17.32 6.61 18 5.44 18 4zm-3.26 10.61c.99.67 1.95 1.39 2.76 2.18C18.93 16.18 20 17.9 20 20v2h-2v-2c0-1.44-.68-2.61-1.88-3.78-.86-.83-2.01-1.63-3.21-2.42zM7 3h10v1l-.06.5H7.06L7 4zm.68 3h8.64c-.24.34-.52.69-.9 1.06l-.51.44H9.07l-.49-.44c-.38-.37-.66-.72-.9-1.06m1.41 10.5h5.84l.49.44c.38.37.66.72.9 1.06H7.68c.24-.34.52-.69.9-1.06zm-2.03 3h9.88l.06.5v1H7v-1z"/></svg>
@@ -122,7 +126,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              🏆 TwinWeaver Hackathon Challenges
+              TTE Probability Inference
             
           </span>
         </div>
@@ -233,11 +237,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../.." class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href=".." class="md-tabs__link">
           
   
   
@@ -257,7 +263,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../" class="md-tabs__link">
+        <a href="../examples/" class="md-tabs__link">
           
   
   
@@ -284,7 +290,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../reference/common/config/" class="md-tabs__link">
+        <a href="../reference/common/config/" class="md-tabs__link">
           
   
   
@@ -321,7 +327,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="TwinWeaver" class="md-nav__button md-logo" aria-label="TwinWeaver" data-md-component="logo">
+    <a href=".." title="TwinWeaver" class="md-nav__button md-logo" aria-label="TwinWeaver" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 2h2v2c0 1.44.68 2.61 1.88 3.78.86.83 2.01 1.63 3.21 2.42l-1.83 1.19C8.27 10.72 7.31 10 6.5 9.21 5.07 7.82 4 6.1 4 4zm14 0h2v2c0 2.1-1.07 3.82-2.5 5.21-1.41 1.38-3.21 2.52-4.96 3.63-1.75 1.12-3.45 2.21-4.66 3.38C6.68 17.39 6 18.56 6 20v2H4v-2c0-2.1 1.07-3.82 2.5-5.21 1.41-1.38 3.21-2.52 4.96-3.63 1.75-1.12 3.45-2.21 4.66-3.38C17.32 6.61 18 5.44 18 4zm-3.26 10.61c.99.67 1.95 1.39 2.76 2.18C18.93 16.18 20 17.9 20 20v2h-2v-2c0-1.44-.68-2.61-1.88-3.78-.86-.83-2.01-1.63-3.21-2.42zM7 3h10v1l-.06.5H7.06L7 4zm.68 3h8.64c-.24.34-.52.69-.9 1.06l-.51.44H9.07l-.49-.44c-.38-.37-.66-.72-.9-1.06m1.41 10.5h5.84l.49.44c.38.37.66.72.9 1.06H7.68c.24-.34.52-.69.9-1.06zm-2.03 3h9.88l.06.5v1H7v-1z"/></svg>
@@ -348,26 +354,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
         
           
-          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
             
   
   
@@ -385,7 +396,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -403,7 +414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -431,7 +442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../installation/" class="md-nav__link">
+      <a href="../installation/" class="md-nav__link">
         
   
   
@@ -459,7 +470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/" class="md-nav__link">
+      <a href="../tutorials/" class="md-nav__link">
         
   
   
@@ -487,7 +498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../quickstart/" class="md-nav__link">
+      <a href="../quickstart/" class="md-nav__link">
         
   
   
@@ -515,7 +526,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../framework/" class="md-nav__link">
+      <a href="../framework/" class="md-nav__link">
         
   
   
@@ -543,7 +554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dataset-format/" class="md-nav__link">
+      <a href="../dataset-format/" class="md-nav__link">
         
   
   
@@ -571,7 +582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../data-splitting/" class="md-nav__link">
+      <a href="../data-splitting/" class="md-nav__link">
         
   
   
@@ -596,10 +607,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../tte-inference/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TTE Probability Inference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -615,6 +653,159 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipeline Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step-by-step
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mathematical-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Formulation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-api-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key API Functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prompt-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Consistency
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations-and-future-research" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations and Future Research
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Limitations and Future Research">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calibration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directions-for-future-research" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directions for Future Research
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#citation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Citation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -627,7 +818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pro-tips/" class="md-nav__link">
+      <a href="../pro-tips/" class="md-nav__link">
         
   
   
@@ -655,7 +846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api-index/" class="md-nav__link">
+      <a href="../api-index/" class="md-nav__link">
         
   
   
@@ -683,7 +874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../contributing/" class="md-nav__link">
+      <a href="../contributing/" class="md-nav__link">
         
   
   
@@ -711,7 +902,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../citation/" class="md-nav__link">
+      <a href="../citation/" class="md-nav__link">
         
   
   
@@ -798,7 +989,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../examples/" class="md-nav__link">
         
   
   
@@ -826,7 +1017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../01_data_preparation_for_training/" class="md-nav__link">
+      <a href="../examples/01_data_preparation_for_training/" class="md-nav__link">
         
   
   
@@ -854,7 +1045,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02_inference_prompt_preparation/" class="md-nav__link">
+      <a href="../examples/02_inference_prompt_preparation/" class="md-nav__link">
         
   
   
@@ -882,7 +1073,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03_end_to_end_llm_finetuning/" class="md-nav__link">
+      <a href="../examples/03_end_to_end_llm_finetuning/" class="md-nav__link">
         
   
   
@@ -962,7 +1153,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/custom_splitting/training_individual_splitters/" class="md-nav__link">
+      <a href="../examples/advanced/custom_splitting/training_individual_splitters/" class="md-nav__link">
         
   
   
@@ -990,7 +1181,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/custom_splitting/inference_individual_splitters.md" class="md-nav__link">
+      <a href="../examples/advanced/custom_splitting/inference_individual_splitters.md" class="md-nav__link">
         
   
   
@@ -1018,7 +1209,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/pretraining/prepare_pretraining_data.md" class="md-nav__link">
+      <a href="../examples/advanced/pretraining/prepare_pretraining_data.md" class="md-nav__link">
         
   
   
@@ -1046,7 +1237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/tte_inference/tte_probability_inference/" class="md-nav__link">
+      <a href="../examples/advanced/tte_inference/tte_probability_inference/" class="md-nav__link">
         
   
   
@@ -1134,7 +1325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../integrations/meds_data_import/" class="md-nav__link">
+      <a href="../examples/integrations/meds_data_import/" class="md-nav__link">
         
   
   
@@ -1281,7 +1472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/common/config/" class="md-nav__link">
+      <a href="../reference/common/config/" class="md-nav__link">
         
   
   
@@ -1309,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/common/data_manager/" class="md-nav__link">
+      <a href="../reference/common/data_manager/" class="md-nav__link">
         
   
   
@@ -1337,7 +1528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/common/converter_base/" class="md-nav__link">
+      <a href="../reference/common/converter_base/" class="md-nav__link">
         
   
   
@@ -1425,7 +1616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/instruction/converter_instruction/" class="md-nav__link">
+      <a href="../reference/instruction/converter_instruction/" class="md-nav__link">
         
   
   
@@ -1453,7 +1644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/instruction/converter_forecasting/" class="md-nav__link">
+      <a href="../reference/instruction/converter_forecasting/" class="md-nav__link">
         
   
   
@@ -1481,7 +1672,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/instruction/converter_forecasting_qa/" class="md-nav__link">
+      <a href="../reference/instruction/converter_forecasting_qa/" class="md-nav__link">
         
   
   
@@ -1509,7 +1700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/instruction/converter_events/" class="md-nav__link">
+      <a href="../reference/instruction/converter_events/" class="md-nav__link">
         
   
   
@@ -1537,7 +1728,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/instruction/data_splitter/" class="md-nav__link">
+      <a href="../reference/instruction/data_splitter/" class="md-nav__link">
         
   
   
@@ -1565,7 +1756,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/instruction/data_splitters/" class="md-nav__link">
+      <a href="../reference/instruction/data_splitters/" class="md-nav__link">
         
   
   
@@ -1653,7 +1844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/pretrain/converter_pretrain/" class="md-nav__link">
+      <a href="../reference/pretrain/converter_pretrain/" class="md-nav__link">
         
   
   
@@ -1741,7 +1932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/utils/meds_importer/" class="md-nav__link">
+      <a href="../reference/utils/meds_importer/" class="md-nav__link">
         
   
   
@@ -1769,7 +1960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/utils/preprocessing_helpers/" class="md-nav__link">
+      <a href="../reference/utils/preprocessing_helpers/" class="md-nav__link">
         
   
   
@@ -1797,7 +1988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/utils/tte_inference/" class="md-nav__link">
+      <a href="../reference/utils/tte_inference/" class="md-nav__link">
         
   
   
@@ -1860,10 +2051,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#challenge-format" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🎯 Challenge Format
+        Overview
       
     </span>
   </a>
@@ -1871,33 +2062,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#available-challenges" class="md-nav__link">
+  <a href="#pipeline-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📚 Available Challenges
+        Pipeline Architecture
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📚 Available Challenges">
+    <nav class="md-nav" aria-label="Pipeline Architecture">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#challenge-1-data-preparation-01_data_preparation_challengeipynb" class="md-nav__link">
+  <a href="#step-by-step" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Challenge 1: Data Preparation (01_data_preparation_challenge.ipynb)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#challenge-2-end-to-end-llm-fine-tuning-02_llm_finetuning_challengeipynb" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Challenge 2: End-to-End LLM Fine-tuning (02_llm_finetuning_challenge.ipynb)
+        Step-by-step
       
     </span>
   </a>
@@ -1910,10 +2090,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#mathematical-formulation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🚀 Getting Started
+        Mathematical Formulation
       
     </span>
   </a>
@@ -1921,10 +2101,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tips-for-success" class="md-nav__link">
+  <a href="#key-api-functions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        💡 Tips for Success
+        Key API Functions
       
     </span>
   </a>
@@ -1932,10 +2112,71 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#scoring-optional" class="md-nav__link">
+  <a href="#usage-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📊 Scoring (Optional)
+        Usage Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prompt-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Consistency
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations-and-future-research" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations and Future Research
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Limitations and Future Research">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calibration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directions-for-future-research" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directions for Future Research
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#citation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Citation
       
     </span>
   </a>
@@ -1962,56 +2203,196 @@
   
 
 
-<h1 id="twinweaver-hackathon-challenges">🏆 TwinWeaver Hackathon Challenges<a class="headerlink" href="#twinweaver-hackathon-challenges" title="Permanent link">&para;</a></h1>
-<p>Welcome to the TwinWeaver Hackathon! These interactive notebooks are designed to test your understanding of clinical data processing and LLM fine-tuning for medical forecasting.</p>
-<h2 id="challenge-format">🎯 Challenge Format<a class="headerlink" href="#challenge-format" title="Permanent link">&para;</a></h2>
-<p>Unlike the standard tutorials, these notebooks require <strong>active participation</strong>:</p>
-<ul>
-<li><strong>🔴 TODO Sections</strong>: Code cells marked with <code># TODO:</code> require you to write code</li>
-<li><strong>❓ Quiz Questions</strong>: Test your understanding before moving forward</li>
-<li><strong>🧪 Experiments</strong>: Design and run your own experiments</li>
-<li><strong>🏁 Checkpoints</strong>: Verify your solutions before proceeding</li>
-<li><strong>🌟 Bonus Challenges</strong>: Optional advanced tasks for extra credit</li>
-</ul>
-<h2 id="available-challenges">📚 Available Challenges<a class="headerlink" href="#available-challenges" title="Permanent link">&para;</a></h2>
-<h3 id="challenge-1-data-preparation-01_data_preparation_challengeipynb">Challenge 1: Data Preparation (<code>01_data_preparation_challenge.ipynb</code>)<a class="headerlink" href="#challenge-1-data-preparation-01_data_preparation_challengeipynb" title="Permanent link">&para;</a></h3>
-<p><strong>Difficulty</strong>: ⭐⭐ (Intermediate)
-<strong>Time</strong>: 45-60 minutes</p>
-<p>Learn to transform raw clinical data into instruction-tuning format by:
-- Configuring the data pipeline from scratch
-- Understanding split strategies for patient timelines
-- Debugging common configuration errors
-- Experimenting with different forecasting targets</p>
-<h3 id="challenge-2-end-to-end-llm-fine-tuning-02_llm_finetuning_challengeipynb">Challenge 2: End-to-End LLM Fine-tuning (<code>02_llm_finetuning_challenge.ipynb</code>)<a class="headerlink" href="#challenge-2-end-to-end-llm-fine-tuning-02_llm_finetuning_challengeipynb" title="Permanent link">&para;</a></h3>
-<p><strong>Difficulty</strong>: ⭐⭐⭐ (Advanced)
-<strong>Time</strong>: 90-120 minutes</p>
-<p>Master the complete LLM fine-tuning workflow by:
-- Setting up training data generation
-- Configuring LoRA hyperparameters
-- Analyzing training dynamics
-- Running inference experiments
-- Evaluating model predictions</p>
-<h2 id="getting-started">🚀 Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<h1 id="time-to-event-tte-probability-inference">Time-to-Event (TTE) Probability Inference<a class="headerlink" href="#time-to-event-tte-probability-inference" title="Permanent link">&para;</a></h1>
+<p>TwinWeaver supports <strong>landmark event prediction</strong> as one of its core clinical tasks. During training, the model learns to classify whether a clinical event (e.g., death, disease progression, therapy switching) was <em>censored</em>, <em>occurred</em>, or <em>did not occur</em> within a given observation window. At inference time, we potentially want <strong>probabilities</strong> for each outcome.</p>
+<p>This page explains the TTE probability inference mechanism: how it works, why length-normalised log-probabilities are used, and where future research should focus to improve calibration.</p>
+<div class="admonition info">
+<p class="admonition-title">Reference</p>
+<p>The TTE probability inference approach is described in the TwinWeaver preprint:</p>
+<blockquote>
+<p>Makarov, N. et al. (2026). <em>TwinWeaver: An LLM-Based Foundation Model Framework for Pan-Cancer Digital Twins.</em> <a href="https://arxiv.org/abs/2601.20906">arXiv:2601.20906</a></p>
+</blockquote>
+</div>
+<hr />
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Instead of generating free-text answers, the TTE inference pipeline <strong>scores three mutually exclusive completions</strong> for each patient and derives probabilities from the model's own confidence in each completion.</p>
+<table>
+<thead>
+<tr>
+<th>Outcome</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Censored</strong></td>
+<td>The patient's observation window ended before the event could be observed</td>
+</tr>
+<tr>
+<td><strong>Occurred</strong></td>
+<td>The event happened within the observation window</td>
+</tr>
+<tr>
+<td><strong>Not occurred</strong></td>
+<td>The event did not happen within the observation window</td>
+</tr>
+</tbody>
+</table>
+<p>This three-class formulation matches TwinWeaver's training-time target format, ensuring that inference is consistent with what the model learned during fine-tuning.</p>
+<hr />
+<h2 id="pipeline-architecture">Pipeline Architecture<a class="headerlink" href="#pipeline-architecture" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Patient data ──► DataSplitter (events) ──► ConverterInstruction
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                                                │
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                                  instruction text per patient
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                                                │
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                     ┌──────────────────────────┘
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                     ▼
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>              vLLM server (OpenAI-compatible API)
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                     │
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>          log-probs for 3 completions
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                     │
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                     ▼
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>     compute_length_normalized_probabilities()
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                     │
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>            calibrated probabilities
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>            + hard predictions (DataFrame)
+</span></code></pre></div>
+<h3 id="step-by-step">Step-by-step<a class="headerlink" href="#step-by-step" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Make sure you have TwinWeaver installed: <code>pip install twinweaver</code></li>
-<li>For Challenge 2, also install: <code>pip install twinweaver[fine-tuning-example]</code></li>
-<li>Open the challenge notebook and follow the instructions</li>
-<li>Don't peek at the solutions until you've tried!</li>
+<li>
+<p><strong>Prompt construction</strong> — For each patient, <code>build_scored_prompt()</code> assembles the full prompt prefix (chat template + patient history + task instruction) and three completion suffixes (one per outcome). The suffixes are constructed from the same <code>Config</code> attributes used during training to ensure exact token-level consistency.</p>
+</li>
+<li>
+<p><strong>Log-probability scoring</strong> — Each <code>(prompt_prefix + completion_suffix)</code> is sent to the vLLM server with <code>max_tokens=0</code> and <code>echo=True</code>. This makes the server return per-token log-probabilities for the entire prompt <em>without generating any new tokens</em>. Only the log-probabilities of the completion tokens are retained.</p>
+</li>
+<li>
+<p><strong>Length normalisation</strong> — The mean log-probability across completion tokens is computed for each outcome. This prevents longer completions from being unfairly penalised.</p>
+</li>
+<li>
+<p><strong>Softmax</strong> — The three mean log-probabilities are passed through a softmax to yield probabilities that sum to 1.</p>
+</li>
+<li>
+<p><strong>Hard prediction</strong> — The outcome with the highest probability is selected as the hard prediction.</p>
+</li>
 </ol>
-<h2 id="tips-for-success">💡 Tips for Success<a class="headerlink" href="#tips-for-success" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="mathematical-formulation">Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Permanent link">&para;</a></h2>
+<p>Given an instruction prompt <span class="arithmatex">\(\mathbf{x}\)</span> and a completion string <span class="arithmatex">\(\mathbf{c}_k\)</span> for outcome <span class="arithmatex">\(k \in \{\text{censored}, \text{occurred}, \text{not occurred}\}\)</span>, the model assigns a per-token log-probability to each token <span class="arithmatex">\(c_{k,t}\)</span> in the completion:</p>
+<div class="arithmatex">\[
+\log p(c_{k,t} \mid \mathbf{x}, c_{k,&lt;t})
+\]</div>
+<p>The <strong>length-normalised log-probability</strong> for outcome <span class="arithmatex">\(k\)</span> is:</p>
+<div class="arithmatex">\[
+\bar{\ell}_k = \frac{1}{T_k} \sum_{t=1}^{T_k} \log p(c_{k,t} \mid \mathbf{x}, c_{k,&lt;t})
+\]</div>
+<p>where <span class="arithmatex">\(T_k\)</span> is the number of tokens in completion <span class="arithmatex">\(\mathbf{c}_k\)</span>.</p>
+<p>The <strong>softmax probabilities</strong> are then:</p>
+<div class="arithmatex">\[
+P(k \mid \mathbf{x}) = \frac{\exp(\bar{\ell}_k)}{\sum_{j} \exp(\bar{\ell}_j)}
+\]</div>
+<p>These three probabilities sum to 1 and represent the model's relative confidence in each outcome.</p>
+<hr />
+<h2 id="key-api-functions">Key API Functions<a class="headerlink" href="#key-api-functions" title="Permanent link">&para;</a></h2>
+<p>TwinWeaver provides three main functions for TTE inference in <code>twinweaver.utils.tte_inference</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>build_scored_prompt()</code></td>
+<td>Constructs the prompt prefix and three completion suffixes from a patient instruction and config. Useful for debugging and inspecting what the model sees.</td>
+</tr>
+<tr>
+<td><code>run_tte_probability_estimation()</code></td>
+<td>Synchronous entry-point that scores all patients against an OpenAI-compatible API. Returns raw per-token log-probabilities.</td>
+</tr>
+<tr>
+<td><code>run_tte_probability_estimation_notebook()</code></td>
+<td>Asynchronous variant for use inside Jupyter notebooks (returns a coroutine that can be <code>await</code>ed).</td>
+</tr>
+<tr>
+<td><code>compute_length_normalized_probabilities()</code></td>
+<td>Post-processes raw log-probs into length-normalised softmax probabilities and hard predictions. Returns a <code>pandas.DataFrame</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>For full API documentation, see the <a href="../reference/utils/tte_inference/">TTE Inference API Reference</a>.</p>
+<hr />
+<h2 id="usage-requirements">Usage Requirements<a class="headerlink" href="#usage-requirements" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Read the context</strong>: Each section provides background information</li>
-<li><strong>Check the hints</strong>: Stuck? Look for the 💡 hint markers</li>
-<li><strong>Run checkpoints</strong>: Use the validation cells to verify your code</li>
-<li><strong>Experiment freely</strong>: The bonus sections encourage exploration</li>
+<li>A <strong>fine-tuned model</strong> — An off-the-shelf instruction model will produce random probabilities because it was not trained on TwinWeaver's target format. See <a href="../examples/03_end_to_end_llm_finetuning/"><code>03_end_to_end_llm_finetuning.ipynb</code></a> for training.</li>
+<li>A <strong>vLLM server</strong> (or any OpenAI-compatible API) that supports <code>echo=True</code> and <code>logprobs</code> in the completions endpoint.</li>
+<li>A GPU with enough memory to serve the model (≥ 16 GB for a 4-bit quantised 8B model).</li>
 </ul>
-<h2 id="scoring-optional">📊 Scoring (Optional)<a class="headerlink" href="#scoring-optional" title="Permanent link">&para;</a></h2>
-<p>If running as a competition:
-- Each TODO section: 10 points
-- Each quiz question: 5 points
-- Bonus challenges: 15-25 points each
-- Clean, well-documented code: up to 10 bonus points</p>
-<p>Good luck! 🍀</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>twinweaver<span class="o">[</span>fine-tuning-example<span class="o">]</span><span class="w"> </span>vllm<span class="w"> </span>openai
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tutorial</p>
+<p>For a complete worked example, see the <a href="../examples/advanced/tte_inference/tte_probability_inference/">TTE Probability Inference notebook</a>.</p>
+</div>
+<hr />
+<h2 id="prompt-consistency">Prompt Consistency<a class="headerlink" href="#prompt-consistency" title="Permanent link">&para;</a></h2>
+<p>A critical design principle is that the completion suffixes scored at inference time must <strong>exactly match</strong> the target strings produced during training. TwinWeaver achieves this by constructing both from the same <code>Config</code> attributes:</p>
+<ul>
+<li><code>config.target_prompt_censor_true</code> — The censored completion text</li>
+<li><code>config.target_prompt_censor_false</code> — The "not censored" prefix</li>
+<li><code>config.target_prompt_before_occur</code> — Text bridging censoring status and occurrence</li>
+<li><code>config.target_prompt_occur</code> / <code>config.target_prompt_not_occur</code> — The occurrence markers</li>
+</ul>
+<p>If you customised any of these during training, the same <code>Config</code> must be used at inference time.</p>
+<hr />
+<h2 id="limitations-and-future-research">Limitations and Future Research<a class="headerlink" href="#limitations-and-future-research" title="Permanent link">&para;</a></h2>
+<p>While the TTE probability inference pipeline provides a practical mechanism for extracting event probabilities from a fine-tuned LLM, there are important limitations to be aware of.</p>
+<h3 id="calibration">Calibration<a class="headerlink" href="#calibration" title="Permanent link">&para;</a></h3>
+<p>As discussed in the <a href="https://arxiv.org/abs/2601.20906">TwinWeaver preprint</a>, the softmax probabilities derived from length-normalised log-probs are <strong>not well calibrated</strong> in the statistical sense. That is, a predicted probability of 0.7 does not necessarily mean that the event occurs 70% of the time across a population of patients with similar predictions. The probabilities are useful for <strong>ranking</strong> patients by risk and for deriving hard predictions, but should not be interpreted as true event probabilities without further calibration.</p>
+<h3 id="directions-for-future-research">Directions for Future Research<a class="headerlink" href="#directions-for-future-research" title="Permanent link">&para;</a></h3>
+<p>Several avenues could improve the quality and calibration of TTE probability estimates:</p>
+<ol>
+<li>
+<p><strong>Post-hoc calibration</strong> — Applying calibration methods such as Platt scaling, isotonic regression, or temperature scaling on a held-out calibration set could improve the reliability of the predicted probabilities.</p>
+</li>
+<li>
+<p><strong>Alternative scoring functions</strong> — Instead of length-normalised mean log-probabilities, one could explore:</p>
+<ul>
+<li>Geometric mean of token probabilities</li>
+<li>Weighted scoring that accounts for token position or importance</li>
+<li>Mutual information–based scoring</li>
+</ul>
+</li>
+<li>
+<p><strong>Verbalised confidence</strong> — Rather than extracting probabilities from log-probs, the model could be trained to directly output a numerical probability or confidence score as part of its generation. This approach has shown promise in other domains and could be more naturally calibrated.</p>
+</li>
+<li>
+<p><strong>Ensemble methods</strong> — Combining predictions from multiple fine-tuned models or using Monte Carlo dropout at inference time could provide better uncertainty estimates.</p>
+</li>
+<li>
+<p><strong>Continuous survival modelling</strong> — Extending the framework to predict full survival curves rather than discrete event/no-event classifications at fixed time horizons. This could be achieved by evaluating multiple time horizons jointly (as demonstrated in the <a href="../examples/advanced/tte_inference/tte_probability_inference/">tutorial notebook</a>) or by training the model to output parametric survival functions.</p>
+</li>
+<li>
+<p><strong>Training objective alignment</strong> — Modifying the training loss to explicitly optimise for calibrated probability estimation rather than standard next-token prediction, for example through proper scoring rules.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Contributing</p>
+<p>If you explore any of these directions, we welcome contributions and discussions via <a href="https://github.com/MendenLab/TwinWeaver/issues">GitHub Issues</a>.</p>
+</div>
+<hr />
+<h2 id="citation">Citation<a class="headerlink" href="#citation" title="Permanent link">&para;</a></h2>
+<p>If you use TwinWeaver's TTE probability inference in your research, please cite:</p>
+<div class="language-bibtex highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nc">@misc</span><span class="p">{</span><span class="nl">makarov2026twinweaver</span><span class="p">,</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">      </span><span class="na">title</span><span class="p">=</span><span class="s">{TwinWeaver: An LLM-Based Foundation Model Framework for Pan-Cancer Digital Twins}</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">      </span><span class="na">author</span><span class="p">=</span><span class="s">{Nikita Makarov and Maria Bordukova and Lena Voith von Voithenberg and Estrella Pivel-Villanueva and Sabrina Mielke and Jonathan Wickes and Hanchen Wang and Mingyu Derek Ma and Keunwoo Choi and Kyunghyun Cho and Stephen Ra and Raul Rodriguez-Esteban and Fabian Schmich and Michael Menden}</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="na">year</span><span class="p">=</span><span class="s">{2026}</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="na">eprint</span><span class="p">=</span><span class="s">{2601.20906}</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">      </span><span class="na">archivePrefix</span><span class="p">=</span><span class="s">{arXiv}</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="na">primaryClass</span><span class="p">=</span><span class="s">{cs.LG}</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span><span class="na">url</span><span class="p">=</span><span class="s">{https://arxiv.org/abs/2601.20906}</span><span class="p">,</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
+</span></code></pre></div>
 
 
 
@@ -2096,14 +2477,14 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.instant", "navigation.tracking", "navigation.top", "content.code.copy", "content.code.annotate", "content.tooltips", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.instant", "navigation.tracking", "navigation.top", "content.code.copy", "content.code.annotate", "content.tooltips", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../javascript/mathjax.js"></script>
+        <script src="../javascript/mathjax.js"></script>
       
-        <script src="../../javascript/toc-emoji-remover.js"></script>
+        <script src="../javascript/toc-emoji-remover.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       

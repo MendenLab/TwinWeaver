@@ -549,6 +549,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../dataset-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dataset Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../data-splitting/" class="md-nav__link">
         
   
@@ -577,14 +605,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../dataset-format/" class="md-nav__link">
+      <a href="../tte-inference/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Dataset Format
+    TTE Probability Inference
   
 
     
@@ -896,6 +924,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tte-probability-inference-advancedtte_inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TTE Probability Inference (advanced/tte_inference/)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1142,6 +1181,34 @@
     
   
     Pretraining
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="advanced/tte_inference/tte_probability_inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-to-Event (TTE) Probability Inference with TwinWeaver
   
 
     
@@ -1881,6 +1948,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/utils/tte_inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TTE Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1978,6 +2073,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tte-probability-inference-advancedtte_inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TTE Probability Inference (advanced/tte_inference/)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2048,6 +2154,10 @@
 <ul>
 <li><strong><a href="advanced/pretraining/prepare_pretraining_data/">prepare_pretraining_data.py</a></strong>: A script to prepare data for the pretraining phase.</li>
 <li><strong><a href="advanced/pretraining/end_to_end_llm_training_with_pretrain/">end_to_end_llm_training_with_pretrain.ipynb</a></strong>: An end-to-end example for training LLMs on full patient histories without a specific task, useful for developing models that can generate synthetic patients or embeddings.</li>
+</ul>
+<h3 id="tte-probability-inference-advancedtte_inference">TTE Probability Inference (<code>advanced/tte_inference/</code>)<a class="headerlink" href="#tte-probability-inference-advancedtte_inference" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><a href="advanced/tte_inference/tte_probability_inference/">tte_probability_inference.ipynb</a></strong>: Demonstrates how to estimate probabilities for time-to-event outcomes (e.g., death, disease progression) using a fine-tuned LLM served via vLLM. Scores three mutually exclusive completions per patient and derives softmax probabilities from length-normalised log-probabilities. Includes evaluation across multiple time horizons. <strong>Requires a fine-tuned model and a GPU with enough memory for vLLM.</strong></li>
 </ul>
 <h2 id="integrations">Integrations<a class="headerlink" href="#integrations" title="Permanent link">&para;</a></h2>
 <p>Located in the <code>integrations/</code> directory.</p>
