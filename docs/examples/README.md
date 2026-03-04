@@ -19,7 +19,14 @@ Located in the `advanced/` directory, these examples cover more specific use cas
 ### Custom Splitting (`advanced/custom_splitting/`)
 
 *   **[training_individual_splitters.ipynb](advanced/custom_splitting/training_individual_splitters.ipynb)**: Demonstrates data preparation using individual data splitters for more granular control.
+*   **[training_custom_split_events.ipynb](advanced/custom_splitting/training_custom_split_events.ipynb)**: Shows how to customize split events and forecast different event categories.
+*   **[training_forecasting_splitter_only.ipynb](advanced/custom_splitting/training_forecasting_splitter_only.ipynb)**: Forecasting-only example showing training data generation using only the `DataSplitterForecasting` (no event splitter).
 *   **[inference_individual_splitters.py](advanced/custom_splitting/inference_individual_splitters.py)**: A Python script showing how to run inference using the individual splitter setup.
+
+### Custom Output (`advanced/custom_output/`)
+
+*   **[customizing_text_generation.ipynb](advanced/custom_output/customizing_text_generation.ipynb)**: A comprehensive tutorial on customizing every textual component of the instruction generation pipeline, including preambles, event formatting, time units, genetic data tags, forecasting prompts, and more.
+*   **[custom_summarized_row.ipynb](advanced/custom_output/custom_summarized_row.ipynb)**: Shows how to customize the summarized row section of the instruction prompt using `set_custom_summarized_row_fn()`. Includes minimal and advanced examples, plus error handling guidance.
 
 ### Pretraining (`advanced/pretraining/`)
 
