@@ -10,27 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://example.com/twinweaver/examples/hackathon/02_llm_finetuning_challenge/">
+        <link rel="canonical" href="https://example.com/twinweaver/examples/advanced/custom_splitting/training_forecasting_splitter_only/">
       
       
+        <link rel="prev" href="../training_custom_split_events/">
+      
+      
+        <link rel="next" href="../../custom_output/customizing_text_generation/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>🏆 Challenge 2: End-to-End LLM Fine-tuning - TwinWeaver</title>
+        <title>Forecasting-Only Example: Training Data Generation with Custom Dataset - TwinWeaver</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,11 +53,11 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -88,7 +92,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#challenge-2-end-to-end-llm-fine-tuning" class="md-skip">
+        <a href="#forecasting-only-example-training-data-generation-with-custom-dataset" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +106,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="TwinWeaver" class="md-header__button md-logo" aria-label="TwinWeaver" data-md-component="logo">
+    <a href="../../../.." title="TwinWeaver" class="md-header__button md-logo" aria-label="TwinWeaver" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 2h2v2c0 1.44.68 2.61 1.88 3.78.86.83 2.01 1.63 3.21 2.42l-1.83 1.19C8.27 10.72 7.31 10 6.5 9.21 5.07 7.82 4 6.1 4 4zm14 0h2v2c0 2.1-1.07 3.82-2.5 5.21-1.41 1.38-3.21 2.52-4.96 3.63-1.75 1.12-3.45 2.21-4.66 3.38C6.68 17.39 6 18.56 6 20v2H4v-2c0-2.1 1.07-3.82 2.5-5.21 1.41-1.38 3.21-2.52 4.96-3.63 1.75-1.12 3.45-2.21 4.66-3.38C17.32 6.61 18 5.44 18 4zm-3.26 10.61c.99.67 1.95 1.39 2.76 2.18C18.93 16.18 20 17.9 20 20v2h-2v-2c0-1.44-.68-2.61-1.88-3.78-.86-.83-2.01-1.63-3.21-2.42zM7 3h10v1l-.06.5H7.06L7 4zm.68 3h8.64c-.24.34-.52.69-.9 1.06l-.51.44H9.07l-.49-.44c-.38-.37-.66-.72-.9-1.06m1.41 10.5h5.84l.49.44c.38.37.66.72.9 1.06H7.68c.24-.34.52-.69.9-1.06zm-2.03 3h9.88l.06.5v1H7v-1z"/></svg>
@@ -122,7 +126,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              🏆 Challenge 2: End-to-End LLM Fine-tuning
+              Forecasting-Only Example: Training Data Generation with Custom Dataset
             
           </span>
         </div>
@@ -237,7 +241,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../.." class="md-tabs__link">
+        <a href="../../../.." class="md-tabs__link">
           
   
   
@@ -253,11 +257,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
           
   
   
@@ -284,7 +290,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../reference/common/config/" class="md-tabs__link">
+        <a href="../../../../reference/common/config/" class="md-tabs__link">
           
   
   
@@ -321,7 +327,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="TwinWeaver" class="md-nav__button md-logo" aria-label="TwinWeaver" data-md-component="logo">
+    <a href="../../../.." title="TwinWeaver" class="md-nav__button md-logo" aria-label="TwinWeaver" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 2h2v2c0 1.44.68 2.61 1.88 3.78.86.83 2.01 1.63 3.21 2.42l-1.83 1.19C8.27 10.72 7.31 10 6.5 9.21 5.07 7.82 4 6.1 4 4zm14 0h2v2c0 2.1-1.07 3.82-2.5 5.21-1.41 1.38-3.21 2.52-4.96 3.63-1.75 1.12-3.45 2.21-4.66 3.38C6.68 17.39 6 18.56 6 20v2H4v-2c0-2.1 1.07-3.82 2.5-5.21 1.41-1.38 3.21-2.52 4.96-3.63 1.75-1.12 3.45-2.21 4.66-3.38C17.32 6.61 18 5.44 18 4zm-3.26 10.61c.99.67 1.95 1.39 2.76 2.18C18.93 16.18 20 17.9 20 20v2h-2v-2c0-1.44-.68-2.61-1.88-3.78-.86-.83-2.01-1.63-3.21-2.42zM7 3h10v1l-.06.5H7.06L7 4zm.68 3h8.64c-.24.34-.52.69-.9 1.06l-.51.44H9.07l-.49-.44c-.38-.37-.66-.72-.9-1.06m1.41 10.5h5.84l.49.44c.38.37.66.72.9 1.06H7.68c.24-.34.52-.69.9-1.06zm-2.03 3h9.88l.06.5v1H7v-1z"/></svg>
@@ -403,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   
@@ -431,7 +437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../installation/" class="md-nav__link">
+      <a href="../../../../installation/" class="md-nav__link">
         
   
   
@@ -459,7 +465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/" class="md-nav__link">
+      <a href="../../../../tutorials/" class="md-nav__link">
         
   
   
@@ -487,7 +493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../quickstart/" class="md-nav__link">
+      <a href="../../../../quickstart/" class="md-nav__link">
         
   
   
@@ -515,7 +521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../framework/" class="md-nav__link">
+      <a href="../../../../framework/" class="md-nav__link">
         
   
   
@@ -543,7 +549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dataset-format/" class="md-nav__link">
+      <a href="../../../../dataset-format/" class="md-nav__link">
         
   
   
@@ -571,7 +577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../data-splitting/" class="md-nav__link">
+      <a href="../../../../data-splitting/" class="md-nav__link">
         
   
   
@@ -599,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tte-inference/" class="md-nav__link">
+      <a href="../../../../tte-inference/" class="md-nav__link">
         
   
   
@@ -627,7 +633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pro-tips/" class="md-nav__link">
+      <a href="../../../../pro-tips/" class="md-nav__link">
         
   
   
@@ -655,7 +661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../api-index/" class="md-nav__link">
+      <a href="../../../../api-index/" class="md-nav__link">
         
   
   
@@ -683,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/" class="md-nav__link">
+      <a href="../../../../contributing/" class="md-nav__link">
         
   
   
@@ -711,7 +717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../citation/" class="md-nav__link">
+      <a href="../../../../citation/" class="md-nav__link">
         
   
   
@@ -743,26 +749,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -780,7 +791,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -798,7 +809,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../../../" class="md-nav__link">
         
   
   
@@ -826,7 +837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../01_data_preparation_for_training/" class="md-nav__link">
+      <a href="../../../01_data_preparation_for_training/" class="md-nav__link">
         
   
   
@@ -854,7 +865,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../02_inference_prompt_preparation/" class="md-nav__link">
+      <a href="../../../02_inference_prompt_preparation/" class="md-nav__link">
         
   
   
@@ -882,7 +893,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../03_end_to_end_llm_finetuning/" class="md-nav__link">
+      <a href="../../../03_end_to_end_llm_finetuning/" class="md-nav__link">
         
   
   
@@ -907,26 +918,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
             
   
   
@@ -944,7 +960,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -962,7 +978,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/custom_splitting/training_individual_splitters/" class="md-nav__link">
+      <a href="../training_individual_splitters/" class="md-nav__link">
         
   
   
@@ -990,7 +1006,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/custom_splitting/training_custom_split_events/" class="md-nav__link">
+      <a href="../training_custom_split_events/" class="md-nav__link">
         
   
   
@@ -1015,10 +1031,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../advanced/custom_splitting/training_forecasting_splitter_only/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forecasting-Only Example: Training Data Generation with Custom Dataset
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1034,6 +1077,59 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examine-patient-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examine patient data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convert-patient-data-to-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convert patient data to string
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1046,7 +1142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/custom_splitting/inference_individual_splitters.md" class="md-nav__link">
+      <a href="../inference_individual_splitters.md" class="md-nav__link">
         
   
   
@@ -1074,7 +1170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/custom_output/customizing_text_generation/" class="md-nav__link">
+      <a href="../../custom_output/customizing_text_generation/" class="md-nav__link">
         
   
   
@@ -1102,7 +1198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/custom_output/custom_summarized_row/" class="md-nav__link">
+      <a href="../../custom_output/custom_summarized_row/" class="md-nav__link">
         
   
   
@@ -1130,7 +1226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/pretraining/prepare_pretraining_data.md" class="md-nav__link">
+      <a href="../../pretraining/prepare_pretraining_data.md" class="md-nav__link">
         
   
   
@@ -1158,7 +1254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced/tte_inference/tte_probability_inference/" class="md-nav__link">
+      <a href="../../tte_inference/tte_probability_inference/" class="md-nav__link">
         
   
   
@@ -1200,17 +1296,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
             
   
   
@@ -1246,7 +1345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/meds_data_import/" class="md-nav__link">
+      <a href="../../../integrations/meds_data_import/" class="md-nav__link">
         
   
   
@@ -1393,7 +1492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/common/config/" class="md-nav__link">
+      <a href="../../../../reference/common/config/" class="md-nav__link">
         
   
   
@@ -1421,7 +1520,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/common/data_manager/" class="md-nav__link">
+      <a href="../../../../reference/common/data_manager/" class="md-nav__link">
         
   
   
@@ -1449,7 +1548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/common/converter_base/" class="md-nav__link">
+      <a href="../../../../reference/common/converter_base/" class="md-nav__link">
         
   
   
@@ -1537,7 +1636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/instruction/converter_instruction/" class="md-nav__link">
+      <a href="../../../../reference/instruction/converter_instruction/" class="md-nav__link">
         
   
   
@@ -1565,7 +1664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/instruction/converter_forecasting/" class="md-nav__link">
+      <a href="../../../../reference/instruction/converter_forecasting/" class="md-nav__link">
         
   
   
@@ -1593,7 +1692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/instruction/converter_forecasting_qa/" class="md-nav__link">
+      <a href="../../../../reference/instruction/converter_forecasting_qa/" class="md-nav__link">
         
   
   
@@ -1621,7 +1720,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/instruction/converter_events/" class="md-nav__link">
+      <a href="../../../../reference/instruction/converter_events/" class="md-nav__link">
         
   
   
@@ -1649,7 +1748,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/instruction/data_splitter/" class="md-nav__link">
+      <a href="../../../../reference/instruction/data_splitter/" class="md-nav__link">
         
   
   
@@ -1677,7 +1776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/instruction/data_splitters/" class="md-nav__link">
+      <a href="../../../../reference/instruction/data_splitters/" class="md-nav__link">
         
   
   
@@ -1765,7 +1864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/pretrain/converter_pretrain/" class="md-nav__link">
+      <a href="../../../../reference/pretrain/converter_pretrain/" class="md-nav__link">
         
   
   
@@ -1853,7 +1952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/utils/meds_importer/" class="md-nav__link">
+      <a href="../../../../reference/utils/meds_importer/" class="md-nav__link">
         
   
   
@@ -1881,7 +1980,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/utils/preprocessing_helpers/" class="md-nav__link">
+      <a href="../../../../reference/utils/preprocessing_helpers/" class="md-nav__link">
         
   
   
@@ -1909,7 +2008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/utils/tte_inference/" class="md-nav__link">
+      <a href="../../../../reference/utils/tte_inference/" class="md-nav__link">
         
   
   
@@ -1972,10 +2071,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#learning-objectives" class="md-nav__link">
+  <a href="#basic-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🎯 Learning Objectives
+        Basic Setup
       
     </span>
   </a>
@@ -1983,10 +2082,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#examine-patient-data" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⚠️ Prerequisites
+        Examine patient data
       
     </span>
   </a>
@@ -1994,342 +2093,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#rules" class="md-nav__link">
+  <a href="#convert-patient-data-to-string" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📋 Rules
+        Convert patient data to string
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-1-decide-on-model-and-context-length" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 1: Decide on Model and Context Length
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 1: Decide on Model and Context Length">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#quiz-1-model-selection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ❓ Quiz 1: Model Selection
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-2-generate-training-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 2: Generate Training Data
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 2: Generate Training Data">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#exercise-21-implement-dataset-generator" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔧 Exercise 2.1: Implement Dataset Generator
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#checkpoint-21-validate-dataset" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏁 Checkpoint 2.1: Validate Dataset
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-3-tokenizer-and-data-formatting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 3: Tokenizer and Data Formatting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 3: Tokenizer and Data Formatting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#quiz-2-chat-templates" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ❓ Quiz 2: Chat Templates
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-4-configure-quantization-qlora" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 4: Configure Quantization (QLoRA)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 4: Configure Quantization (QLoRA)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#quiz-3-quantization-understanding" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ❓ Quiz 3: Quantization Understanding
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-5-configure-lora" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 5: Configure LoRA
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 5: Configure LoRA">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#experiment-51-lora-hyperparameter-impact" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧪 Experiment 5.1: LoRA Hyperparameter Impact
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-6-training-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 6: Training Configuration
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 6: Training Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#experiment-61-learning-rate-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧪 Experiment 6.1: Learning Rate Analysis
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-7-load-model-and-train" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 7: Load Model and Train
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 7: Load Model and Train">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#experiment-71-training-observation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧪 Experiment 7.1: Training Observation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post-training-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 Post-Training Analysis
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-8-inference-challenge" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 8: Inference Challenge
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 8: Inference Challenge">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#exercise-81-design-your-prediction-task" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔧 Exercise 8.1: Design Your Prediction Task
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#experiment-82-prediction-before-running" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧪 Experiment 8.2: Prediction Before Running
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#final-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 Final Analysis
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bonus-challenge-1-hyperparameter-experiment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🌟 Bonus Challenge 1: Hyperparameter Experiment
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bonus-challenge-2-multi-sample-inference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🌟 Bonus Challenge 2: Multi-Sample Inference
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bonus-challenge-3-evaluation-framework" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🌟 Bonus Challenge 3: Evaluation Framework
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#challenge-complete" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏆 Challenge Complete!
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏆 Challenge Complete!">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reflection-questions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📝 Reflection Questions
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -3080,31 +2850,23 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="challenge-2-end-to-end-llm-fine-tuning">🏆 Challenge 2: End-to-End LLM Fine-tuning<a class="anchor-link" href="#challenge-2-end-to-end-llm-fine-tuning">¶</a></h1><p><strong>Difficulty</strong>: ⭐⭐⭐ (Advanced) | <strong>Time</strong>: 90-120 minutes</p>
-<hr/>
-<h2 id="learning-objectives">🎯 Learning Objectives<a class="anchor-link" href="#learning-objectives">¶</a></h2><p>By completing this challenge, you will:</p>
-<ol>
-<li>Generate training datasets from clinical data</li>
-<li>Configure and understand LoRA/QLoRA parameters</li>
-<li>Fine-tune an LLM for medical forecasting</li>
-<li>Run inference and evaluate model predictions</li>
-</ol>
-<h2 id="prerequisites">⚠️ Prerequisites<a class="anchor-link" href="#prerequisites">¶</a></h2><ul>
-<li>Complete Challenge 1 first!</li>
-<li>GPU with at least 30GB memory</li>
-<li>Install: <code>pip install twinweaver[fine-tuning-example]</code></li>
-</ul>
-<h2 id="rules">📋 Rules<a class="anchor-link" href="#rules">¶</a></h2><ul>
-<li>Complete all <code># TODO:</code> sections</li>
-<li>Answer quiz questions before proceeding</li>
-<li>Make predictions about hyperparameter effects BEFORE running experiments</li>
-<li><strong>No peeking at the original tutorial!</strong></li>
-</ul>
+<h1 id="forecasting-only-example-training-data-generation-with-custom-dataset">Forecasting-Only Example: Training Data Generation with Custom Dataset<a class="anchor-link" href="#forecasting-only-example-training-data-generation-with-custom-dataset">¶</a></h1>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Start by loading in all libraries</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=1">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3123,48 +2885,24 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </clipboard-copy>
 </div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">gc</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">BitsAndBytesConfig</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">peft</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoraConfig</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">trl</span><span class="w"> </span><span class="kn">import</span> <span class="n">SFTConfig</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">twinweaver</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DataSplitterForecasting</span><span class="p">,</span>
     <span class="n">DataManager</span><span class="p">,</span>
+    <span class="n">ConverterInstruction</span><span class="p">,</span>
     <span class="n">Config</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-1">import pandas as pd
-import gc
-import torch
-from datasets import Dataset
-from transformers import (
-    BitsAndBytesConfig,
-)
-from peft import LoraConfig
-from trl import SFTConfig
 
 from twinweaver import (
+    DataSplitterForecasting,
     DataManager,
+    ConverterInstruction,
     Config,
 )</div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<h2 id="part-1-decide-on-model-and-context-length">Part 1: Decide on Model and Context Length<a class="anchor-link" href="#part-1-decide-on-model-and-context-length">¶</a></h2><p>Before starting, you need to make important decisions about your setup.</p>
 </div>
 </div>
 </div>
@@ -3175,9 +2913,7 @@ from twinweaver import (
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="quiz-1-model-selection">❓ Quiz 1: Model Selection<a class="anchor-link" href="#quiz-1-model-selection">¶</a></h3><p><strong>Q1.1</strong>: Why might you choose a smaller model (e.g., Phi-4-mini) over a larger one (e.g., Llama-70B) for this task?</p>
-<p><strong>Q1.2</strong>: What is the trade-off between context length and memory usage?</p>
-<p><strong>Q1.3</strong>: Why do we use an "instruction-tuned" base model instead of a base model?</p>
+<h2 id="basic-setup">Basic Setup<a class="anchor-link" href="#basic-setup">¶</a></h2>
 </div>
 </div>
 </div>
@@ -3188,10 +2924,7 @@ from twinweaver import (
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Your Answers:</strong></p>
-<p>Q1.1:</p>
-<p>Q1.2:</p>
-<p>Q1.3:</p>
+<p>Set up the config - showing how to use custom dataset here from example data.</p>
 </div>
 </div>
 </div>
@@ -3214,33 +2947,13 @@ from twinweaver import (
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Choose your base model</span>
-<span class="c1"># Options to consider:</span>
-<span class="c1"># - "microsoft/Phi-4-mini-instruct" (small, fast)</span>
-<span class="c1"># - "meta-llama/Llama-3.2-3B-Instruct" (medium)</span>
-<span class="c1"># - "mistralai/Mistral-7B-Instruct-v0.3" (larger)</span>
-
-<span class="n">BASE_MODEL</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Choose your model</span>
-
-<span class="c1"># TODO: Choose your context length</span>
-<span class="c1"># Consider: Longer = more patient history, but more memory</span>
-<span class="c1"># Reasonable range: 2048 - 16384</span>
-
-<span class="n">MAX_CONTEXT_LENGTH</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Choose your context length</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">df_events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../../example_data/events.csv"</span><span class="p">)</span>
+<span class="n">df_constant</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../../example_data/constant.csv"</span><span class="p">)</span>
+<span class="n">df_constant_description</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../../example_data/constant_description.csv"</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-2"># TODO: Choose your base model
-# Options to consider:
-# - "microsoft/Phi-4-mini-instruct" (small, fast)
-# - "meta-llama/Llama-3.2-3B-Instruct" (medium)
-# - "mistralai/Mistral-7B-Instruct-v0.3" (larger)
-
-BASE_MODEL = None  # Choose your model
-
-# TODO: Choose your context length
-# Consider: Longer = more patient history, but more memory
-# Reasonable range: 2048 - 16384
-
-MAX_CONTEXT_LENGTH = None  # Choose your context length</div>
+<div class="clipboard-copy-txt" id="cell-2">df_events = pd.read_csv("../../example_data/events.csv")
+df_constant = pd.read_csv("../../example_data/constant.csv")
+df_constant_description = pd.read_csv("../../example_data/constant_description.csv")</div>
 </div>
 </div>
 </div>
@@ -3253,8 +2966,7 @@ MAX_CONTEXT_LENGTH = None  # Choose your context length</div>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<h2 id="part-2-generate-training-data">Part 2: Generate Training Data<a class="anchor-link" href="#part-2-generate-training-data">¶</a></h2><p>Using what you learned in Challenge 1, set up the data pipeline.</p>
+<p>Set up the data manager and the forecasting-only pipeline.</p>
 </div>
 </div>
 </div>
@@ -3277,15 +2989,39 @@ MAX_CONTEXT_LENGTH = None  # Choose your context length</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Load data</span>
-<span class="n">df_events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../example_data/events.csv"</span><span class="p">)</span>
-<span class="n">df_constant</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../example_data/constant.csv"</span><span class="p">)</span>
-<span class="n">df_constant_description</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../example_data/constant_description.csv"</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>  <span class="c1"># Override values here to customize pipeline</span>
+
+<span class="c1"># &lt;---------------------- CRITICAL CONFIGURATION ----------------------&gt;</span>
+<span class="c1"># 1. Event category used for data splitting (e.g., split data around Lines of Therapy 'lot')</span>
+<span class="c1"># Has to be set for all instruction tasks</span>
+<span class="n">config</span><span class="o">.</span><span class="n">split_event_category</span> <span class="o">=</span> <span class="s2">"lot"</span>
+
+<span class="c1"># 2. List of event categories we want to forecast (e.g., forecasting 'lab' values)</span>
+<span class="c1"># Only needs to be set if you want to forecast variables</span>
+<span class="n">config</span><span class="o">.</span><span class="n">event_category_forecast</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"lab"</span><span class="p">]</span>
+
+<span class="c1"># No time to event</span>
+
+<span class="c1"># Constant setup</span>
+<span class="n">config</span><span class="o">.</span><span class="n">constant_columns_to_use</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"birthyear"</span><span class="p">,</span> <span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"histology"</span><span class="p">,</span> <span class="s2">"smoking_history"</span><span class="p">]</span>  <span class="c1"># Manually set from constant</span>
+<span class="n">config</span><span class="o">.</span><span class="n">constant_birthdate_column</span> <span class="o">=</span> <span class="s2">"birthyear"</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-3"># Load data
-df_events = pd.read_csv("../example_data/events.csv")
-df_constant = pd.read_csv("../example_data/constant.csv")
-df_constant_description = pd.read_csv("../example_data/constant_description.csv")</div>
+<div class="clipboard-copy-txt" id="cell-3">config = Config()  # Override values here to customize pipeline
+
+# &lt;---------------------- CRITICAL CONFIGURATION ----------------------&gt;
+# 1. Event category used for data splitting (e.g., split data around Lines of Therapy 'lot')
+# Has to be set for all instruction tasks
+config.split_event_category = "lot"
+
+# 2. List of event categories we want to forecast (e.g., forecasting 'lab' values)
+# Only needs to be set if you want to forecast variables
+config.event_category_forecast = ["lab"]
+
+# No time to event
+
+# Constant setup
+config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]  # Manually set from constant
+config.constant_birthdate_column = "birthyear"</div>
 </div>
 </div>
 </div>
@@ -3310,36 +3046,78 @@ df_constant_description = pd.read_csv("../example_data/constant_description.csv"
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Configure the pipeline (you did this in Challenge 1!)</span>
-<span class="c1"># Set up:</span>
-<span class="c1"># - split_event_category</span>
-<span class="c1"># - event_category_forecast</span>
-<span class="c1"># - data_splitter_events_variables_category_mapping</span>
-<span class="c1"># - constant_columns_to_use</span>
-<span class="c1"># - constant_birthdate_column</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">load_indication_data</span><span class="p">(</span><span class="n">df_events</span><span class="o">=</span><span class="n">df_events</span><span class="p">,</span> <span class="n">df_constant</span><span class="o">=</span><span class="n">df_constant</span><span class="p">,</span> <span class="n">df_constant_description</span><span class="o">=</span><span class="n">df_constant_description</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">process_indication_data</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">setup_unique_mapping_of_events</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">setup_dataset_splits</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">infer_var_types</span><span class="p">()</span>
 
-<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
 
-<span class="c1"># Your configuration here...</span>
+<span class="n">data_splitter_forecasting</span> <span class="o">=</span> <span class="n">DataSplitterForecasting</span><span class="p">(</span>
+    <span class="n">data_manager</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># In case you manually want to override the variables for forecasting selectiong, you can skip this next line.</span>
+<span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">setup_statistics</span><span class="p">()</span>
+
+<span class="n">converter</span> <span class="o">=</span> <span class="n">ConverterInstruction</span><span class="p">(</span>
+    <span class="n">nr_tokens_budget_total</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+    <span class="n">dm</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
+    <span class="n">variable_stats</span><span class="o">=</span><span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">variable_stats</span><span class="p">,</span>  <span class="c1"># Optional, needed for forecasting QA tasks</span>
+<span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-4"># TODO: Configure the pipeline (you did this in Challenge 1!)
-# Set up:
-# - split_event_category
-# - event_category_forecast
-# - data_splitter_events_variables_category_mapping
-# - constant_columns_to_use
-# - constant_birthdate_column
+<div class="clipboard-copy-txt" id="cell-4">dm = DataManager(config=config)
+dm.load_indication_data(df_events=df_events, df_constant=df_constant, df_constant_description=df_constant_description)
+dm.process_indication_data()
+dm.setup_unique_mapping_of_events()
+dm.setup_dataset_splits()
+dm.infer_var_types()
 
-config = Config()
 
-# Your configuration here...</div>
+data_splitter_forecasting = DataSplitterForecasting(
+    data_manager=dm,
+    config=config,
+)
+# In case you manually want to override the variables for forecasting selectiong, you can skip this next line.
+data_splitter_forecasting.setup_statistics()
+
+converter = ConverterInstruction(
+    nr_tokens_budget_total=8192,
+    config=config,
+    dm=dm,
+    variable_stats=data_splitter_forecasting.variable_stats,  # Optional, needed for forecasting QA tasks
+)</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="examine-patient-data">Examine patient data<a class="anchor-link" href="#examine-patient-data">¶</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=10">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>From the data manager we can get a patient, for example the third patientid.</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=11">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3357,47 +3135,36 @@ config = Config()
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Initialize DataManager and all splitters</span>
-<span class="c1"># This should be familiar from Challenge 1</span>
-
-<span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
-<span class="c1"># ... complete the setup</span>
-
-<span class="c1"># Initialize splitters</span>
-<span class="c1"># ...</span>
-
-<span class="c1"># Initialize converter with YOUR chosen context length</span>
-<span class="c1"># ...</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patientid</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">all_patientids</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">patientid</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-5"># TODO: Initialize DataManager and all splitters
-# This should be familiar from Challenge 1
-
-dm = DataManager(config=config)
-# ... complete the setup
-
-# Initialize splitters
-# ...
-
-# Initialize converter with YOUR chosen context length
-# ...</div>
+<div class="clipboard-copy-txt" id="cell-5">patientid = dm.all_patientids[2]
+patientid</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=10">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=12">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="exercise-21-implement-dataset-generator">🔧 Exercise 2.1: Implement Dataset Generator<a class="anchor-link" href="#exercise-21-implement-dataset-generator">¶</a></h3><p>Write a function to generate the training dataset. This is a key skill!</p>
+<p>Let's checkout the data of the patient. <code>patient_data</code> is a dictionary containing the patient's data, with two keys:</p>
+<ul>
+<li>"events": A pandas DataFrame containing all time-series events
+(original events and molecular data combined and sorted
+by date).</li>
+<li>"constant": A pandas DataFrame containing the static (constant)
+data for the patient.</li>
+</ul>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=11">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=13">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3415,26 +3182,18 @@ dm = DataManager(config=config)
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Get patient IDs for each split</span>
-<span class="n">training_patientids</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_all_patientids_in_split</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">train_split_name</span><span class="p">)</span>
-<span class="n">validation_patientids</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_all_patientids_in_split</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">validation_split_name</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Training patients: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">training_patientids</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Validation patients: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">validation_patientids</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patient_data</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
+<span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-6"># Get patient IDs for each split
-training_patientids = dm.get_all_patientids_in_split(config.train_split_name)
-validation_patientids = dm.get_all_patientids_in_split(config.validation_split_name)
-
-print(f"Training patients: {len(training_patientids)}")
-print(f"Validation patients: {len(validation_patientids)}")</div>
+<div class="clipboard-copy-txt" id="cell-6">patient_data = dm.get_patient_data(patientid)
+patient_data["events"].head(20)</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=12">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=14">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3452,68 +3211,39 @@ print(f"Validation patients: {len(validation_patientids)}")</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Implement the dataset generation function</span>
-<span class="c1"># This function should:</span>
-<span class="c1"># 1. Iterate through each patient</span>
-<span class="c1"># 2. Get splits for each patient</span>
-<span class="c1"># 3. Convert each split to instruction format</span>
-<span class="c1"># 4. Return a DataFrame with 'prompt' and 'completion' columns</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">generate_transformers_df</span><span class="p">(</span><span class="n">patientids_list</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Generate training data from a list of patient IDs.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        patientids_list: List of patient IDs to process</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        pd.DataFrame with columns: prompt, completion, patientid</span>
-<span class="sd">    """</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="c1"># TODO: Implement the function</span>
-    <span class="c1"># HINT: Use dm.get_patient_data(), data_splitter.get_splits_from_patient_with_target(),</span>
-    <span class="c1">#       and converter.forward_conversion()</span>
-
-    <span class="k">pass</span>
-
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">patient_data</span><span class="p">[</span><span class="s2">"constant"</span><span class="p">]</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-7"># TODO: Implement the dataset generation function
-# This function should:
-# 1. Iterate through each patient
-# 2. Get splits for each patient
-# 3. Convert each split to instruction format
-# 4. Return a DataFrame with 'prompt' and 'completion' columns
-
-
-def generate_transformers_df(patientids_list):
-    """
-    Generate training data from a list of patient IDs.
-
-    Args:
-        patientids_list: List of patient IDs to process
-
-    Returns:
-        pd.DataFrame with columns: prompt, completion, patientid
-    """
-    df = []
-
-    # TODO: Implement the function
-    # HINT: Use dm.get_patient_data(), data_splitter.get_splits_from_patient_with_target(),
-    #       and converter.forward_conversion()
-
-    pass
-
-    return pd.DataFrame(df)</div>
+<div class="clipboard-copy-txt" id="cell-7">patient_data["constant"]</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=15">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="convert-patient-data-to-string">Convert patient data to string<a class="anchor-link" href="#convert-patient-data-to-string">¶</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=16">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>We start by generating random "splits" in the patient trajectory. We can make multiple relevant samples from each patient trajectory (e.g. depending on when the therapy started), and also to predict different variables (e.g. neutrophils/hemoglobin/... for forecasting).</p>
+<p>Here we generate these random splits. We can also manually override them (see other examples on inference).</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=13">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=17">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3531,37 +3261,39 @@ def generate_transformers_df(patientids_list):
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Generate datasets</span>
-<span class="n">df_train</span> <span class="o">=</span> <span class="n">generate_transformers_df</span><span class="p">(</span><span class="n">training_patientids</span><span class="p">)</span>
-<span class="n">df_validation</span> <span class="o">=</span> <span class="n">generate_transformers_df</span><span class="p">(</span><span class="n">validation_patientids</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Training examples: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Validation examples: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_validation</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">processed_splits_fc</span><span class="p">,</span> <span class="n">split_dates</span> <span class="o">=</span> <span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">get_splits_from_patient</span><span class="p">(</span>
+    <span class="n">patient_data</span><span class="p">,</span>
+    <span class="n">nr_samples_per_split</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">filter_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">include_metadata</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">max_num_splits_per_split_event</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-8"># Generate datasets
-df_train = generate_transformers_df(training_patientids)
-df_validation = generate_transformers_df(validation_patientids)
-
-print(f"Training examples: {len(df_train)}")
-print(f"Validation examples: {len(df_validation)}")</div>
+<div class="clipboard-copy-txt" id="cell-8">processed_splits_fc, split_dates = data_splitter_forecasting.get_splits_from_patient(
+    patient_data,
+    nr_samples_per_split=4,
+    filter_outliers=False,
+    include_metadata=True,
+    max_num_splits_per_split_event=2,
+)</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=14">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=18">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="checkpoint-21-validate-dataset">🏁 Checkpoint 2.1: Validate Dataset<a class="anchor-link" href="#checkpoint-21-validate-dataset">¶</a></h3>
+<p>Now for each split, we can generate the formatted strings. Note that <code>event_splits</code> is left empty since this example only uses the forecasting splitter.</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=15">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=19">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3579,78 +3311,44 @@ print(f"Validation examples: {len(df_validation)}")</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Validate the generated dataset</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">validate_dataset</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-    <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"❌ </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> is empty"</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="s2">"prompt"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-        <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"❌ </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> missing 'prompt' column"</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="s2">"completion"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-        <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"❌ </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> missing 'completion' column"</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2"> examples"</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   Avg prompt length: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">'prompt'</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> chars"</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   Avg completion length: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">'completion'</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> chars"</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span>
-
-    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-    <span class="k">return</span> <span class="kc">False</span>
-
-
-<span class="n">train_valid</span> <span class="o">=</span> <span class="n">validate_dataset</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="s2">"Training set"</span><span class="p">)</span>
-<span class="n">val_valid</span> <span class="o">=</span> <span class="n">validate_dataset</span><span class="p">(</span><span class="n">df_validation</span><span class="p">,</span> <span class="s2">"Validation set"</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">train_valid</span> <span class="ow">and</span> <span class="n">val_valid</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">🎉 Datasets ready for training!"</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">split_idx</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">p_converted</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion</span><span class="p">(</span>
+    <span class="n">forecasting_splits</span><span class="o">=</span><span class="n">processed_splits_fc</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
+    <span class="n">event_splits</span><span class="o">=</span><span class="p">[],</span>  <span class="c1"># Not needed for forecasting-only splitter</span>
+    <span class="n">override_mode_to_select_forecasting</span><span class="o">=</span><span class="s2">"forecasting"</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-9"># Validate the generated dataset
-def validate_dataset(df, name):
-    errors = []
-
-    if df is None or len(df) == 0:
-        errors.append(f"❌ {name} is empty")
-    elif "prompt" not in df.columns:
-        errors.append(f"❌ {name} missing 'prompt' column")
-    elif "completion" not in df.columns:
-        errors.append(f"❌ {name} missing 'completion' column")
-    else:
-        print(f"✅ {name}: {len(df)} examples")
-        print(f"   Avg prompt length: {df['prompt'].str.len().mean():.0f} chars")
-        print(f"   Avg completion length: {df['completion'].str.len().mean():.0f} chars")
-        return True
-
-    for e in errors:
-        print(e)
-    return False
-
-
-train_valid = validate_dataset(df_train, "Training set")
-val_valid = validate_dataset(df_validation, "Validation set")
-
-if train_valid and val_valid:
-    print("\n🎉 Datasets ready for training!")</div>
+<div class="clipboard-copy-txt" id="cell-9">split_idx = 0
+p_converted = converter.forward_conversion(
+    forecasting_splits=processed_splits_fc[split_idx],
+    event_splits=[],  # Not needed for forecasting-only splitter
+    override_mode_to_select_forecasting="forecasting",
+)</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=16">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=20">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<h2 id="part-3-tokenizer-and-data-formatting">Part 3: Tokenizer and Data Formatting<a class="anchor-link" href="#part-3-tokenizer-and-data-formatting">¶</a></h2><p>LLMs expect data in a specific chat format. Let's set this up.</p>
+<p><code>p_converted</code> is a dictionary containing the final formatted data:</p>
+<ul>
+<li>'instruction': The complete input string for the model (context + multi-task prompt).</li>
+<li>'answer': The complete target string for the model (multi-task answer).</li>
+<li>'meta': A dictionary holding metadata including patient ID, structured constant and
+history data used, split date, combined metadata from sub-converters, and
+a list of detailed metadata for each individual task generated ('target_meta_detailed').</li>
+</ul>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=17">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=21">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3668,51 +3366,16 @@ if train_valid and val_valid:
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Load the tokenizer for your chosen model</span>
-<span class="n">tokenizer</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Load tokenizer</span>
-
-<span class="c1"># TODO: Set the padding token</span>
-<span class="c1"># HINT: A common approach is to use the EOS token as the padding token</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">])</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-10"># TODO: Load the tokenizer for your chosen model
-tokenizer = None  # Load tokenizer
-
-# TODO: Set the padding token
-# HINT: A common approach is to use the EOS token as the padding token</div>
+<div class="clipboard-copy-txt" id="cell-10">print(p_converted["instruction"])</div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=18">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="quiz-2-chat-templates">❓ Quiz 2: Chat Templates<a class="anchor-link" href="#quiz-2-chat-templates">¶</a></h3><p><strong>Q2.1</strong>: What is a "chat template" and why do instruction-tuned models need it?</p>
-<p><strong>Q2.2</strong>: What roles are typically used in a chat format?</p>
-<p><strong>Q2.3</strong>: Why do we set <code>completion_only_loss=True</code> during training?</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=19">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Your Answers:</strong></p>
-<p>Q2.1:</p>
-<p>Q2.2:</p>
-<p>Q2.3:</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=20">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=22">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3730,1403 +3393,11 @@ tokenizer = None  # Load tokenizer
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Implement the chat formatting function</span>
-<span class="c1"># Convert raw prompt/completion to chat message format</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">format_chat_template</span><span class="p">(</span><span class="n">example</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Convert a single example to chat format.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        example: Dict with 'prompt' and 'completion' keys</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Dict with 'prompt' as list of user messages and 'completion' as list of assistant messages</span>
-<span class="sd">    """</span>
-    <span class="c1"># TODO: Implement this</span>
-    <span class="c1"># HINT: Return format should be:</span>
-    <span class="c1"># {"prompt": [{"role": "user", "content": ...}],</span>
-    <span class="c1">#  "completion": [{"role": "assistant", "content": ...}]}</span>
-    <span class="k">pass</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">p_converted</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">])</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-11"># TODO: Implement the chat formatting function
-# Convert raw prompt/completion to chat message format
-
-
-def format_chat_template(example):
-    """
-    Convert a single example to chat format.
-
-    Args:
-        example: Dict with 'prompt' and 'completion' keys
-
-    Returns:
-        Dict with 'prompt' as list of user messages and 'completion' as list of assistant messages
-    """
-    # TODO: Implement this
-    # HINT: Return format should be:
-    # {"prompt": [{"role": "user", "content": ...}],
-    #  "completion": [{"role": "assistant", "content": ...}]}
-    pass</div>
+<div class="clipboard-copy-txt" id="cell-11">print(p_converted["answer"])</div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=21">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-12">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Convert to HuggingFace datasets and apply formatting</span>
-<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span>
-<span class="n">validation_dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">df_validation</span><span class="p">)</span>
-
-<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">format_chat_template</span><span class="p">)</span>
-<span class="n">validation_dataset</span> <span class="o">=</span> <span class="n">validation_dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">format_chat_template</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-12"># Convert to HuggingFace datasets and apply formatting
-train_dataset = Dataset.from_pandas(df_train)
-validation_dataset = Dataset.from_pandas(df_validation)
-
-train_dataset = train_dataset.map(format_chat_template)
-validation_dataset = validation_dataset.map(format_chat_template)</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=22">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<h2 id="part-4-configure-quantization-qlora">Part 4: Configure Quantization (QLoRA)<a class="anchor-link" href="#part-4-configure-quantization-qlora">¶</a></h2><p>Quantization allows training large models on limited hardware.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=23">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="quiz-3-quantization-understanding">❓ Quiz 3: Quantization Understanding<a class="anchor-link" href="#quiz-3-quantization-understanding">¶</a></h3><p><strong>Q3.1</strong>: What does "4-bit quantization" mean? What are we quantizing?</p>
-<p><strong>Q3.2</strong>: What is the trade-off between quantization level (4-bit vs 8-bit vs full precision)?</p>
-<p><strong>Q3.3</strong>: What does "nf4" (NormalFloat4) quantization type do differently than regular int4?</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=24">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Your Answers:</strong></p>
-<p>Q3.1:</p>
-<p>Q3.2:</p>
-<p>Q3.3:</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=25">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-13">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Configure 4-bit quantization</span>
-<span class="c1"># Parameters to set:</span>
-<span class="c1"># - load_in_4bit: Enable 4-bit loading</span>
-<span class="c1"># - bnb_4bit_quant_type: Use "nf4" for better quality</span>
-<span class="c1"># - bnb_4bit_compute_dtype: Use torch.bfloat16 for modern GPUs</span>
-<span class="c1"># - bnb_4bit_use_double_quant: Enable for additional memory savings</span>
-
-<span class="n">bnb_config</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span>
-    <span class="c1"># TODO: Fill in the parameters</span>
-<span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-13"># TODO: Configure 4-bit quantization
-# Parameters to set:
-# - load_in_4bit: Enable 4-bit loading
-# - bnb_4bit_quant_type: Use "nf4" for better quality
-# - bnb_4bit_compute_dtype: Use torch.bfloat16 for modern GPUs
-# - bnb_4bit_use_double_quant: Enable for additional memory savings
-
-bnb_config = BitsAndBytesConfig(
-    # TODO: Fill in the parameters
-)</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=26">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<h2 id="part-5-configure-lora">Part 5: Configure LoRA<a class="anchor-link" href="#part-5-configure-lora">¶</a></h2><p>LoRA (Low-Rank Adaptation) enables efficient fine-tuning by training only a small number of parameters.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=27">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="experiment-51-lora-hyperparameter-impact">🧪 Experiment 5.1: LoRA Hyperparameter Impact<a class="anchor-link" href="#experiment-51-lora-hyperparameter-impact">¶</a></h3><p>Before configuring, make predictions about how these hyperparameters affect training:</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Your Prediction: What happens if we INCREASE it?</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>r</code> (rank)</td>
-<td></td>
-</tr>
-<tr>
-<td><code>lora_alpha</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>lora_dropout</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Number of target modules</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=28">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Your Predictions:</strong></p>
-<ul>
-<li><code>r</code> (rank):</li>
-<li><code>lora_alpha</code>:</li>
-<li><code>lora_dropout</code>:</li>
-<li>Number of target modules:</li>
-</ul>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=29">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-14">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Configure LoRA</span>
-<span class="c1"># Make deliberate choices for each parameter and justify them!</span>
-
-<span class="n">peft_config</span> <span class="o">=</span> <span class="n">LoraConfig</span><span class="p">(</span>
-    <span class="c1"># TODO: Set lora_alpha (scaling factor, common values: 8, 16, 32)</span>
-    <span class="n">lora_alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="c1"># TODO: Set lora_dropout (regularization, common values: 0.05-0.2)</span>
-    <span class="n">lora_dropout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="c1"># TODO: Set r (rank - higher = more parameters, common values: 4, 8, 16, 32)</span>
-    <span class="n">r</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">bias</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
-    <span class="n">task_type</span><span class="o">=</span><span class="s2">"CAUSAL_LM"</span><span class="p">,</span>
-    <span class="c1"># TODO: Choose which modules to target</span>
-    <span class="c1"># Options:</span>
-    <span class="c1"># - Minimal: ["q_proj", "v_proj"] - faster but less expressive</span>
-    <span class="c1"># - Full attention: ["q_proj", "k_proj", "v_proj", "o_proj"]</span>
-    <span class="c1"># - All linear: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]</span>
-    <span class="n">target_modules</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Document your reasoning:</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"My LoRA configuration choices:"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  r=</span><span class="si">{</span><span class="n">peft_config</span><span class="o">.</span><span class="n">r</span><span class="si">}</span><span class="s2">: [Your reasoning here]"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  lora_alpha=</span><span class="si">{</span><span class="n">peft_config</span><span class="o">.</span><span class="n">lora_alpha</span><span class="si">}</span><span class="s2">: [Your reasoning here]"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  target_modules=</span><span class="si">{</span><span class="n">peft_config</span><span class="o">.</span><span class="n">target_modules</span><span class="si">}</span><span class="s2">: [Your reasoning here]"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-14"># TODO: Configure LoRA
-# Make deliberate choices for each parameter and justify them!
-
-peft_config = LoraConfig(
-    # TODO: Set lora_alpha (scaling factor, common values: 8, 16, 32)
-    lora_alpha=None,
-    # TODO: Set lora_dropout (regularization, common values: 0.05-0.2)
-    lora_dropout=None,
-    # TODO: Set r (rank - higher = more parameters, common values: 4, 8, 16, 32)
-    r=None,
-    bias="none",
-    task_type="CAUSAL_LM",
-    # TODO: Choose which modules to target
-    # Options:
-    # - Minimal: ["q_proj", "v_proj"] - faster but less expressive
-    # - Full attention: ["q_proj", "k_proj", "v_proj", "o_proj"]
-    # - All linear: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
-    target_modules=None,
-)
-
-# Document your reasoning:
-print("My LoRA configuration choices:")
-print(f"  r={peft_config.r}: [Your reasoning here]")
-print(f"  lora_alpha={peft_config.lora_alpha}: [Your reasoning here]")
-print(f"  target_modules={peft_config.target_modules}: [Your reasoning here]")</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=30">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<h2 id="part-6-training-configuration">Part 6: Training Configuration<a class="anchor-link" href="#part-6-training-configuration">¶</a></h2><p>Configure the training hyperparameters. Each choice matters!</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=31">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="experiment-61-learning-rate-analysis">🧪 Experiment 6.1: Learning Rate Analysis<a class="anchor-link" href="#experiment-61-learning-rate-analysis">¶</a></h3><p><strong>Q6.1</strong>: The tutorial uses <code>learning_rate=1e-4</code>. This is higher than typical full fine-tuning (1e-5 to 5e-5) we have used. Why might PEFT methods benefit from higher learning rates?</p>
-<p><strong>Q6.2</strong>: What problems might you see if the learning rate is:</p>
-<ul>
-<li>Too high?</li>
-<li>Too low?</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=32">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Your Answers:</strong></p>
-<p>Q6.1:</p>
-<p>Q6.2 (too high):</p>
-<p>Q6.2 (too low):</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=33">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-15">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Configure training arguments</span>
-<span class="c1"># Think carefully about each parameter!</span>
-
-<span class="n">training_arguments</span> <span class="o">=</span> <span class="n">SFTConfig</span><span class="p">(</span>
-    <span class="n">output_dir</span><span class="o">=</span><span class="s2">"./results_challenge"</span><span class="p">,</span>
-    <span class="c1"># TODO: Set number of training epochs (consider: small dataset = more epochs OK)</span>
-    <span class="n">num_train_epochs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="c1"># TODO: Set batch size (limited by GPU memory)</span>
-    <span class="n">per_device_train_batch_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="c1"># TODO: Set gradient accumulation (effective_batch = batch_size * grad_accum)</span>
-    <span class="n">gradient_accumulation_steps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="c1"># Optimizer settings</span>
-    <span class="n">optim</span><span class="o">=</span><span class="s2">"paged_adamw_32bit"</span><span class="p">,</span>
-    <span class="c1"># Logging and evaluation</span>
-    <span class="n">save_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-    <span class="n">logging_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-    <span class="n">eval_strategy</span><span class="o">=</span><span class="s2">"steps"</span><span class="p">,</span>
-    <span class="n">eval_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-    <span class="n">per_device_eval_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="c1"># TODO: Set learning rate (PEFT typically uses higher LR than full fine-tuning)</span>
-    <span class="n">learning_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="c1"># Precision settings</span>
-    <span class="n">fp16</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># Set True for older GPUs (V100, T4)</span>
-    <span class="n">bf16</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Set True for newer GPUs (A100, 3090, 4090)</span>
-    <span class="c1"># Regularization</span>
-    <span class="n">max_grad_norm</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-    <span class="c1"># TODO: Set warmup ratio (what fraction of training for warmup?)</span>
-    <span class="n">warmup_ratio</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">group_by_length</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">save_total_limit</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">lr_scheduler_type</span><span class="o">=</span><span class="s2">"cosine"</span><span class="p">,</span>
-    <span class="n">max_length</span><span class="o">=</span><span class="n">MAX_CONTEXT_LENGTH</span><span class="p">,</span>
-    <span class="n">packing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">completion_only_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-15"># TODO: Configure training arguments
-# Think carefully about each parameter!
-
-training_arguments = SFTConfig(
-    output_dir="./results_challenge",
-    # TODO: Set number of training epochs (consider: small dataset = more epochs OK)
-    num_train_epochs=None,
-    # TODO: Set batch size (limited by GPU memory)
-    per_device_train_batch_size=None,
-    # TODO: Set gradient accumulation (effective_batch = batch_size * grad_accum)
-    gradient_accumulation_steps=None,
-    # Optimizer settings
-    optim="paged_adamw_32bit",
-    # Logging and evaluation
-    save_steps=10,
-    logging_steps=10,
-    eval_strategy="steps",
-    eval_steps=10,
-    per_device_eval_batch_size=1,
-    # TODO: Set learning rate (PEFT typically uses higher LR than full fine-tuning)
-    learning_rate=None,
-    # Precision settings
-    fp16=False,  # Set True for older GPUs (V100, T4)
-    bf16=True,  # Set True for newer GPUs (A100, 3090, 4090)
-    # Regularization
-    max_grad_norm=1.0,
-    # TODO: Set warmup ratio (what fraction of training for warmup?)
-    warmup_ratio=None,
-    group_by_length=True,
-    save_total_limit=1,
-    lr_scheduler_type="cosine",
-    max_length=MAX_CONTEXT_LENGTH,
-    packing=False,
-    completion_only_loss=True,
-)</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=34">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<h2 id="part-7-load-model-and-train">Part 7: Load Model and Train<a class="anchor-link" href="#part-7-load-model-and-train">¶</a></h2><p>Time to put it all together!</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=35">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-16">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Load the base model with quantization</span>
-<span class="c1"># Parameters needed:</span>
-<span class="c1"># - Model name (BASE_MODEL)</span>
-<span class="c1"># - quantization_config (bnb_config)</span>
-<span class="c1"># - device_map="auto"</span>
-<span class="c1"># - trust_remote_code=False</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Load the model</span>
-
-<span class="c1"># Don't forget: Disable cache for training</span>
-<span class="c1"># model.config.use_cache = False</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-16"># TODO: Load the base model with quantization
-# Parameters needed:
-# - Model name (BASE_MODEL)
-# - quantization_config (bnb_config)
-# - device_map="auto"
-# - trust_remote_code=False
-
-model = None  # Load the model
-
-# Don't forget: Disable cache for training
-# model.config.use_cache = False</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=36">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-17">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Create the SFTTrainer</span>
-<span class="c1"># Parameters needed:</span>
-<span class="c1"># - model</span>
-<span class="c1"># - train_dataset</span>
-<span class="c1"># - processing_class (tokenizer)</span>
-<span class="c1"># - args (training_arguments)</span>
-<span class="c1"># - eval_dataset (validation_dataset)</span>
-<span class="c1"># - peft_config</span>
-
-<span class="n">trainer</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Create trainer</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-17"># TODO: Create the SFTTrainer
-# Parameters needed:
-# - model
-# - train_dataset
-# - processing_class (tokenizer)
-# - args (training_arguments)
-# - eval_dataset (validation_dataset)
-# - peft_config
-
-trainer = None  # Create trainer</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=37">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="experiment-71-training-observation">🧪 Experiment 7.1: Training Observation<a class="anchor-link" href="#experiment-71-training-observation">¶</a></h3><p>Before running training, predict what you expect to see:</p>
-<p><strong>Q7.1</strong>: What should happen to the training loss over time?</p>
-<p><strong>Q7.2</strong>: What might it mean if validation loss increases while training loss decreases?</p>
-<p><strong>Q7.3</strong>: How long do you expect training to take? (Make a guess!)</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=38">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Your Predictions:</strong></p>
-<p>Q7.1:</p>
-<p>Q7.2:</p>
-<p>Q7.3:</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=39">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-18">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Run training!</span>
-<span class="c1"># Note: This takes ~5 minutes on a good GPU</span>
-<span class="c1"># Watch the training loss and validation loss as it runs</span>
-
-<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-18"># Run training!
-# Note: This takes ~5 minutes on a good GPU
-# Watch the training loss and validation loss as it runs
-
-trainer.train()</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=40">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="post-training-analysis">📊 Post-Training Analysis<a class="anchor-link" href="#post-training-analysis">¶</a></h3><p>After training completes, analyze what happened.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=41">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-19">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Analyze the training results</span>
-<span class="c1"># Questions to answer:</span>
-<span class="c1"># 1. What was the final training loss?</span>
-<span class="c1"># 2. What was the final validation loss?</span>
-<span class="c1"># 3. Did validation loss ever increase? (sign of overfitting)</span>
-<span class="c1"># 4. Did your predictions match reality?</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Training Analysis:"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"=================="</span><span class="p">)</span>
-<span class="c1"># Your analysis here...</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-19"># TODO: Analyze the training results
-# Questions to answer:
-# 1. What was the final training loss?
-# 2. What was the final validation loss?
-# 3. Did validation loss ever increase? (sign of overfitting)
-# 4. Did your predictions match reality?
-
-print("Training Analysis:")
-print("==================")
-# Your analysis here...</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=42">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-20">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Save the adapter</span>
-<span class="n">adapter_path</span> <span class="o">=</span> <span class="s2">"./results_challenge/final_adapter"</span>
-<span class="n">trainer</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">adapter_path</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Adapter saved to </span><span class="si">{</span><span class="n">adapter_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="c1"># Clean up</span>
-<span class="k">del</span> <span class="n">trainer</span>
-<span class="k">del</span> <span class="n">model</span>
-<span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
-<span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">empty_cache</span><span class="p">()</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-20"># Save the adapter
-adapter_path = "./results_challenge/final_adapter"
-trainer.save_model(adapter_path)
-print(f"Adapter saved to {adapter_path}")
-
-# Clean up
-del trainer
-del model
-gc.collect()
-torch.cuda.empty_cache()</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=43">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<h2 id="part-8-inference-challenge">Part 8: Inference Challenge<a class="anchor-link" href="#part-8-inference-challenge">¶</a></h2><p>Now let's test the fine-tuned model!</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=44">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-21">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Get a test patient</span>
-<span class="n">test_patientid</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_all_patientids_in_split</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">test_split_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">patient_data</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">test_patientid</span><span class="p">)</span>
-
-<span class="c1"># Get the date of first line of therapy</span>
-<span class="n">df_events_patient</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">date_of_first_lot</span> <span class="o">=</span> <span class="n">df_events_patient</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
-    <span class="n">df_events_patient</span><span class="p">[</span><span class="s2">"event_category"</span><span class="p">]</span> <span class="o">==</span> <span class="n">config</span><span class="o">.</span><span class="n">event_category_lot</span><span class="p">,</span> <span class="s2">"date"</span>
-<span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Test patient: </span><span class="si">{</span><span class="n">test_patientid</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"First LoT date: </span><span class="si">{</span><span class="n">date_of_first_lot</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-21"># Get a test patient
-test_patientid = dm.get_all_patientids_in_split(config.test_split_name)[0]
-patient_data = dm.get_patient_data(test_patientid)
-
-# Get the date of first line of therapy
-df_events_patient = patient_data["events"].copy()
-date_of_first_lot = df_events_patient.loc[
-    df_events_patient["event_category"] == config.event_category_lot, "date"
-].min()
-
-print(f"Test patient: {test_patientid}")
-print(f"First LoT date: {date_of_first_lot}")</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=45">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="exercise-81-design-your-prediction-task">🔧 Exercise 8.1: Design Your Prediction Task<a class="anchor-link" href="#exercise-81-design-your-prediction-task">¶</a></h3><p>Choose what you want to predict for this patient.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=46">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-22">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Design your forecasting task</span>
-<span class="c1"># What variable do you want to forecast? At what time points?</span>
-
-<span class="c1"># Example structure:</span>
-<span class="c1"># forecasting_times_to_predict = {</span>
-<span class="c1">#     "variable_name": [week1, week2, week3, ...]</span>
-<span class="c1"># }</span>
-
-<span class="n">forecasting_times_to_predict</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1"># TODO: Fill in - choose a lab value and time points</span>
-<span class="p">}</span>
-
-<span class="c1"># Get inference splits</span>
-<span class="n">forecast_split</span><span class="p">,</span> <span class="n">events_split</span> <span class="o">=</span> <span class="n">data_splitter</span><span class="o">.</span><span class="n">get_splits_from_patient_inference</span><span class="p">(</span>
-    <span class="n">patient_data</span><span class="p">,</span>
-    <span class="n">inference_type</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span>
-    <span class="c1"># TODO: Set the variable(s) to predict</span>
-    <span class="n">forecasting_override_variables_to_predict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># List of variable names</span>
-    <span class="c1"># TODO: Set the event to predict</span>
-    <span class="n">events_override_category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># e.g., "death"</span>
-    <span class="n">events_override_observation_time_delta</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">52</span> <span class="o">*</span> <span class="mi">7</span><span class="p">),</span>  <span class="c1"># 1 year</span>
-<span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-22"># TODO: Design your forecasting task
-# What variable do you want to forecast? At what time points?
-
-# Example structure:
-# forecasting_times_to_predict = {
-#     "variable_name": [week1, week2, week3, ...]
-# }
-
-forecasting_times_to_predict = {
-    # TODO: Fill in - choose a lab value and time points
-}
-
-# Get inference splits
-forecast_split, events_split = data_splitter.get_splits_from_patient_inference(
-    patient_data,
-    inference_type="both",
-    # TODO: Set the variable(s) to predict
-    forecasting_override_variables_to_predict=None,  # List of variable names
-    # TODO: Set the event to predict
-    events_override_category=None,  # e.g., "death"
-    events_override_observation_time_delta=pd.Timedelta(days=52 * 7),  # 1 year
-)</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=47">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-23">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Convert to instruction format for inference</span>
-<span class="c1"># Use converter.forward_conversion_inference()</span>
-
-<span class="n">converted</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Your code here</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-23"># TODO: Convert to instruction format for inference
-# Use converter.forward_conversion_inference()
-
-converted = None  # Your code here</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=48">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-24">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Print the prompt to see what we're asking the model</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"INFERENCE PROMPT:"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">converted</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">][:</span><span class="mi">2000</span><span class="p">])</span>  <span class="c1"># First 2000 chars</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">... [truncated]"</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-24"># Print the prompt to see what we're asking the model
-print("=" * 50)
-print("INFERENCE PROMPT:")
-print("=" * 50)
-print(converted["instruction"][:2000])  # First 2000 chars
-print("\n... [truncated]")</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=49">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="experiment-82-prediction-before-running">🧪 Experiment 8.2: Prediction Before Running<a class="anchor-link" href="#experiment-82-prediction-before-running">¶</a></h3><p>Based on the patient's history in the prompt, make your own predictions:</p>
-<p><strong>Q8.1</strong>: What do you predict for the forecasted values?</p>
-<p><strong>Q8.2</strong>: What do you predict for the time-to-event?</p>
-<p><strong>Q8.3</strong>: How confident are you in these predictions? Why?</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=50">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Your Predictions:</strong></p>
-<p>Q8.1:</p>
-<p>Q8.2:</p>
-<p>Q8.3:</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=51">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-25">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Load the base model and adapter for inference</span>
-
-<span class="c1"># 1. Load base model with quantization</span>
-<span class="n">base_model_inference</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Your code</span>
-
-<span class="c1"># 2. Load the saved adapter</span>
-<span class="n">inference_model</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Use PeftModel.from_pretrained()</span>
-
-<span class="c1"># 3. Set to evaluation mode</span>
-<span class="c1"># inference_model.eval()</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-25"># TODO: Load the base model and adapter for inference
-
-# 1. Load base model with quantization
-base_model_inference = None  # Your code
-
-# 2. Load the saved adapter
-inference_model = None  # Use PeftModel.from_pretrained()
-
-# 3. Set to evaluation mode
-# inference_model.eval()</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=52">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-26">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Create text generation pipeline</span>
-<span class="n">inference_model</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">use_cache</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="n">text_gen_pipeline</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Create pipeline("text-generation", ...)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-26"># TODO: Create text generation pipeline
-inference_model.config.use_cache = True
-
-text_gen_pipeline = None  # Create pipeline("text-generation", ...)</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=53">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-27">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Generate prediction</span>
-<span class="c1"># Use the pipeline with appropriate generation parameters:</span>
-<span class="c1"># - max_new_tokens: 128 is usually enough</span>
-<span class="c1"># - return_full_text: False (we only want the generated part)</span>
-<span class="c1"># - do_sample: True (for nucleus sampling)</span>
-<span class="c1"># - temperature: 0.7 (controls randomness)</span>
-<span class="c1"># - top_p: 0.9 (nucleus sampling threshold)</span>
-
-<span class="n">generated_answer</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Your generation code</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-27"># TODO: Generate prediction
-# Use the pipeline with appropriate generation parameters:
-# - max_new_tokens: 128 is usually enough
-# - return_full_text: False (we only want the generated part)
-# - do_sample: True (for nucleus sampling)
-# - temperature: 0.7 (controls randomness)
-# - top_p: 0.9 (nucleus sampling threshold)
-
-generated_answer = None  # Your generation code</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=54">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-28">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Show the generated answer</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"MODEL PREDICTION:"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">generated_answer</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-28"># Show the generated answer
-print("=" * 50)
-print("MODEL PREDICTION:")
-print("=" * 50)
-print(generated_answer)</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=55">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-29">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Reverse convert to structured data</span>
-<span class="n">return_list</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Use converter.reverse_conversion()</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-29"># TODO: Reverse convert to structured data
-return_list = None  # Use converter.reverse_conversion()</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=56">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-30">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Display structured results</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">return_list</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Task </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">:"</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"result"</span><span class="p">])</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-30"># Display structured results
-for i, result in enumerate(return_list):
-    print(f"\nTask {i + 1}:")
-    print(result["result"])</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=57">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="final-analysis">📊 Final Analysis<a class="anchor-link" href="#final-analysis">¶</a></h3><p>Compare the model's predictions to your own and reflect on the results.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=58">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-31">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># TODO: Write your analysis</span>
-<span class="c1"># 1. How did the model's predictions compare to yours?</span>
-<span class="c1"># 2. Are the predictions clinically reasonable?</span>
-<span class="c1"># 3. What improvements would you suggest?</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"""</span>
-<span class="s2">Final Analysis:</span>
-<span class="s2">===============</span>
-
-<span class="s2">1. Comparison to my predictions:</span>
-<span class="s2">   [Your analysis here]</span>
-
-<span class="s2">2. Clinical reasonableness:</span>
-<span class="s2">   [Your analysis here]</span>
-
-<span class="s2">3. Suggested improvements:</span>
-<span class="s2">   [Your analysis here]</span>
-<span class="s2">"""</span><span class="p">)</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-31"># TODO: Write your analysis
-# 1. How did the model's predictions compare to yours?
-# 2. Are the predictions clinically reasonable?
-# 3. What improvements would you suggest?
-
-print("""
-Final Analysis:
-===============
-
-1. Comparison to my predictions:
-   [Your analysis here]
-
-2. Clinical reasonableness:
-   [Your analysis here]
-
-3. Suggested improvements:
-   [Your analysis here]
-""")</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=59">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<h2 id="bonus-challenge-1-hyperparameter-experiment">🌟 Bonus Challenge 1: Hyperparameter Experiment<a class="anchor-link" href="#bonus-challenge-1-hyperparameter-experiment">¶</a></h2><p><strong>+20 points</strong></p>
-<p>Train two more models with different LoRA configurations:</p>
-<ol>
-<li>Low rank (r=4) with minimal target modules</li>
-<li>High rank (r=32) with all linear modules</li>
-</ol>
-<p>Compare their performance on the same test patient.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=60">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-32">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># BONUS: Implement your hyperparameter experiment</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-32"># BONUS: Implement your hyperparameter experiment
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=61">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<h2 id="bonus-challenge-2-multi-sample-inference">🌟 Bonus Challenge 2: Multi-Sample Inference<a class="anchor-link" href="#bonus-challenge-2-multi-sample-inference">¶</a></h2><p><strong>+15 points</strong></p>
-<p>Generate multiple predictions (N=5) for the same patient using different random seeds. Analyze the variance in predictions. What does this tell you about model confidence?</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=62">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-33">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># BONUS: Implement multi-sample inference and analyze variance</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-33"># BONUS: Implement multi-sample inference and analyze variance
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=63">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<h2 id="bonus-challenge-3-evaluation-framework">🌟 Bonus Challenge 3: Evaluation Framework<a class="anchor-link" href="#bonus-challenge-3-evaluation-framework">¶</a></h2><p><strong>+25 points</strong></p>
-<p>Build an evaluation framework that:</p>
-<ol>
-<li>Runs inference on all test patients</li>
-<li>Compares predictions to ground truth</li>
-<li>Computes metrics (MAE for forecasting, accuracy for events)</li>
-<li>Generates a summary report</li>
-</ol>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=64">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="CodeMirror cm-s-jupyter">
-<div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-34">
-<div>
-<span class="notice" hidden="">Copied!</span>
-<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
-<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-</clipboard-copy>
-</div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># BONUS: Implement the evaluation framework</span>
-</pre></div>
-<div class="clipboard-copy-txt" id="cell-34"># BONUS: Implement the evaluation framework
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=65">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<h2 id="challenge-complete">🏆 Challenge Complete!<a class="anchor-link" href="#challenge-complete">¶</a></h2><p>Congratulations on completing the advanced challenge! You've learned to:</p>
-<ul>
-<li>✅ Generate training datasets from clinical data</li>
-<li>✅ Configure quantization for memory-efficient training</li>
-<li>✅ Design and justify LoRA hyperparameter choices</li>
-<li>✅ Fine-tune an LLM for medical forecasting</li>
-<li>✅ Run inference and analyze predictions</li>
-<li>✅ Convert model outputs back to structured data</li>
-</ul>
-<h3 id="reflection-questions">📝 Reflection Questions<a class="anchor-link" href="#reflection-questions">¶</a></h3><p>Take a moment to reflect on what you learned:</p>
-<ol>
-<li>What was the most challenging part of this challenge?</li>
-<li>What would you do differently if you had more compute resources?</li>
-<li>How would you adapt this pipeline for a different clinical task?</li>
-</ol>
 </div>
 </div>
 </div>
@@ -5222,14 +3493,14 @@ Final Analysis:
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.instant", "navigation.tracking", "navigation.top", "content.code.copy", "content.code.annotate", "content.tooltips", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.instant", "navigation.tracking", "navigation.top", "content.code.copy", "content.code.annotate", "content.tooltips", "search.suggest", "search.highlight"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../javascript/mathjax.js"></script>
+        <script src="../../../../javascript/mathjax.js"></script>
       
-        <script src="../../../javascript/toc-emoji-remover.js"></script>
+        <script src="../../../../javascript/toc-emoji-remover.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
