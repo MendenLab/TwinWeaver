@@ -159,11 +159,35 @@ def test_training_forecasting_only(initialized_dm, mock_config):
     # Reference dates should still be available from the forecasting splitter
     assert ref_dates is not None
     assert not ref_dates.empty
+    assert "date" in ref_dates.columns
+    assert "split_date" in ref_dates.columns
+    assert ref_dates.shape == (1, 2)
+    assert ref_dates["date"].iloc[0] == pd.Timestamp("2015-07-08")
+    assert ref_dates["split_date"].iloc[0] == pd.Timestamp("2015-05-06")
 
-    # Validate forecasting split structure
+    # Validate forecasting split structure and content
     f_split = forecasting_splits[0][0]
     assert f_split.events_until_split is not None
     assert f_split.constant_data["patientid"].iloc[0] == "p0"
+    assert f_split.events_until_split.shape == (32, 8)
+    assert f_split.split_date_included_in_input == pd.Timestamp("2015-07-08")
+    assert f_split.lot_date == pd.Timestamp("2015-05-06")
+    assert f_split.sampled_variables == ["hemoglobin_-_718-7"]
+
+    # Target events should exist and be after the split date
+    assert not f_split.target_events_after_split.empty
+    assert f_split.target_events_after_split.shape[0] == 4
+    assert f_split.target_events_after_split["date"].min() == pd.Timestamp("2015-07-29")
+    assert f_split.target_events_after_split["date"].max() == pd.Timestamp("2015-09-30")
+
+    # Events in input must be <= split date
+    assert (f_split.events_until_split["date"] <= f_split.split_date_included_in_input).all()
+    assert f_split.events_until_split["date"].min() == pd.Timestamp("2015-04-19")
+
+    # Constant data should contain expected columns
+    assert "birthyear" in f_split.constant_data.columns
+    assert "gender" in f_split.constant_data.columns
+    assert f_split.constant_data.shape[0] == 1
 
 
 def test_training_events_only(initialized_dm, mock_config):
@@ -183,17 +207,50 @@ def test_training_events_only(initialized_dm, mock_config):
 
     # Events should be populated
     assert events_splits is not None
-    assert len(events_splits) >= 1
+    assert len(events_splits) == 1
 
     # Reference dates should be reconstructed from events splits
     assert ref_dates is not None
     assert not ref_dates.empty
+    assert "date" in ref_dates.columns
+    assert "split_date" in ref_dates.columns
+    assert ref_dates.shape == (1, 2)
+    assert ref_dates["date"].iloc[0] == pd.Timestamp("2015-07-08")
+    assert ref_dates["split_date"].iloc[0] == pd.Timestamp("2015-05-06")
 
-    # Validate events split structure
+    # Validate events split structure and content
     e_split = events_splits[0][0]
     assert e_split.events_until_split is not None
     assert e_split.constant_data["patientid"].iloc[0] == "p0"
-    assert e_split.sampled_category in ["death", "progression"]
+    assert e_split.events_until_split.shape == (32, 8)
+    assert e_split.split_date_included_in_input == pd.Timestamp("2015-07-08")
+    assert e_split.lot_date == pd.Timestamp("2015-05-06")
+    # Category must be one of the configured event categories (or a backup thereof)
+    expected_mapping = {"death": "death", "progression": "next progression"}
+    assert e_split.sampled_category in list(expected_mapping.keys()) + list(
+        mock_config.data_splitter_events_backup_category_mapping.values()
+    )
+    # Category name must match one of the configured descriptive names
+    assert e_split.sampled_category_name in expected_mapping.values()
+
+    # Event outcome must be boolean
+    assert isinstance(e_split.event_occurred, bool)
+    # Censoring should be None or one of the known censoring types
+    assert e_split.event_censored in [None, "new_therapy_start", "end_of_data", "data_cutoff"]
+    # Observation end date must be after the split date
+    assert e_split.observation_end_date >= e_split.split_date_included_in_input
+
+    # Events in input must be <= split date
+    assert (e_split.events_until_split["date"] <= e_split.split_date_included_in_input).all()
+    assert e_split.events_until_split["date"].min() == pd.Timestamp("2015-04-19")
+    assert e_split.events_until_split["date"].max() == pd.Timestamp("2015-07-08")
+
+    # Constant data integrity
+    assert "birthyear" in e_split.constant_data.columns
+    assert "gender" in e_split.constant_data.columns
+    assert "histology" in e_split.constant_data.columns
+    assert "smoking_history" in e_split.constant_data.columns
+    assert e_split.constant_data.shape[0] == 1
 
 
 def test_inference_forecasting_only(initialized_dm, mock_config):
@@ -214,7 +271,24 @@ def test_inference_forecasting_only(initialized_dm, mock_config):
     # Forecasting split should be populated
     assert f_split is not None
     assert f_split.split_date_included_in_input == last_date
+    assert f_split.split_date_included_in_input == pd.Timestamp("2016-05-13")
     assert f_split.sampled_variables == ["hemoglobin_-_718-7"]
+    assert f_split.lot_date == "override"
+
+    # Inference has no target data
+    assert f_split.target_events_after_split.empty
+
+    # Input events must cover the full patient history up to last date
+    assert f_split.events_until_split.shape == (78, 8)
+    assert (f_split.events_until_split["date"] <= f_split.split_date_included_in_input).all()
+    assert f_split.events_until_split["date"].min() == pd.Timestamp("2015-04-19")
+    assert f_split.events_until_split["date"].max() == pd.Timestamp("2016-05-13")
+
+    # Constant data integrity
+    assert f_split.constant_data["patientid"].iloc[0] == "p0"
+    assert "birthyear" in f_split.constant_data.columns
+    assert "gender" in f_split.constant_data.columns
+    assert f_split.constant_data.shape[0] == 1
 
     # Events split should be None
     assert e_split is None
@@ -243,7 +317,25 @@ def test_inference_events_only(initialized_dm, mock_config):
     # Events split should be populated
     assert e_split is not None
     assert e_split.split_date_included_in_input == last_date
+    assert e_split.split_date_included_in_input == pd.Timestamp("2016-05-13")
     assert e_split.sampled_category == "death"
+    assert e_split.sampled_category_name == "death"
+
+    # p0's last event is death itself; predicting death from last date with 52-week window:
+    # death already occurred at last_date so looking forward finds nothing → censored end_of_data
+    assert e_split.event_occurred is False
+    assert e_split.event_censored == "end_of_data"
+    assert e_split.observation_end_date == pd.Timestamp("2017-05-12")
+
+    # Input events must cover the full patient history up to last date
+    assert e_split.events_until_split.shape == (78, 8)
+    assert (e_split.events_until_split["date"] <= e_split.split_date_included_in_input).all()
+    assert e_split.events_until_split["date"].max() == pd.Timestamp("2016-05-13")
+
+    # Constant data integrity
+    assert e_split.constant_data["patientid"].iloc[0] == "p0"
+    assert "birthyear" in e_split.constant_data.columns
+    assert e_split.constant_data.shape[0] == 1
 
 
 def test_inference_both_type_with_only_forecasting(initialized_dm, mock_config):
@@ -259,9 +351,25 @@ def test_inference_both_type_with_only_forecasting(initialized_dm, mock_config):
         forecasting_override_variables_to_predict=["hemoglobin_-_718-7"],
     )
 
+    last_date = patient_data["events"]["date"].max()
+
     # Forecasting should work
     assert f_split is not None
     assert f_split.sampled_variables == ["hemoglobin_-_718-7"]
+    assert f_split.split_date_included_in_input == last_date
+    assert f_split.split_date_included_in_input == pd.Timestamp("2016-05-13")
+    assert f_split.lot_date == "override"
+
+    # Inference: no target
+    assert f_split.target_events_after_split.empty
+
+    # Full patient history should be used as input
+    assert f_split.events_until_split.shape == (78, 8)
+    assert (f_split.events_until_split["date"] <= f_split.split_date_included_in_input).all()
+
+    # Constant data integrity
+    assert f_split.constant_data["patientid"].iloc[0] == "p0"
+    assert f_split.constant_data.shape[0] == 1
 
     # Events should be None because no events splitter is set
     assert e_split is None
@@ -282,9 +390,27 @@ def test_inference_both_type_with_only_events(initialized_dm, mock_config):
         events_override_observation_time_delta=pd.Timedelta(weeks=52),
     )
 
+    last_date = patient_data["events"]["date"].max()
+
     # Forecasting should be None because no forecasting splitter is set
     assert f_split is None
 
     # Events should work
     assert e_split is not None
+    assert e_split.split_date_included_in_input == last_date
+    assert e_split.split_date_included_in_input == pd.Timestamp("2016-05-13")
     assert e_split.sampled_category == "death"
+    assert e_split.sampled_category_name == "death"
+
+    # Observation window and outcome
+    assert e_split.event_occurred is False
+    assert e_split.event_censored == "end_of_data"
+    assert e_split.observation_end_date == pd.Timestamp("2017-05-12")
+
+    # Full patient history should be used as input
+    assert e_split.events_until_split.shape == (78, 8)
+    assert (e_split.events_until_split["date"] <= e_split.split_date_included_in_input).all()
+
+    # Constant data integrity
+    assert e_split.constant_data["patientid"].iloc[0] == "p0"
+    assert e_split.constant_data.shape[0] == 1
