@@ -9,9 +9,19 @@ class DataSplitter:
     """
     Combines both data splitters into one interface for easier usage.
     For more advanced use cases, the individual data splitters can still be used directly.
+
+    At least one of ``data_splitter_events`` or ``data_splitter_forecasting`` must be
+    provided. When only one splitter is supplied, the methods will return ``None`` /
+    empty results for the missing task type.
     """
 
-    def __init__(self, data_splitter_events: DataSplitterEvents, data_splitter_forecasting: DataSplitterForecasting):
+    def __init__(
+        self,
+        data_splitter_events: DataSplitterEvents = None,
+        data_splitter_forecasting: DataSplitterForecasting = None,
+    ):
+        if data_splitter_events is None and data_splitter_forecasting is None:
+            raise ValueError("At least one of data_splitter_events or data_splitter_forecasting must be provided.")
         self.data_splitter_events = data_splitter_events
         self.data_splitter_forecasting = data_splitter_forecasting
 
@@ -64,33 +74,56 @@ class DataSplitter:
         -------
         tuple
             A tuple containing three elements:
-            1. forecasting_splits: list[DataSplitterForecastingGroup]
-               List of generated forecasting split groups.
-            2. events_splits: list[DataSplitterEventsGroup]
-               List of generated event prediction split groups, corresponding to the forecasting splits.
+            1. forecasting_splits: list[DataSplitterForecastingGroup] or None
+               List of generated forecasting split groups, or None if no forecasting splitter is set.
+            2. events_splits: list[DataSplitterEventsGroup] or None
+               List of generated event prediction split groups, or None if no events splitter is set.
             3. reference_dates: pd.DataFrame
                DataFrame containing the split dates and LoT dates used.
         """
-        # Process forecasting splits
-        forecasting_splits, reference_dates = self.data_splitter_forecasting.get_splits_from_patient(
-            patient_data,
-            nr_samples_per_split=forecasting_nr_samples_per_split,
-            include_metadata=True,
-            max_num_splits_per_split_event=max_num_splits_per_split_event,
-            filter_outliers=forecasting_filter_outliers,
-            override_categories_to_predict=forecasting_override_categories_to_predict,
-            override_variables_to_predict=forecasting_override_variables_to_predict,
-            override_split_dates=forecasting_override_split_dates,
-        )
+        forecasting_splits = None
+        events_splits = None
+        reference_dates = None
 
-        # Process event prediction splits
-        events_splits = self.data_splitter_events.get_splits_from_patient(
-            patient_data,
-            reference_split_dates=reference_dates,
-            max_nr_samples_per_split=events_max_nr_samples_per_split,
-            override_category=events_override_category,
-            override_observation_time_delta=events_override_observation_time_delta,
-        )
+        # Process forecasting splits (if available)
+        if self.data_splitter_forecasting is not None:
+            forecasting_splits, reference_dates = self.data_splitter_forecasting.get_splits_from_patient(
+                patient_data,
+                nr_samples_per_split=forecasting_nr_samples_per_split,
+                include_metadata=True,
+                max_num_splits_per_split_event=max_num_splits_per_split_event,
+                filter_outliers=forecasting_filter_outliers,
+                override_categories_to_predict=forecasting_override_categories_to_predict,
+                override_variables_to_predict=forecasting_override_variables_to_predict,
+                override_split_dates=forecasting_override_split_dates,
+            )
+
+        # Process event prediction splits (if available)
+        if self.data_splitter_events is not None:
+            events_splits = self.data_splitter_events.get_splits_from_patient(
+                patient_data,
+                reference_split_dates=reference_dates,
+                max_nr_samples_per_split=events_max_nr_samples_per_split,
+                max_num_splits_per_split_event=max_num_splits_per_split_event,
+                override_category=events_override_category,
+                override_observation_time_delta=events_override_observation_time_delta,
+            )
+
+            # When only events splitter is used, extract reference_dates from events_splits
+            if reference_dates is None and events_splits is not None:
+                config = self.data_splitter_events.config
+                ref_rows = []
+                for group in events_splits:
+                    if len(group) > 0:
+                        opt = group[0]
+                        ref_rows.append(
+                            {
+                                config.date_col: opt.split_date_included_in_input,
+                                config.split_date_col: opt.lot_date,
+                            }
+                        )
+                if ref_rows:
+                    reference_dates = pd.DataFrame(ref_rows)
 
         #: return both, since we want to be able to still have the flexibility to use both splitters directly
         return forecasting_splits, events_splits, reference_dates
@@ -135,36 +168,49 @@ class DataSplitter:
             2. events_split: DataSplitterEventsOption or None
                The generated event prediction option, or None if inference_type is 'forecasting'.
         """
+        # Resolve the config from whichever splitter is available
+        _config = (
+            self.data_splitter_events.config
+            if self.data_splitter_events is not None
+            else self.data_splitter_forecasting.config
+        )
+
         # assume last date in events is the split date that we're interested in
-        patient_data["events"] = patient_data["events"].sort_values(by=self.data_splitter_events.config.date_col)
-        split_date = patient_data["events"][self.data_splitter_events.config.date_col].iloc[-1]
+        patient_data["events"] = patient_data["events"].sort_values(by=_config.date_col)
+        split_date = patient_data["events"][_config.date_col].iloc[-1]
 
         #: generate forecasting split
+        forecast_split = None
         if inference_type == "both" or inference_type == "forecasting":
-            forecast_splits = self.data_splitter_forecasting.get_splits_from_patient(
-                patient_data,
-                nr_samples_per_split=1,
-                filter_outliers=False,  # Since no filtering needed, since no target exists
-                override_split_dates=[split_date],
-                override_variables_to_predict=forecasting_override_variables_to_predict,
-            )
-            # The first one is the only one
-            forecast_split = forecast_splits[0][0]
-        else:
-            forecast_split = None
+            if self.data_splitter_forecasting is None:
+                if inference_type != "both":
+                    raise ValueError("DataSplitterForecasting must be set to generate forecasting splits.")
+            else:
+                forecast_splits = self.data_splitter_forecasting.get_splits_from_patient(
+                    patient_data,
+                    nr_samples_per_split=1,
+                    filter_outliers=False,  # Since no filtering needed, since no target exists
+                    override_split_dates=[split_date],
+                    override_variables_to_predict=forecasting_override_variables_to_predict,
+                )
+                # The first one is the only one
+                forecast_split = forecast_splits[0][0]
 
         #: generate event split
+        events_split = None
         if inference_type == "both" or inference_type == "events":
-            events_splits = self.data_splitter_events.get_splits_from_patient(
-                patient_data,
-                max_nr_samples_per_split=1,
-                override_split_dates=[split_date],
-                override_category=events_override_category,
-                override_observation_time_delta=events_override_observation_time_delta,
-            )
-            # The first one is the only one
-            events_split = events_splits[0][0]
-        else:
-            events_split = None
+            if self.data_splitter_events is None:
+                if inference_type != "both":
+                    raise ValueError("DataSplitterEvents must be set to generate event prediction splits.")
+            else:
+                events_splits = self.data_splitter_events.get_splits_from_patient(
+                    patient_data,
+                    max_nr_samples_per_split=1,
+                    override_split_dates=[split_date],
+                    override_category=events_override_category,
+                    override_observation_time_delta=events_override_observation_time_delta,
+                )
+                # The first one is the only one
+                events_split = events_splits[0][0]
 
         return forecast_split, events_split

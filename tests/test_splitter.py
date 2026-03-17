@@ -124,3 +124,167 @@ def test_inference_split(initialized_dm, mock_config):
     assert e_split.observation_end_date == pd.Timestamp("2018-02-23 00:00:00")
     assert e_split.event_censored == "end_of_data"
     assert not e_split.event_occurred
+
+
+# ────────────────────────────────────────────────────────────────────────────
+# Tests for DataSplitter with individual (single) splitters
+# ────────────────────────────────────────────────────────────────────────────
+
+
+def test_data_splitter_requires_at_least_one_splitter():
+    """Test that DataSplitter raises if neither splitter is provided."""
+    with pytest.raises(ValueError, match="At least one"):
+        DataSplitter()
+
+
+def test_training_forecasting_only(initialized_dm, mock_config):
+    """Test training splits when only the forecasting splitter is provided."""
+    splitter_forecast = DataSplitterForecasting(data_manager=initialized_dm, config=mock_config)
+    splitter_forecast.setup_statistics()
+
+    data_splitter = DataSplitter(data_splitter_forecasting=splitter_forecast)
+
+    patient_data = initialized_dm.get_patient_data("p0")
+    forecasting_splits, events_splits, ref_dates = data_splitter.get_splits_from_patient_with_target(
+        patient_data, max_num_splits_per_split_event=1
+    )
+
+    # Forecasting should be populated
+    assert forecasting_splits is not None
+    assert len(forecasting_splits) == 1
+
+    # Events should be None since no events splitter was provided
+    assert events_splits is None
+
+    # Reference dates should still be available from the forecasting splitter
+    assert ref_dates is not None
+    assert not ref_dates.empty
+
+    # Validate forecasting split structure
+    f_split = forecasting_splits[0][0]
+    assert f_split.events_until_split is not None
+    assert f_split.constant_data["patientid"].iloc[0] == "p0"
+
+
+def test_training_events_only(initialized_dm, mock_config):
+    """Test training splits when only the events splitter is provided."""
+    splitter_events = DataSplitterEvents(initialized_dm, config=mock_config)
+    splitter_events.setup_variables()
+
+    data_splitter = DataSplitter(data_splitter_events=splitter_events)
+
+    patient_data = initialized_dm.get_patient_data("p0")
+    forecasting_splits, events_splits, ref_dates = data_splitter.get_splits_from_patient_with_target(
+        patient_data, max_num_splits_per_split_event=1
+    )
+
+    # Forecasting should be None since no forecasting splitter was provided
+    assert forecasting_splits is None
+
+    # Events should be populated
+    assert events_splits is not None
+    assert len(events_splits) >= 1
+
+    # Reference dates should be reconstructed from events splits
+    assert ref_dates is not None
+    assert not ref_dates.empty
+
+    # Validate events split structure
+    e_split = events_splits[0][0]
+    assert e_split.events_until_split is not None
+    assert e_split.constant_data["patientid"].iloc[0] == "p0"
+    assert e_split.sampled_category in ["death", "progression"]
+
+
+def test_inference_forecasting_only(initialized_dm, mock_config):
+    """Test inference split when only the forecasting splitter is provided."""
+    splitter_forecast = DataSplitterForecasting(data_manager=initialized_dm, config=mock_config)
+
+    data_splitter = DataSplitter(data_splitter_forecasting=splitter_forecast)
+    patient_data = initialized_dm.get_patient_data("p0")
+
+    f_split, e_split = data_splitter.get_splits_from_patient_inference(
+        patient_data,
+        inference_type="forecasting",
+        forecasting_override_variables_to_predict=["hemoglobin_-_718-7"],
+    )
+
+    last_date = patient_data["events"]["date"].max()
+
+    # Forecasting split should be populated
+    assert f_split is not None
+    assert f_split.split_date_included_in_input == last_date
+    assert f_split.sampled_variables == ["hemoglobin_-_718-7"]
+
+    # Events split should be None
+    assert e_split is None
+
+
+def test_inference_events_only(initialized_dm, mock_config):
+    """Test inference split when only the events splitter is provided."""
+    splitter_events = DataSplitterEvents(initialized_dm, config=mock_config)
+    splitter_events.setup_variables()
+
+    data_splitter = DataSplitter(data_splitter_events=splitter_events)
+    patient_data = initialized_dm.get_patient_data("p0")
+
+    f_split, e_split = data_splitter.get_splits_from_patient_inference(
+        patient_data,
+        inference_type="events",
+        events_override_category="death",
+        events_override_observation_time_delta=pd.Timedelta(weeks=52),
+    )
+
+    last_date = patient_data["events"]["date"].max()
+
+    # Forecasting split should be None
+    assert f_split is None
+
+    # Events split should be populated
+    assert e_split is not None
+    assert e_split.split_date_included_in_input == last_date
+    assert e_split.sampled_category == "death"
+
+
+def test_inference_both_type_with_only_forecasting(initialized_dm, mock_config):
+    """Test that inference_type='both' gracefully returns None for the missing splitter."""
+    splitter_forecast = DataSplitterForecasting(data_manager=initialized_dm, config=mock_config)
+
+    data_splitter = DataSplitter(data_splitter_forecasting=splitter_forecast)
+    patient_data = initialized_dm.get_patient_data("p0")
+
+    f_split, e_split = data_splitter.get_splits_from_patient_inference(
+        patient_data,
+        inference_type="both",
+        forecasting_override_variables_to_predict=["hemoglobin_-_718-7"],
+    )
+
+    # Forecasting should work
+    assert f_split is not None
+    assert f_split.sampled_variables == ["hemoglobin_-_718-7"]
+
+    # Events should be None because no events splitter is set
+    assert e_split is None
+
+
+def test_inference_both_type_with_only_events(initialized_dm, mock_config):
+    """Test that inference_type='both' gracefully returns None for the missing splitter."""
+    splitter_events = DataSplitterEvents(initialized_dm, config=mock_config)
+    splitter_events.setup_variables()
+
+    data_splitter = DataSplitter(data_splitter_events=splitter_events)
+    patient_data = initialized_dm.get_patient_data("p0")
+
+    f_split, e_split = data_splitter.get_splits_from_patient_inference(
+        patient_data,
+        inference_type="both",
+        events_override_category="death",
+        events_override_observation_time_delta=pd.Timedelta(weeks=52),
+    )
+
+    # Forecasting should be None because no forecasting splitter is set
+    assert f_split is None
+
+    # Events should work
+    assert e_split is not None
+    assert e_split.sampled_category == "death"
