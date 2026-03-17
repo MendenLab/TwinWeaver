@@ -2,6 +2,7 @@ from twinweaver import (
     DataSplitterForecasting,
     DataManager,
     DataSplitterEvents,
+    DataSplitter,
     ConverterInstruction,
     Config,
 )
@@ -45,10 +46,17 @@ class ConvertToText:
         self.dm.setup_dataset_splits()
         self.dm.infer_var_types()
 
-        self.data_splitter_events = DataSplitterEvents(self.dm, config=self.config)
-        self.data_splitter_events.setup_variables()
-        self.data_splitter_forecasting = DataSplitterForecasting(data_manager=self.dm, config=self.config)
-        self.data_splitter_forecasting.setup_statistics()
+        data_splitter_events = DataSplitterEvents(self.dm, config=self.config)
+        data_splitter_events.setup_variables()
+        data_splitter_forecasting = DataSplitterForecasting(data_manager=self.dm, config=self.config)
+        data_splitter_forecasting.setup_statistics()
+
+        # Use the unified DataSplitter API that combines both splitters
+        self.data_splitter = DataSplitter(
+            data_splitter_events=data_splitter_events,
+            data_splitter_forecasting=data_splitter_forecasting,
+        )
+
         self.converter = ConverterInstruction(
             nr_tokens_budget_total=8192,
             config=self.config,
@@ -62,47 +70,25 @@ class ConvertToText:
         # To simulate that we only have input, half the events
         patient_data["events"] = patient_data["events"].iloc[: int(len(patient_data["events"]) / 2)]
 
-        # Here then split date
-        split_date = patient_data["events"]["date"].iloc[-1]
+        # Use the unified DataSplitter API for inference
+        forecast_split, events_split = self.data_splitter.get_splits_from_patient_inference(
+            patient_data,
+            inference_type=override_events_or_forecasting,
+            forecasting_override_variables_to_predict=["Neutrophils"]
+            if override_events_or_forecasting != "events"
+            else None,
+            events_override_category="death" if override_events_or_forecasting != "forecasting" else None,
+            events_override_observation_time_delta=pd.Timedelta(weeks=52)
+            if override_events_or_forecasting != "forecasting"
+            else None,
+        )
 
-        #: generate event split - NOTE: this if statement is only to exemplify both cases!
-        if override_events_or_forecasting == "events":
-            ####### Example if we want to override for events
-
-            events_splits = self.data_splitter_events.get_splits_from_patient(
-                patient_data,
-                max_nr_samples=1,
-                override_split_dates=[split_date],
-                override_category="death",
-                override_end_week_delta=52,
-            )
-            # We just pick the first one
-            events_split = events_splits[0][0]
-
-            #: no forecasting split
-            forecast_split = None
-            forecasting_times_to_predict = None
-        else:
-            ####### Example if we want to override for forecasting
-
-            #: generate forecasting split
-            forecast_splits = self.data_splitter_forecasting.get_splits_from_patient(
-                patient_data,
-                nr_samples_per_split=1,
-                filter_outliers=False,
-                override_split_dates=[split_date],
-                override_variables_to_predict=["Neutrophils"],
-            )
-            # We just pick the first one
-            forecast_split = forecast_splits[0][0]
-
-            # We set which weeks to predict
+        # Set which weeks to predict for forecasting (if applicable)
+        forecasting_times_to_predict = None
+        if forecast_split is not None:
             forecasting_times_to_predict = {
                 "Neutrophils": [1, 2, 8, 11],
             }
-
-            #: no events split
-            events_split = None
 
         # Convert to text
         converted = self.converter.forward_conversion_inference(
