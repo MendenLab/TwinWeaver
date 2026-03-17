@@ -287,6 +287,12 @@ class ConverterBase:
             round_and_strip, args=(self.decimal_precision,)
         )
 
+        # Exclude specified event categories from the input if configured
+        if self.config.event_categories_to_exclude_from_input:
+            events = events[
+                ~events[self.config.event_category_col].isin(self.config.event_categories_to_exclude_from_input)
+            ]
+
         return events
 
     def _get_event_string(

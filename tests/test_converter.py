@@ -91,6 +91,130 @@ def test_forward_conversion_training(setup_components):
     assert "hemoglobin - 718-7 is 14.01." in answer  # Known value for p0
 
 
+def test_event_categories_to_exclude_from_input(mock_config, sample_data):
+    """Test that event_categories_to_exclude_from_input removes specified categories from generated text."""
+    df_events, df_constant, df_constant_desc = sample_data
+
+    # Configure with drug events excluded
+    mock_config.split_event_category = "lot"
+    mock_config.event_category_forecast = ["lab"]
+    mock_config.data_splitter_events_variables_category_mapping = {"death": "death", "progression": "next progression"}
+    mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
+    mock_config.constant_birthdate_column = "birthyear"
+    mock_config.event_categories_to_exclude_from_input = ["drug"]
+
+    dm = DataManager(config=mock_config)
+    dm.load_indication_data(df_events, df_constant, df_constant_desc)
+    dm.process_indication_data()
+    dm.setup_unique_mapping_of_events()
+    dm.setup_dataset_splits()
+    dm.infer_var_types()
+
+    splitter_events = DataSplitterEvents(dm, config=mock_config)
+    splitter_events.setup_variables()
+
+    splitter_forecast = DataSplitterForecasting(data_manager=dm, config=mock_config)
+    splitter_forecast.setup_statistics()
+
+    data_splitter = DataSplitter(splitter_events, splitter_forecast)
+
+    converter = ConverterInstruction(
+        nr_tokens_budget_total=4096, config=mock_config, dm=dm, variable_stats=splitter_forecast.variable_stats
+    )
+
+    patient_data = dm.get_patient_data("p0")
+    f_splits, e_splits, _ = data_splitter.get_splits_from_patient_with_target(patient_data)
+
+    result = converter.forward_conversion(
+        forecasting_splits=f_splits[0],
+        event_splits=e_splits[0],
+        override_mode_to_select_forecasting="both",
+    )
+
+    instruction = result["instruction"]
+
+    # Drug events (e.g. "drug pemetrexed is administered") should be excluded
+    assert "drug pemetrexed is administered" not in instruction
+    assert (
+        "drug" not in instruction.lower().split("demographic")[0].split("\n")[-1]
+        if "demographic" in instruction
+        else True
+    )
+
+    # Other event categories should still be present
+    assert "Starting with demographic data:" in instruction
+    assert "hemoglobin" in instruction  # lab events still present
+
+
+def test_event_categories_to_exclude_multiple(mock_config, sample_data):
+    """Test excluding multiple event categories from input."""
+    df_events, df_constant, df_constant_desc = sample_data
+
+    mock_config.split_event_category = "lot"
+    mock_config.event_category_forecast = ["lab"]
+    mock_config.data_splitter_events_variables_category_mapping = {"death": "death", "progression": "next progression"}
+    mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
+    mock_config.constant_birthdate_column = "birthyear"
+    mock_config.event_categories_to_exclude_from_input = ["drug", "ecog"]
+
+    dm = DataManager(config=mock_config)
+    dm.load_indication_data(df_events, df_constant, df_constant_desc)
+    dm.process_indication_data()
+    dm.setup_unique_mapping_of_events()
+    dm.setup_dataset_splits()
+    dm.infer_var_types()
+
+    splitter_events = DataSplitterEvents(dm, config=mock_config)
+    splitter_events.setup_variables()
+
+    splitter_forecast = DataSplitterForecasting(data_manager=dm, config=mock_config)
+    splitter_forecast.setup_statistics()
+
+    data_splitter = DataSplitter(splitter_events, splitter_forecast)
+
+    converter = ConverterInstruction(
+        nr_tokens_budget_total=4096, config=mock_config, dm=dm, variable_stats=splitter_forecast.variable_stats
+    )
+
+    patient_data = dm.get_patient_data("p0")
+    f_splits, e_splits, _ = data_splitter.get_splits_from_patient_with_target(patient_data)
+
+    result = converter.forward_conversion(
+        forecasting_splits=f_splits[0],
+        event_splits=e_splits[0],
+        override_mode_to_select_forecasting="both",
+    )
+
+    instruction = result["instruction"]
+
+    # Both drug and ecog events should be absent
+    assert "drug pemetrexed is administered" not in instruction
+    assert "ECOG" not in instruction
+
+    # Lab events should still be present
+    assert "hemoglobin" in instruction
+
+
+def test_event_categories_to_exclude_empty_list(setup_components):
+    """Test that an empty exclude list leaves all events intact (default behavior)."""
+    dm, data_splitter, converter = setup_components
+    assert dm.config.event_categories_to_exclude_from_input == []
+
+    patient_data = dm.get_patient_data("p0")
+    f_splits, e_splits, _ = data_splitter.get_splits_from_patient_with_target(patient_data)
+
+    result = converter.forward_conversion(
+        forecasting_splits=f_splits[0],
+        event_splits=e_splits[0],
+        override_mode_to_select_forecasting="both",
+    )
+
+    instruction = result["instruction"]
+
+    # Drug events should be present when nothing is excluded
+    assert "drug pemetrexed is administered" in instruction
+
+
 def test_forward_conversion_inference(setup_components):
     """Test conversion for inference (no target string)."""
     dm, data_splitter, converter = setup_components

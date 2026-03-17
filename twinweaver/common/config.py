@@ -296,6 +296,9 @@ class Config:
             True  # Whether to warn if a patient has no LoT events in DataSplitterEvents
         )
 
+        # List of event categories to exclude from the input data (e.g., ["lot"])
+        self.event_categories_to_exclude_from_input: list = []
+
         # --- Specific Event Categories / Values / Sources ---
         self.event_category_lot: str = "lot"
         self.event_category_death: str = "death"
