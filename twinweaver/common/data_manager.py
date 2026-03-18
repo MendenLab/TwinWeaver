@@ -202,6 +202,20 @@ class DataManager:
                     "please fix the data or set drop_missing_event_values=True"
                 )
 
+        # Check for missing values in event_descriptive_name, event_name, and event_category columns
+        for col in [
+            self.config.event_descriptive_name_col,
+            self.config.event_name_col,
+            self.config.event_category_col,
+        ]:
+            missing_count = self.data_frames[events_table_key][col].isnull().sum()
+            if missing_count > 0:
+                total = len(self.data_frames[events_table_key])
+                raise ValueError(
+                    f"Found {missing_count} out of {total} missing values in '{col}' column "
+                    f"in events table - please fix the data before proceeding"
+                )
+
         # Convert all event values to string
         self.data_frames[events_table_key][self.config.event_value_col] = self.data_frames[events_table_key][
             self.config.event_value_col
