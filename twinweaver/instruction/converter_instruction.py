@@ -812,6 +812,9 @@ class ConverterInstruction(ConverterBase):
                     standard_extraction = False
                 elif inference_override is False:
                     raise ValueError("Could not determine task type")
+                else:
+                    # inference_override is True but task type is unknown – skip
+                    continue
 
             #: extract the relevant parts
             if standard_extraction:
