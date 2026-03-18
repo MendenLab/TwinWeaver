@@ -42,7 +42,7 @@ class ConvertToText:
         )
         self.dm.process_indication_data()
         self.dm.setup_unique_mapping_of_events()
-        self.dm.setup_dataset_splits()
+        self.dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
         self.dm.infer_var_types()
 
         self.data_splitter_events = DataSplitterEvents(

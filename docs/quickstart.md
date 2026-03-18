@@ -48,7 +48,7 @@ dm.load_indication_data(
 )
 dm.process_indication_data()
 dm.setup_unique_mapping_of_events()
-dm.setup_dataset_splits()
+dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
 dm.infer_var_types()
 
 # Set up data splitters for different task types

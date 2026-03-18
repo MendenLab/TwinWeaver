@@ -53,7 +53,7 @@ def test_data_manager_processing(mock_config, sample_data):
     # Run pipeline
     dm.process_indication_data()
     dm.setup_unique_mapping_of_events()
-    dm.setup_dataset_splits()
+    dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
     dm.infer_var_types()
 
     # 1. Check Date Processing

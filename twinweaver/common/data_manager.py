@@ -22,10 +22,6 @@ class DataManager:
     def __init__(
         self,
         config: Config,  # Added config parameter
-        train_split_min: float = 0.8,
-        validation_split_max: float = 0.1,
-        test_split_max: float = 0.1,
-        max_val_test_nr_patients: int = 500,
         replace_special_symbols: list = None,
     ) -> None:
         """
@@ -39,21 +35,6 @@ class DataManager:
         config : Config
             A configuration object containing paths, column names, category names,
             and other constants used throughout the data management process.
-        train_split_min : float, optional
-            The minimum proportion of patients to allocate to the training set.
-            Defaults to 0.8. The actual number will be the remainder after
-            allocating validation and test sets.
-        validation_split_max : float, optional
-            The maximum proportion of the total patients to allocate to the
-            validation set. The actual number is capped by
-            `max_val_test_nr_patients`. Defaults to 0.1.
-        test_split_max : float, optional
-            The maximum proportion of the total patients to allocate to the
-            test set. The actual number is capped by `max_val_test_nr_patients`.
-            Defaults to 0.1.
-        max_val_test_nr_patients : int, optional
-            The absolute maximum number of patients to include in the validation
-            and test sets combined. Defaults to 500.
         replace_special_symbols : list, optional
             A list of tuples to override the default special character replacements
             in event descriptive names. Each tuple should be in the format
@@ -63,10 +44,6 @@ class DataManager:
 
         #: initialize the data manager
         self.config = config  # Store config object
-        self.train_split = train_split_min
-        self.validation_split = validation_split_max
-        self.test_split = test_split_max
-        self.max_val_test_nr_patients = max_val_test_nr_patients
         self.variable_types = {}  # event_name -> "numeric" / "categorical"
 
         # Setup replacing of special symbol, format is event_category : (<string_to_replace>, <replacement_string>)
@@ -333,8 +310,11 @@ class DataManager:
         # Use config constant
         assert len(self.unique_events) == len(self.data_frames[events_table_key][event_desc_name_col].unique())
 
-    def setup_dataset_splits(
+    def setup_hold_out_sets(
         self,
+        validation_split: float,
+        test_split: float,
+        max_val_test_nr_patients: int = None,
     ) -> None:
         """
         Assigns each patient to a data split (train, validation, or test).
@@ -352,6 +332,20 @@ class DataManager:
         constant dataframe. It also stores all patient IDs in
         `self.all_patientids`. Asserts are performed to ensure the mapping covers
         all patients without overlap and that the split sizes match calculations.
+
+        Parameters
+        ----------
+        validation_split : float
+            The proportion of the total patients to allocate to the
+            validation set. The actual number is capped by
+            `max_val_test_nr_patients` if provided.
+        test_split : float
+            The proportion of the total patients to allocate to the
+            test set. The actual number is capped by
+            `max_val_test_nr_patients` if provided.
+        max_val_test_nr_patients : int, optional
+            The absolute maximum number of patients to include in the validation
+            and test sets individually. Defaults to None.
 
         Raises
         ------
@@ -383,13 +377,17 @@ class DataManager:
 
         #: get min(self.validation_split * num_patients, self.max_val_test_nr_patients)
         validation_nr_patients = min(
-            int(self.validation_split * len(all_patients)),
-            self.max_val_test_nr_patients,
+            int(validation_split * len(all_patients)),
+            max_val_test_nr_patients
+            if max_val_test_nr_patients is not None
+            else int(validation_split * len(all_patients)),
         )
 
         #: then the same for test
-        test_nr_patients = min(int(self.test_split * len(all_patients)), self.max_val_test_nr_patients)
-
+        test_nr_patients = min(
+            int(test_split * len(all_patients)),
+            max_val_test_nr_patients if max_val_test_nr_patients is not None else int(test_split * len(all_patients)),
+        )
         #: randomly shuffle with seed and split into train/val/test, using df.sample
         np.random.seed(self.config.seed)
         all_patients = np.random.permutation(all_patients)

@@ -20,7 +20,7 @@ def initialized_dm(mock_config, sample_data):
     dm.load_indication_data(df_events, df_constant, df_constant_desc)
     dm.process_indication_data()
     dm.setup_unique_mapping_of_events()
-    dm.setup_dataset_splits()
+    dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
     dm.infer_var_types()
     return dm
 
