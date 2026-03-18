@@ -63,7 +63,10 @@ data_splitter_forecasting = DataSplitterForecasting(
 )
 
 # Combined interface for both task types
-data_splitter = DataSplitter(data_splitter_events, data_splitter_forecasting)
+data_splitter = DataSplitter(
+    data_splitter_events=data_splitter_events,
+    data_splitter_forecasting=data_splitter_forecasting,
+)
 
 # Set up the text converter
 converter = ConverterInstruction(

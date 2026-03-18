@@ -9,7 +9,7 @@ TwinWeaver provides specialized splitters for two complementary clinical predict
 | `DataSplitterForecasting` | Forecasting continuous or categorical variables | Predict hemoglobin values over the next 90 days |
 | `DataSplitterEvents` | Landmark event prediction (time-to-event) | Did the patient progress within 52 weeks? |
 
-A unified `DataSplitter` interface combines both, ensuring they share the same split dates for multi-task training.
+A unified `DataSplitter` interface combines one or both splitters into a single entry point. When both are supplied, it ensures they share the same split dates for multi-task training. Either splitter can also be used individually.
 
 ---
 
@@ -171,14 +171,20 @@ config.data_splitter_events_variables_category_mapping = {
 
 ## Combined Splitting with `DataSplitter`
 
-The `DataSplitter` class provides a unified interface that coordinates both splitters. This is the **recommended approach** for generating multi-task training data, as it ensures forecasting and event prediction tasks share the same split dates.
+The `DataSplitter` class provides a unified interface that coordinates one or both splitters. At least one of `data_splitter_events` or `data_splitter_forecasting` must be provided. When both are supplied, it ensures they share the same split dates for multi-task training. When only one is supplied, the methods return `None` for the missing task type.
 
-### Training Workflow
+!!! tip "Single-task usage"
+    You don't need both splitters. Pass only `data_splitter_forecasting` for forecasting-only pipelines, or only `data_splitter_events` for event-prediction-only pipelines. See [Forecasting-Only](#forecasting-only) and [Events-Only](#events-only) below.
+
+### Training Workflow (Both Tasks)
 
 ```python
 from twinweaver import DataSplitter
 
-data_splitter = DataSplitter(data_splitter_events, data_splitter_forecasting)
+data_splitter = DataSplitter(
+    data_splitter_events=data_splitter_events,
+    data_splitter_forecasting=data_splitter_forecasting,
+)
 
 # Generate aligned splits for both tasks
 forecasting_splits, events_splits, reference_dates = \
@@ -187,14 +193,49 @@ forecasting_splits, events_splits, reference_dates = \
 
 Internally, `get_splits_from_patient_with_target`:
 
-1. Calls `DataSplitterForecasting.get_splits_from_patient()` to determine split dates and generate forecasting tasks.
-2. Passes those same split dates (`reference_dates`) to `DataSplitterEvents.get_splits_from_patient()` to generate aligned event prediction tasks.
+1. Calls `DataSplitterForecasting.get_splits_from_patient()` (if available) to determine split dates and generate forecasting tasks.
+2. Passes those same split dates (`reference_dates`) to `DataSplitterEvents.get_splits_from_patient()` (if available) to generate aligned event prediction tasks.
+3. If only one splitter is provided, the other returns `None`. When only the events splitter is used, `reference_dates` are extracted from the generated event splits.
 
-This alignment is critical: both task types see the same patient history up to the same point in time, enabling consistent multi-task learning.
+This alignment is critical: when both task types are active, they see the same patient history up to the same point in time, enabling consistent multi-task learning.
+
+### Forecasting-Only
+
+```python
+# Only forecasting — no event prediction splitter needed
+data_splitter = DataSplitter(data_splitter_forecasting=data_splitter_forecasting)
+
+forecasting_splits, events_splits, reference_dates = \
+    data_splitter.get_splits_from_patient_with_target(patient_data)
+# events_splits is None
+
+converter.forward_conversion(
+    forecasting_splits=forecasting_splits[0],
+    event_splits=None,  # No event splits available
+    override_mode_to_select_forecasting="forecasting",
+)
+```
+
+### Events-Only
+
+```python
+# Only event prediction — no forecasting splitter needed
+data_splitter = DataSplitter(data_splitter_events=data_splitter_events)
+
+forecasting_splits, events_splits, reference_dates = \
+    data_splitter.get_splits_from_patient_with_target(patient_data)
+# forecasting_splits is None
+
+converter.forward_conversion(
+    forecasting_splits=None,  # No forecasting splits available
+    event_splits=events_splits[0],
+    override_mode_to_select_forecasting="both",
+)
+```
 
 ### Inference Workflow
 
-For inference, use `get_splits_from_patient_inference`, which anchors the split at the **last available date** in the patient's record:
+For inference, use `get_splits_from_patient_inference`, which anchors the split at the **last available date** in the patient's record. The `inference_type` parameter controls which tasks to generate — it defaults to `"both"` but gracefully handles the case when only one splitter is available:
 
 ```python
 forecast_split, events_split = data_splitter.get_splits_from_patient_inference(
@@ -205,6 +246,9 @@ forecast_split, events_split = data_splitter.get_splits_from_patient_inference(
     events_override_observation_time_delta=pd.Timedelta(weeks=52),
 )
 ```
+
+!!! note
+    When `inference_type="both"` and only one splitter is provided, the missing task simply returns `None` without raising an error. If you request a specific `inference_type` (e.g., `"forecasting"`) but the corresponding splitter was not provided, a `ValueError` is raised.
 
 ---
 
@@ -259,7 +303,10 @@ data_splitter_events.setup_variables()
 data_splitter_forecasting = DataSplitterForecasting(data_manager=dm, config=config)
 data_splitter_forecasting.setup_statistics()  # Compute variable scores
 
-data_splitter = DataSplitter(data_splitter_events, data_splitter_forecasting)
+data_splitter = DataSplitter(
+    data_splitter_events=data_splitter_events,
+    data_splitter_forecasting=data_splitter_forecasting,
+)
 
 # 4. Generate splits for a patient
 patient_data = dm.get_patient_data(dm.all_patientids[0])
@@ -290,4 +337,6 @@ print(result["answer"])
 - **[Framework Overview](framework.md)**: Learn about TwinWeaver's architecture and task types
 - **[Data Preparation Tutorial](examples/01_data_preparation_for_training.ipynb)**: Step-by-step notebook walkthrough
 - **[Custom Splitting (Training)](examples/advanced/custom_splitting/training_individual_splitters.ipynb)**: Advanced splitting with individual splitters
+- **[Forecasting-Only Splitting](examples/advanced/custom_splitting/training_forecasting_splitter_only.ipynb)**: Using `DataSplitter` with only the forecasting splitter
+- **[Custom Split Events](examples/advanced/custom_splitting/training_custom_split_events.ipynb)**: Using `DataSplitter` with custom split events
 - **[API Reference — Data Splitters](reference/instruction/data_splitters.md)**: Full API documentation
