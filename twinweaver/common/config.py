@@ -54,7 +54,7 @@ class Config:
     source_col_default_value : str
         Default value to assign to `source_col` if it is missing. Default: "events".
     split_date_col : str
-        Column name specifically used for dates related to line of therapy (LoT) events. Default: "lot_date".
+        Column name used for dates related to data splitting events (e.g., line of therapy). Default: "split_date".
     lot_concatenate_descriptive_and_value : bool
         Flag indicating whether to concatenate the descriptive name and value for line of therapy events.
         Default: False.
@@ -71,6 +71,8 @@ class Config:
         List of event categories to be considered for forecasting tasks. Default: None.
     split_event_category : str | None
         Event category used for data splitting (e.g., LoT). Default: None.
+    event_categories_to_exclude_from_input : list[str]
+        List of event categories to exclude from the input data (e.g., ["lot"]). Default: [].
     source_genetic : str
         Specific string value used in `source_col` to identify data originating from genetic testing.
         Default: "genetic".
@@ -106,7 +108,7 @@ class Config:
         Text inserted before the description of events for visits subsequent to the first one. Default: "\\n".
     event_day_text : str
         Template text used to introduce events on subsequent visit days, indicating the time elapsed since the previous
-        visit. Default: " self.delta_time_unit : later, the patient visited and experienced the following: \\n".
+        visit. Default: " weeks later, the patient visited and experienced the following: \\n".
     post_event_text : str
         Text appended after listing all events for a specific visit day. Default: ".\\n".
     forecasting_fval_prompt_start : str
@@ -223,6 +225,8 @@ class Config:
         Default: None.
     constant_birthdate_column_format : str
         Format of the birthdate column, either "date" or "age". Default: "date".
+    constant_birthdate_columns_silence_print : bool
+        Whether to silence print statements related to birthdate column processing. Default: False.
     event_category_events_prediction_with_naming : dict | None
         Mapping defining which event categories correspond to specific prediction types in DataSplitterEvents.
         Keys are event categories (e.g., 'death', 'progression'), values are descriptive names for the target variable.
@@ -458,11 +462,11 @@ class Config:
 
     @seed.setter
     def seed(self, value: int):
-        """Set the seed value and update all random seeds (numpy, pandas, random)."""
+        """Set the seed value and update all random seeds (numpy and random)."""
         self._seed = value
         self._set_all_seeds(value)
 
     def _set_all_seeds(self, seed: int):
-        """Set seeds for numpy, pandas, and random modules."""
+        """Set seeds for numpy and random modules."""
         np.random.seed(seed)
         random.seed(seed)

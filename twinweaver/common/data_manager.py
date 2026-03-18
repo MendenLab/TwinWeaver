@@ -39,7 +39,7 @@ class DataManager:
             A list of tuples to override the default special character replacements
             in event descriptive names. Each tuple should be in the format
             `(event_category, (string_to_replace, replacement_string))`. If None,
-            default replacements specified in the method are used. Defaults to None.
+            an empty list is used (no replacements). Defaults to None.
         """
 
         #: initialize the data manager
@@ -146,16 +146,43 @@ class DataManager:
         Performs initial processing on the loaded indication data.
 
         Requires `load_indication_data` to be called first.
-        This method converts the date columns (specified by `config.date_col`)
-        in the 'events' DataFrame to datetime objects.
-        It also checks for and removes rows with missing dates in these tables,
-        logging an error if any are found, unless `skip_missing_dates` is True.
+        This method performs the following steps:
+
+        1. Converts the date column (specified by `config.date_col`) in the
+           'events' DataFrame to datetime objects.
+        2. Checks for and removes rows with missing dates, raising a
+           ``ValueError`` unless `skip_missing_dates` is True.
+        3. Checks for missing event values and either drops them (if
+           `drop_missing_event_values` is True) or raises a ``ValueError``.
+        4. Validates that there are no missing values in
+           ``event_descriptive_name``, ``event_name``, and ``event_category``
+           columns, raising a ``ValueError`` if any are found.
+        5. Converts event values, descriptive names, event names, and event
+           categories to string type.
+        6. Validates that all columns listed in
+           ``config.constant_columns_to_use`` are present in the
+           ``constant_description`` dataframe.
+        7. Computes ``self.all_patientids`` as the intersection of patient IDs
+           appearing in both the constant and events tables.
+
+        Parameters
+        ----------
+        skip_missing_dates : bool, optional
+            If True, rows with missing dates are silently dropped instead of
+            raising an error. Defaults to False.
+        drop_missing_event_values : bool, optional
+            If True, rows with missing event values are dropped with a warning
+            instead of raising an error. Defaults to False.
 
         Raises
         ------
         ValueError
             If `load_indication_data` has not been successfully called before
-            this method, or if missing dates are found and `skip_missing_dates` is False.
+            this method, if missing dates are found and `skip_missing_dates`
+            is False, if missing event values are found and
+            `drop_missing_event_values` is False, if missing values are found
+            in event name columns, or if constant columns are missing from
+            the constant_description dataframe.
         """
 
         # Check that we already have self.data_frames
@@ -383,8 +410,8 @@ class DataManager:
         The method determines the split assignment for each patient.
         It retrieves all unique patient IDs from the 'constant' data table.
         It calculates the number of patients for validation and test sets based on
-        the `validation_split_max`, `test_split_max`, and `max_val_test_nr_patients`
-        parameters set during initialization. The remaining patients are assigned to the training set #
+        the `validation_split`, `test_split`, and `max_val_test_nr_patients`
+        parameters. The remaining patients are assigned to the training set
         (calculated as the remainder after validation and test sets are allocated). Patients are randomly
         shuffled (with a fixed seed for reproducibility) before assignment.
 
@@ -502,7 +529,7 @@ class DataManager:
             patient_id_col
         ].map(patient_to_split_mapping)
 
-    def get_all_patientids_in_split(self, split: str) -> str:
+    def get_all_patientids_in_split(self, split: str) -> list:
         """
         Retrieves all patient IDs belonging to a specific data split.
 
@@ -617,7 +644,7 @@ class DataManager:
 
     def infer_var_types(self):
         """
-        Fills self.dm.variable_types for every candidate forecasting variable.
+        Fills self.variable_types for every candidate forecasting variable.
         Classifies as "numeric" if at least `self.config.numeric_detect_min_fraction` of values
         can be parsed as numeric, otherwise "categorical".
         """
