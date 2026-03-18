@@ -207,6 +207,17 @@ class DataManager:
             self.config.event_value_col
         ].astype(str)
 
+        # Convert event_descriptive_name, event_name, event_category to string as well to avoid issues later on
+        self.data_frames[events_table_key][self.config.event_descriptive_name_col] = self.data_frames[events_table_key][
+            self.config.event_descriptive_name_col
+        ].astype(str)
+        self.data_frames[events_table_key][self.config.event_name_col] = self.data_frames[events_table_key][
+            self.config.event_name_col
+        ].astype(str)
+        self.data_frames[events_table_key][self.config.event_category_col] = self.data_frames[events_table_key][
+            self.config.event_category_col
+        ].astype(str)
+
         logging.info("Data processed")
 
     def setup_unique_mapping_of_events(self) -> None:
