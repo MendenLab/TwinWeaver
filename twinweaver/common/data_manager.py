@@ -26,7 +26,7 @@ class DataManager:
         validation_split_max: float = 0.1,
         test_split_max: float = 0.1,
         max_val_test_nr_patients: int = 500,
-        replace_special_symbols_override: list = None,
+        replace_special_symbols: list = None,
     ) -> None:
         """
         Initializes the DataManager for a specific indication.
@@ -54,7 +54,7 @@ class DataManager:
         max_val_test_nr_patients : int, optional
             The absolute maximum number of patients to include in the validation
             and test sets combined. Defaults to 500.
-        replace_special_symbols_override : list, optional
+        replace_special_symbols : list, optional
             A list of tuples to override the default special character replacements
             in event descriptive names. Each tuple should be in the format
             `(event_category, (string_to_replace, replacement_string))`. If None,
@@ -70,22 +70,7 @@ class DataManager:
         self.variable_types = {}  # event_name -> "numeric" / "categorical"
 
         # Setup replacing of special symbol, format is event_category : (<string_to_replace>, <replacement_string>)
-        if replace_special_symbols_override is not None:
-            self.replace_special_symbols = replace_special_symbols_override
-        else:
-            # Use config constants for event categories where available
-            self.replace_special_symbols = [
-                (self.config.event_category_labs, ("/", " per ")),
-                (self.config.event_category_labs, (".", " ")),
-                (
-                    "drug",
-                    ("/", " "),
-                ),  # "drug" category not explicitly in Config constants provided
-                (
-                    self.config.event_category_lot,
-                    ("/", " "),
-                ),  # Use config for 'lot' category
-            ]
+        self.replace_special_symbols = replace_special_symbols if replace_special_symbols is not None else []
 
         # Setup indication
         self.data_frames = None

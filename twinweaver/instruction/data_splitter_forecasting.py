@@ -980,8 +980,8 @@ class DataSplitterForecasting(BaseDataSplitter):
 
         # Do some quick sanity checks
         if self.config.warning_for_splitters_patient_without_splits:
-            lot_events = events[events[self.config.event_category_col] == self.config.event_category_lot]
-            if lot_events.shape[0] == 0:
+            split_events = events[events[self.config.event_category_col] == self.config.split_event_category]
+            if split_events.shape[0] == 0:
                 logging.warning(
                     "Patient "
                     + str(patient_data["constant"][self.config.patient_id_col].iloc[0])

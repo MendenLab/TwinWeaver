@@ -63,8 +63,6 @@ class Config:
         `lot_concatenate_descriptive_and_value` is True. Default: " - ".
     warning_for_splitters_patient_without_splits : bool
         Whether to warn if a patient has no split events. Default: True.
-    event_category_lot : str
-        Specific string value used in `event_category_col` to identify 'line of therapy' events. Default: "lot".
     event_category_death : str
         Specific string value used in `event_category_col` to identify 'death' events. Default: "death".
     event_category_labs : str
@@ -291,9 +289,7 @@ class Config:
         self.event_categories_to_exclude_from_input: list = []
 
         # --- Specific Event Categories / Values / Sources ---
-        self.event_category_lot: str = "lot"
         self.event_category_death: str = "death"
-        self.event_category_labs: str = "lab"
 
         self.source_genetic: str = "genetic"
         self.genetic_skip_text_value: str = "present"

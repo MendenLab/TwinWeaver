@@ -1,3 +1,5 @@
+exclude: ^examples/hackathon
+
 repos:
   # 1. Standard "Cleanup" Hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -11,7 +13,7 @@ repos:
 
   # 2. Ruff (Linting + Formatting)
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.3 
+    rev: v0.9.3
     hooks:
       - id: ruff
         args: [ --fix ]

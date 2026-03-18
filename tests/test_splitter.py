@@ -237,7 +237,7 @@ def test_training_events_only(initialized_dm, mock_config):
     # Event outcome must be boolean
     assert isinstance(e_split.event_occurred, bool)
     # Censoring should be None or one of the known censoring types
-    assert e_split.event_censored in [None, "new_therapy_start", "end_of_data", "data_cutoff"]
+    assert e_split.event_censored in [None, "new_split_date_start", "end_of_data", "data_cutoff"]
     # Observation end date must be after the split date
     assert e_split.observation_end_date >= e_split.split_date_included_in_input
 
@@ -425,8 +425,7 @@ def test_inference_both_type_with_only_events(initialized_dm, mock_config):
 def test_forecasting_truncates_at_next_split_event_not_just_lot():
     """
     Verify that _generate_variable_splits_for_date truncates target events
-    at the next *split event* (config.split_event_category), not only at
-    the next LoT event (config.event_category_lot).
+    at the next *split event* (config.split_event_category).
 
     Scenario (split_event_category = "custom_split"):
       Timeline for a single patient:
@@ -439,7 +438,7 @@ def test_forecasting_truncates_at_next_split_event_not_just_lot():
         Day 30  - lot event           (LoT - should NOT be the boundary)
         Day 35  - lab measurement     (target - should be EXCLUDED)
 
-    With the old code (filtering by event_category_lot), the target would
+    With the old code, the target would
     include days 15, 25, and 35 (cutting only at day 30 LoT).
     With the fix (filtering by split_event_category), the target should
     include only day 15 (cutting at day 20 custom_split).
@@ -448,7 +447,6 @@ def test_forecasting_truncates_at_next_split_event_not_just_lot():
 
     cfg = Config()
     cfg.split_event_category = "custom_split"
-    cfg.event_category_lot = "lot"
     cfg.event_category_forecast = ["lab"]
 
     base_date = pd.Timestamp("2020-01-01")
@@ -580,7 +578,6 @@ def test_forecasting_truncation_allow_beyond_next_split_date():
 
     cfg = Config()
     cfg.split_event_category = "custom_split"
-    cfg.event_category_lot = "lot"
     cfg.event_category_forecast = ["lab"]
 
     base_date = pd.Timestamp("2020-01-01")

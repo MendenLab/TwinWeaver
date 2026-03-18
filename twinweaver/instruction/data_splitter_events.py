@@ -330,8 +330,8 @@ class DataSplitterEvents(BaseDataSplitter):
 
         # Do some quick sanity checks
         if self.config.warning_for_splitters_patient_without_splits:
-            lot_events = events[events[self.config.event_category_col] == self.config.event_category_lot]
-            if lot_events.shape[0] == 0:
+            split_events = events[events[self.config.event_category_col] == self.config.split_event_category]
+            if split_events.shape[0] == 0:
                 logging.warning(
                     "Patient "
                     + str(patient_data["constant"][self.config.patient_id_col].iloc[0])
@@ -427,15 +427,18 @@ class DataSplitterEvents(BaseDataSplitter):
                 diagnosis_after_split = events_limited_after_split[
                     events_limited_after_split[self.config.event_category_col] == sampled_cateogry
                 ]
-                lot_after_split = events_limited_after_split[
-                    events_limited_after_split[self.config.event_category_col] == self.config.event_category_lot
+                next_split_date_after_split = events_limited_after_split[
+                    events_limited_after_split[self.config.event_category_col] == self.config.split_event_category
                 ]
                 death_after_split = events_limited_after_split[
                     events_limited_after_split[self.config.event_name_col] == self.config.event_category_death
                 ]
 
-                #: apply censoring using next_lot_date
-                next_lot_date = lot_after_split[self.config.date_col].min() if len(lot_after_split) > 0 else None
+                #: apply censoring using next_split_date
+                if len(next_split_date_after_split) > 0:
+                    next_split_date = next_split_date_after_split[self.config.date_col].min()
+                else:
+                    next_split_date = None
                 next_death_date = death_after_split[self.config.date_col].min() if len(death_after_split) > 0 else None
 
                 #: determine whether occurred, censored & if so, which date
@@ -447,18 +450,21 @@ class DataSplitterEvents(BaseDataSplitter):
                     # Event occurred within end date
                     occurred = True
 
-                    # If an lot occurred first though, then we're censored
-                    if next_lot_date is not None and diagnosis_after_split[self.config.date_col].min() > next_lot_date:
-                        censored = "new_therapy_start"
+                    # If a split occurred first though, then we're censored
+                    if (
+                        next_split_date is not None
+                        and diagnosis_after_split[self.config.date_col].min() > next_split_date
+                    ):
+                        censored = "new_split_date_start"
                         occurred = False
 
                 else:
                     # Event did not occur
                     occurred = False
 
-                    if next_lot_date is not None:
-                        # If we were censored by the next lot date
-                        censored = "new_therapy_start"
+                    if next_split_date is not None:
+                        # If we were censored by the next split date
+                        censored = "new_split_date_start"
 
                     elif next_death_date is not None:
                         # If death occurred then not censored, since this is the only time we

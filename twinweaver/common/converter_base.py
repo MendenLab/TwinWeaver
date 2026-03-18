@@ -1055,6 +1055,7 @@ class ConverterBase:
         combined_target_meta: dict,
         lot_event_name: str = "lot",
         event_value_lot_start: str = "LoT Start",
+        event_category_lot: str = "lot",
     ) -> str:
         """
         Creates a summary string containing the most recent genetic, LoT, and target variable values.
@@ -1131,7 +1132,7 @@ class ConverterBase:
 
         #: add most recent LoT info using config constants
         ret_prompt += self.config.forecasting_prompt_summarized_lot  # Using config attribute
-        lot_info = input_event_data[input_event_data[self.config.event_category_col] == self.config.event_category_lot]
+        lot_info = input_event_data[input_event_data[self.config.event_category_col] == event_category_lot]
 
         # Ensure lot_info is sorted by date to correctly find the last one
         lot_info = lot_info.sort_values(self.config.date_col)

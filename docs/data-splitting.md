@@ -124,7 +124,7 @@ flowchart TD
     D --> E{Event occurred<br>within window <br> and before censoring event?}
     E -->|Yes| F[occurred = True]
     E -->|No| G{Censored by<br>next LoT or data end?}
-    G -->|Next LoT| H[censored = new_therapy_start]
+    G -->|Next LoT| H[censored = new_split_date_start]
     G -->|End of data| I[censored = end_of_data]
     G -->|No censoring| J[censored = None<br>Event truly did not occur]
     F --> K[Create DataSplitterEventsOption]

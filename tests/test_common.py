@@ -7,7 +7,6 @@ def test_config_initialization(mock_config):
     assert mock_config.seed == 42
     assert mock_config.patient_id_col == "patientid"
     # Verify defaults used in the library
-    assert mock_config.event_category_lot == "lot"
 
 
 def test_data_manager_loading(mock_config, sample_data):
