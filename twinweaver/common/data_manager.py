@@ -285,6 +285,7 @@ class DataManager:
         # Extract corresponding event_name and event_category
         filtered_events = self.unique_events[event_desc_name_col]
         non_unique_events = self.unique_events[filtered_events.isin(non_unique_events.index)].copy()
+        non_unique_descriptive_names = non_unique_events[event_desc_name_col].unique().tolist()
 
         # create mapping for all non-unique descriptive names, and
         # then add event_name to those, and apply across entire dataset
@@ -306,6 +307,15 @@ class DataManager:
         # Use config constant
         events_df[event_desc_name_col] = events_df[new_desc_name].fillna(events_df[event_desc_name_col])
         self.data_frames[events_table_key] = self.data_frames[events_table_key].drop(columns=["new_descriptive_name"])
+
+        # Warn if there were any non-unique descriptive names
+        num_renamed = len(non_unique_events)
+        if num_renamed > 0:
+            logging.warning(
+                f"Found {len(non_unique_descriptive_names)} non-unique descriptive name(s) "
+                f"({num_renamed} event mappings total) that were disambiguated "
+                f"by appending the event_name: {non_unique_descriptive_names}"
+            )
 
         #: first convert special symbols in event_descriptive_name to alternatives, using self.replace_special_symbols
         for event_category, (
@@ -334,9 +344,12 @@ class DataManager:
         # Assert that all unique now
         # Use config constant
         assert len(self.unique_events) == len(self.data_frames[events_table_key][event_desc_name_col].unique()), (
-            "Each descriptive name needs a unique mapping to an event name - please check the data and the "
-            "whether there are any duplicates in the event_descriptive_name column after processing. "
-            "If there are, consider adding more unique identifiers or modifying the existing ones."
+            "Each descriptive name needs a unique mapping to an event name/category"
+            f" Found this many unique descriptive names: "
+            f"{len(self.data_frames[events_table_key][event_desc_name_col].unique())} "
+            f"but this many unique combinations of event name, descriptive name, and "
+            f"category: {len(self.unique_events)}. Please ensure that after processing, each descriptive name maps "
+            f"to exactly one event name within its category."
         )
 
     def setup_hold_out_sets(
