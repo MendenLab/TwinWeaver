@@ -245,6 +245,11 @@ class DataManager:
                 f"config.constant_columns_to_use."
             )
 
+        # Add all unique patientids overlapping constant and events to self.all_patientids
+        constant_patientids = set(self.data_frames["constant"]["patientid"].unique())
+        event_patientids = set(self.data_frames["events"]["patientid"].unique())
+        self.all_patientids = list(constant_patientids.intersection(event_patientids))
+
         logging.info("Data processed")
 
     def setup_unique_mapping_of_events(self) -> None:
