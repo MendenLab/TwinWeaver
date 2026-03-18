@@ -27,7 +27,9 @@ def initialized_dm(mock_config, sample_data):
 
 def test_splitter_forecasting_statistics(initialized_dm, mock_config):
     """Test that forecasting splitter can calculate statistics."""
-    splitter_forecast = DataSplitterForecasting(data_manager=initialized_dm, config=mock_config)
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=initialized_dm, config=mock_config, max_forecasted_trajectory_length=pd.Timedelta(days=90)
+    )
 
     # This calculates R2, NRMSE etc. for the variables
     splitter_forecast.setup_statistics()
@@ -50,10 +52,21 @@ def test_splitter_forecasting_statistics(initialized_dm, mock_config):
 def test_get_splits_from_patient(initialized_dm, mock_config):
     """Test generating splits for a single patient."""
     # Setup Splitters
-    splitter_events = DataSplitterEvents(initialized_dm, config=mock_config)
+    splitter_events = DataSplitterEvents(
+        initialized_dm,
+        config=mock_config,
+        max_length_to_sample=pd.Timedelta(weeks=104),
+        min_length_to_sample=pd.Timedelta(weeks=1),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
     splitter_events.setup_variables()
 
-    splitter_forecast = DataSplitterForecasting(data_manager=initialized_dm, config=mock_config)
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=initialized_dm,
+        config=mock_config,
+        max_forecasted_trajectory_length=pd.Timedelta(days=90),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
     splitter_forecast.setup_statistics()
 
     data_splitter = DataSplitter(splitter_events, splitter_forecast)
@@ -99,9 +112,16 @@ def test_get_splits_from_patient(initialized_dm, mock_config):
 
 def test_inference_split(initialized_dm, mock_config):
     """Test generating an inference split (last date)."""
-    splitter_events = DataSplitterEvents(initialized_dm, config=mock_config)
+    splitter_events = DataSplitterEvents(
+        initialized_dm,
+        config=mock_config,
+        max_length_to_sample=pd.Timedelta(weeks=104),
+        min_length_to_sample=pd.Timedelta(weeks=1),
+    )
     splitter_events.setup_variables()
-    splitter_forecast = DataSplitterForecasting(data_manager=initialized_dm, config=mock_config)
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=initialized_dm, config=mock_config, max_forecasted_trajectory_length=pd.Timedelta(days=90)
+    )
 
     data_splitter = DataSplitter(splitter_events, splitter_forecast)
     patient_data = initialized_dm.get_patient_data("p0")
@@ -140,7 +160,12 @@ def test_data_splitter_requires_at_least_one_splitter():
 
 def test_training_forecasting_only(initialized_dm, mock_config):
     """Test training splits when only the forecasting splitter is provided."""
-    splitter_forecast = DataSplitterForecasting(data_manager=initialized_dm, config=mock_config)
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=initialized_dm,
+        config=mock_config,
+        max_forecasted_trajectory_length=pd.Timedelta(days=90),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
     splitter_forecast.setup_statistics()
 
     data_splitter = DataSplitter(data_splitter_forecasting=splitter_forecast)
@@ -193,7 +218,13 @@ def test_training_forecasting_only(initialized_dm, mock_config):
 
 def test_training_events_only(initialized_dm, mock_config):
     """Test training splits when only the events splitter is provided."""
-    splitter_events = DataSplitterEvents(initialized_dm, config=mock_config)
+    splitter_events = DataSplitterEvents(
+        initialized_dm,
+        config=mock_config,
+        max_length_to_sample=pd.Timedelta(weeks=104),
+        min_length_to_sample=pd.Timedelta(weeks=1),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
     splitter_events.setup_variables()
 
     data_splitter = DataSplitter(data_splitter_events=splitter_events)
@@ -256,7 +287,9 @@ def test_training_events_only(initialized_dm, mock_config):
 
 def test_inference_forecasting_only(initialized_dm, mock_config):
     """Test inference split when only the forecasting splitter is provided."""
-    splitter_forecast = DataSplitterForecasting(data_manager=initialized_dm, config=mock_config)
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=initialized_dm, config=mock_config, max_forecasted_trajectory_length=pd.Timedelta(days=90)
+    )
 
     data_splitter = DataSplitter(data_splitter_forecasting=splitter_forecast)
     patient_data = initialized_dm.get_patient_data("p0")
@@ -297,7 +330,12 @@ def test_inference_forecasting_only(initialized_dm, mock_config):
 
 def test_inference_events_only(initialized_dm, mock_config):
     """Test inference split when only the events splitter is provided."""
-    splitter_events = DataSplitterEvents(initialized_dm, config=mock_config)
+    splitter_events = DataSplitterEvents(
+        initialized_dm,
+        config=mock_config,
+        max_length_to_sample=pd.Timedelta(weeks=104),
+        min_length_to_sample=pd.Timedelta(weeks=1),
+    )
     splitter_events.setup_variables()
 
     data_splitter = DataSplitter(data_splitter_events=splitter_events)
@@ -341,7 +379,9 @@ def test_inference_events_only(initialized_dm, mock_config):
 
 def test_inference_both_type_with_only_forecasting(initialized_dm, mock_config):
     """Test that inference_type='both' gracefully returns None for the missing splitter."""
-    splitter_forecast = DataSplitterForecasting(data_manager=initialized_dm, config=mock_config)
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=initialized_dm, config=mock_config, max_forecasted_trajectory_length=pd.Timedelta(days=90)
+    )
 
     data_splitter = DataSplitter(data_splitter_forecasting=splitter_forecast)
     patient_data = initialized_dm.get_patient_data("p0")
@@ -378,7 +418,12 @@ def test_inference_both_type_with_only_forecasting(initialized_dm, mock_config):
 
 def test_inference_both_type_with_only_events(initialized_dm, mock_config):
     """Test that inference_type='both' gracefully returns None for the missing splitter."""
-    splitter_events = DataSplitterEvents(initialized_dm, config=mock_config)
+    splitter_events = DataSplitterEvents(
+        initialized_dm,
+        config=mock_config,
+        max_length_to_sample=pd.Timedelta(weeks=104),
+        min_length_to_sample=pd.Timedelta(weeks=1),
+    )
     splitter_events.setup_variables()
 
     data_splitter = DataSplitter(data_splitter_events=splitter_events)
@@ -530,7 +575,7 @@ def test_forecasting_truncates_at_next_split_event_not_just_lot():
     splitter = DataSplitterForecasting(
         config=cfg,
         data_manager=dm,
-        max_forecast_time_for_value=pd.Timedelta(days=90),
+        max_forecasted_trajectory_length=pd.Timedelta(days=90),
         max_lookback_time_for_value=pd.Timedelta(days=90),
         max_split_length_after_split_event=pd.Timedelta(days=90),
         sampling_strategy="uniform",
@@ -644,7 +689,7 @@ def test_forecasting_truncation_allow_beyond_next_split_date():
     splitter = DataSplitterForecasting(
         config=cfg,
         data_manager=dm,
-        max_forecast_time_for_value=pd.Timedelta(days=90),
+        max_forecasted_trajectory_length=pd.Timedelta(days=90),
         max_lookback_time_for_value=pd.Timedelta(days=90),
         max_split_length_after_split_event=pd.Timedelta(days=90),
         sampling_strategy="uniform",

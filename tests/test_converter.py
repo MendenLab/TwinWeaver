@@ -24,10 +24,21 @@ def setup_components(mock_config, sample_data):
     dm.setup_dataset_splits()
     dm.infer_var_types()
 
-    splitter_events = DataSplitterEvents(dm, config=mock_config)
+    splitter_events = DataSplitterEvents(
+        dm,
+        config=mock_config,
+        max_length_to_sample=pd.Timedelta(weeks=104),
+        min_length_to_sample=pd.Timedelta(weeks=1),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
     splitter_events.setup_variables()
 
-    splitter_forecast = DataSplitterForecasting(data_manager=dm, config=mock_config)
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=dm,
+        config=mock_config,
+        max_forecasted_trajectory_length=pd.Timedelta(days=90),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
     splitter_forecast.setup_statistics()
 
     data_splitter = DataSplitter(splitter_events, splitter_forecast)
@@ -110,10 +121,21 @@ def test_event_categories_to_exclude_from_input(mock_config, sample_data):
     dm.setup_dataset_splits()
     dm.infer_var_types()
 
-    splitter_events = DataSplitterEvents(dm, config=mock_config)
+    splitter_events = DataSplitterEvents(
+        dm,
+        config=mock_config,
+        max_length_to_sample=pd.Timedelta(weeks=104),
+        min_length_to_sample=pd.Timedelta(weeks=1),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
     splitter_events.setup_variables()
 
-    splitter_forecast = DataSplitterForecasting(data_manager=dm, config=mock_config)
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=dm,
+        config=mock_config,
+        max_forecasted_trajectory_length=pd.Timedelta(days=90),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
     splitter_forecast.setup_statistics()
 
     data_splitter = DataSplitter(splitter_events, splitter_forecast)
@@ -164,10 +186,21 @@ def test_event_categories_to_exclude_multiple(mock_config, sample_data):
     dm.setup_dataset_splits()
     dm.infer_var_types()
 
-    splitter_events = DataSplitterEvents(dm, config=mock_config)
+    splitter_events = DataSplitterEvents(
+        dm,
+        config=mock_config,
+        max_length_to_sample=pd.Timedelta(weeks=104),
+        min_length_to_sample=pd.Timedelta(weeks=1),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
     splitter_events.setup_variables()
 
-    splitter_forecast = DataSplitterForecasting(data_manager=dm, config=mock_config)
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=dm,
+        config=mock_config,
+        max_forecasted_trajectory_length=pd.Timedelta(days=90),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
     splitter_forecast.setup_statistics()
 
     data_splitter = DataSplitter(splitter_events, splitter_forecast)

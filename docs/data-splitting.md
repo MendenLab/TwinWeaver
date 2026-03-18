@@ -33,7 +33,7 @@ Patient timeline
 Split dates are anchored to **split events** — a configurable event category (typically Line of Therapy, `"lot"`). The framework:
 
 1. **Finds all split-event start dates** in the patient's history (e.g., every LoT start).
-2. **Identifies candidate dates** within a window around each split event (controlled by `max_split_length_after_split_event`, default 90 days).
+2. **Identifies candidate dates** within a window around each split event (controlled by `max_split_length_after_split_event`, default 0 days).
 3. **Randomly samples** one or more candidate dates per split event (`max_num_splits_per_split_event`).
 
 This anchoring ensures that training examples are centered on clinically meaningful time points rather than arbitrary dates.
@@ -67,7 +67,7 @@ For each candidate split date, the forecasting splitter:
 
 1. **Checks variable eligibility**: A variable is valid at a given date only if it has at least `min_nr_variable_seen_previously` occurrences in the lookback window and `min_nr_variable_seen_after` occurrences in the forecast window.
 2. **Samples variables**: Between `min_nr_variables_to_sample` and `max_nr_variables_to_sample` variables are selected per task, using weighted proportional sampling based on pre-computed statistics (optionally uniform sampling).
-3. **Creates the split**: Events before the split date form the input; future values of the sampled variables (within `max_forecast_time_for_value`) form the target.
+3. **Creates the split**: Events before the split date form the input; future values of the sampled variables (within `max_forecasted_trajectory_length`) form the target.
 4. **Filters future LoT overlap**: Target events occurring after the next Line of Therapy start are excluded to avoid data leakage.
 
 ### Variable Statistics & Sampling
@@ -96,13 +96,13 @@ When `filter_outliers=True`, the **3-sigma strategy** clips target values to the
 data_splitter_forecasting = DataSplitterForecasting(
     data_manager=dm,
     config=config,
-    max_split_length_after_split_event=pd.Timedelta(days=90),  # Window after split event
+    max_forecasted_trajectory_length=pd.Timedelta(days=90),     # Forecast horizon (required)
+    max_split_length_after_split_event=pd.Timedelta(days=90),   # Window after split event
     max_lookback_time_for_value=pd.Timedelta(days=90),          # Lookback for variable history
-    max_forecast_time_for_value=pd.Timedelta(days=90),          # Forecast horizon
     min_nr_variable_seen_previously=1,                          # Min past occurrences
     min_nr_variable_seen_after=1,                               # Min future occurrences
     min_nr_variables_to_sample=1,                               # Min variables per task
-    max_nr_variables_to_sample=3,                               # Max variables per task
+    max_nr_variables_to_sample=1,                               # Max variables per task
     filtering_strategy="3-sigma",                               # Outlier handling
     sampling_strategy="proportional",                           # Weighted or uniform sampling
 )
@@ -136,7 +136,7 @@ flowchart TD
 For each candidate split date, the event splitter:
 
 1. **Samples an event category** from the configured mapping (e.g., `"death"` or `"progression"`), avoiding duplicate categories per split.
-2. **Samples a prediction window** of random duration between `min_length_to_sample` (default: 1 week) and `max_length_to_sample` (default: 104 weeks). This trains the model to handle variable-length horizons.
+2. **Samples a prediction window** of random duration between `min_length_to_sample` and `max_length_to_sample` (both required, no defaults). This trains the model to handle variable-length horizons.
 3. **Determines the outcome**:
     - **Occurred**: The event was observed within the window before any censoring events.
     - **Censored**: The observation was cut short by a new therapy start, end of data, or a data cutoff date.
@@ -149,8 +149,8 @@ For each candidate split date, the event splitter:
 data_splitter_events = DataSplitterEvents(
     data_manager=dm,
     config=config,
-    max_length_to_sample=pd.Timedelta(weeks=104),               # Max prediction window
-    min_length_to_sample=pd.Timedelta(weeks=1),                  # Min prediction window
+    max_length_to_sample=pd.Timedelta(weeks=104),               # Max prediction window (required)
+    min_length_to_sample=pd.Timedelta(weeks=1),                  # Min prediction window (required)
     unit_length_to_sample="weeks",                               # Window sampling unit
     max_split_length_after_split_event=pd.Timedelta(days=90),    # Window after split event
 )

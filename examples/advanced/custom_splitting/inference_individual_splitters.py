@@ -46,9 +46,18 @@ class ConvertToText:
         self.dm.setup_dataset_splits()
         self.dm.infer_var_types()
 
-        data_splitter_events = DataSplitterEvents(self.dm, config=self.config)
+        data_splitter_events = DataSplitterEvents(
+            self.dm,
+            config=self.config,
+            max_length_to_sample=pd.Timedelta(weeks=104),
+            min_length_to_sample=pd.Timedelta(weeks=1),
+        )
         data_splitter_events.setup_variables()
-        data_splitter_forecasting = DataSplitterForecasting(data_manager=self.dm, config=self.config)
+        data_splitter_forecasting = DataSplitterForecasting(
+            data_manager=self.dm,
+            config=self.config,
+            max_forecasted_trajectory_length=pd.Timedelta(days=90),
+        )
         data_splitter_forecasting.setup_statistics()
 
         # Use the unified DataSplitter API that combines both splitters

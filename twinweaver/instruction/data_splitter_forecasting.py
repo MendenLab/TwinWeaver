@@ -113,9 +113,9 @@ class DataSplitterForecasting(BaseDataSplitter):
         self,
         config: Config,
         data_manager: DataManager,
-        max_split_length_after_split_event: pd.Timedelta = pd.Timedelta(days=90),
-        max_lookback_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
-        max_forecast_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
+        max_forecasted_trajectory_length: pd.Timedelta,
+        max_split_length_after_split_event: pd.Timedelta = pd.Timedelta(days=0),
+        max_lookback_time_for_value: pd.Timedelta = pd.Timedelta(days=100000),
         min_num_samples_for_statistics: int = 10,
         sampling_score_to_use: str = "score_log_nrmse_n_samples",
         min_nr_variable_seen_previously: int = 1,
@@ -123,7 +123,7 @@ class DataSplitterForecasting(BaseDataSplitter):
         list_of_valid_categories: list = None,
         save_path_for_variable_stats: str = None,
         min_nr_variables_to_sample: int = 1,
-        max_nr_variables_to_sample: int = 3,
+        max_nr_variables_to_sample: int = 1,
         filtering_strategy: str = "3-sigma",
         sampling_strategy: str = "proportional",
         allow_forecasting_beyond_next_split_date: bool = False,
@@ -137,17 +137,17 @@ class DataSplitterForecasting(BaseDataSplitter):
             Configuration object containing shared settings like column names.
         data_manager : DataManager
             Provides access to patient data for a single indication.
+        max_forecasted_trajectory_length : pd.Timedelta
+            Max time after a split date to look for future variable occurrences (target
+            data). Required, no default.
         max_split_length_after_split_event : pd.Timedelta
-            Max days after LoT start to consider for split dates. Defaults to 90.
+            Max time after LoT start to consider for split dates. Defaults to 0 days.
         max_lookback_time_for_value : pd.Timedelta
-            Max days before a split date to look for past variable occurrences.
-            Defaults to 90.
-        max_forecast_time_for_value : pd.Timedelta
-            Max days after a split date to look for future variable occurrences (target
-            data). Defaults to 90.
+            Max time before a split date to look for past variable occurrences.
+            Defaults to 100000 days (effectively no limit).
         min_num_samples_for_statistics : int
             Minimum total occurrences of a variable across the training set
-            needed to calculate statistics. Defaults to 50.
+            needed to calculate statistics. Defaults to 10.
         sampling_score_to_use : str
             Column name in the computed statistics table used for weighted sampling of variables.
             Defaults to 'score_log_nrmse_n_samples'.
@@ -165,10 +165,10 @@ class DataSplitterForecasting(BaseDataSplitter):
             None.
         min_nr_variables_to_sample : int
             The minimum number of distinct variables to attempt to sample for each
-            forecasting task. Defaults to 3.
+            forecasting task. Defaults to 1.
         max_nr_variables_to_sample : int
             The maximum number of distinct variables to attempt to sample for each
-            forecasting task. Defaults to 3.
+            forecasting task. Defaults to 1.
         filtering_strategy : str
             The strategy for handling outliers in target variable values ('3-sigma').
             Defaults to '3-sigma'.
@@ -183,8 +183,6 @@ class DataSplitterForecasting(BaseDataSplitter):
             data_manager,
             config,
             max_split_length_after_split_event,
-            max_lookback_time_for_value,
-            max_forecast_time_for_value,
         )
 
         assert self.config.event_category_forecast is not None or list_of_valid_categories is not None, (
@@ -192,7 +190,8 @@ class DataSplitterForecasting(BaseDataSplitter):
             "For example: ['lab']"
             " Alternatively, provide list_of_valid_categories directly."
         )
-
+        self.max_lookback_time_for_value = max_lookback_time_for_value
+        self.max_forecasted_trajectory_length = max_forecasted_trajectory_length
         self.variable_stats = None
         self.variable_type = {}  # event_name -> "numeric" / "categorical"
         self.min_num_samples_for_statistics = min_num_samples_for_statistics
@@ -259,7 +258,7 @@ class DataSplitterForecasting(BaseDataSplitter):
             temp_splits = self._get_all_dates_within_range_of_split_event(
                 temp_patient_data,
                 time_before_lot_start=self.max_lookback_time_for_value,
-                max_split_length_after_split_event=self.max_forecast_time_for_value,
+                max_split_length_after_split_event=self.max_forecasted_trajectory_length,
             )
             temp_splits[self.config.patient_id_col] = patientid
             temp_splits = temp_splits[[self.config.date_col, self.config.patient_id_col]]
@@ -657,7 +656,7 @@ class DataSplitterForecasting(BaseDataSplitter):
 
         # Pre-compute date ranges for lookback and forecast
         lookback_range = self.max_lookback_time_for_value
-        forecast_range = self.max_forecast_time_for_value
+        forecast_range = self.max_forecasted_trajectory_length
 
         # Initialize the return_splits list
         return_splits = []
@@ -859,7 +858,7 @@ class DataSplitterForecasting(BaseDataSplitter):
             events_before_split = events[events[self.config.date_col] <= curr_date]
             events_after_split = events[events[self.config.date_col] > curr_date]
             events_after_split = events_after_split[
-                events_after_split[self.config.date_col] <= curr_date + self.max_forecast_time_for_value
+                events_after_split[self.config.date_col] <= curr_date + self.max_forecasted_trajectory_length
             ]
             events_after_split = events_after_split[
                 events_after_split[self.config.event_name_col].isin(sampled_variables)

@@ -88,12 +88,10 @@ class DataSplitterEvents(BaseDataSplitter):
         self,
         data_manager: DataManager,
         config: Config,
-        max_length_to_sample: pd.Timedelta = pd.Timedelta(weeks=104),
-        min_length_to_sample: pd.Timedelta = pd.Timedelta(weeks=1),
+        max_length_to_sample: pd.Timedelta,
+        min_length_to_sample: pd.Timedelta,
         unit_length_to_sample: str = "weeks",
-        max_split_length_after_split_event: pd.Timedelta = pd.Timedelta(days=90),
-        max_lookback_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
-        max_forecast_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
+        max_split_length_after_split_event: pd.Timedelta = pd.Timedelta(days=0),
     ):
         """
         Initialize the DataSplitterEvents class.
@@ -105,24 +103,21 @@ class DataSplitterEvents(BaseDataSplitter):
         config : Config
             Configuration object holding constants.
         max_length_to_sample : pd.Timedelta
-            The maximum number of weeks into the future to sample for event prediction.
+            The maximum length of time into the future to sample for event prediction.
+            Required, no default.
         min_length_to_sample : pd.Timedelta
-            The minimum number of weeks into the future to sample for event prediction.
+            The minimum length of time into the future to sample for event prediction.
+            Required, no default.
         unit_length_to_sample : str
             The unit of time for the length to sample (e.g. "weeks").
         max_split_length_after_split_event : pd.Timedelta, optional
             The maximum number of days after the split event (e.g. line of therapy) to consider for split points.
-        max_lookback_time_for_value : pd.Timedelta, optional
-            The maximum number of days to look back for a value (inherited but not directly used here).
-        max_forecast_time_for_value : pd.Timedelta, optional
-            The maximum number of days to forecast a value (inherited but not directly used here).
+            Defaults to 0 days.
         """
         super().__init__(
             data_manager,
             config,
             max_split_length_after_split_event,
-            max_lookback_time_for_value,
-            max_forecast_time_for_value,
         )
         self.max_length_to_sample = max_length_to_sample
         self.min_length_to_sample = min_length_to_sample
