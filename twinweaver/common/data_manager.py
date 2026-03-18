@@ -333,7 +333,11 @@ class DataManager:
 
         # Assert that all unique now
         # Use config constant
-        assert len(self.unique_events) == len(self.data_frames[events_table_key][event_desc_name_col].unique())
+        assert len(self.unique_events) == len(self.data_frames[events_table_key][event_desc_name_col].unique()), (
+            "Each descriptive name needs a unique mapping to an event name - please check the data and the "
+            "whether there are any duplicates in the event_descriptive_name column after processing. "
+            "If there are, consider adding more unique identifiers or modifying the existing ones."
+        )
 
     def setup_hold_out_sets(
         self,
