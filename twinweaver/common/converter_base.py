@@ -1049,7 +1049,13 @@ class ConverterBase:
         #: return events
         return events_final.reset_index(drop=True)  # Reset index for clean output
 
-    def _generate_summarized_row_string(self, input_event_data, combined_target_meta: dict) -> str:
+    def _generate_summarized_row_string(
+        self,
+        input_event_data,
+        combined_target_meta: dict,
+        lot_event_name: str = "lot",
+        event_value_lot_start: str = "LoT Start",
+    ) -> str:
         """
         Creates a summary string containing the most recent genetic, LoT, and target variable values.
 
@@ -1131,12 +1137,10 @@ class ConverterBase:
         lot_info = lot_info.sort_values(self.config.date_col)
 
         # Create selections based on event name and event value using config constants
-        if self.config.lot_event_name is not None and self.config.event_value_lot_start is not None:
-            lot_selection_1 = lot_info[
-                lot_info[self.config.event_name_col] == self.config.lot_event_name
-            ]  # Using config attribute
+        if lot_event_name is not None and event_value_lot_start is not None:
+            lot_selection_1 = lot_info[lot_info[self.config.event_name_col] == lot_event_name]  # Using config attribute
             lot_selection_2 = lot_info[
-                lot_info[self.config.event_value_col] == self.config.event_value_lot_start
+                lot_info[self.config.event_value_col] == event_value_lot_start
             ]  # Using config attribute
         else:
             # Just use all lot_info if no specific columns are defined
