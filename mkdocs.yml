@@ -4,7 +4,7 @@ site_url: https://example.com/twinweaver/
 
 # 1. Source Code Link (Adds a nice GitHub icon to the header)
 repo_name: TwinWeaver
-repo_url: https://github.com/your-org/twinweaver # Replace with actual
+repo_url: https://github.com/MendenLab/TwinWeaver
 edit_uri: edit/main/docs/
 
 extra_css:
@@ -13,10 +13,10 @@ extra_css:
 theme:
   name: material
   custom_dir: docs/overrides
-  # 2. Custom Logo/Favicon (Use an emoji if you don't have an SVG yet)
+  # 2. Custom Logo/Favicon
   icon:
     logo: material/dna
-    favicon: material/dna
+  favicon: images/favicon.png
 
   features:
     - navigation.tabs           # Top-level tabs
@@ -54,7 +54,7 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/your-org/twinweaver
+      link: https://github.com/MendenLab/TwinWeaver
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/twinweaver/
   analytics:
