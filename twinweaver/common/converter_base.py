@@ -176,7 +176,12 @@ class ConverterBase:
                 constant[self.config.constant_birthdate_column] = (
                     constant[self.config.constant_birthdate_column].astype(int).astype(str) + " years"
                 )
-                print(f"Using provided ages in {self.config.constant_birthdate_column} as age format")
+                if not self.config.constant_birthdate_columns_silence_print:
+                    print(
+                        f"Using provided ages in {self.config.constant_birthdate_column} as age format."
+                        "To silence this print statement, set constant_birthdate_columns_silence_print to True"
+                        "in the config."
+                    )
             else:
                 # Check if the column contains integer ages (not birthdates)
                 try:
@@ -185,7 +190,12 @@ class ConverterBase:
                         constant[self.config.constant_birthdate_column] = pd.to_datetime(
                             constant[self.config.constant_birthdate_column].astype(int).astype(str) + "-01-01"
                         )
-                        print(f"Converted integer ages in {self.config.constant_birthdate_column} to age format")
+                        if not self.config.constant_birthdate_columns_silence_print:
+                            print(
+                                f"Converted integer ages in {self.config.constant_birthdate_column} to age format."
+                                "To silence this print statement set constant_birthdate_columns_silence_print to True"
+                                "in the config."
+                            )
 
                     # Try converting the column to datetime if it is not already, if doesn't work then just keep it
                     elif not pd.api.types.is_datetime64_any_dtype(constant[self.config.constant_birthdate_column]):

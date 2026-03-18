@@ -425,6 +425,7 @@ class Config:
         ]  # Which columns to use from the constant data
         self.constant_birthdate_column: str = None  # If set, use this column for age calculation
         self.constant_birthdate_column_format: str = "date"  # Either "date" or "age"
+        self.constant_birthdate_columns_silence_print: bool = False  # To silence print statements related to birthdate
 
         # Used to backup event categories for event types if no variables are found
         # e.g. progression -> death
