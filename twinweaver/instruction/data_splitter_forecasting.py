@@ -860,13 +860,15 @@ class DataSplitterForecasting(BaseDataSplitter):
                 events_after_split[self.config.event_name_col].isin(sampled_variables)
             ]
 
-            #: filter so that we do not overlap with next LoT, since that will invalidate the results
-            lots = events[events[self.config.event_category_col] == self.config.event_category_lot]
-            lots = lots[lots[self.config.date_col] > curr_date]
-            lots = lots.sort_values(self.config.date_col)
-            if lots.shape[0] > 0 and not self.config.allow_forecasting_beyond_next_split_date:
-                date_of_next_lot = lots[self.config.date_col].iloc[0]
-                events_after_split = events_after_split[events_after_split[self.config.date_col] < date_of_next_lot]
+            #: filter so that we do not overlap with next split event, since that will invalidate the results
+            next_split_events = events[events[self.config.event_category_col] == self.config.split_event_category]
+            next_split_events = next_split_events[next_split_events[self.config.date_col] > curr_date]
+            next_split_events = next_split_events.sort_values(self.config.date_col)
+            if next_split_events.shape[0] > 0 and not self.config.allow_forecasting_beyond_next_split_date:
+                date_of_next_split_event = next_split_events[self.config.date_col].iloc[0]
+                events_after_split = events_after_split[
+                    events_after_split[self.config.date_col] < date_of_next_split_event
+                ]
 
             #: if apply_filtering, apply 3-sigma filtering (only to target) and drop any bad rows
             if apply_filtering:

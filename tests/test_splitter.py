@@ -1,4 +1,5 @@
 import pytest
+import numpy as np
 import pandas as pd
 from twinweaver.common.data_manager import DataManager
 from twinweaver.instruction.data_splitter_events import DataSplitterEvents
@@ -414,3 +415,273 @@ def test_inference_both_type_with_only_events(initialized_dm, mock_config):
     # Constant data integrity
     assert e_split.constant_data["patientid"].iloc[0] == "p0"
     assert e_split.constant_data.shape[0] == 1
+
+
+# ────────────────────────────────────────────────────────────────────────────
+# Test that forecasting truncation uses split_event_category (not just LoT)
+# ────────────────────────────────────────────────────────────────────────────
+
+
+def test_forecasting_truncates_at_next_split_event_not_just_lot():
+    """
+    Verify that _generate_variable_splits_for_date truncates target events
+    at the next *split event* (config.split_event_category), not only at
+    the next LoT event (config.event_category_lot).
+
+    Scenario (split_event_category = "custom_split"):
+      Timeline for a single patient:
+        Day 0   - custom_split event  (the split event that anchors the window)
+        Day 5   - lab measurement     (before split date, input)
+        Day 10  - split date          (curr_date)
+        Day 15  - lab measurement     (target - should be kept)
+        Day 20  - next custom_split   (next split event - target boundary)
+        Day 25  - lab measurement     (target - should be EXCLUDED)
+        Day 30  - lot event           (LoT - should NOT be the boundary)
+        Day 35  - lab measurement     (target - should be EXCLUDED)
+
+    With the old code (filtering by event_category_lot), the target would
+    include days 15, 25, and 35 (cutting only at day 30 LoT).
+    With the fix (filtering by split_event_category), the target should
+    include only day 15 (cutting at day 20 custom_split).
+    """
+    from twinweaver.common.config import Config
+
+    cfg = Config()
+    cfg.split_event_category = "custom_split"
+    cfg.event_category_lot = "lot"
+    cfg.event_category_forecast = ["lab"]
+    cfg.allow_forecasting_beyond_next_split_date = False
+
+    base_date = pd.Timestamp("2020-01-01")
+
+    events = pd.DataFrame(
+        {
+            cfg.date_col: [base_date + pd.Timedelta(days=d) for d in [0, 5, 10, 15, 20, 25, 30, 35]],
+            cfg.event_category_col: [
+                "custom_split",  # Day 0: split event
+                "lab",  # Day 5: lab (input)
+                "lab",  # Day 10: lab at split date (input)
+                "lab",  # Day 15: lab (target, before next split event)
+                "custom_split",  # Day 20: next split event
+                "lab",  # Day 25: lab (target, after next split event - exclude)
+                "lot",  # Day 30: lot event (should NOT be the boundary)
+                "lab",  # Day 35: lab (target, after lot - exclude)
+            ],
+            cfg.event_name_col: [
+                "split_marker",
+                "hemoglobin",
+                "hemoglobin",
+                "hemoglobin",
+                "split_marker",
+                "hemoglobin",
+                "lot_marker",
+                "hemoglobin",
+            ],
+            cfg.event_value_col: [
+                "start",
+                "13.0",
+                "13.1",
+                "13.2",
+                "start",
+                "13.3",
+                "LoT Start",
+                "13.4",
+            ],
+            cfg.event_descriptive_name_col: [
+                "split marker",
+                "hemoglobin",
+                "hemoglobin",
+                "hemoglobin",
+                "split marker",
+                "hemoglobin",
+                "LoT",
+                "hemoglobin",
+            ],
+            cfg.source_col: ["events"] * 8,
+            cfg.meta_data_col: [pd.NA] * 8,
+        }
+    )
+
+    constant = pd.DataFrame(
+        {
+            cfg.patient_id_col: ["p_test"],
+            cfg.constant_split_col: ["train"],
+        }
+    )
+
+    patient_data = {"events": events, "constant": constant}
+    curr_date = base_date + pd.Timedelta(days=10)
+    lot_date = base_date  # The split event that anchors this window
+
+    # Build a minimal all_possible_split_dates with hemoglobin valid at curr_date
+    all_possible_split_dates = pd.DataFrame(
+        {
+            cfg.date_col: [curr_date],
+            cfg.event_name_col: ["hemoglobin"],
+            cfg.event_category_col: ["lab"],
+            "lot_date": [lot_date],
+        }
+    )
+
+    # Create a DataManager stub - we only need dm.variable_types for the splitter
+    dm = DataManager.__new__(DataManager)
+    dm.config = cfg
+    dm.variable_types = {"hemoglobin": "numeric"}
+    dm.data_frames = {}
+    dm.all_patientids = ["p_test"]
+
+    splitter = DataSplitterForecasting(
+        config=cfg,
+        data_manager=dm,
+        max_forecast_time_for_value=pd.Timedelta(days=90),
+        max_lookback_time_for_value=pd.Timedelta(days=90),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+        sampling_strategy="uniform",
+    )
+
+    np.random.seed(42)
+
+    (date_splits, valid_sample_date, date_splits_meta, _) = splitter._generate_variable_splits_for_date(
+        curr_date=curr_date,
+        nr_samples=1,
+        override_variables_to_predict=["hemoglobin"],
+        events=events,
+        all_possible_split_dates=all_possible_split_dates,
+        apply_filtering=False,
+        override_split_dates=None,
+        patient_data=patient_data,
+        lot_date=lot_date,
+    )
+
+    assert valid_sample_date is True
+    assert len(date_splits) == 1
+
+    target = date_splits[0].target_events_after_split
+
+    # The target must only include lab events BEFORE the next custom_split (day 20).
+    # So only the measurement at day 15 should survive.
+    assert target.shape[0] == 1, (
+        f"Expected 1 target event (day 15 only), got {target.shape[0]}. "
+        f"Dates in target: {target[cfg.date_col].tolist()}"
+    )
+    assert target[cfg.date_col].iloc[0] == base_date + pd.Timedelta(days=15)
+
+    # Also verify input events include everything up to and including curr_date
+    input_events = date_splits[0].events_until_split
+    assert (input_events[cfg.date_col] <= curr_date).all()
+    assert input_events.shape[0] == 3  # Day 0, 5, 10
+
+
+def test_forecasting_truncation_allow_beyond_next_split_date():
+    """
+    Verify that when allow_forecasting_beyond_next_split_date=True,
+    target events are NOT truncated at the next split event.
+    """
+    from twinweaver.common.config import Config
+
+    cfg = Config()
+    cfg.split_event_category = "custom_split"
+    cfg.event_category_lot = "lot"
+    cfg.event_category_forecast = ["lab"]
+    cfg.allow_forecasting_beyond_next_split_date = True
+
+    base_date = pd.Timestamp("2020-01-01")
+
+    events = pd.DataFrame(
+        {
+            cfg.date_col: [base_date + pd.Timedelta(days=d) for d in [0, 5, 10, 15, 20, 25]],
+            cfg.event_category_col: [
+                "custom_split",
+                "lab",
+                "lab",
+                "lab",
+                "custom_split",
+                "lab",
+            ],
+            cfg.event_name_col: [
+                "split_marker",
+                "hemoglobin",
+                "hemoglobin",
+                "hemoglobin",
+                "split_marker",
+                "hemoglobin",
+            ],
+            cfg.event_value_col: ["start", "13.0", "13.1", "13.2", "start", "13.3"],
+            cfg.event_descriptive_name_col: [
+                "split marker",
+                "hemoglobin",
+                "hemoglobin",
+                "hemoglobin",
+                "split marker",
+                "hemoglobin",
+            ],
+            cfg.source_col: ["events"] * 6,
+            cfg.meta_data_col: [pd.NA] * 6,
+        }
+    )
+
+    constant = pd.DataFrame(
+        {
+            cfg.patient_id_col: ["p_test"],
+            cfg.constant_split_col: ["train"],
+        }
+    )
+
+    patient_data = {"events": events, "constant": constant}
+    curr_date = base_date + pd.Timedelta(days=10)
+    lot_date = base_date
+
+    all_possible_split_dates = pd.DataFrame(
+        {
+            cfg.date_col: [curr_date],
+            cfg.event_name_col: ["hemoglobin"],
+            cfg.event_category_col: ["lab"],
+            "lot_date": [lot_date],
+        }
+    )
+
+    dm = DataManager.__new__(DataManager)
+    dm.config = cfg
+    dm.variable_types = {"hemoglobin": "numeric"}
+    dm.data_frames = {}
+    dm.all_patientids = ["p_test"]
+
+    splitter = DataSplitterForecasting(
+        config=cfg,
+        data_manager=dm,
+        max_forecast_time_for_value=pd.Timedelta(days=90),
+        max_lookback_time_for_value=pd.Timedelta(days=90),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+        sampling_strategy="uniform",
+    )
+
+    np.random.seed(42)
+
+    (date_splits, valid_sample_date, _, _) = splitter._generate_variable_splits_for_date(
+        curr_date=curr_date,
+        nr_samples=1,
+        override_variables_to_predict=["hemoglobin"],
+        events=events,
+        all_possible_split_dates=all_possible_split_dates,
+        apply_filtering=False,
+        override_split_dates=None,
+        patient_data=patient_data,
+        lot_date=lot_date,
+    )
+
+    assert valid_sample_date is True
+    assert len(date_splits) == 1
+
+    target = date_splits[0].target_events_after_split
+
+    # With allow_forecasting_beyond_next_split_date=True, no truncation at
+    # the next split event, so both day 15 and day 25 labs should be in target.
+    assert target.shape[0] == 2, (
+        f"Expected 2 target events (days 15 and 25), got {target.shape[0]}. "
+        f"Dates in target: {target[cfg.date_col].tolist()}"
+    )
+    expected_dates = [
+        base_date + pd.Timedelta(days=15),
+        base_date + pd.Timedelta(days=25),
+    ]
+    assert target[cfg.date_col].tolist() == expected_dates
