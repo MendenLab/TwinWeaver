@@ -113,10 +113,11 @@ class ConverterBase:
             self.config.event_category_and_name_replace_override
             if self.config.event_category_and_name_replace_override is not None
             else {
+                # Death specific overrides, using config constants for category and event name
                 self.config.event_category_death: {  # Use config constant
-                    "death": {  # Assuming 'death' is the event_name associated with this category
-                        "full_replacement_string": "death",
-                        "reverse_string_value": "death",
+                    self.config.event_category_death: {
+                        "full_replacement_string": self.config.event_category_death,
+                        "reverse_string_value": self.config.event_category_death,
                     }
                 }
             }
