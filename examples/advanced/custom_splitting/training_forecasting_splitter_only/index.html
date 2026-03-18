@@ -13,21 +13,21 @@
         <link rel="canonical" href="https://example.com/twinweaver/examples/advanced/custom_splitting/training_forecasting_splitter_only/">
       
       
-        <link rel="prev" href="../training_custom_split_events/">
+        <link rel="prev" href="../training_forecasting_qa/">
       
       
-        <link rel="next" href="../../custom_output/customizing_text_generation/">
+        <link rel="next" href="../inference_individual_splitters/">
       
       
         
       
       
-      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Forecasting-Only Example: Training Data Generation with Custom Dataset - TwinWeaver</title>
+        <title>Forecasting-Only Example: Training Data Generation with the Unified DataSplitter API - TwinWeaver</title>
       
     
     
@@ -94,7 +94,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#forecasting-only-example-training-data-generation-with-custom-dataset" class="md-skip">
+        <a href="#forecasting-only-example-training-data-generation-with-the-unified-datasplitter-api" class="md-skip">
           Skip to content
         </a>
       
@@ -128,7 +128,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Forecasting-Only Example: Training Data Generation with Custom Dataset
+              Forecasting-Only Example: Training Data Generation with the Unified DataSplitter API
             
           </span>
         </div>
@@ -210,7 +210,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/your-org/twinweaver" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/MendenLab/TwinWeaver" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
@@ -339,7 +339,7 @@
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/your-org/twinweaver" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/MendenLab/TwinWeaver" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
@@ -920,6 +920,97 @@
                 
   
   
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Preprocessing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Preprocessing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../data_preprocessing/raw_data_preprocessing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Preprocessing: From Raw Clinical Data to TwinWeaver Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -941,10 +1032,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
             
   
   
@@ -962,12 +1053,66 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
             
   
     Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_1" id="__nav_2_6_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Splitting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Custom Splitting
   
 
           </label>
@@ -987,7 +1132,7 @@
   <span class="md-ellipsis">
     
   
-    Example for single patient to convert using the instruction setup with custom dataset
+    Example for single patient to convert using the unified DataSplitter API with custom dataset
   
 
     
@@ -1033,6 +1178,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../training_forecasting_qa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forecasting QA: Question-Answering Style Value Prediction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1052,7 +1225,7 @@
   <span class="md-ellipsis">
     
   
-    Forecasting-Only Example: Training Data Generation with Custom Dataset
+    Forecasting-Only Example: Training Data Generation with the Unified DataSplitter API
   
 
     
@@ -1070,7 +1243,7 @@
   <span class="md-ellipsis">
     
   
-    Forecasting-Only Example: Training Data Generation with Custom Dataset
+    Forecasting-Only Example: Training Data Generation with the Unified DataSplitter API
   
 
     
@@ -1144,14 +1317,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../inference_individual_splitters.md" class="md-nav__link">
+      <a href="../inference_individual_splitters/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Custom Splitting (Inference)
+    Inference (Individual Splitters)
   
 
     
@@ -1164,6 +1337,66 @@
   
 
               
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_2" id="__nav_2_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Output
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Custom Output
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -1221,6 +1454,66 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_3" id="__nav_2_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pretraining
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pretraining
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
               
                 
   
@@ -1228,14 +1521,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pretraining/prepare_pretraining_data.md" class="md-nav__link">
+      <a href="../../pretraining/prepare_pretraining_data/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Pretraining
+    Prepare Pretraining Data
   
 
     
@@ -1256,6 +1549,42 @@
   
   
     <li class="md-nav__item">
+      <a href="../../pretraining/end_to_end_llm_training_with_pretrain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    End to end instruction example using LLMs with fine-tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tte_inference/tte_probability_inference/" class="md-nav__link">
         
   
@@ -1264,6 +1593,34 @@
     
   
     Time-to-Event (TTE) Probability Inference with TwinWeaver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../forecasting_inference/forecasting_vllm_inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forecasting Inference with TwinWeaver and vLLM
   
 
     
@@ -1308,10 +1665,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="">
             
   
   
@@ -1329,8 +1686,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1355,6 +1712,153 @@
     
   
     Example on how to import MEDS data format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hackathon
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hackathon
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hackathon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hackathon/01_data_preparation_challenge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏆 Challenge 1: Data Preparation for Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hackathon/02_llm_finetuning_challenge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🏆 Challenge 2: End-to-End LLM Fine-tuning
   
 
     
@@ -2018,6 +2522,34 @@
     
   
     TTE Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/utils/forecasting_inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forecasting Inference
   
 
     
@@ -2852,7 +3384,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="forecasting-only-example-training-data-generation-with-custom-dataset">Forecasting-Only Example: Training Data Generation with Custom Dataset<a class="anchor-link" href="#forecasting-only-example-training-data-generation-with-custom-dataset">¶</a></h1>
+<h1 id="forecasting-only-example-training-data-generation-with-the-unified-datasplitter-api">Forecasting-Only Example: Training Data Generation with the Unified DataSplitter API<a class="anchor-link" href="#forecasting-only-example-training-data-generation-with-the-unified-datasplitter-api">¶</a></h1>
 </div>
 </div>
 </div>
@@ -2890,6 +3422,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">twinweaver</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">DataSplitterForecasting</span><span class="p">,</span>
+    <span class="n">DataSplitter</span><span class="p">,</span>
     <span class="n">DataManager</span><span class="p">,</span>
     <span class="n">ConverterInstruction</span><span class="p">,</span>
     <span class="n">Config</span><span class="p">,</span>
@@ -2899,6 +3432,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 
 from twinweaver import (
     DataSplitterForecasting,
+    DataSplitter,
     DataManager,
     ConverterInstruction,
     Config,
@@ -2968,7 +3502,7 @@ df_constant_description = pd.read_csv("../../example_data/constant_description.c
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Set up the data manager and the forecasting-only pipeline.</p>
+<p>Set up the data manager and the forecasting-only pipeline using the unified <code>DataSplitter</code> API. By passing only <code>data_splitter_forecasting</code>, the unified interface handles the forecasting-only case automatically.</p>
 </div>
 </div>
 </div>
@@ -3052,16 +3586,20 @@ config.constant_birthdate_column = "birthyear"</div>
 <span class="n">dm</span><span class="o">.</span><span class="n">load_indication_data</span><span class="p">(</span><span class="n">df_events</span><span class="o">=</span><span class="n">df_events</span><span class="p">,</span> <span class="n">df_constant</span><span class="o">=</span><span class="n">df_constant</span><span class="p">,</span> <span class="n">df_constant_description</span><span class="o">=</span><span class="n">df_constant_description</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">process_indication_data</span><span class="p">()</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">setup_unique_mapping_of_events</span><span class="p">()</span>
-<span class="n">dm</span><span class="o">.</span><span class="n">setup_dataset_splits</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">setup_hold_out_sets</span><span class="p">(</span><span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">test_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">infer_var_types</span><span class="p">()</span>
 
 
 <span class="n">data_splitter_forecasting</span> <span class="o">=</span> <span class="n">DataSplitterForecasting</span><span class="p">(</span>
     <span class="n">data_manager</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
     <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+    <span class="n">max_forecasted_trajectory_length</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">90</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="c1"># In case you manually want to override the variables for forecasting selectiong, you can skip this next line.</span>
 <span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">setup_statistics</span><span class="p">()</span>
+
+<span class="c1"># Use the unified DataSplitter API with only the forecasting splitter</span>
+<span class="n">data_splitter</span> <span class="o">=</span> <span class="n">DataSplitter</span><span class="p">(</span><span class="n">data_splitter_forecasting</span><span class="o">=</span><span class="n">data_splitter_forecasting</span><span class="p">)</span>
 
 <span class="n">converter</span> <span class="o">=</span> <span class="n">ConverterInstruction</span><span class="p">(</span>
     <span class="n">nr_tokens_budget_total</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
@@ -3074,16 +3612,20 @@ config.constant_birthdate_column = "birthyear"</div>
 dm.load_indication_data(df_events=df_events, df_constant=df_constant, df_constant_description=df_constant_description)
 dm.process_indication_data()
 dm.setup_unique_mapping_of_events()
-dm.setup_dataset_splits()
+dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
 dm.infer_var_types()
 
 
 data_splitter_forecasting = DataSplitterForecasting(
     data_manager=dm,
     config=config,
+    max_forecasted_trajectory_length=pd.Timedelta(days=90),
 )
 # In case you manually want to override the variables for forecasting selectiong, you can skip this next line.
 data_splitter_forecasting.setup_statistics()
+
+# Use the unified DataSplitter API with only the forecasting splitter
+data_splitter = DataSplitter(data_splitter_forecasting=data_splitter_forecasting)
 
 converter = ConverterInstruction(
     nr_tokens_budget_total=8192,
@@ -3239,8 +3781,8 @@ patient_data["events"].head(20)</div>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>We start by generating random "splits" in the patient trajectory. We can make multiple relevant samples from each patient trajectory (e.g. depending on when the therapy started), and also to predict different variables (e.g. neutrophils/hemoglobin/... for forecasting).</p>
-<p>Here we generate these random splits. We can also manually override them (see other examples on inference).</p>
+<p>We start by generating random "splits" in the patient trajectory using the unified <code>DataSplitter.get_splits_from_patient_with_target</code> method. We can make multiple relevant samples from each patient trajectory (e.g. depending on when the therapy started), and also to predict different variables (e.g. neutrophils/hemoglobin/... for forecasting).</p>
+<p>Since we only provided a forecasting splitter, <code>events_splits</code> will be <code>None</code>.</p>
 </div>
 </div>
 </div>
@@ -3263,21 +3805,21 @@ patient_data["events"].head(20)</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">processed_splits_fc</span><span class="p">,</span> <span class="n">split_dates</span> <span class="o">=</span> <span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">get_splits_from_patient</span><span class="p">(</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">forecasting_splits</span><span class="p">,</span> <span class="n">events_splits</span><span class="p">,</span> <span class="n">reference_dates</span> <span class="o">=</span> <span class="n">data_splitter</span><span class="o">.</span><span class="n">get_splits_from_patient_with_target</span><span class="p">(</span>
     <span class="n">patient_data</span><span class="p">,</span>
-    <span class="n">nr_samples_per_split</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-    <span class="n">filter_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">include_metadata</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">forecasting_nr_samples_per_split</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">forecasting_filter_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">max_num_splits_per_split_event</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="c1"># Note, events_splits will be None here since we don't have any split events for this patient</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-8">processed_splits_fc, split_dates = data_splitter_forecasting.get_splits_from_patient(
+<div class="clipboard-copy-txt" id="cell-8">forecasting_splits, events_splits, reference_dates = data_splitter.get_splits_from_patient_with_target(
     patient_data,
-    nr_samples_per_split=4,
-    filter_outliers=False,
-    include_metadata=True,
+    forecasting_nr_samples_per_split=4,
+    forecasting_filter_outliers=False,
     max_num_splits_per_split_event=2,
-)</div>
+)
+# Note, events_splits will be None here since we don't have any split events for this patient</div>
 </div>
 </div>
 </div>
@@ -3290,7 +3832,7 @@ patient_data["events"].head(20)</div>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now for each split, we can generate the formatted strings. Note that <code>event_splits</code> is left empty since this example only uses the forecasting splitter.</p>
+<p>Now for each split, we can generate the formatted strings. Note that <code>events_splits</code> is <code>None</code> since we only provided a forecasting splitter, so we pass an empty list for <code>event_splits</code>.</p>
 </div>
 </div>
 </div>
@@ -3315,16 +3857,14 @@ patient_data["events"].head(20)</div>
 </div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="n">split_idx</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">p_converted</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion</span><span class="p">(</span>
-    <span class="n">forecasting_splits</span><span class="o">=</span><span class="n">processed_splits_fc</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
-    <span class="n">event_splits</span><span class="o">=</span><span class="p">[],</span>  <span class="c1"># Not needed for forecasting-only splitter</span>
-    <span class="n">override_mode_to_select_forecasting</span><span class="o">=</span><span class="s2">"forecasting"</span><span class="p">,</span>
+    <span class="n">forecasting_splits</span><span class="o">=</span><span class="n">forecasting_splits</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
+    <span class="n">event_splits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># Not needed for forecasting-only splitter</span>
 <span class="p">)</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-9">split_idx = 0
 p_converted = converter.forward_conversion(
-    forecasting_splits=processed_splits_fc[split_idx],
-    event_splits=[],  # Not needed for forecasting-only splitter
-    override_mode_to_select_forecasting="forecasting",
+    forecasting_splits=forecasting_splits[split_idx],
+    event_splits=None,  # Not needed for forecasting-only splitter
 )</div>
 </div>
 </div>
@@ -3465,7 +4005,7 @@ a list of detailed metadata for each individual task generated ('target_meta_det
       
       
     
-    <a href="https://github.com/your-org/twinweaver" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+    <a href="https://github.com/MendenLab/TwinWeaver" target="_blank" rel="noopener" title="github.com" class="md-social__link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   

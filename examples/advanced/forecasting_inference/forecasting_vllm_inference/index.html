@@ -10,9 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://example.com/twinweaver/examples/advanced/pretraining/prepare_pretraining_data/">
+        <link rel="canonical" href="https://example.com/twinweaver/examples/advanced/forecasting_inference/forecasting_vllm_inference/">
       
       
+        <link rel="prev" href="../../tte_inference/tte_probability_inference/">
+      
+      
+        <link rel="next" href="../../../integrations/meds_data_import/">
       
       
         
@@ -23,7 +27,7 @@
     
     
       
-        <title>Prepare pretraining data - TwinWeaver</title>
+        <title>Forecasting Inference with TwinWeaver and vLLM - TwinWeaver</title>
       
     
     
@@ -90,7 +94,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#actual-running" class="md-skip">
+        <a href="#forecasting-inference-with-twinweaver-and-vllm" class="md-skip">
           Skip to content
         </a>
       
@@ -124,7 +128,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Prepare pretraining data
+              Forecasting Inference with TwinWeaver and vLLM
             
           </span>
         </div>
@@ -255,10 +259,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../../" class="md-tabs__link">
           
   
@@ -745,26 +751,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -782,7 +793,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -918,17 +929,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
             
   
   
@@ -997,26 +1011,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
             
   
   
@@ -1034,7 +1053,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1420,7 +1439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="./" class="md-nav__link">
+      <a href="../../pretraining/prepare_pretraining_data/" class="md-nav__link">
         
   
   
@@ -1448,7 +1467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../end_to_end_llm_training_with_pretrain/" class="md-nav__link">
+      <a href="../../pretraining/end_to_end_llm_training_with_pretrain/" class="md-nav__link">
         
   
   
@@ -1509,10 +1528,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../forecasting_inference/forecasting_vllm_inference/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forecasting Inference with TwinWeaver and vLLM
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1528,6 +1574,192 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-load-and-prepare-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Load and prepare data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-generate-forecasting-instruction-prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Generate forecasting instruction prompts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-launch-the-vllm-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Launch the vLLM server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-run-forecasting-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Run forecasting inference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-parse-results-with-reverse-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Parse results with reverse conversion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Parse results with reverse conversion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-multi-sample-aggregation-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Multi-sample aggregation (optional)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Clean up
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-with-tte-probability-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison with TTE probability inference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1554,17 +1786,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="">
             
   
   
@@ -1642,17 +1877,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
         
           
-          <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="">
             
   
   
@@ -2488,6 +2726,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2496,13 +2736,168 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#actual-running" class="md-nav__link">
+  <a href="#pipeline-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ############################ Actual running
+        Pipeline overview
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-load-and-prepare-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Load and prepare data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-generate-forecasting-instruction-prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Generate forecasting instruction prompts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-launch-the-vllm-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Launch the vLLM server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-run-forecasting-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Run forecasting inference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-parse-results-with-reverse-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Parse results with reverse conversion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Parse results with reverse conversion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-multi-sample-aggregation-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Multi-sample aggregation (optional)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Clean up
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-with-tte-probability-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison with TTE probability inference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2525,8 +2920,6 @@
   
   
 
-
-  <h1>Prepare pretraining data</h1>
 
 <script>
 (function (global, factory) {
@@ -3249,8 +3642,55 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </style>
 <!-- End of mermaid configuration --><div class="jupyter-wrapper">
 <div class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a9838a09">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="forecasting-inference-with-twinweaver-and-vllm">Forecasting Inference with TwinWeaver and vLLM<a class="anchor-link" href="#forecasting-inference-with-twinweaver-and-vllm">¶</a></h1><p>This notebook demonstrates how to use TwinWeaver's <strong>forecasting inference pipeline</strong>
+to predict future clinical values (e.g., lab results like hemoglobin) using a
+fine-tuned LLM served via <a href="https://github.com/vllm-project/vllm">vLLM</a>.</p>
+<p>Unlike the TTE (time-to-event) probability pipeline, which <em>scores</em> fixed
+completions, this pipeline uses <strong>free-text generation</strong>: the model produces
+an answer string that is then <strong>reverse-converted</strong> back into a structured
+DataFrame with predicted dates and values.</p>
+<h3 id="pipeline-overview">Pipeline overview<a class="anchor-link" href="#pipeline-overview">¶</a></h3><pre><code>Patient data ──► DataSplitter (forecasting) ──► ConverterInstruction
+                                                      │
+                                        instruction text per patient
+                                                      │
+                       ┌──────────────────────────────┘
+                       ▼
+                vLLM server (OpenAI-compatible API)
+                       │
+              generated text completions
+                       │
+                       ▼
+          parse_forecasting_results()
+          (calls converter.reverse_conversion internally)
+                       │
+              structured DataFrame
+              with predicted dates &amp; values
+</code></pre>
+<blockquote>
+<p><strong>⚠️ Important:</strong> The quality of the forecasts depends critically
+on having a <strong>fine-tuned model</strong>. An off-the-shelf instruction model
+(like the default <code>microsoft/Phi-4-mini-instruct</code> used here for demonstration)
+will produce <strong>meaningless predictions</strong>. Always fine-tune on your
+clinical dataset first (see <code>03_end_to_end_llm_finetuning.ipynb</code>).</p>
+</blockquote>
+<blockquote>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>A GPU with enough memory to serve the model via vLLM (≥16 GB for a 4-bit 8B model)</li>
+<li><code>pip install twinweaver[fine-tuning-example] vllm openai</code></li>
+</ul>
+</blockquote>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3268,18 +3708,64 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">twinweaver</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataManager</span><span class="p">,</span> <span class="n">ConverterPretrain</span><span class="p">,</span> <span class="n">Config</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">twinweaver</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DataManager</span><span class="p">,</span>
+    <span class="n">Config</span><span class="p">,</span>
+    <span class="n">DataSplitterForecasting</span><span class="p">,</span>
+    <span class="n">DataSplitterEvents</span><span class="p">,</span>
+    <span class="n">DataSplitter</span><span class="p">,</span>
+    <span class="n">ConverterInstruction</span><span class="p">,</span>
+    <span class="n">run_forecasting_inference_notebook</span><span class="p">,</span>
+    <span class="n">parse_forecasting_results</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-1">from twinweaver import DataManager, ConverterPretrain, Config
-import pandas as pd</div>
+<div class="clipboard-copy-txt" id="cell-1">import subprocess
+import time
+import sys
+import os
+
+import pandas as pd
+
+from twinweaver import (
+    DataManager,
+    Config,
+    DataSplitterForecasting,
+    DataSplitterEvents,
+    DataSplitter,
+    ConverterInstruction,
+    run_forecasting_inference_notebook,
+    parse_forecasting_results,
+)</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="1-configuration">1. Configuration<a class="anchor-link" href="#1-configuration">¶</a></h2><p>We define all key settings up front so they are easy to change in one place.</p>
+<blockquote>
+<p><strong>Note:</strong> Replace <code>MODEL_PATH</code> with the path to your <strong>fine-tuned</strong> model for
+meaningful results. The default <code>microsoft/Phi-4-mini-instruct</code> is only used
+here so that the notebook is self-contained.</p>
+</blockquote>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=10e2f7a4">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3297,196 +3783,46 @@ import pandas as pd</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ConvertToText</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Set basics</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>  <span class="c1"># Override values here to customize pipeline</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Model &amp; server settings</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="n">MODEL_PATH</span> <span class="o">=</span> <span class="s2">"microsoft/Phi-4-mini-instruct"</span>  <span class="c1"># ⚠️ Replace with your fine-tuned model path!!!!!!!!!!!</span>
+<span class="n">TOKENIZER_PATH</span> <span class="o">=</span> <span class="n">MODEL_PATH</span>  <span class="c1"># Usually the same as the model path</span>
 
-        <span class="c1"># Manually set from constant</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">constant_columns_to_use</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">"birthyear"</span><span class="p">,</span>
-            <span class="s2">"gender"</span><span class="p">,</span>
-            <span class="s2">"histology"</span><span class="p">,</span>
-            <span class="s2">"smoking_history"</span><span class="p">,</span>
-        <span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">constant_birthdate_column</span> <span class="o">=</span> <span class="s2">"birthyear"</span>
+<span class="n">VLLM_PORT</span> <span class="o">=</span> <span class="mi">8000</span>
+<span class="n">PREDICTION_URL</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"http://0.0.0.0:</span><span class="si">{</span><span class="n">VLLM_PORT</span><span class="si">}</span><span class="s2">/v1/"</span>
 
-        <span class="c1"># Load data</span>
-        <span class="n">df_events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"./examples/example_data/events.csv"</span><span class="p">)</span>
-        <span class="n">df_constant</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"./examples/example_data/constant.csv"</span><span class="p">)</span>
-        <span class="n">df_constant_description</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"./examples/example_data/constant_description.csv"</span><span class="p">)</span>
+<span class="n">MAX_CONTEXT_LENGTH</span> <span class="o">=</span> <span class="mi">4096</span>  <span class="c1"># Must match what the model was trained with</span>
 
-        <span class="c1"># Init data managers</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">load_indication_data</span><span class="p">(</span>
-            <span class="n">df_events</span><span class="o">=</span><span class="n">df_events</span><span class="p">,</span> <span class="n">df_constant</span><span class="o">=</span><span class="n">df_constant</span><span class="p">,</span> <span class="n">df_constant_description</span><span class="o">=</span><span class="n">df_constant_description</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">process_indication_data</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">setup_unique_mapping_of_events</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">setup_hold_out_sets</span><span class="p">(</span><span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">test_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-
-        <span class="c1">#: set up converter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">converter</span> <span class="o">=</span> <span class="n">ConverterPretrain</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">dm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="p">)</span>
-
-        <span class="c1"># Due to internal data issue, we skip this one when doing reverse checks</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">reverse_patient_skip_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"electrophoresis m spike"</span><span class="p">]</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">convert_full_to_string_for_one_patient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patientid</span><span class="p">):</span>
-        <span class="n">patient_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
-
-        <span class="c1">#: convert patient data using ConverterPretrain</span>
-        <span class="n">p_converted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion</span><span class="p">(</span><span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">],</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"constant"</span><span class="p">])</span>
-
-        <span class="c1">#: convert extras into JSON using df.to_json</span>
-        <span class="n">internal_meta</span> <span class="o">=</span> <span class="n">p_converted</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">internal_meta</span><span class="p">[</span><span class="s2">"split"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">get_patient_split</span><span class="p">(</span><span class="n">patientid</span><span class="o">=</span><span class="n">patientid</span><span class="p">)</span>
-        <span class="n">p_converted</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">"patientid"</span><span class="p">:</span> <span class="n">patientid</span><span class="p">,</span>
-            <span class="s2">"split"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">get_patient_split</span><span class="p">(</span><span class="n">patientid</span><span class="o">=</span><span class="n">patientid</span><span class="p">),</span>
-            <span class="s2">"constant"</span><span class="p">:</span> <span class="n">p_converted</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">][</span><span class="s2">"processed_constant"</span><span class="p">]</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"split"</span><span class="p">),</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="p">[(</span><span class="n">p_converted</span><span class="p">,</span> <span class="n">internal_meta</span><span class="p">)]</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">assess_reverse_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">all_patient_data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""</span>
-<span class="sd">        Assesses the reverse conversion for a single patient to ensure data integrity.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        all_patient_data : list of tuples</span>
-<span class="sd">            A list of tuples, each containing converted patient data and internal metadata.</span>
-<span class="sd">        """</span>
-
-        <span class="c1"># Split up</span>
-        <span class="n">converted_data</span><span class="p">,</span> <span class="n">internal_meta</span> <span class="o">=</span> <span class="n">all_patient_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">first_event_date</span> <span class="o">=</span> <span class="n">internal_meta</span><span class="p">[</span><span class="s2">"events"</span><span class="p">][</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-
-        <span class="c1"># Log that testing patient</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"Assessing reverse conversion for patient"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">converted_data</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">][</span><span class="s2">"patientid"</span><span class="p">]))</span>
-
-        <span class="c1">#: do reverse conversion using ConverterPretrain</span>
-        <span class="n">p_reverse_converted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="o">.</span><span class="n">reverse_conversion</span><span class="p">(</span>
-            <span class="n">converted_data</span><span class="p">[</span><span class="s2">"text"</span><span class="p">],</span>
-            <span class="n">data_manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="p">,</span>
-            <span class="n">init_date</span><span class="o">=</span><span class="n">first_event_date</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="c1">#: check differences appropriately</span>
-        <span class="n">diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="o">.</span><span class="n">get_difference_in_event_dataframes</span><span class="p">(</span>
-            <span class="n">internal_meta</span><span class="p">[</span><span class="s2">"events"</span><span class="p">],</span>
-            <span class="n">p_reverse_converted</span><span class="p">[</span><span class="s2">"events"</span><span class="p">],</span>
-            <span class="n">skip_genetic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">skip_vals_list</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reverse_patient_skip_list</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="c1">#: assert that no differences are found, and print patientid if issues are found</span>
-        <span class="k">assert</span> <span class="n">diff</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Patient </span><span class="si">{</span><span class="n">internal_meta</span><span class="p">[</span><span class="s1">'patientid'</span><span class="p">]</span><span class="si">}</span><span class="s2"> has differences in reverse conversion: </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1"># Generation settings</span>
+<span class="n">MAX_NEW_TOKENS</span> <span class="o">=</span> <span class="mi">256</span>  <span class="c1"># Max tokens for the generated forecast answer</span>
+<span class="n">TEMPERATURE</span> <span class="o">=</span> <span class="mf">0.9</span>  <span class="c1"># Sampling temperature (0 = greedy)</span>
+<span class="n">TOP_P</span> <span class="o">=</span> <span class="mf">0.9</span>  <span class="c1"># Nucleus sampling</span>
+<span class="n">N_SAMPLES</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Number of independent samples per patient (&gt;1 enables aggregation)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-2">class ConvertToText:
-    def __init__(self):
-        # Set basics
-        self.config = Config()  # Override values here to customize pipeline
+<div class="clipboard-copy-txt" id="cell-2"># ---------------------------------------------------------------------------
+# Model &amp; server settings
+# ---------------------------------------------------------------------------
+MODEL_PATH = "microsoft/Phi-4-mini-instruct"  # ⚠️ Replace with your fine-tuned model path!!!!!!!!!!!
+TOKENIZER_PATH = MODEL_PATH  # Usually the same as the model path
 
-        # Manually set from constant
-        self.config.constant_columns_to_use = [
-            "birthyear",
-            "gender",
-            "histology",
-            "smoking_history",
-        ]
-        self.config.constant_birthdate_column = "birthyear"
+VLLM_PORT = 8000
+PREDICTION_URL = f"http://0.0.0.0:{VLLM_PORT}/v1/"
 
-        # Load data
-        df_events = pd.read_csv("./examples/example_data/events.csv")
-        df_constant = pd.read_csv("./examples/example_data/constant.csv")
-        df_constant_description = pd.read_csv("./examples/example_data/constant_description.csv")
+MAX_CONTEXT_LENGTH = 4096  # Must match what the model was trained with
 
-        # Init data managers
-        self.dm = DataManager(config=self.config)
-        self.dm.load_indication_data(
-            df_events=df_events, df_constant=df_constant, df_constant_description=df_constant_description
-        )
-        self.dm.process_indication_data()
-        self.dm.setup_unique_mapping_of_events()
-        self.dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
-
-        #: set up converter
-        self.converter = ConverterPretrain(config=self.config, dm=self.dm)
-
-        # Due to internal data issue, we skip this one when doing reverse checks
-        self.reverse_patient_skip_list = ["electrophoresis m spike"]
-
-    def convert_full_to_string_for_one_patient(self, patientid):
-        patient_data = self.dm.get_patient_data(patientid)
-
-        #: convert patient data using ConverterPretrain
-        p_converted = self.converter.forward_conversion(patient_data["events"], patient_data["constant"])
-
-        #: convert extras into JSON using df.to_json
-        internal_meta = p_converted["meta"].copy()
-        internal_meta["split"] = self.dm.get_patient_split(patientid=patientid)
-        p_converted["meta"] = {
-            "patientid": patientid,
-            "split": self.dm.get_patient_split(patientid=patientid),
-            "constant": p_converted["meta"]["processed_constant"].to_json(orient="split"),
-        }
-
-        return [(p_converted, internal_meta)]
-
-    def assess_reverse_conversion(self, all_patient_data) -&gt; None:
-        """
-        Assesses the reverse conversion for a single patient to ensure data integrity.
-
-        Parameters
-        ----------
-        all_patient_data : list of tuples
-            A list of tuples, each containing converted patient data and internal metadata.
-        """
-
-        # Split up
-        converted_data, internal_meta = all_patient_data[0]
-        first_event_date = internal_meta["events"]["date"].min()
-
-        # Log that testing patient
-        print("Assessing reverse conversion for patient" + str(converted_data["meta"]["patientid"]))
-
-        #: do reverse conversion using ConverterPretrain
-        p_reverse_converted = self.converter.reverse_conversion(
-            converted_data["text"],
-            data_manager=self.dm,
-            init_date=first_event_date,
-        )
-
-        #: check differences appropriately
-        diff = self.converter.get_difference_in_event_dataframes(
-            internal_meta["events"],
-            p_reverse_converted["events"],
-            skip_genetic=True,
-            skip_vals_list=self.reverse_patient_skip_list,
-        )
-
-        #: assert that no differences are found, and print patientid if issues are found
-        assert diff.shape[0] == 0, f"Patient {internal_meta['patientid']} has differences in reverse conversion: {diff}"</div>
+# Generation settings
+MAX_NEW_TOKENS = 256  # Max tokens for the generated forecast answer
+TEMPERATURE = 0.9  # Sampling temperature (0 = greedy)
+TOP_P = 0.9  # Nucleus sampling
+N_SAMPLES = 3  # Number of independent samples per patient (&gt;1 enables aggregation)</div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=553b5168">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>################################## Actual running #######################################
-NOTE: run this from the root folder of twinweaver</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=fea39d6e">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3504,16 +3840,66 @@ NOTE: run this from the root folder of twinweaver</p>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">converter</span> <span class="o">=</span> <span class="n">ConvertToText</span><span class="p">()</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># TwinWeaver data settings (same as used during training)</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+
+<span class="c1"># 1. Event category used for data splitting</span>
+<span class="n">config</span><span class="o">.</span><span class="n">split_event_category</span> <span class="o">=</span> <span class="s2">"lot"</span>
+
+<span class="c1"># 2. Forecasting categories</span>
+<span class="n">config</span><span class="o">.</span><span class="n">event_category_forecast</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"lab"</span><span class="p">]</span>
+
+<span class="c1"># 3. Time-to-event variables (needed to initialise splitters, even if we only forecast)</span>
+<span class="n">config</span><span class="o">.</span><span class="n">event_category_events_prediction_with_naming</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"death"</span><span class="p">:</span> <span class="s2">"death"</span><span class="p">,</span>
+    <span class="s2">"progression"</span><span class="p">:</span> <span class="s2">"next progression"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># 4. Constant (static) columns</span>
+<span class="n">config</span><span class="o">.</span><span class="n">constant_columns_to_use</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"birthyear"</span><span class="p">,</span> <span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"histology"</span><span class="p">,</span> <span class="s2">"smoking_history"</span><span class="p">]</span>
+<span class="n">config</span><span class="o">.</span><span class="n">constant_birthdate_column</span> <span class="o">=</span> <span class="s2">"birthyear"</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-3">converter = ConvertToText()</div>
+<div class="clipboard-copy-txt" id="cell-3"># ---------------------------------------------------------------------------
+# TwinWeaver data settings (same as used during training)
+# ---------------------------------------------------------------------------
+config = Config()
+
+# 1. Event category used for data splitting
+config.split_event_category = "lot"
+
+# 2. Forecasting categories
+config.event_category_forecast = ["lab"]
+
+# 3. Time-to-event variables (needed to initialise splitters, even if we only forecast)
+config.event_category_events_prediction_with_naming = {
+    "death": "death",
+    "progression": "next progression",
+}
+
+# 4. Constant (static) columns
+config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
+config.constant_birthdate_column = "birthyear"</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="2-load-and-prepare-data">2. Load and prepare data<a class="anchor-link" href="#2-load-and-prepare-data">¶</a></h2><p>We use the same example data shipped with TwinWeaver. In a real scenario you
+would load your own clinical dataset here.</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=cdcfda1f">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3531,18 +3917,26 @@ NOTE: run this from the root folder of twinweaver</p>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">all_patientids</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">all_patientids</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">all_patientids</span> <span class="o">=</span> <span class="n">all_patientids</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Load example data (adjust paths if running from a different directory)</span>
+<span class="n">df_events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../../example_data/events.csv"</span><span class="p">)</span>
+<span class="n">df_constant</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../../example_data/constant.csv"</span><span class="p">)</span>
+<span class="n">df_constant_description</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../../example_data/constant_description.csv"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_events</span><span class="p">)</span><span class="si">}</span><span class="s2"> events for </span><span class="si">{</span><span class="n">df_events</span><span class="p">[</span><span class="s1">'patientid'</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> patients"</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-4">all_patientids = converter.dm.all_patientids.copy()
-all_patientids = all_patientids[:10]</div>
+<div class="clipboard-copy-txt" id="cell-4"># Load example data (adjust paths if running from a different directory)
+df_events = pd.read_csv("../../example_data/events.csv")
+df_constant = pd.read_csv("../../example_data/constant.csv")
+df_constant_description = pd.read_csv("../../example_data/constant_description.csv")
+
+print(f"Loaded {len(df_events)} events for {df_events['patientid'].nunique()} patients")</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=db51105f">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3560,30 +3954,110 @@ all_patientids = all_patientids[:10]</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">patientid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_patientids</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Initialise DataManager and all splitters</span>
+<span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">load_indication_data</span><span class="p">(</span>
+    <span class="n">df_events</span><span class="o">=</span><span class="n">df_events</span><span class="p">,</span>
+    <span class="n">df_constant</span><span class="o">=</span><span class="n">df_constant</span><span class="p">,</span>
+    <span class="n">df_constant_description</span><span class="o">=</span><span class="n">df_constant_description</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">process_indication_data</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">setup_unique_mapping_of_events</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">setup_hold_out_sets</span><span class="p">(</span><span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">test_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">infer_var_types</span><span class="p">()</span>
 
-    <span class="c1">#: go through all patients and convert them</span>
-    <span class="n">patient_data</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">convert_full_to_string_for_one_patient</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
+<span class="n">data_splitter_events</span> <span class="o">=</span> <span class="n">DataSplitterEvents</span><span class="p">(</span>
+    <span class="n">dm</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+    <span class="n">max_length_to_sample</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mi">104</span><span class="p">),</span>
+    <span class="n">min_length_to_sample</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">data_splitter_events</span><span class="o">.</span><span class="n">setup_variables</span><span class="p">()</span>
 
-    <span class="c1"># Add check whether it is correct</span>
-    <span class="n">converter</span><span class="o">.</span><span class="n">assess_reverse_conversion</span><span class="p">(</span><span class="n">patient_data</span><span class="p">)</span>
+<span class="n">data_splitter_forecasting</span> <span class="o">=</span> <span class="n">DataSplitterForecasting</span><span class="p">(</span>
+    <span class="n">data_manager</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+    <span class="n">max_forecasted_trajectory_length</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">90</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">setup_statistics</span><span class="p">()</span>
+
+<span class="c1"># Combined interface</span>
+<span class="n">data_splitter</span> <span class="o">=</span> <span class="n">DataSplitter</span><span class="p">(</span><span class="n">data_splitter_events</span><span class="p">,</span> <span class="n">data_splitter_forecasting</span><span class="p">)</span>
+
+<span class="n">converter</span> <span class="o">=</span> <span class="n">ConverterInstruction</span><span class="p">(</span>
+    <span class="n">nr_tokens_budget_total</span><span class="o">=</span><span class="n">MAX_CONTEXT_LENGTH</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+    <span class="n">dm</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
+    <span class="n">variable_stats</span><span class="o">=</span><span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">variable_stats</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Data pipeline ready"</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-5">for idx, patientid in enumerate(all_patientids):
-    print(idx)
+<div class="clipboard-copy-txt" id="cell-5"># Initialise DataManager and all splitters
+dm = DataManager(config=config)
+dm.load_indication_data(
+    df_events=df_events,
+    df_constant=df_constant,
+    df_constant_description=df_constant_description,
+)
+dm.process_indication_data()
+dm.setup_unique_mapping_of_events()
+dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
+dm.infer_var_types()
 
-    #: go through all patients and convert them
-    patient_data = converter.convert_full_to_string_for_one_patient(patientid)
+data_splitter_events = DataSplitterEvents(
+    dm,
+    config=config,
+    max_length_to_sample=pd.Timedelta(weeks=104),
+    min_length_to_sample=pd.Timedelta(weeks=1),
+)
+data_splitter_events.setup_variables()
 
-    # Add check whether it is correct
-    converter.assess_reverse_conversion(patient_data)</div>
+data_splitter_forecasting = DataSplitterForecasting(
+    data_manager=dm,
+    config=config,
+    max_forecasted_trajectory_length=pd.Timedelta(days=90),
+)
+data_splitter_forecasting.setup_statistics()
+
+# Combined interface
+data_splitter = DataSplitter(data_splitter_events, data_splitter_forecasting)
+
+converter = ConverterInstruction(
+    nr_tokens_budget_total=MAX_CONTEXT_LENGTH,
+    config=config,
+    dm=dm,
+    variable_stats=data_splitter_forecasting.variable_stats,
+)
+
+print("✅ Data pipeline ready")</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="3-generate-forecasting-instruction-prompts">3. Generate forecasting instruction prompts<a class="anchor-link" href="#3-generate-forecasting-instruction-prompts">¶</a></h2><p>For each test patient we generate a <strong>forecasting-only</strong> instruction prompt.
+The key parameters are:</p>
+<ul>
+<li><code>forecasting_override_variables_to_predict</code> – which variables to forecast
+(e.g. hemoglobin)</li>
+<li><code>forecasting_future_weeks_per_variable</code> – at which future time points
+(in weeks) to request predictions</li>
+</ul>
+<p>The converter produces a text instruction asking the model to predict the
+specified variable(s) at the given future time points.</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=63988dbd">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3601,11 +4075,877 @@ all_patientids = all_patientids[:10]</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Finished"</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Choose patients to evaluate (here: all test-set patients)</span>
+<span class="n">test_patientids</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_all_patientids_in_split</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">test_split_name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Number of test patients: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_patientids</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Define the prediction task:</span>
+<span class="c1"># Which variables to predict and at which future week offsets</span>
+<span class="n">VARIABLES_TO_PREDICT</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"hemoglobin_-_718-7"</span><span class="p">]</span>
+<span class="n">FUTURE_WEEKS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"hemoglobin_-_718-7"</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>  <span class="c1"># Predict hemoglobin at 4, 8, and 12 weeks</span>
+<span class="p">}</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-6">print("Finished")</div>
+<div class="clipboard-copy-txt" id="cell-6"># Choose patients to evaluate (here: all test-set patients)
+test_patientids = dm.get_all_patientids_in_split(config.test_split_name)
+print(f"Number of test patients: {len(test_patientids)}")
+
+# Define the prediction task:
+# Which variables to predict and at which future week offsets
+VARIABLES_TO_PREDICT = ["hemoglobin_-_718-7"]
+FUTURE_WEEKS = {
+    "hemoglobin_-_718-7": [4, 8, 12],  # Predict hemoglobin at 4, 8, and 12 weeks
+}</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=10">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-7">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Build the list of prompt payloads for the forecasting API</span>
+<span class="c1"># Each payload is a dict with "patientid", "instruction", and "split_date"</span>
+<span class="n">prompts_with_meta</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">test_patientids</span><span class="p">:</span>
+    <span class="n">patient_data</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+
+    <span class="c1"># Use only data up to first lot event (simulates baseline information)</span>
+    <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"date"</span><span class="p">)</span>
+    <span class="n">first_lot_date</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">][</span><span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">][</span><span class="s2">"event_category"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"lot"</span><span class="p">][</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">first_lot_date</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"Patient </span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s2"> has no lot event"</span>
+    <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">]</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">][</span><span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">][</span><span class="s2">"date"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">first_lot_date</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Generate the forecasting-only split for inference</span>
+    <span class="n">forecast_split</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">data_splitter</span><span class="o">.</span><span class="n">get_splits_from_patient_inference</span><span class="p">(</span>
+        <span class="n">patient_data</span><span class="p">,</span>
+        <span class="n">inference_type</span><span class="o">=</span><span class="s2">"forecasting"</span><span class="p">,</span>
+        <span class="n">forecasting_override_variables_to_predict</span><span class="o">=</span><span class="n">VARIABLES_TO_PREDICT</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Convert to instruction text (no target answer)</span>
+    <span class="n">converted</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion_inference</span><span class="p">(</span>
+        <span class="n">forecasting_split</span><span class="o">=</span><span class="n">forecast_split</span><span class="p">,</span>
+        <span class="n">forecasting_future_weeks_per_variable</span><span class="o">=</span><span class="n">FUTURE_WEEKS</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Collect the prompt payload</span>
+    <span class="n">prompts_with_meta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"patientid"</span><span class="p">:</span> <span class="n">pid</span><span class="p">,</span>
+            <span class="s2">"instruction"</span><span class="p">:</span> <span class="n">converted</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">],</span>
+            <span class="s2">"split_date"</span><span class="p">:</span> <span class="n">forecast_split</span><span class="o">.</span><span class="n">split_date_included_in_input</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Generated </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">prompts_with_meta</span><span class="p">)</span><span class="si">}</span><span class="s2"> instruction prompts"</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-7"># Build the list of prompt payloads for the forecasting API
+# Each payload is a dict with "patientid", "instruction", and "split_date"
+prompts_with_meta: list[dict] = []
+
+for pid in test_patientids:
+    patient_data = dm.get_patient_data(pid)
+
+    # Use only data up to first lot event (simulates baseline information)
+    patient_data["events"] = patient_data["events"].sort_values("date")
+    first_lot_date = patient_data["events"][patient_data["events"]["event_category"] == "lot"]["date"].min()
+    assert pd.notna(first_lot_date), f"Patient {pid} has no lot event"
+    patient_data["events"] = patient_data["events"][patient_data["events"]["date"] &lt;= first_lot_date].copy()
+
+    # Generate the forecasting-only split for inference
+    forecast_split, _ = data_splitter.get_splits_from_patient_inference(
+        patient_data,
+        inference_type="forecasting",
+        forecasting_override_variables_to_predict=VARIABLES_TO_PREDICT,
+    )
+
+    # Convert to instruction text (no target answer)
+    converted = converter.forward_conversion_inference(
+        forecasting_split=forecast_split,
+        forecasting_future_weeks_per_variable=FUTURE_WEEKS,
+    )
+
+    # Collect the prompt payload
+    prompts_with_meta.append(
+        {
+            "patientid": pid,
+            "instruction": converted["instruction"],
+            "split_date": forecast_split.split_date_included_in_input,
+        }
+    )
+
+print(f"Generated {len(prompts_with_meta)} instruction prompts")</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=11">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-8">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Let's inspect one instruction to see what the model will receive</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">prompts_with_meta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"=== Patient: </span><span class="si">{</span><span class="n">sample</span><span class="p">[</span><span class="s1">'patientid'</span><span class="p">]</span><span class="si">}</span><span class="s2"> ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Split date: </span><span class="si">{</span><span class="n">sample</span><span class="p">[</span><span class="s1">'split_date'</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">])</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-8"># Let's inspect one instruction to see what the model will receive
+sample = prompts_with_meta[0]
+print(f"=== Patient: {sample['patientid']} ===")
+print(f"Split date: {sample['split_date']}\n")
+print(sample["instruction"])</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=12">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="4-launch-the-vllm-server">4. Launch the vLLM server<a class="anchor-link" href="#4-launch-the-vllm-server">¶</a></h2><p>We launch a vLLM OpenAI-compatible server as a background process.</p>
+<blockquote>
+<p><strong>If you already have a vLLM server running</strong>, skip this cell and just update
+<code>PREDICTION_URL</code> and <code>MODEL_PATH</code> in the configuration section above.</p>
+</blockquote>
+<blockquote>
+<p><strong>Tip:</strong> For production use, launch the server in a separate terminal.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=13">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-9">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Launch vLLM server as a background subprocess</span>
+<span class="c1"># Set to True to skip launching (if you already have a server running)</span>
+<span class="n">SKIP_VLLM_LAUNCH</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="n">vllm_process</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">SKIP_VLLM_LAUNCH</span><span class="p">:</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">env</span><span class="p">[</span><span class="s2">"VLLM_ATTENTION_BACKEND"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"FLASH_ATTN"</span>
+
+    <span class="n">vllm_command</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span>
+        <span class="s2">"-m"</span><span class="p">,</span>
+        <span class="s2">"vllm.entrypoints.openai.api_server"</span><span class="p">,</span>
+        <span class="s2">"--port"</span><span class="p">,</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">VLLM_PORT</span><span class="p">),</span>
+        <span class="s2">"--model"</span><span class="p">,</span>
+        <span class="n">MODEL_PATH</span><span class="p">,</span>
+        <span class="s2">"--tokenizer"</span><span class="p">,</span>
+        <span class="n">TOKENIZER_PATH</span><span class="p">,</span>
+        <span class="s2">"--enable-prefix-caching"</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"🚀 Launching vLLM server:</span><span class="se">\n</span><span class="s2">   </span><span class="si">{</span><span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vllm_command</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">vllm_process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+        <span class="n">vllm_command</span><span class="p">,</span>
+        <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span>
+        <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+        <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Wait for the server to be ready</span>
+    <span class="n">WAIT_SECONDS</span> <span class="o">=</span> <span class="mi">240</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"⏳ Waiting up to </span><span class="si">{</span><span class="n">WAIT_SECONDS</span><span class="si">}</span><span class="s2">s for the server to start..."</span><span class="p">)</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">WAIT_SECONDS</span><span class="p">):</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="sa">f</span><span class="s2">"http://localhost:</span><span class="si">{</span><span class="n">VLLM_PORT</span><span class="si">}</span><span class="s2">/health"</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ vLLM server is ready after </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">s"</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"⚠️  Server did not respond in time. Check GPU memory and logs."</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"    You can read server output with: vllm_process.stdout.read()"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Skipping vLLM launch – using existing server."</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-9"># Launch vLLM server as a background subprocess
+# Set to True to skip launching (if you already have a server running)
+SKIP_VLLM_LAUNCH = False
+
+vllm_process = None
+
+if not SKIP_VLLM_LAUNCH:
+    env = os.environ.copy()
+    env["VLLM_ATTENTION_BACKEND"] = "FLASH_ATTN"
+
+    vllm_command = [
+        sys.executable,
+        "-m",
+        "vllm.entrypoints.openai.api_server",
+        "--port",
+        str(VLLM_PORT),
+        "--model",
+        MODEL_PATH,
+        "--tokenizer",
+        TOKENIZER_PATH,
+        "--enable-prefix-caching",
+    ]
+
+    print(f"🚀 Launching vLLM server:\n   {' '.join(vllm_command)}\n")
+
+    vllm_process = subprocess.Popen(
+        vllm_command,
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+
+    # Wait for the server to be ready
+    WAIT_SECONDS = 240
+    print(f"⏳ Waiting up to {WAIT_SECONDS}s for the server to start...")
+    import urllib.request
+
+    for i in range(WAIT_SECONDS):
+        time.sleep(1)
+        try:
+            urllib.request.urlopen(f"http://localhost:{VLLM_PORT}/health")
+            print(f"✅ vLLM server is ready after {i + 1}s")
+            break
+        except Exception:
+            pass
+    else:
+        print("⚠️  Server did not respond in time. Check GPU memory and logs.")
+        print("    You can read server output with: vllm_process.stdout.read()")
+else:
+    print("Skipping vLLM launch – using existing server.")</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=14">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="5-run-forecasting-inference">5. Run forecasting inference<a class="anchor-link" href="#5-run-forecasting-inference">¶</a></h2><p>This is the core step. <code>run_forecasting_inference_notebook</code> sends each patient's
+instruction to the vLLM server and collects the generated text completions.</p>
+<p>Under the hood it:</p>
+<ol>
+<li>Wraps each instruction in a chat message (with optional system prompt).</li>
+<li>Calls the OpenAI-compatible <code>/v1/chat/completions</code> endpoint.</li>
+<li>Returns the generated text(s) alongside patient metadata.</li>
+</ol>
+<p>When <code>n_samples &gt; 1</code>, multiple independent completions are generated per
+patient, which can later be aggregated into a mean trajectory.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=15">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-10">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Run the forecasting inference</span>
+<span class="c1"># This calls the vLLM server asynchronously for all patients</span>
+<span class="n">raw_results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">run_forecasting_inference_notebook</span><span class="p">(</span>
+    <span class="n">prompts_with_meta</span><span class="p">,</span>
+    <span class="n">prediction_url</span><span class="o">=</span><span class="n">PREDICTION_URL</span><span class="p">,</span>
+    <span class="n">prediction_model</span><span class="o">=</span><span class="n">MODEL_PATH</span><span class="p">,</span>
+    <span class="n">max_concurrent_requests</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">max_new_tokens</span><span class="o">=</span><span class="n">MAX_NEW_TOKENS</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="n">TEMPERATURE</span><span class="p">,</span>
+    <span class="n">top_p</span><span class="o">=</span><span class="n">TOP_P</span><span class="p">,</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="n">N_SAMPLES</span><span class="p">,</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="s2">"EMPTY"</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="o">=</span><span class="mf">600.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Check for failures</span>
+<span class="n">n_success</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">raw_results</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">n_fail</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">raw_results</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ Generated forecasts for </span><span class="si">{</span><span class="n">n_success</span><span class="si">}</span><span class="s2"> patients, </span><span class="si">{</span><span class="n">n_fail</span><span class="si">}</span><span class="s2"> failures"</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-10"># Run the forecasting inference
+# This calls the vLLM server asynchronously for all patients
+raw_results = await run_forecasting_inference_notebook(
+    prompts_with_meta,
+    prediction_url=PREDICTION_URL,
+    prediction_model=MODEL_PATH,
+    max_concurrent_requests=40,
+    max_new_tokens=MAX_NEW_TOKENS,
+    temperature=TEMPERATURE,
+    top_p=TOP_P,
+    n_samples=N_SAMPLES,
+    api_key="EMPTY",
+    timeout=600.0,
+)
+
+# Check for failures
+n_success = sum(1 for r in raw_results if r is not None)
+n_fail = sum(1 for r in raw_results if r is None)
+print(f"✅ Generated forecasts for {n_success} patients, {n_fail} failures")</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=16">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-11">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Let's inspect the raw generated text for one patient</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">raw_results</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"=== Patient: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">'patientid'</span><span class="p">]</span><span class="si">}</span><span class="s2"> ==="</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"generated_texts"</span><span class="p">]):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">--- Sample </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> ---"</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">break</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-11"># Let's inspect the raw generated text for one patient
+for r in raw_results:
+    if r is not None:
+        print(f"=== Patient: {r['patientid']} ===")
+        for i, text in enumerate(r["generated_texts"]):
+            print(f"\n--- Sample {i} ---")
+            print(text)
+        break</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=17">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="6-parse-results-with-reverse-conversion">6. Parse results with reverse conversion<a class="anchor-link" href="#6-parse-results-with-reverse-conversion">¶</a></h2><p><code>parse_forecasting_results</code> takes the raw generated texts and:</p>
+<ol>
+<li>Calls <code>converter.reverse_conversion</code> on each generated text to parse it
+back into a structured DataFrame with dates and predicted values.</li>
+<li>When <code>n_samples &gt; 1</code> and <code>aggregate_samples=True</code>, aggregates multiple
+trajectories using <code>converter.aggregate_multiple_responses</code> (e.g. averaging
+numeric predictions).</li>
+<li>Returns a single long-format DataFrame with all patients' predictions.</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> Reverse conversion is robust to slightly malformed model output
+thanks to <code>inference_override=True</code>, but a fine-tuned model will produce
+much more parseable results than a generic instruction model.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=18">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-12">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">converter</span> <span class="o">=</span> <span class="n">ConverterInstruction</span><span class="p">(</span>
+    <span class="n">nr_tokens_budget_total</span><span class="o">=</span><span class="n">MAX_CONTEXT_LENGTH</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+    <span class="n">dm</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
+    <span class="n">variable_stats</span><span class="o">=</span><span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">variable_stats</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Converter reloaded with latest code"</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-12">converter = ConverterInstruction(
+    nr_tokens_budget_total=MAX_CONTEXT_LENGTH,
+    config=config,
+    dm=dm,
+    variable_stats=data_splitter_forecasting.variable_stats,
+)
+print("✅ Converter reloaded with latest code")</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=19">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-13">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Parse the generated texts into structured DataFrames</span>
+<span class="n">df_results</span> <span class="o">=</span> <span class="n">parse_forecasting_results</span><span class="p">(</span>
+    <span class="n">raw_results</span><span class="p">,</span>
+    <span class="n">converter</span><span class="p">,</span>
+    <span class="n">dm</span><span class="p">,</span>
+    <span class="n">drop_failures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">aggregate_samples</span><span class="o">=</span><span class="p">(</span><span class="n">N_SAMPLES</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">),</span>  <span class="c1"># Only aggregate if we have multiple samples</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="n">df_results</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"⚠️  No predictions could be parsed. This is expected when using a non-fine-tuned model."</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"   Fine-tune a model first (see 03_end_to_end_llm_finetuning.ipynb) for meaningful results."</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Parsed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_results</span><span class="p">)</span><span class="si">}</span><span class="s2"> prediction rows for </span><span class="si">{</span><span class="n">df_results</span><span class="p">[</span><span class="s1">'patientid'</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> patients"</span><span class="p">)</span>
+    <span class="n">df_results</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-13"># Parse the generated texts into structured DataFrames
+df_results = parse_forecasting_results(
+    raw_results,
+    converter,
+    dm,
+    drop_failures=True,
+    aggregate_samples=(N_SAMPLES &gt; 1),  # Only aggregate if we have multiple samples
+)
+
+if df_results.empty:
+    print("⚠️  No predictions could be parsed. This is expected when using a non-fine-tuned model.")
+    print("   Fine-tune a model first (see 03_end_to_end_llm_finetuning.ipynb) for meaningful results.")
+else:
+    print(f"Parsed {len(df_results)} prediction rows for {df_results['patientid'].nunique()} patients")
+    df_results.head(20)</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=20">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="understanding-the-output">Understanding the output<a class="anchor-link" href="#understanding-the-output">¶</a></h3><p>The returned DataFrame has the standard TwinWeaver event format:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>date</code></td>
+<td>Predicted date (computed from split_date + week offset)</td>
+</tr>
+<tr>
+<td><code>event_name</code></td>
+<td>The variable being predicted (e.g. <code>hemoglobin_-_718-7</code>)</td>
+</tr>
+<tr>
+<td><code>event_value</code></td>
+<td>The predicted value</td>
+</tr>
+<tr>
+<td><code>event_category</code></td>
+<td>Category of the event (e.g. <code>lab</code>)</td>
+</tr>
+<tr>
+<td><code>patientid</code></td>
+<td>Patient identifier</td>
+</tr>
+<tr>
+<td><code>task_type</code></td>
+<td>Which task type produced this prediction</td>
+</tr>
+<tr>
+<td><code>sample_idx</code></td>
+<td>Sample index (when <code>aggregate_samples=False</code> and <code>n_samples &gt; 1</code>)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=21">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="7-multi-sample-aggregation-optional">7. Multi-sample aggregation (optional)<a class="anchor-link" href="#7-multi-sample-aggregation-optional">¶</a></h2><p>When using <code>n_samples &gt; 1</code>, each patient gets multiple independent forecast
+trajectories. Aggregation (e.g. averaging numeric predictions) can reduce
+variance and give more robust estimates.</p>
+<p>Below is an example of running with multiple samples and then aggregating.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=22">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-14">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Example: generate 3 samples per patient and aggregate</span>
+<span class="n">N_SAMPLES_AGG</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">raw_results_multi</span> <span class="o">=</span> <span class="k">await</span> <span class="n">run_forecasting_inference_notebook</span><span class="p">(</span>
+    <span class="n">prompts_with_meta</span><span class="p">,</span>
+    <span class="n">prediction_url</span><span class="o">=</span><span class="n">PREDICTION_URL</span><span class="p">,</span>
+    <span class="n">prediction_model</span><span class="o">=</span><span class="n">MODEL_PATH</span><span class="p">,</span>
+    <span class="n">max_concurrent_requests</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">max_new_tokens</span><span class="o">=</span><span class="n">MAX_NEW_TOKENS</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="n">TEMPERATURE</span><span class="p">,</span>
+    <span class="n">top_p</span><span class="o">=</span><span class="n">TOP_P</span><span class="p">,</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="n">N_SAMPLES_AGG</span><span class="p">,</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="s2">"EMPTY"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Parse with aggregation enabled</span>
+<span class="n">df_aggregated</span> <span class="o">=</span> <span class="n">parse_forecasting_results</span><span class="p">(</span>
+    <span class="n">raw_results_multi</span><span class="p">,</span>
+    <span class="n">converter</span><span class="p">,</span>
+    <span class="n">dm</span><span class="p">,</span>
+    <span class="n">drop_failures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">aggregate_samples</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Average numeric values across samples</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="n">df_aggregated</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"⚠️  No predictions could be parsed. This is expected when using a non-fine-tuned model."</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Aggregated results: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_aggregated</span><span class="p">)</span><span class="si">}</span><span class="s2"> rows for </span><span class="si">{</span><span class="n">df_aggregated</span><span class="p">[</span><span class="s1">'patientid'</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> patients"</span><span class="p">)</span>
+    <span class="n">df_aggregated</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-14"># Example: generate 3 samples per patient and aggregate
+N_SAMPLES_AGG = 3
+
+raw_results_multi = await run_forecasting_inference_notebook(
+    prompts_with_meta,
+    prediction_url=PREDICTION_URL,
+    prediction_model=MODEL_PATH,
+    max_concurrent_requests=40,
+    max_new_tokens=MAX_NEW_TOKENS,
+    temperature=TEMPERATURE,
+    top_p=TOP_P,
+    n_samples=N_SAMPLES_AGG,
+    api_key="EMPTY",
+)
+
+# Parse with aggregation enabled
+df_aggregated = parse_forecasting_results(
+    raw_results_multi,
+    converter,
+    dm,
+    drop_failures=True,
+    aggregate_samples=True,  # Average numeric values across samples
+)
+
+if df_aggregated.empty:
+    print("⚠️  No predictions could be parsed. This is expected when using a non-fine-tuned model.")
+else:
+    print(f"Aggregated results: {len(df_aggregated)} rows for {df_aggregated['patientid'].nunique()} patients")
+    df_aggregated.head(20)</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=23">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-15">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># You can also get the individual (non-aggregated) samples for deeper analysis</span>
+<span class="n">df_individual</span> <span class="o">=</span> <span class="n">parse_forecasting_results</span><span class="p">(</span>
+    <span class="n">raw_results_multi</span><span class="p">,</span>
+    <span class="n">converter</span><span class="p">,</span>
+    <span class="n">dm</span><span class="p">,</span>
+    <span class="n">drop_failures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">aggregate_samples</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># Keep individual samples</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="n">df_individual</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"⚠️  No predictions could be parsed. This is expected when using a non-fine-tuned model."</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Individual results: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_individual</span><span class="p">)</span><span class="si">}</span><span class="s2"> rows"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Samples per patient: </span><span class="si">{</span><span class="n">df_individual</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'patientid'</span><span class="p">)[</span><span class="s1">'sample_idx'</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">df_individual</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-15"># You can also get the individual (non-aggregated) samples for deeper analysis
+df_individual = parse_forecasting_results(
+    raw_results_multi,
+    converter,
+    dm,
+    drop_failures=True,
+    aggregate_samples=False,  # Keep individual samples
+)
+
+if df_individual.empty:
+    print("⚠️  No predictions could be parsed. This is expected when using a non-fine-tuned model.")
+else:
+    print(f"Individual results: {len(df_individual)} rows")
+    print(f"Samples per patient: {df_individual.groupby('patientid')['sample_idx'].nunique().describe()}")
+    df_individual.head(20)</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=24">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="8-clean-up">8. Clean up<a class="anchor-link" href="#8-clean-up">¶</a></h2><p>Shut down the vLLM server if we launched it from this notebook.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=25">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-16">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="k">if</span> <span class="n">vllm_process</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Terminating vLLM server..."</span><span class="p">)</span>
+    <span class="n">vllm_process</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+    <span class="n">vllm_process</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Server stopped."</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-16">if vllm_process is not None:
+    print("Terminating vLLM server...")
+    vllm_process.terminate()
+    vllm_process.wait(timeout=10)
+    print("✅ Server stopped.")</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=26">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="summary">Summary<a class="anchor-link" href="#summary">¶</a></h2><p>This notebook demonstrated the full forecasting inference workflow:</p>
+<ol>
+<li><strong>Data preparation</strong> – Load clinical data and generate forecasting instruction prompts</li>
+<li><strong>Model serving</strong> – Launch (or connect to) a vLLM OpenAI-compatible server</li>
+<li><strong>Text generation</strong> – Use <code>run_forecasting_inference_notebook</code> to generate completions</li>
+<li><strong>Reverse conversion</strong> – Use <code>parse_forecasting_results</code> to convert text → structured DataFrame</li>
+<li><strong>Aggregation</strong> – Optionally average multiple samples for more robust predictions</li>
+</ol>
+<h3 id="key-functions">Key functions<a class="anchor-link" href="#key-functions">¶</a></h3><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>run_forecasting_inference()</code></td>
+<td>Generate completions for all patients (sync wrapper)</td>
+</tr>
+<tr>
+<td><code>run_forecasting_inference_notebook()</code></td>
+<td>Same but async – for notebooks</td>
+</tr>
+<tr>
+<td><code>parse_forecasting_results()</code></td>
+<td>Reverse-convert generated text → structured DataFrame</td>
+</tr>
+</tbody>
+</table>
+<h3 id="comparison-with-tte-probability-inference">Comparison with TTE probability inference<a class="anchor-link" href="#comparison-with-tte-probability-inference">¶</a></h3><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>TTE Inference</th>
+<th>Forecasting Inference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Method</strong></td>
+<td>Log-prob scoring of fixed completions</td>
+<td>Free-text generation</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>Probabilities (censored/occurred/not occurred)</td>
+<td>Predicted values at future time points</td>
+</tr>
+<tr>
+<td><strong>API endpoint</strong></td>
+<td><code>/v1/completions</code> (scoring)</td>
+<td><code>/v1/chat/completions</code> (generation)</td>
+</tr>
+<tr>
+<td><strong>Post-processing</strong></td>
+<td>Softmax over log-probs</td>
+<td>Reverse conversion (text → DataFrame)</td>
+</tr>
+<tr>
+<td><strong>Multi-sample</strong></td>
+<td>Not applicable</td>
+<td>Average trajectories via <code>aggregate_multiple_responses</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="next-steps">Next steps<a class="anchor-link" href="#next-steps">¶</a></h3><ul>
+<li><strong>Fine-tune a model</strong> on your dataset using <code>03_end_to_end_llm_finetuning.ipynb</code></li>
+<li><strong>Combine with TTE</strong> by using <code>inference_type="both"</code> in the data splitter</li>
+<li><strong>Evaluate</strong> predictions against ground truth to assess model performance</li>
+<li><strong>Experiment</strong> with different variables, time horizons, and sample counts</li>
+</ul>
 </div>
 </div>
 </div>
@@ -3613,6 +4953,10 @@ all_patientids = all_patientids[:10]</div>
 </div> <!-- jp-Notebook -->
 </div> <!-- jupyter-wrapper -->
 
+        <style>
+        ['pre { line-height: 125%; }\ntd.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }\nspan.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }\ntd.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }\nspan.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }\n.highlight-ipynb .hll { background-color: var(--jp-cell-editor-active-background) }\n.highlight-ipynb { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }\n.highlight-ipynb .c { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment */\n.highlight-ipynb .err { color: var(--jp-mirror-editor-error-color) } /* Error */\n.highlight-ipynb .k { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword */\n.highlight-ipynb .o { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator */\n.highlight-ipynb .p { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation */\n.highlight-ipynb .ch { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Hashbang */\n.highlight-ipynb .cm { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Multiline */\n.highlight-ipynb .cp { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Preproc */\n.highlight-ipynb .cpf { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.PreprocFile */\n.highlight-ipynb .c1 { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Single */\n.highlight-ipynb .cs { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Special */\n.highlight-ipynb .kc { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Constant */\n.highlight-ipynb .kd { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Declaration */\n.highlight-ipynb .kn { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Namespace */\n.highlight-ipynb .kp { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Pseudo */\n.highlight-ipynb .kr { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Reserved */\n.highlight-ipynb .kt { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Type */\n.highlight-ipynb .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */\n.highlight-ipynb .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */\n.highlight-ipynb .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */\n.highlight-ipynb .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */\n.highlight-ipynb .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */\n.highlight-ipynb .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */\n.highlight-ipynb .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */\n.highlight-ipynb .mh { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Hex */\n.highlight-ipynb .mi { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer */\n.highlight-ipynb .mo { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Oct */\n.highlight-ipynb .sa { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Affix */\n.highlight-ipynb .sb { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Backtick */\n.highlight-ipynb .sc { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Char */\n.highlight-ipynb .dl { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Delimiter */\n.highlight-ipynb .sd { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Doc */\n.highlight-ipynb .s2 { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Double */\n.highlight-ipynb .se { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Escape */\n.highlight-ipynb .sh { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Heredoc */\n.highlight-ipynb .si { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Interpol */\n.highlight-ipynb .sx { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Other */\n.highlight-ipynb .sr { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Regex */\n.highlight-ipynb .s1 { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Single */\n.highlight-ipynb .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */\n.highlight-ipynb .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */']
+        </style>
+        
 
 
 

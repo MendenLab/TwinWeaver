@@ -10,9 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://example.com/twinweaver/examples/advanced/pretraining/prepare_pretraining_data/">
+        <link rel="canonical" href="https://example.com/twinweaver/examples/advanced/custom_splitting/training_forecasting_qa/">
       
       
+        <link rel="prev" href="../training_custom_split_events/">
+      
+      
+        <link rel="next" href="../training_forecasting_splitter_only/">
       
       
         
@@ -23,7 +27,7 @@
     
     
       
-        <title>Prepare pretraining data - TwinWeaver</title>
+        <title>Forecasting QA: Question-Answering Style Value Prediction - TwinWeaver</title>
       
     
     
@@ -90,7 +94,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#actual-running" class="md-skip">
+        <a href="#forecasting-qa-question-answering-style-value-prediction" class="md-skip">
           Skip to content
         </a>
       
@@ -124,7 +128,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Prepare pretraining data
+              Forecasting QA: Question-Answering Style Value Prediction
             
           </span>
         </div>
@@ -255,10 +259,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../../" class="md-tabs__link">
           
   
@@ -745,26 +751,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -782,7 +793,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -918,17 +929,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
             
   
   
@@ -997,26 +1011,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
             
   
   
@@ -1034,7 +1053,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1049,8 +1068,10 @@
                 
   
   
+    
   
   
+  
     
     
     
@@ -1061,11 +1082,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_1" checked>
         
           
           <label class="md-nav__link" for="__nav_2_6_1" id="__nav_2_6_1_label" tabindex="0">
@@ -1086,7 +1107,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_6_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1104,7 +1125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../custom_splitting/training_individual_splitters/" class="md-nav__link">
+      <a href="../training_individual_splitters/" class="md-nav__link">
         
   
   
@@ -1132,7 +1153,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../custom_splitting/training_custom_split_events/" class="md-nav__link">
+      <a href="../training_custom_split_events/" class="md-nav__link">
         
   
   
@@ -1157,10 +1178,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../custom_splitting/training_forecasting_qa/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forecasting QA: Question-Answering Style Value Prediction
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1176,6 +1224,170 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selecting-the-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selecting the mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generate-splits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate Splits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mode-1-default-forecasting-numeric-predictions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode 1: Default Forecasting (numeric predictions)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mode-2-forecasting-qa-bin-based-predictions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode 2: Forecasting QA (bin-based predictions)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mode 2: Forecasting QA (bin-based predictions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inspect-the-bin-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect the bin definitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mode-3-both-forecasting-qa-in-one-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode 3: Both (forecasting + QA in one prompt)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mode 3: Both (forecasting + QA in one prompt)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compare-the-task-types-generated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compare the task types generated
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reverse-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reverse Conversion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variable-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variable Statistics
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1188,7 +1400,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../custom_splitting/training_forecasting_splitter_only/" class="md-nav__link">
+      <a href="../training_forecasting_splitter_only/" class="md-nav__link">
         
   
   
@@ -1216,7 +1428,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../custom_splitting/inference_individual_splitters/" class="md-nav__link">
+      <a href="../inference_individual_splitters/" class="md-nav__link">
         
   
   
@@ -1420,7 +1632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="./" class="md-nav__link">
+      <a href="../../pretraining/prepare_pretraining_data/" class="md-nav__link">
         
   
   
@@ -1448,7 +1660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../end_to_end_llm_training_with_pretrain/" class="md-nav__link">
+      <a href="../../pretraining/end_to_end_llm_training_with_pretrain/" class="md-nav__link">
         
   
   
@@ -1554,17 +1766,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="">
             
   
   
@@ -1642,17 +1857,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
         
           
-          <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="">
             
   
   
@@ -2488,6 +2706,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2496,10 +2716,143 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#actual-running" class="md-nav__link">
+  <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ############################ Actual running
+        How it works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selecting-the-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selecting the mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generate-splits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate Splits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mode-1-default-forecasting-numeric-predictions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode 1: Default Forecasting (numeric predictions)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mode-2-forecasting-qa-bin-based-predictions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode 2: Forecasting QA (bin-based predictions)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mode 2: Forecasting QA (bin-based predictions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inspect-the-bin-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect the bin definitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mode-3-both-forecasting-qa-in-one-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode 3: Both (forecasting + QA in one prompt)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mode 3: Both (forecasting + QA in one prompt)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compare-the-task-types-generated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compare the task types generated
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reverse-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reverse Conversion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variable-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variable Statistics
       
     </span>
   </a>
@@ -2525,8 +2878,6 @@
   
   
 
-
-  <h1>Prepare pretraining data</h1>
 
 <script>
 (function (global, factory) {
@@ -3249,8 +3600,52 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </style>
 <!-- End of mermaid configuration --><div class="jupyter-wrapper">
 <div class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a9838a09">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="forecasting-qa-question-answering-style-value-prediction">Forecasting QA: Question-Answering Style Value Prediction<a class="anchor-link" href="#forecasting-qa-question-answering-style-value-prediction">¶</a></h1><p>This notebook demonstrates the <strong>Forecasting QA</strong> task mode in TwinWeaver.</p>
+<p>While the default <code>forward_conversion</code> mode (<code>"forecasting"</code>) asks the model to predict exact future values,
+the <strong>Forecasting QA</strong> mode bins continuous target values into discrete categories (e.g., <code>A</code>, <code>B</code>, <code>C</code>)
+and asks the model to predict the correct bin — turning regression into classification.</p>
+<p>This can be useful when:</p>
+<ul>
+<li>Exact numeric predictions are noisy or unreliable</li>
+<li>You want the model to reason about value ranges instead of point estimates</li>
+<li>You want to combine both forecasting and QA tasks (mode <code>"both"</code>)</li>
+</ul>
+<h3 id="how-it-works">How it works<a class="anchor-link" href="#how-it-works">¶</a></h3><p>The <code>ConverterForecastingQA</code> sub-converter:</p>
+<ol>
+<li>Computes bin edges from the variable statistics (<code>setup_statistics()</code> on the forecasting splitter)</li>
+<li>Maps each target value to a lettered bin (A, B, C, …)</li>
+<li>Generates a prompt listing the bin definitions and asks the model to choose the right bin</li>
+<li>The target answer uses the bin letter instead of the raw numeric value</li>
+</ol>
+<h3 id="selecting-the-mode">Selecting the mode<a class="anchor-link" href="#selecting-the-mode">¶</a></h3><p>The <code>forward_conversion</code> method accepts an <code>override_mode_to_select_forecasting</code> parameter:</p>
+<ul>
+<li><code>"forecasting"</code> (default): numeric value prediction</li>
+<li><code>"forecasting_qa"</code>: bin-based QA prediction</li>
+<li><code>"both"</code>: includes both a forecasting and a forecasting QA task</li>
+<li><code>None</code>: randomly selects one of the above at each call</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="setup">Setup<a class="anchor-link" href="#setup">¶</a></h2><p>Load libraries and example data.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3268,18 +3663,36 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">twinweaver</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataManager</span><span class="p">,</span> <span class="n">ConverterPretrain</span><span class="p">,</span> <span class="n">Config</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">twinweaver</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DataSplitterForecasting</span><span class="p">,</span>
+    <span class="n">DataSplitterEvents</span><span class="p">,</span>
+    <span class="n">DataSplitter</span><span class="p">,</span>
+    <span class="n">DataManager</span><span class="p">,</span>
+    <span class="n">ConverterInstruction</span><span class="p">,</span>
+    <span class="n">Config</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-1">from twinweaver import DataManager, ConverterPretrain, Config
-import pandas as pd</div>
+<div class="clipboard-copy-txt" id="cell-1">import pandas as pd
+import numpy as np
+
+from twinweaver import (
+    DataSplitterForecasting,
+    DataSplitterEvents,
+    DataSplitter,
+    DataManager,
+    ConverterInstruction,
+    Config,
+)</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=10e2f7a4">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3297,196 +3710,35 @@ import pandas as pd</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ConvertToText</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Set basics</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>  <span class="c1"># Override values here to customize pipeline</span>
-
-        <span class="c1"># Manually set from constant</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">constant_columns_to_use</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">"birthyear"</span><span class="p">,</span>
-            <span class="s2">"gender"</span><span class="p">,</span>
-            <span class="s2">"histology"</span><span class="p">,</span>
-            <span class="s2">"smoking_history"</span><span class="p">,</span>
-        <span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">constant_birthdate_column</span> <span class="o">=</span> <span class="s2">"birthyear"</span>
-
-        <span class="c1"># Load data</span>
-        <span class="n">df_events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"./examples/example_data/events.csv"</span><span class="p">)</span>
-        <span class="n">df_constant</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"./examples/example_data/constant.csv"</span><span class="p">)</span>
-        <span class="n">df_constant_description</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"./examples/example_data/constant_description.csv"</span><span class="p">)</span>
-
-        <span class="c1"># Init data managers</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">load_indication_data</span><span class="p">(</span>
-            <span class="n">df_events</span><span class="o">=</span><span class="n">df_events</span><span class="p">,</span> <span class="n">df_constant</span><span class="o">=</span><span class="n">df_constant</span><span class="p">,</span> <span class="n">df_constant_description</span><span class="o">=</span><span class="n">df_constant_description</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">process_indication_data</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">setup_unique_mapping_of_events</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">setup_hold_out_sets</span><span class="p">(</span><span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">test_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-
-        <span class="c1">#: set up converter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">converter</span> <span class="o">=</span> <span class="n">ConverterPretrain</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">dm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="p">)</span>
-
-        <span class="c1"># Due to internal data issue, we skip this one when doing reverse checks</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">reverse_patient_skip_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"electrophoresis m spike"</span><span class="p">]</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">convert_full_to_string_for_one_patient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patientid</span><span class="p">):</span>
-        <span class="n">patient_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
-
-        <span class="c1">#: convert patient data using ConverterPretrain</span>
-        <span class="n">p_converted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion</span><span class="p">(</span><span class="n">patient_data</span><span class="p">[</span><span class="s2">"events"</span><span class="p">],</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">"constant"</span><span class="p">])</span>
-
-        <span class="c1">#: convert extras into JSON using df.to_json</span>
-        <span class="n">internal_meta</span> <span class="o">=</span> <span class="n">p_converted</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">internal_meta</span><span class="p">[</span><span class="s2">"split"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">get_patient_split</span><span class="p">(</span><span class="n">patientid</span><span class="o">=</span><span class="n">patientid</span><span class="p">)</span>
-        <span class="n">p_converted</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">"patientid"</span><span class="p">:</span> <span class="n">patientid</span><span class="p">,</span>
-            <span class="s2">"split"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">get_patient_split</span><span class="p">(</span><span class="n">patientid</span><span class="o">=</span><span class="n">patientid</span><span class="p">),</span>
-            <span class="s2">"constant"</span><span class="p">:</span> <span class="n">p_converted</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">][</span><span class="s2">"processed_constant"</span><span class="p">]</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"split"</span><span class="p">),</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="p">[(</span><span class="n">p_converted</span><span class="p">,</span> <span class="n">internal_meta</span><span class="p">)]</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">assess_reverse_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">all_patient_data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""</span>
-<span class="sd">        Assesses the reverse conversion for a single patient to ensure data integrity.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        all_patient_data : list of tuples</span>
-<span class="sd">            A list of tuples, each containing converted patient data and internal metadata.</span>
-<span class="sd">        """</span>
-
-        <span class="c1"># Split up</span>
-        <span class="n">converted_data</span><span class="p">,</span> <span class="n">internal_meta</span> <span class="o">=</span> <span class="n">all_patient_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">first_event_date</span> <span class="o">=</span> <span class="n">internal_meta</span><span class="p">[</span><span class="s2">"events"</span><span class="p">][</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-
-        <span class="c1"># Log that testing patient</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"Assessing reverse conversion for patient"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">converted_data</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">][</span><span class="s2">"patientid"</span><span class="p">]))</span>
-
-        <span class="c1">#: do reverse conversion using ConverterPretrain</span>
-        <span class="n">p_reverse_converted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="o">.</span><span class="n">reverse_conversion</span><span class="p">(</span>
-            <span class="n">converted_data</span><span class="p">[</span><span class="s2">"text"</span><span class="p">],</span>
-            <span class="n">data_manager</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dm</span><span class="p">,</span>
-            <span class="n">init_date</span><span class="o">=</span><span class="n">first_event_date</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="c1">#: check differences appropriately</span>
-        <span class="n">diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converter</span><span class="o">.</span><span class="n">get_difference_in_event_dataframes</span><span class="p">(</span>
-            <span class="n">internal_meta</span><span class="p">[</span><span class="s2">"events"</span><span class="p">],</span>
-            <span class="n">p_reverse_converted</span><span class="p">[</span><span class="s2">"events"</span><span class="p">],</span>
-            <span class="n">skip_genetic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">skip_vals_list</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reverse_patient_skip_list</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="c1">#: assert that no differences are found, and print patientid if issues are found</span>
-        <span class="k">assert</span> <span class="n">diff</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Patient </span><span class="si">{</span><span class="n">internal_meta</span><span class="p">[</span><span class="s1">'patientid'</span><span class="p">]</span><span class="si">}</span><span class="s2"> has differences in reverse conversion: </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s2">"</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">df_events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../../example_data/events.csv"</span><span class="p">)</span>
+<span class="n">df_constant</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../../example_data/constant.csv"</span><span class="p">)</span>
+<span class="n">df_constant_description</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../../example_data/constant_description.csv"</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-2">class ConvertToText:
-    def __init__(self):
-        # Set basics
-        self.config = Config()  # Override values here to customize pipeline
-
-        # Manually set from constant
-        self.config.constant_columns_to_use = [
-            "birthyear",
-            "gender",
-            "histology",
-            "smoking_history",
-        ]
-        self.config.constant_birthdate_column = "birthyear"
-
-        # Load data
-        df_events = pd.read_csv("./examples/example_data/events.csv")
-        df_constant = pd.read_csv("./examples/example_data/constant.csv")
-        df_constant_description = pd.read_csv("./examples/example_data/constant_description.csv")
-
-        # Init data managers
-        self.dm = DataManager(config=self.config)
-        self.dm.load_indication_data(
-            df_events=df_events, df_constant=df_constant, df_constant_description=df_constant_description
-        )
-        self.dm.process_indication_data()
-        self.dm.setup_unique_mapping_of_events()
-        self.dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
-
-        #: set up converter
-        self.converter = ConverterPretrain(config=self.config, dm=self.dm)
-
-        # Due to internal data issue, we skip this one when doing reverse checks
-        self.reverse_patient_skip_list = ["electrophoresis m spike"]
-
-    def convert_full_to_string_for_one_patient(self, patientid):
-        patient_data = self.dm.get_patient_data(patientid)
-
-        #: convert patient data using ConverterPretrain
-        p_converted = self.converter.forward_conversion(patient_data["events"], patient_data["constant"])
-
-        #: convert extras into JSON using df.to_json
-        internal_meta = p_converted["meta"].copy()
-        internal_meta["split"] = self.dm.get_patient_split(patientid=patientid)
-        p_converted["meta"] = {
-            "patientid": patientid,
-            "split": self.dm.get_patient_split(patientid=patientid),
-            "constant": p_converted["meta"]["processed_constant"].to_json(orient="split"),
-        }
-
-        return [(p_converted, internal_meta)]
-
-    def assess_reverse_conversion(self, all_patient_data) -&gt; None:
-        """
-        Assesses the reverse conversion for a single patient to ensure data integrity.
-
-        Parameters
-        ----------
-        all_patient_data : list of tuples
-            A list of tuples, each containing converted patient data and internal metadata.
-        """
-
-        # Split up
-        converted_data, internal_meta = all_patient_data[0]
-        first_event_date = internal_meta["events"]["date"].min()
-
-        # Log that testing patient
-        print("Assessing reverse conversion for patient" + str(converted_data["meta"]["patientid"]))
-
-        #: do reverse conversion using ConverterPretrain
-        p_reverse_converted = self.converter.reverse_conversion(
-            converted_data["text"],
-            data_manager=self.dm,
-            init_date=first_event_date,
-        )
-
-        #: check differences appropriately
-        diff = self.converter.get_difference_in_event_dataframes(
-            internal_meta["events"],
-            p_reverse_converted["events"],
-            skip_genetic=True,
-            skip_vals_list=self.reverse_patient_skip_list,
-        )
-
-        #: assert that no differences are found, and print patientid if issues are found
-        assert diff.shape[0] == 0, f"Patient {internal_meta['patientid']} has differences in reverse conversion: {diff}"</div>
+<div class="clipboard-copy-txt" id="cell-2">df_events = pd.read_csv("../../example_data/events.csv")
+df_constant = pd.read_csv("../../example_data/constant.csv")
+df_constant_description = pd.read_csv("../../example_data/constant_description.csv")</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=553b5168">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>################################## Actual running #######################################
-NOTE: run this from the root folder of twinweaver</p>
+<h2 id="configuration">Configuration<a class="anchor-link" href="#configuration">¶</a></h2><p>Set up the config, data manager, splitters, and converter.</p>
+<blockquote>
+<p><strong>Important:</strong> <code>variable_stats</code> from <code>DataSplitterForecasting.setup_statistics()</code> must be
+passed to <code>ConverterInstruction</code> for the QA mode to work — it provides the bin edges.</p>
+</blockquote>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=fea39d6e">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3504,16 +3756,34 @@ NOTE: run this from the root folder of twinweaver</p>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">converter</span> <span class="o">=</span> <span class="n">ConvertToText</span><span class="p">()</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+
+<span class="n">config</span><span class="o">.</span><span class="n">split_event_category</span> <span class="o">=</span> <span class="s2">"lot"</span>
+<span class="n">config</span><span class="o">.</span><span class="n">event_category_forecast</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"lab"</span><span class="p">]</span>
+<span class="n">config</span><span class="o">.</span><span class="n">event_category_events_prediction_with_naming</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"death"</span><span class="p">:</span> <span class="s2">"death"</span><span class="p">,</span>
+    <span class="s2">"progression"</span><span class="p">:</span> <span class="s2">"next progression"</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">config</span><span class="o">.</span><span class="n">constant_columns_to_use</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"birthyear"</span><span class="p">,</span> <span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"histology"</span><span class="p">,</span> <span class="s2">"smoking_history"</span><span class="p">]</span>
+<span class="n">config</span><span class="o">.</span><span class="n">constant_birthdate_column</span> <span class="o">=</span> <span class="s2">"birthyear"</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-3">converter = ConvertToText()</div>
+<div class="clipboard-copy-txt" id="cell-3">config = Config()
+
+config.split_event_category = "lot"
+config.event_category_forecast = ["lab"]
+config.event_category_events_prediction_with_naming = {
+    "death": "death",
+    "progression": "next progression",
+}
+config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
+config.constant_birthdate_column = "birthyear"</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=cdcfda1f">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3531,18 +3801,101 @@ NOTE: run this from the root folder of twinweaver</p>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">all_patientids</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">dm</span><span class="o">.</span><span class="n">all_patientids</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">all_patientids</span> <span class="o">=</span> <span class="n">all_patientids</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">load_indication_data</span><span class="p">(</span>
+    <span class="n">df_events</span><span class="o">=</span><span class="n">df_events</span><span class="p">,</span>
+    <span class="n">df_constant</span><span class="o">=</span><span class="n">df_constant</span><span class="p">,</span>
+    <span class="n">df_constant_description</span><span class="o">=</span><span class="n">df_constant_description</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">process_indication_data</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">setup_unique_mapping_of_events</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">setup_hold_out_sets</span><span class="p">(</span><span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">test_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">infer_var_types</span><span class="p">()</span>
+
+<span class="n">data_splitter_events</span> <span class="o">=</span> <span class="n">DataSplitterEvents</span><span class="p">(</span>
+    <span class="n">dm</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+    <span class="n">max_length_to_sample</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mi">104</span><span class="p">),</span>
+    <span class="n">min_length_to_sample</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">data_splitter_events</span><span class="o">.</span><span class="n">setup_variables</span><span class="p">()</span>
+
+<span class="n">data_splitter_forecasting</span> <span class="o">=</span> <span class="n">DataSplitterForecasting</span><span class="p">(</span>
+    <span class="n">data_manager</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+    <span class="n">max_forecasted_trajectory_length</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">90</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="c1"># setup_statistics() computes per-variable quantile bin edges used by the QA mode</span>
+<span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">setup_statistics</span><span class="p">()</span>
+
+<span class="n">data_splitter</span> <span class="o">=</span> <span class="n">DataSplitter</span><span class="p">(</span>
+    <span class="n">data_splitter_events</span><span class="o">=</span><span class="n">data_splitter_events</span><span class="p">,</span>
+    <span class="n">data_splitter_forecasting</span><span class="o">=</span><span class="n">data_splitter_forecasting</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">converter</span> <span class="o">=</span> <span class="n">ConverterInstruction</span><span class="p">(</span>
+    <span class="n">nr_tokens_budget_total</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+    <span class="n">dm</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span>
+    <span class="n">variable_stats</span><span class="o">=</span><span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">variable_stats</span><span class="p">,</span>  <span class="c1"># Required for QA mode</span>
+<span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-4">all_patientids = converter.dm.all_patientids.copy()
-all_patientids = all_patientids[:10]</div>
+<div class="clipboard-copy-txt" id="cell-4">dm = DataManager(config=config)
+dm.load_indication_data(
+    df_events=df_events,
+    df_constant=df_constant,
+    df_constant_description=df_constant_description,
+)
+dm.process_indication_data()
+dm.setup_unique_mapping_of_events()
+dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
+dm.infer_var_types()
+
+data_splitter_events = DataSplitterEvents(
+    dm,
+    config=config,
+    max_length_to_sample=pd.Timedelta(weeks=104),
+    min_length_to_sample=pd.Timedelta(weeks=1),
+)
+data_splitter_events.setup_variables()
+
+data_splitter_forecasting = DataSplitterForecasting(
+    data_manager=dm,
+    config=config,
+    max_forecasted_trajectory_length=pd.Timedelta(days=90),
+)
+# setup_statistics() computes per-variable quantile bin edges used by the QA mode
+data_splitter_forecasting.setup_statistics()
+
+data_splitter = DataSplitter(
+    data_splitter_events=data_splitter_events,
+    data_splitter_forecasting=data_splitter_forecasting,
+)
+
+converter = ConverterInstruction(
+    nr_tokens_budget_total=8192,
+    config=config,
+    dm=dm,
+    variable_stats=data_splitter_forecasting.variable_stats,  # Required for QA mode
+)</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="generate-splits">Generate Splits<a class="anchor-link" href="#generate-splits">¶</a></h2><p>Get training splits for a patient.</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=db51105f">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3560,30 +3913,50 @@ all_patientids = all_patientids[:10]</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">patientid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_patientids</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-    <span class="c1">#: go through all patients and convert them</span>
-    <span class="n">patient_data</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">convert_full_to_string_for_one_patient</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
+<span class="n">patientid</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">all_patientids</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">patient_data</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">get_patient_data</span><span class="p">(</span><span class="n">patientid</span><span class="p">)</span>
 
-    <span class="c1"># Add check whether it is correct</span>
-    <span class="n">converter</span><span class="o">.</span><span class="n">assess_reverse_conversion</span><span class="p">(</span><span class="n">patient_data</span><span class="p">)</span>
+<span class="n">forecasting_splits</span><span class="p">,</span> <span class="n">events_splits</span><span class="p">,</span> <span class="n">reference_dates</span> <span class="o">=</span> <span class="n">data_splitter</span><span class="o">.</span><span class="n">get_splits_from_patient_with_target</span><span class="p">(</span>
+    <span class="n">patient_data</span><span class="p">,</span>
+    <span class="n">forecasting_nr_samples_per_split</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">forecasting_filter_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">max_num_splits_per_split_event</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">events_max_nr_samples_per_split</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-5">for idx, patientid in enumerate(all_patientids):
-    print(idx)
+<div class="clipboard-copy-txt" id="cell-5">np.random.seed(42)
 
-    #: go through all patients and convert them
-    patient_data = converter.convert_full_to_string_for_one_patient(patientid)
+patientid = dm.all_patientids[2]
+patient_data = dm.get_patient_data(patientid)
 
-    # Add check whether it is correct
-    converter.assess_reverse_conversion(patient_data)</div>
+forecasting_splits, events_splits, reference_dates = data_splitter.get_splits_from_patient_with_target(
+    patient_data,
+    forecasting_nr_samples_per_split=4,
+    forecasting_filter_outliers=False,
+    max_num_splits_per_split_event=2,
+    events_max_nr_samples_per_split=3,
+)</div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="mode-1-default-forecasting-numeric-predictions">Mode 1: Default Forecasting (numeric predictions)<a class="anchor-link" href="#mode-1-default-forecasting-numeric-predictions">¶</a></h2><p>By default, <code>forward_conversion</code> uses <code>override_mode_to_select_forecasting="forecasting"</code>,
+which generates tasks that ask the model to predict exact numeric values.</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=63988dbd">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=10">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3601,9 +3974,374 @@ all_patientids = all_patientids[:10]</div>
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Finished"</span><span class="p">)</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">split_idx</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">p_forecasting</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion</span><span class="p">(</span>
+    <span class="n">forecasting_splits</span><span class="o">=</span><span class="n">forecasting_splits</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
+    <span class="n">event_splits</span><span class="o">=</span><span class="n">events_splits</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
+    <span class="c1"># override_mode_to_select_forecasting="forecasting"  # this is the default</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"INSTRUCTION (last 1500 chars):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p_forecasting</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">][</span><span class="o">-</span><span class="mi">1500</span><span class="p">:])</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"ANSWER:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p_forecasting</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">])</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-6">print("Finished")</div>
+<div class="clipboard-copy-txt" id="cell-6">np.random.seed(42)
+split_idx = 0
+
+p_forecasting = converter.forward_conversion(
+    forecasting_splits=forecasting_splits[split_idx],
+    event_splits=events_splits[split_idx],
+    # override_mode_to_select_forecasting="forecasting"  # this is the default
+)
+
+print("=" * 80)
+print("INSTRUCTION (last 1500 chars):")
+print("=" * 80)
+print(p_forecasting["instruction"][-1500:])
+print()
+print("=" * 80)
+print("ANSWER:")
+print("=" * 80)
+print(p_forecasting["answer"])</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=11">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="mode-2-forecasting-qa-bin-based-predictions">Mode 2: Forecasting QA (bin-based predictions)<a class="anchor-link" href="#mode-2-forecasting-qa-bin-based-predictions">¶</a></h2><p>Setting <code>override_mode_to_select_forecasting="forecasting_qa"</code> activates the QA mode.
+The prompt now lists bin definitions (e.g., <code>a = Bin (-inf, 5.2]</code>) and asks the model
+to output the bin letter instead of a raw number.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=12">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-7">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">split_idx</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">p_qa</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion</span><span class="p">(</span>
+    <span class="n">forecasting_splits</span><span class="o">=</span><span class="n">forecasting_splits</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
+    <span class="n">event_splits</span><span class="o">=</span><span class="n">events_splits</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
+    <span class="n">override_mode_to_select_forecasting</span><span class="o">=</span><span class="s2">"forecasting_qa"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"INSTRUCTION (last 2000 chars):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p_qa</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">][</span><span class="o">-</span><span class="mi">2000</span><span class="p">:])</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"ANSWER:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p_qa</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">])</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-7">np.random.seed(42)
+split_idx = 0
+
+p_qa = converter.forward_conversion(
+    forecasting_splits=forecasting_splits[split_idx],
+    event_splits=events_splits[split_idx],
+    override_mode_to_select_forecasting="forecasting_qa",
+)
+
+print("=" * 80)
+print("INSTRUCTION (last 2000 chars):")
+print("=" * 80)
+print(p_qa["instruction"][-2000:])
+print()
+print("=" * 80)
+print("ANSWER:")
+print("=" * 80)
+print(p_qa["answer"])</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=13">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="inspect-the-bin-definitions">Inspect the bin definitions<a class="anchor-link" href="#inspect-the-bin-definitions">¶</a></h3><p>The metadata returned by the conversion includes the bin mapping for each variable.
+These are derived from quantiles computed by <code>setup_statistics()</code>.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=14">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-8">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># The target meta contains the category splits for each variable</span>
+<span class="k">for</span> <span class="n">task_meta</span> <span class="ow">in</span> <span class="n">p_qa</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">][</span><span class="s2">"target_meta_detailed"</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="s2">"category_splits"</span> <span class="ow">in</span> <span class="n">task_meta</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Variable bin definitions:"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">bins</span> <span class="ow">in</span> <span class="n">task_meta</span><span class="p">[</span><span class="s2">"category_splits"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">:"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">letter</span><span class="p">,</span> <span class="n">bin_range</span> <span class="ow">in</span> <span class="n">bins</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    </span><span class="si">{</span><span class="n">letter</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">bin_range</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-8"># The target meta contains the category splits for each variable
+for task_meta in p_qa["meta"]["target_meta_detailed"]:
+    if "category_splits" in task_meta:
+        print("Variable bin definitions:")
+        for var, bins in task_meta["category_splits"].items():
+            print(f"  {var}:")
+            for letter, bin_range in bins.items():
+                print(f"    {letter} = {bin_range}")</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=15">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="mode-3-both-forecasting-qa-in-one-prompt">Mode 3: Both (forecasting + QA in one prompt)<a class="anchor-link" href="#mode-3-both-forecasting-qa-in-one-prompt">¶</a></h2><p>Setting <code>override_mode_to_select_forecasting="both"</code> includes <strong>both</strong> a numeric forecasting
+task and a QA-style bin prediction task in the same multi-task prompt. This encourages the
+model to learn complementary representations.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=16">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-9">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">split_idx</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">p_both</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion</span><span class="p">(</span>
+    <span class="n">forecasting_splits</span><span class="o">=</span><span class="n">forecasting_splits</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
+    <span class="n">event_splits</span><span class="o">=</span><span class="n">events_splits</span><span class="p">[</span><span class="n">split_idx</span><span class="p">],</span>
+    <span class="n">override_mode_to_select_forecasting</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"INSTRUCTION (last 3000 chars):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p_both</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">][</span><span class="o">-</span><span class="mi">3000</span><span class="p">:])</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"ANSWER:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p_both</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">])</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-9">np.random.seed(42)
+split_idx = 0
+
+p_both = converter.forward_conversion(
+    forecasting_splits=forecasting_splits[split_idx],
+    event_splits=events_splits[split_idx],
+    override_mode_to_select_forecasting="both",
+)
+
+print("=" * 80)
+print("INSTRUCTION (last 3000 chars):")
+print("=" * 80)
+print(p_both["instruction"][-3000:])
+print()
+print("=" * 80)
+print("ANSWER:")
+print("=" * 80)
+print(p_both["answer"])</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=17">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="compare-the-task-types-generated">Compare the task types generated<a class="anchor-link" href="#compare-the-task-types-generated">¶</a></h3><p>Let's inspect which task types were included in each mode.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=18">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-10">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"forecasting"</span><span class="p">,</span> <span class="n">p_forecasting</span><span class="p">),</span> <span class="p">(</span><span class="s2">"forecasting_qa"</span><span class="p">,</span> <span class="n">p_qa</span><span class="p">),</span> <span class="p">(</span><span class="s2">"both"</span><span class="p">,</span> <span class="n">p_both</span><span class="p">)]:</span>
+    <span class="n">task_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="p">[</span><span class="s2">"task_type"</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">"meta"</span><span class="p">][</span><span class="s2">"target_meta_detailed"</span><span class="p">]]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mode '</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">': </span><span class="si">{</span><span class="n">task_types</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-10">for label, result in [("forecasting", p_forecasting), ("forecasting_qa", p_qa), ("both", p_both)]:
+    task_types = [m["task_type"] for m in result["meta"]["target_meta_detailed"]]
+    print(f"Mode '{label}': {task_types}")</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=19">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="reverse-conversion">Reverse Conversion<a class="anchor-link" href="#reverse-conversion">¶</a></h2><p>The reverse conversion works for all modes. It parses the model output back into
+structured data, regardless of whether the target was numeric or bin-based.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=20">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-11">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">date</span> <span class="o">=</span> <span class="n">reference_dates</span><span class="p">[</span><span class="s2">"date"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Reverse convert the QA mode output</span>
+<span class="n">return_list</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">reverse_conversion</span><span class="p">(</span><span class="n">p_qa</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">],</span> <span class="n">dm</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
+
+<span class="n">return_list</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s2">"result"</span><span class="p">]</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-11">date = reference_dates["date"][0]
+
+# Reverse convert the QA mode output
+return_list = converter.reverse_conversion(p_qa["answer"], dm, date)
+
+return_list[2]["result"]</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=21">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="variable-statistics">Variable Statistics<a class="anchor-link" href="#variable-statistics">¶</a></h2><p>The bin edges come from the <code>variable_stats</code> DataFrame computed during <code>setup_statistics()</code>.
+You can inspect them directly:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=22">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-12">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">data_splitter_forecasting</span><span class="o">.</span><span class="n">variable_stats</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-12">data_splitter_forecasting.variable_stats</div>
 </div>
 </div>
 </div>
@@ -3613,6 +4351,10 @@ all_patientids = all_patientids[:10]</div>
 </div> <!-- jp-Notebook -->
 </div> <!-- jupyter-wrapper -->
 
+        <style>
+        ['pre { line-height: 125%; }\ntd.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }\nspan.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }\ntd.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }\nspan.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }\n.highlight-ipynb .hll { background-color: var(--jp-cell-editor-active-background) }\n.highlight-ipynb { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }\n.highlight-ipynb .c { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment */\n.highlight-ipynb .err { color: var(--jp-mirror-editor-error-color) } /* Error */\n.highlight-ipynb .k { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword */\n.highlight-ipynb .o { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator */\n.highlight-ipynb .p { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation */\n.highlight-ipynb .ch { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Hashbang */\n.highlight-ipynb .cm { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Multiline */\n.highlight-ipynb .cp { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Preproc */\n.highlight-ipynb .cpf { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.PreprocFile */\n.highlight-ipynb .c1 { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Single */\n.highlight-ipynb .cs { color: var(--jp-mirror-editor-comment-color); font-style: italic } /* Comment.Special */\n.highlight-ipynb .kc { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Constant */\n.highlight-ipynb .kd { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Declaration */\n.highlight-ipynb .kn { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Namespace */\n.highlight-ipynb .kp { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Pseudo */\n.highlight-ipynb .kr { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Reserved */\n.highlight-ipynb .kt { color: var(--jp-mirror-editor-keyword-color); font-weight: bold } /* Keyword.Type */\n.highlight-ipynb .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */\n.highlight-ipynb .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */\n.highlight-ipynb .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */\n.highlight-ipynb .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */\n.highlight-ipynb .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */\n.highlight-ipynb .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */\n.highlight-ipynb .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */\n.highlight-ipynb .mh { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Hex */\n.highlight-ipynb .mi { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer */\n.highlight-ipynb .mo { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Oct */\n.highlight-ipynb .sa { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Affix */\n.highlight-ipynb .sb { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Backtick */\n.highlight-ipynb .sc { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Char */\n.highlight-ipynb .dl { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Delimiter */\n.highlight-ipynb .sd { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Doc */\n.highlight-ipynb .s2 { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Double */\n.highlight-ipynb .se { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Escape */\n.highlight-ipynb .sh { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Heredoc */\n.highlight-ipynb .si { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Interpol */\n.highlight-ipynb .sx { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Other */\n.highlight-ipynb .sr { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Regex */\n.highlight-ipynb .s1 { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Single */\n.highlight-ipynb .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */\n.highlight-ipynb .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */']
+        </style>
+        
 
 
 
