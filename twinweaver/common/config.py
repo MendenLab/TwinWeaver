@@ -65,8 +65,6 @@ class Config:
         Whether to warn if a patient has no split events. Default: True.
     event_category_death : str
         Specific string value used in `event_category_col` to identify 'death' events. Default: "death".
-    event_category_labs : str
-        Specific string value used in `event_category_col` to identify 'lab result' events. Default: "lab".
     event_category_forecast : list[str] | None
         List of event categories to be considered for forecasting tasks. Default: None.
     split_event_category : str | None
