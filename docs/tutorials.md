@@ -95,6 +95,7 @@ A complete notebook demonstrating how to train LLMs on full patient histories wi
 - **Inference**: [`examples/advanced/custom_splitting/inference_individual_splitters.py`](examples/advanced/custom_splitting/inference_individual_splitters.py) — Example script for inference using individual splitters.
 - **Training**: [`examples/advanced/custom_splitting/training_individual_splitters.ipynb`](examples/advanced/custom_splitting/training_individual_splitters.ipynb) — Notebook demonstrating training data generation with individual splitters.
 - **Custom Split Events**: [`examples/advanced/custom_splitting/training_custom_split_events.ipynb`](examples/advanced/custom_splitting/training_custom_split_events.ipynb) — Notebook showing how to customize split events and forecast different event categories (e.g., using genetic events as split points and forecasting vitals).
+- **Forecasting QA**: [`examples/advanced/custom_splitting/training_forecasting_qa.ipynb`](examples/advanced/custom_splitting/training_forecasting_qa.ipynb) — Demonstrates the **Forecasting QA** mode, which bins continuous target values into discrete categories for classification-style prediction. Compares all three forecasting modes (`"forecasting"`, `"forecasting_qa"`, `"both"`).
 
 ### TTE Probability Inference
 

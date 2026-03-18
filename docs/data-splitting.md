@@ -212,7 +212,6 @@ forecasting_splits, events_splits, reference_dates = \
 converter.forward_conversion(
     forecasting_splits=forecasting_splits[0],
     event_splits=None,  # No event splits available
-    override_mode_to_select_forecasting="forecasting",
 )
 ```
 
@@ -229,7 +228,6 @@ forecasting_splits, events_splits, reference_dates = \
 converter.forward_conversion(
     forecasting_splits=None,  # No forecasting splits available
     event_splits=events_splits[0],
-    override_mode_to_select_forecasting="both",
 )
 ```
 
@@ -322,7 +320,6 @@ converter = ConverterInstruction(
 result = converter.forward_conversion(
     forecasting_splits=forecasting_splits[0],
     event_splits=events_splits[0],
-    override_mode_to_select_forecasting="both",
 )
 
 print(result["instruction"][:500])

@@ -245,7 +245,7 @@ class ConverterInstruction(ConverterBase):
         self,
         forecasting_splits: list[DataSplitterForecastingGroup],
         event_splits: list[DataSplitterEventsGroup],
-        override_mode_to_select_forecasting: str = None,
+        override_mode_to_select_forecasting: str = "forecasting",
     ) -> dict:
         """
         Generates a multi-task instruction prompt and target answer from patient data splits.
@@ -268,7 +268,7 @@ class ConverterInstruction(ConverterBase):
             (containing patient history up to a split date and event outcome/censoring info).
         override_mode_to_select_forecasting : str, optional
             If provided, forces the selection mode for forecasting tasks ('forecasting',
-            'forecasting_qa', or 'both'). If None, the mode is chosen randomly. Defaults to None.
+            'forecasting_qa', or 'both'). If None, the mode is chosen randomly. Defaults to "forecasting".
 
         Returns
         -------

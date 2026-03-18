@@ -75,6 +75,7 @@ For users needing custom behavior or specific integrations:
     *   [`examples/advanced/custom_splitting/training_individual_splitters.ipynb`](examples/advanced/custom_splitting/training_individual_splitters.ipynb): Notebook demonstrating training data generation with individual splitters.
     *   [`examples/advanced/custom_splitting/training_custom_split_events.ipynb`](examples/advanced/custom_splitting/training_custom_split_events.ipynb): Notebook showing how to customize split events and forecast different event categories.
     *   [`examples/advanced/custom_splitting/training_forecasting_splitter_only.ipynb`](examples/advanced/custom_splitting/training_forecasting_splitter_only.ipynb): Forecasting-only example showing training data generation using only the `DataSplitterForecasting` (no event splitter).
+    *   [`examples/advanced/custom_splitting/training_forecasting_qa.ipynb`](examples/advanced/custom_splitting/training_forecasting_qa.ipynb): Demonstrates the **Forecasting QA** mode, which bins continuous target values into discrete categories for classification-style prediction, and compares all three forecasting modes (`"forecasting"`, `"forecasting_qa"`, `"both"`).
 *   **Custom Text Generation**: [`examples/advanced/custom_output/customizing_text_generation.ipynb`](examples/advanced/custom_output/customizing_text_generation.ipynb)
     *   A comprehensive tutorial on customizing every textual component of the instruction generation pipeline. Learn how to modify preambles, event formatting, time units, genetic data tags, forecasting prompts, and more to adapt outputs for different LLMs, languages, or institutional requirements.
 *   **Custom Summarized Row**: [`examples/advanced/custom_output/custom_summarized_row.ipynb`](examples/advanced/custom_output/custom_summarized_row.ipynb)
@@ -175,7 +176,6 @@ split_idx = 0
 training_data = converter.forward_conversion(
     forecasting_splits=forecasting_splits[split_idx],
     event_splits=events_splits[split_idx],
-    override_mode_to_select_forecasting="both",
 )
 
 # training_data now contains (Input, Target) pairs ready for LLM fine-tuning

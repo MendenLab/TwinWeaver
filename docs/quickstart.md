@@ -88,7 +88,6 @@ split_idx = 0  # Use first split
 training_data = converter.forward_conversion(
     forecasting_splits=forecasting_splits[split_idx],
     event_splits=events_splits[split_idx],
-    override_mode_to_select_forecasting="both",
 )
 
 # training_data now contains (Input, Target) pairs ready for LLM fine-tuning
