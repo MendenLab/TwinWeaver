@@ -64,6 +64,8 @@ class Config:
     warning_for_splitters_patient_without_splits : bool
         Whether to warn if a patient has no split events. Default: True.
     event_category_death : str
+        Important for censoring in TTE tasks and for identifying death events in general, since in medicine
+        they are common and critical events.
         Specific string value used in `event_category_col` to identify 'death' events. Default: "death".
     event_category_forecast : list[str] | None
         List of event categories to be considered for forecasting tasks. Default: None.
