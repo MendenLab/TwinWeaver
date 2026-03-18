@@ -126,6 +126,7 @@ class DataSplitterForecasting(BaseDataSplitter):
         max_nr_variables_to_sample: int = 3,
         filtering_strategy: str = "3-sigma",
         sampling_strategy: str = "proportional",
+        allow_forecasting_beyond_next_split_date: bool = False,
     ):
         """
         Initializes the DataSplitterForecasting instance.
@@ -174,6 +175,9 @@ class DataSplitterForecasting(BaseDataSplitter):
         sampling_strategy : str
             The strategy for sampling variables ('proportional' or 'uniform').
             Defaults to 'proportional'.
+        allow_forecasting_beyond_next_split_date : bool
+            Flag indicating whether to allow forecasting of events that occur beyond the next split date
+            (e.g., next LoT event). Default: False.
         """
         super().__init__(
             data_manager,
@@ -204,6 +208,7 @@ class DataSplitterForecasting(BaseDataSplitter):
         self.max_nr_variables_to_sample = max_nr_variables_to_sample
         self.filtering_strategy = filtering_strategy
         self.sampling_strategy = sampling_strategy
+        self.allow_forecasting_beyond_next_split_date = allow_forecasting_beyond_next_split_date
 
         self._filtering_methods = {"3-sigma": self._filter_3_sigma}
 
@@ -864,7 +869,7 @@ class DataSplitterForecasting(BaseDataSplitter):
             next_split_events = events[events[self.config.event_category_col] == self.config.split_event_category]
             next_split_events = next_split_events[next_split_events[self.config.date_col] > curr_date]
             next_split_events = next_split_events.sort_values(self.config.date_col)
-            if next_split_events.shape[0] > 0 and not self.config.allow_forecasting_beyond_next_split_date:
+            if next_split_events.shape[0] > 0 and not self.allow_forecasting_beyond_next_split_date:
                 date_of_next_split_event = next_split_events[self.config.date_col].iloc[0]
                 events_after_split = events_after_split[
                     events_after_split[self.config.date_col] < date_of_next_split_event

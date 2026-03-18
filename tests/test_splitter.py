@@ -450,7 +450,6 @@ def test_forecasting_truncates_at_next_split_event_not_just_lot():
     cfg.split_event_category = "custom_split"
     cfg.event_category_lot = "lot"
     cfg.event_category_forecast = ["lab"]
-    cfg.allow_forecasting_beyond_next_split_date = False
 
     base_date = pd.Timestamp("2020-01-01")
 
@@ -583,7 +582,6 @@ def test_forecasting_truncation_allow_beyond_next_split_date():
     cfg.split_event_category = "custom_split"
     cfg.event_category_lot = "lot"
     cfg.event_category_forecast = ["lab"]
-    cfg.allow_forecasting_beyond_next_split_date = True
 
     base_date = pd.Timestamp("2020-01-01")
 
@@ -653,6 +651,7 @@ def test_forecasting_truncation_allow_beyond_next_split_date():
         max_lookback_time_for_value=pd.Timedelta(days=90),
         max_split_length_after_split_event=pd.Timedelta(days=90),
         sampling_strategy="uniform",
+        allow_forecasting_beyond_next_split_date=True,
     )
 
     np.random.seed(42)

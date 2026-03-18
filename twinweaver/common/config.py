@@ -59,9 +59,6 @@ class Config:
         Column name for the name or identifier of the line of therapy (e.g., "First Line"). Default: "lot".
     event_value_lot_start : str
         Specific string value used in `event_value_col` to denote the start of a line of therapy. Default: "LoT Start".
-    allow_forecasting_beyond_next_split_date : bool
-        Flag indicating whether to allow forecasting of events that occur beyond the next split date
-        (e.g., next LoT event). Default: False.
     lot_concatenate_descriptive_and_value : bool
         Flag indicating whether to concatenate the descriptive name and value for line of therapy events.
         Default: False.
@@ -283,9 +280,7 @@ class Config:
         self.split_date_col: str = "split_date"
         self.lot_event_name: str = "lot"
         self.event_value_lot_start: str = "LoT Start"
-        self.allow_forecasting_beyond_next_split_date: bool = (
-            False  # Whether to skip filtering future LoT events, by default False.
-        )
+
         self.lot_concatenate_descriptive_and_value: bool = (
             False  # If true, concatenate descriptive name and value for LoT events, by default False (only event_vale.)
         )
