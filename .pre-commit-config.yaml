@@ -1,4 +1,10 @@
-exclude: ^examples/hackathon
+# Exclude hackathon examples
+exclude: |
+    (?x)^(
+        docs/examples/hackathon/|
+        examples/hackathon/|
+        \^examples/hackathon
+    )
 
 repos:
   # 1. Standard "Cleanup" Hooks

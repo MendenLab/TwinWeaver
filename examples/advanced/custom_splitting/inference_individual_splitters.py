@@ -17,7 +17,7 @@ class ConvertToText:
         self.config = Config()
         self.config.split_event_category = "lot"
         self.config.event_category_forecast = ["lab"]
-        self.config.data_splitter_events_variables_category_mapping = {
+        self.config.event_category_events_prediction_with_naming = {
             "death": "death",
             "progression": "next progression",  # Custom name in prompt: "next progression" instead of "progression"
         }

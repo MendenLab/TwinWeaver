@@ -223,7 +223,7 @@ class Config:
         Default: None.
     constant_birthdate_column_format : str
         Format of the birthdate column, either "date" or "age". Default: "date".
-    data_splitter_events_variables_category_mapping : dict | None
+    event_category_events_prediction_with_naming : dict | None
         Mapping defining which event categories correspond to specific prediction types in DataSplitterEvents.
         Keys are event categories (e.g., 'death', 'progression'), values are descriptive names for the target variable.
         Default: None.
@@ -245,7 +245,7 @@ class Config:
         # different event types as well as how they should be written down (since based on categories),
         # for example, based on GDT: { "death": "death", "progression": "next progression", "lot":
         # "next line of therapy", "metastasis": "next metastasis"}
-        self.data_splitter_events_variables_category_mapping = None
+        self.event_category_events_prediction_with_naming = None
 
         # --- Import data parameters ---
         self.date_cutoff = None  # If set, only use data before this date (format: "YYYY-MM-DD"), censored after

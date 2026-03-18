@@ -13,7 +13,7 @@ def setup_components(mock_config, sample_data):
     df_events, df_constant, df_constant_desc = sample_data
     mock_config.split_event_category = "lot"
     mock_config.event_category_forecast = ["lab"]
-    mock_config.data_splitter_events_variables_category_mapping = {"death": "death", "progression": "next progression"}
+    mock_config.event_category_events_prediction_with_naming = {"death": "death", "progression": "next progression"}
     mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
     mock_config.constant_birthdate_column = "birthyear"
 
@@ -109,7 +109,7 @@ def test_event_categories_to_exclude_from_input(mock_config, sample_data):
     # Configure with drug events excluded
     mock_config.split_event_category = "lot"
     mock_config.event_category_forecast = ["lab"]
-    mock_config.data_splitter_events_variables_category_mapping = {"death": "death", "progression": "next progression"}
+    mock_config.event_category_events_prediction_with_naming = {"death": "death", "progression": "next progression"}
     mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
     mock_config.constant_birthdate_column = "birthyear"
     mock_config.event_categories_to_exclude_from_input = ["drug"]
@@ -174,7 +174,7 @@ def test_event_categories_to_exclude_multiple(mock_config, sample_data):
 
     mock_config.split_event_category = "lot"
     mock_config.event_category_forecast = ["lab"]
-    mock_config.data_splitter_events_variables_category_mapping = {"death": "death", "progression": "next progression"}
+    mock_config.event_category_events_prediction_with_naming = {"death": "death", "progression": "next progression"}
     mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
     mock_config.constant_birthdate_column = "birthyear"
     mock_config.event_categories_to_exclude_from_input = ["drug", "ecog"]

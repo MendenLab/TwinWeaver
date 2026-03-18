@@ -284,7 +284,7 @@ config.event_category_forecast = ["lab"]
 
 # 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')
 # Only needs to be set if you want to do time to event prediction
-config.data_splitter_events_variables_category_mapping = {
+config.event_category_events_prediction_with_naming = {
     "death": "death",
     "progression": "next progression",  # Custom name in prompt
 }
@@ -301,6 +301,6 @@ dm.load_indication_data(
 !!! tip "Configuration Parameters"
     - **`split_event_category`**: The event category used to anchor split points for generating training samples (required for instruction tuning)
     - **`event_category_forecast`**: Which event categories to forecast as time-series values
-    - **`data_splitter_events_variables_category_mapping`**: Maps event names to prediction tasks (e.g., survival, progression)
+    - **`event_category_events_prediction_with_naming`**: Maps event names to prediction tasks (e.g., survival, progression)
 
 See the [Raw Data Preprocessing Tutorial](examples/data_preprocessing/raw_data_preprocessing.ipynb) for transforming raw clinical data into TwinWeaver format, or the [Data Preparation Tutorial](examples/01_data_preparation_for_training.ipynb) for a complete walkthrough of instruction-tuning data generation.

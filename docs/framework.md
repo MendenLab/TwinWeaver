@@ -57,7 +57,7 @@ TwinWeaver supports two primary data formats, each serving a distinct stage in t
 
     - `config.split_event_category`: Event category used to anchor split points (e.g., `"lot"` for line of therapy)
     - `config.event_category_forecast`: List of event categories to forecast (e.g., `["lab"]`)
-    - `config.data_splitter_events_variables_category_mapping`: Mapping of events to prediction tasks (e.g., death, progression)
+    - `config.event_category_events_prediction_with_naming`: Mapping of events to prediction tasks (e.g., death, progression)
 
     See the [Data Splitting](data-splitting.md) page for a detailed explanation, or the [Quick Start](quickstart.md) and [Data Preparation Tutorial](examples/01_data_preparation_for_training.ipynb) for examples.
 

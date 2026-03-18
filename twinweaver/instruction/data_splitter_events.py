@@ -123,12 +123,12 @@ class DataSplitterEvents(BaseDataSplitter):
         self.min_length_to_sample = min_length_to_sample
         self.unit_length_to_sample = unit_length_to_sample
 
-        assert self.config.data_splitter_events_variables_category_mapping is not None, (
-            "data_splitter_events_variables_category_mapping must be set in Config for DataSplitterEvents."
+        assert self.config.event_category_events_prediction_with_naming is not None, (
+            "event_category_events_prediction_with_naming must be set in Config for DataSplitterEvents."
             "For example: { 'death': 'death', 'progression': 'next progression'}"
         )
 
-        self.manual_variables_category_mapping = self.config.data_splitter_events_variables_category_mapping
+        self.manual_variables_category_mapping = self.config.event_category_events_prediction_with_naming
 
     def setup_variables(self):
         """
@@ -149,7 +149,7 @@ class DataSplitterEvents(BaseDataSplitter):
         if len(self.manual_variables_category_mapping) == 0:
             raise ValueError(
                 "No valid event categories found in the data for event prediction splitting. "
-                "Check the data or adjust data_splitter_events_variables_category_mapping in Config."
+                "Check the data or adjust event_category_events_prediction_with_naming in Config."
             )
 
     def _sample_manual_variables(self, events_after_split: pd.DataFrame, override_category: str) -> tuple:

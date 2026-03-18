@@ -161,7 +161,7 @@ data_splitter_events = DataSplitterEvents(
 The event-to-prediction mapping is configured via:
 
 ```python
-config.data_splitter_events_variables_category_mapping = {
+config.event_category_events_prediction_with_naming = {
     "death": "death",                  # event_category → descriptive name in prompt
     "progression": "next progression", # custom prompt label
 }
@@ -261,7 +261,7 @@ A single patient can yield many training examples through several sources of var
 | Multiple split events (e.g., LoTs) | Patient history | One split per LoT by default |
 | Multiple dates per split event | `max_num_splits_per_split_event` | Random dates within the LoT window |
 | Different variable subsets | `min/max_nr_variables_to_sample` | Different forecasting questions per date |
-| Different event categories | `data_splitter_events_variables_category_mapping` | Death vs. progression predictions |
+| Different event categories | `event_category_events_prediction_with_naming` | Death vs. progression predictions |
 | Different prediction windows | `min/max_length_to_sample` | 1-week to 104-week horizons |
 
 This diversity encourages the model to generalize across time points, variables, and prediction tasks.
@@ -282,7 +282,7 @@ from twinweaver import (
 config = Config()
 config.split_event_category = "lot"
 config.event_category_forecast = ["lab"]
-config.data_splitter_events_variables_category_mapping = {
+config.event_category_events_prediction_with_naming = {
     "death": "death",
     "progression": "next progression",
 }

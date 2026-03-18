@@ -33,7 +33,7 @@ config.event_category_forecast = ["lab"]
 
 # 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')
 # Only needs to be set if you want to do time to event prediction
-config.data_splitter_events_variables_category_mapping = {
+config.event_category_events_prediction_with_naming = {
     "death": "death",
     "progression": "next progression",  # Custom name in prompt
 }
