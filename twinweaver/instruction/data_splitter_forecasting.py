@@ -211,6 +211,14 @@ class DataSplitterForecasting(BaseDataSplitter):
 
         self._filtering_methods = {"3-sigma": self._filter_3_sigma}
 
+        # Check that the forecasting and split event categories do not overlap, as this could cause data leakage
+        if self.config.event_category_forecast is not None and self.config.split_event_category is not None:
+            overlap = set(self.config.event_category_forecast).intersection(set(self.config.split_event_category))
+            if overlap:
+                raise ValueError(
+                    f"Forecasting and split event categories overlap: {overlap}. This could cause data leakage."
+                )
+
     def setup_statistics(self, train_patientids: list = None):
         """
         Calculates baseline performance statistics for variables.
