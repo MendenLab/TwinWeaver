@@ -9,6 +9,8 @@ def mock_config():
     cfg = Config()
     # Ensure the random seed is fixed for reproducible tests
     cfg.seed = 42
+    # Set constant_columns_to_use to match the test data
+    cfg.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
     return cfg
 
 

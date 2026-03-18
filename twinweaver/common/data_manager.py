@@ -232,6 +232,19 @@ class DataManager:
             self.config.event_category_col
         ].astype(str)
 
+        # Check that every column selected in config for constant is also in constant descriptive df
+        constant_desc_variables = set(self.data_frames["constant_description"]["variable"].unique())
+        missing_in_description = [
+            col for col in self.config.constant_columns_to_use if col not in constant_desc_variables
+        ]
+        if missing_in_description:
+            raise ValueError(
+                f"The following columns are listed in config.constant_columns_to_use but are not "
+                f"present in the constant_description 'variable' column: {missing_in_description}. "
+                f"Please add them to the constant_description dataframe or remove them from "
+                f"config.constant_columns_to_use."
+            )
+
         logging.info("Data processed")
 
     def setup_unique_mapping_of_events(self) -> None:
