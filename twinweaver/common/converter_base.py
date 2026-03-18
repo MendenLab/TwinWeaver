@@ -193,8 +193,8 @@ class ConverterBase:
                         if not self.config.constant_birthdate_columns_silence_print:
                             print(
                                 f"Converted integer ages in {self.config.constant_birthdate_column} to age format."
-                                "To silence this print statement set constant_birthdate_columns_silence_print to True"
-                                "in the config."
+                                " To silence this print statement set constant_birthdate_columns_silence_print to True"
+                                " in the config."
                             )
 
                     # Try converting the column to datetime if it is not already, if doesn't work then just keep it

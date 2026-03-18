@@ -290,6 +290,8 @@ class ConverterInstruction(ConverterBase):
         # If events is None, set to empty list for easier processing
         if event_splits is None:
             event_splits = []
+        if forecasting_splits is None:
+            forecasting_splits = []
 
         #: make assertions that data has same split and lot date
         all_lot_dates_events = [x.lot_date for x in event_splits]
