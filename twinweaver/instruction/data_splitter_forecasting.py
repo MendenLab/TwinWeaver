@@ -15,9 +15,9 @@ class DataSplitterForecastingOption:
 
     Attributes
     ----------
-    events_until_split : list
+    events_until_split : pd.DataFrame
         Events occurring until the split point.
-    target_events_after_split : list
+    target_events_after_split : pd.DataFrame
         Target events occurring after the split point.
     constant_data : dict
         Constant data related to the patient or context.
