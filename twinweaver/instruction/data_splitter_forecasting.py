@@ -864,7 +864,7 @@ class DataSplitterForecasting(BaseDataSplitter):
             lots = events[events[self.config.event_category_col] == self.config.event_category_lot]
             lots = lots[lots[self.config.date_col] > curr_date]
             lots = lots.sort_values(self.config.date_col)
-            if lots.shape[0] > 0 and not self.config.skip_future_lot_filtering:
+            if lots.shape[0] > 0 and not self.config.allow_forecasting_beyond_next_split_date:
                 date_of_next_lot = lots[self.config.date_col].iloc[0]
                 events_after_split = events_after_split[events_after_split[self.config.date_col] < date_of_next_lot]
 
