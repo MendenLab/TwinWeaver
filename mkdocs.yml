@@ -140,6 +140,7 @@ nav:
           - Custom Summarized Row: examples/advanced/custom_output/custom_summarized_row.ipynb
           - Pretraining: examples/advanced/pretraining/prepare_pretraining_data.md
           - TTE Probability Inference: examples/advanced/tte_inference/tte_probability_inference.ipynb
+          - Forecasting Inference: examples/advanced/forecasting_inference/forecasting_vllm_inference.ipynb
       - Integrations:
           - MEDS Import: examples/integrations/meds_data_import.ipynb
   - API Reference:
@@ -160,3 +161,4 @@ nav:
           - MEDS Importer: reference/utils/meds_importer.md
           - Preprocessing Helpers: reference/utils/preprocessing_helpers.md
           - TTE Inference: reference/utils/tte_inference.md
+          - Forecasting Inference: reference/utils/forecasting_inference.md
