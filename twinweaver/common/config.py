@@ -54,14 +54,7 @@ class Config:
     source_col_default_value : str
         Default value to assign to `source_col` if it is missing. Default: "events".
     split_date_col : str
-        Column name specifically used for dates related to line of therapy (LoT) events. Default: "lot_date".
-    lot_event_name : str
-        Column name for the name or identifier of the line of therapy (e.g., "First Line"). Default: "lot".
-    event_value_lot_start : str
-        Specific string value used in `event_value_col` to denote the start of a line of therapy. Default: "LoT Start".
-    skip_future_lot_filtering : bool
-        Flag indicating whether to skip filtering out future line of therapy events. Default: False.
-        Useful in case you accidentially overlap LoTs which are actually the same, use with caution.
+        Column name used for dates related to data splitting events (e.g., line of therapy). Default: "split_date".
     lot_concatenate_descriptive_and_value : bool
         Flag indicating whether to concatenate the descriptive name and value for line of therapy events.
         Default: False.
@@ -70,16 +63,16 @@ class Config:
         `lot_concatenate_descriptive_and_value` is True. Default: " - ".
     warning_for_splitters_patient_without_splits : bool
         Whether to warn if a patient has no split events. Default: True.
-    event_category_lot : str
-        Specific string value used in `event_category_col` to identify 'line of therapy' events. Default: "lot".
     event_category_death : str
+        Important for censoring in TTE tasks and for identifying death events in general, since in medicine
+        they are common and critical events.
         Specific string value used in `event_category_col` to identify 'death' events. Default: "death".
-    event_category_labs : str
-        Specific string value used in `event_category_col` to identify 'lab result' events. Default: "lab".
     event_category_forecast : list[str] | None
         List of event categories to be considered for forecasting tasks. Default: None.
     split_event_category : str | None
         Event category used for data splitting (e.g., LoT). Default: None.
+    event_categories_to_exclude_from_input : list[str]
+        List of event categories to exclude from the input data (e.g., ["lot"]). Default: [].
     source_genetic : str
         Specific string value used in `source_col` to identify data originating from genetic testing.
         Default: "genetic".
@@ -115,7 +108,7 @@ class Config:
         Text inserted before the description of events for visits subsequent to the first one. Default: "\\n".
     event_day_text : str
         Template text used to introduce events on subsequent visit days, indicating the time elapsed since the previous
-        visit. Default: " self.delta_time_unit : later, the patient visited and experienced the following: \\n".
+        visit. Default: " weeks later, the patient visited and experienced the following: \\n".
     post_event_text : str
         Text appended after listing all events for a specific visit day. Default: ".\\n".
     forecasting_fval_prompt_start : str
@@ -232,7 +225,9 @@ class Config:
         Default: None.
     constant_birthdate_column_format : str
         Format of the birthdate column, either "date" or "age". Default: "date".
-    data_splitter_events_variables_category_mapping : dict | None
+    constant_birthdate_columns_silence_print : bool
+        Whether to silence print statements related to birthdate column processing. Default: False.
+    event_category_events_prediction_with_naming : dict | None
         Mapping defining which event categories correspond to specific prediction types in DataSplitterEvents.
         Keys are event categories (e.g., 'death', 'progression'), values are descriptive names for the target variable.
         Default: None.
@@ -254,7 +249,7 @@ class Config:
         # different event types as well as how they should be written down (since based on categories),
         # for example, based on GDT: { "death": "death", "progression": "next progression", "lot":
         # "next line of therapy", "metastasis": "next metastasis"}
-        self.data_splitter_events_variables_category_mapping = None
+        self.event_category_events_prediction_with_naming = None
 
         # --- Import data parameters ---
         self.date_cutoff = None  # If set, only use data before this date (format: "YYYY-MM-DD"), censored after
@@ -281,9 +276,7 @@ class Config:
         self.event_meta_default_value = pd.NA  # Default value for event meta data if not present
         self.source_col_default_value: str = "events"  # Default value for source column if not present
         self.split_date_col: str = "split_date"
-        self.lot_event_name: str = "lot"
-        self.event_value_lot_start: str = "LoT Start"
-        self.skip_future_lot_filtering: bool = False  # Whether to skip filtering future LoT events, by default False.
+
         self.lot_concatenate_descriptive_and_value: bool = (
             False  # If true, concatenate descriptive name and value for LoT events, by default False (only event_vale.)
         )
@@ -296,10 +289,11 @@ class Config:
             True  # Whether to warn if a patient has no LoT events in DataSplitterEvents
         )
 
+        # List of event categories to exclude from the input data (e.g., ["lot"])
+        self.event_categories_to_exclude_from_input: list = []
+
         # --- Specific Event Categories / Values / Sources ---
-        self.event_category_lot: str = "lot"
         self.event_category_death: str = "death"
-        self.event_category_labs: str = "lab"
 
         self.source_genetic: str = "genetic"
         self.genetic_skip_text_value: str = "present"
@@ -435,6 +429,7 @@ class Config:
         ]  # Which columns to use from the constant data
         self.constant_birthdate_column: str = None  # If set, use this column for age calculation
         self.constant_birthdate_column_format: str = "date"  # Either "date" or "age"
+        self.constant_birthdate_columns_silence_print: bool = False  # To silence print statements related to birthdate
 
         # Used to backup event categories for event types if no variables are found
         # e.g. progression -> death
@@ -467,11 +462,11 @@ class Config:
 
     @seed.setter
     def seed(self, value: int):
-        """Set the seed value and update all random seeds (numpy, pandas, random)."""
+        """Set the seed value and update all random seeds (numpy and random)."""
         self._seed = value
         self._set_all_seeds(value)
 
     def _set_all_seeds(self, seed: int):
-        """Set seeds for numpy, pandas, and random modules."""
+        """Set seeds for numpy and random modules."""
         np.random.seed(seed)
         random.seed(seed)

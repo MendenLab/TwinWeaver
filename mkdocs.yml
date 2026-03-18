@@ -4,7 +4,7 @@ site_url: https://example.com/twinweaver/
 
 # 1. Source Code Link (Adds a nice GitHub icon to the header)
 repo_name: TwinWeaver
-repo_url: https://github.com/your-org/twinweaver # Replace with actual
+repo_url: https://github.com/MendenLab/TwinWeaver
 edit_uri: edit/main/docs/
 
 extra_css:
@@ -13,10 +13,10 @@ extra_css:
 theme:
   name: material
   custom_dir: docs/overrides
-  # 2. Custom Logo/Favicon (Use an emoji if you don't have an SVG yet)
+  # 2. Custom Logo/Favicon
   icon:
     logo: material/dna
-    favicon: material/dna
+  favicon: images/favicon.png
 
   features:
     - navigation.tabs           # Top-level tabs
@@ -54,7 +54,7 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/your-org/twinweaver
+      link: https://github.com/MendenLab/TwinWeaver
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/twinweaver/
   analytics:
@@ -131,17 +131,29 @@ nav:
       - Data Preparation: examples/01_data_preparation_for_training.ipynb
       - Inference Prompt Prep: examples/02_inference_prompt_preparation.ipynb
       - End-to-End Finetuning: examples/03_end_to_end_llm_finetuning.ipynb
+      - Data Preprocessing:
+          - Raw Data Preprocessing: examples/data_preprocessing/raw_data_preprocessing.ipynb
       - Advanced:
-          - Custom Splitting (Training): examples/advanced/custom_splitting/training_individual_splitters.ipynb
-          - Custom Split Events: examples/advanced/custom_splitting/training_custom_split_events.ipynb
-          - Forecasting-Only Splitter: examples/advanced/custom_splitting/training_forecasting_splitter_only.ipynb
-          - Custom Splitting (Inference): examples/advanced/custom_splitting/inference_individual_splitters.md
-          - Custom Text Generation: examples/advanced/custom_output/customizing_text_generation.ipynb
-          - Custom Summarized Row: examples/advanced/custom_output/custom_summarized_row.ipynb
-          - Pretraining: examples/advanced/pretraining/prepare_pretraining_data.md
+          - Custom Splitting:
+              - Training (Individual Splitters): examples/advanced/custom_splitting/training_individual_splitters.ipynb
+              - Training (Custom Split Events): examples/advanced/custom_splitting/training_custom_split_events.ipynb
+              - Training (Forecasting QA): examples/advanced/custom_splitting/training_forecasting_qa.ipynb
+              - Training (Forecasting-Only Splitter): examples/advanced/custom_splitting/training_forecasting_splitter_only.ipynb
+              - Inference (Individual Splitters): examples/advanced/custom_splitting/inference_individual_splitters.md
+          - Custom Output:
+              - Custom Text Generation: examples/advanced/custom_output/customizing_text_generation.ipynb
+              - Custom Summarized Row: examples/advanced/custom_output/custom_summarized_row.ipynb
+          - Pretraining:
+              - Prepare Pretraining Data: examples/advanced/pretraining/prepare_pretraining_data.md
+              - End-to-End Training with Pretrain: examples/advanced/pretraining/end_to_end_llm_training_with_pretrain.ipynb
           - TTE Probability Inference: examples/advanced/tte_inference/tte_probability_inference.ipynb
+          - Forecasting Inference: examples/advanced/forecasting_inference/forecasting_vllm_inference.ipynb
       - Integrations:
           - MEDS Import: examples/integrations/meds_data_import.ipynb
+      - Hackathon:
+          - Overview: examples/hackathon/README.md
+          - Data Preparation Challenge: examples/hackathon/01_data_preparation_challenge.ipynb
+          - LLM Finetuning Challenge: examples/hackathon/02_llm_finetuning_challenge.ipynb
   - API Reference:
       - Common:
           - Config: reference/common/config.md
@@ -160,3 +172,4 @@ nav:
           - MEDS Importer: reference/utils/meds_importer.md
           - Preprocessing Helpers: reference/utils/preprocessing_helpers.md
           - TTE Inference: reference/utils/tte_inference.md
+          - Forecasting Inference: reference/utils/forecasting_inference.md

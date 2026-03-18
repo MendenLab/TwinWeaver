@@ -56,7 +56,7 @@ Handles data loading and management.
 | [`DataManager.load_indication_data`](reference/common/data_manager.md#twinweaver.common.data_manager.DataManager.load_indication_data) | Method | Load data tables for a specific indication |
 | [`DataManager.process_indication_data`](reference/common/data_manager.md#twinweaver.common.data_manager.DataManager.process_indication_data) | Method | Process loaded indication data |
 | [`DataManager.setup_unique_mapping_of_events`](reference/common/data_manager.md#twinweaver.common.data_manager.DataManager.setup_unique_mapping_of_events) | Method | Create unique mapping for all events |
-| [`DataManager.setup_dataset_splits`](reference/common/data_manager.md#twinweaver.common.data_manager.DataManager.setup_dataset_splits) | Method | Split data into train/val/test sets |
+| [`DataManager.setup_hold_out_sets(validation_split=0.1, test_split=0.1)`](reference/common/data_manager.md#twinweaver.common.data_manager.DataManager.setup_hold_out_sets(validation_split=0.1, test_split=0.1)) | Method | Split data into train/val/test sets |
 | [`DataManager.get_all_patientids_in_split`](reference/common/data_manager.md#twinweaver.common.data_manager.DataManager.get_all_patientids_in_split) | Method | Get all patient IDs in a specific split |
 | [`DataManager.get_patient_split`](reference/common/data_manager.md#twinweaver.common.data_manager.DataManager.get_patient_split) | Method | Get the split assignment for a patient |
 | [`DataManager.get_patient_data`](reference/common/data_manager.md#twinweaver.common.data_manager.DataManager.get_patient_data) | Method | Retrieve all data for a specific patient |

@@ -645,4 +645,14 @@ def compute_length_normalized_probabilities(
     df["probability_no_occurrence"] = df[f"softmax_{LABEL_NOT_OCCURRED}"]
     df["probability_censored"] = df[f"softmax_{LABEL_CENSORED}"]
 
+    # 5. Add in renormalized probabilities that exclude the censored class
+    # (for some analyses it may be useful to look at the relative probabilities of occurrence vs no occurrence,
+    # ignoring censoring).
+    df["probability_occurrence_renormalized"] = df["probability_occurrence"] / (
+        df["probability_occurrence"] + df["probability_no_occurrence"]
+    )
+    df["probability_no_occurrence_renormalized"] = df["probability_no_occurrence"] / (
+        df["probability_occurrence"] + df["probability_no_occurrence"]
+    )
+
     return df

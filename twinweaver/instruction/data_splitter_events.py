@@ -88,12 +88,10 @@ class DataSplitterEvents(BaseDataSplitter):
         self,
         data_manager: DataManager,
         config: Config,
-        max_length_to_sample: pd.Timedelta = pd.Timedelta(weeks=104),
-        min_length_to_sample: pd.Timedelta = pd.Timedelta(weeks=1),
+        max_length_to_sample: pd.Timedelta,
+        min_length_to_sample: pd.Timedelta,
         unit_length_to_sample: str = "weeks",
-        max_split_length_after_split_event: pd.Timedelta = pd.Timedelta(days=90),
-        max_lookback_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
-        max_forecast_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
+        max_split_length_after_split_event: pd.Timedelta = pd.Timedelta(days=0),
     ):
         """
         Initialize the DataSplitterEvents class.
@@ -105,35 +103,32 @@ class DataSplitterEvents(BaseDataSplitter):
         config : Config
             Configuration object holding constants.
         max_length_to_sample : pd.Timedelta
-            The maximum number of weeks into the future to sample for event prediction.
+            The maximum length of time into the future to sample for event prediction.
+            Required, no default.
         min_length_to_sample : pd.Timedelta
-            The minimum number of weeks into the future to sample for event prediction.
+            The minimum length of time into the future to sample for event prediction.
+            Required, no default.
         unit_length_to_sample : str
             The unit of time for the length to sample (e.g. "weeks").
         max_split_length_after_split_event : pd.Timedelta, optional
             The maximum number of days after the split event (e.g. line of therapy) to consider for split points.
-        max_lookback_time_for_value : pd.Timedelta, optional
-            The maximum number of days to look back for a value (inherited but not directly used here).
-        max_forecast_time_for_value : pd.Timedelta, optional
-            The maximum number of days to forecast a value (inherited but not directly used here).
+            Defaults to 0 days.
         """
         super().__init__(
             data_manager,
             config,
             max_split_length_after_split_event,
-            max_lookback_time_for_value,
-            max_forecast_time_for_value,
         )
         self.max_length_to_sample = max_length_to_sample
         self.min_length_to_sample = min_length_to_sample
         self.unit_length_to_sample = unit_length_to_sample
 
-        assert self.config.data_splitter_events_variables_category_mapping is not None, (
-            "data_splitter_events_variables_category_mapping must be set in Config for DataSplitterEvents."
+        assert self.config.event_category_events_prediction_with_naming is not None, (
+            "event_category_events_prediction_with_naming must be set in Config for DataSplitterEvents."
             "For example: { 'death': 'death', 'progression': 'next progression'}"
         )
 
-        self.manual_variables_category_mapping = self.config.data_splitter_events_variables_category_mapping
+        self.manual_variables_category_mapping = self.config.event_category_events_prediction_with_naming
 
     def setup_variables(self):
         """
@@ -154,7 +149,7 @@ class DataSplitterEvents(BaseDataSplitter):
         if len(self.manual_variables_category_mapping) == 0:
             raise ValueError(
                 "No valid event categories found in the data for event prediction splitting. "
-                "Check the data or adjust data_splitter_events_variables_category_mapping in Config."
+                "Check the data or adjust event_category_events_prediction_with_naming in Config."
             )
 
     def _sample_manual_variables(self, events_after_split: pd.DataFrame, override_category: str) -> tuple:
@@ -330,8 +325,8 @@ class DataSplitterEvents(BaseDataSplitter):
 
         # Do some quick sanity checks
         if self.config.warning_for_splitters_patient_without_splits:
-            lot_events = events[events[self.config.event_category_col] == self.config.event_category_lot]
-            if lot_events.shape[0] == 0:
+            split_events = events[events[self.config.event_category_col] == self.config.split_event_category]
+            if split_events.shape[0] == 0:
                 logging.warning(
                     "Patient "
                     + str(patient_data["constant"][self.config.patient_id_col].iloc[0])
@@ -427,15 +422,18 @@ class DataSplitterEvents(BaseDataSplitter):
                 diagnosis_after_split = events_limited_after_split[
                     events_limited_after_split[self.config.event_category_col] == sampled_cateogry
                 ]
-                lot_after_split = events_limited_after_split[
-                    events_limited_after_split[self.config.event_category_col] == self.config.event_category_lot
+                next_split_date_after_split = events_limited_after_split[
+                    events_limited_after_split[self.config.event_category_col] == self.config.split_event_category
                 ]
                 death_after_split = events_limited_after_split[
                     events_limited_after_split[self.config.event_name_col] == self.config.event_category_death
                 ]
 
-                #: apply censoring using next_lot_date
-                next_lot_date = lot_after_split[self.config.date_col].min() if len(lot_after_split) > 0 else None
+                #: apply censoring using next_split_date
+                if len(next_split_date_after_split) > 0:
+                    next_split_date = next_split_date_after_split[self.config.date_col].min()
+                else:
+                    next_split_date = None
                 next_death_date = death_after_split[self.config.date_col].min() if len(death_after_split) > 0 else None
 
                 #: determine whether occurred, censored & if so, which date
@@ -447,18 +445,21 @@ class DataSplitterEvents(BaseDataSplitter):
                     # Event occurred within end date
                     occurred = True
 
-                    # If an lot occurred first though, then we're censored
-                    if next_lot_date is not None and diagnosis_after_split[self.config.date_col].min() > next_lot_date:
-                        censored = "new_therapy_start"
+                    # If a split occurred first though, then we're censored
+                    if (
+                        next_split_date is not None
+                        and diagnosis_after_split[self.config.date_col].min() > next_split_date
+                    ):
+                        censored = "new_split_date_start"
                         occurred = False
 
                 else:
                     # Event did not occur
                     occurred = False
 
-                    if next_lot_date is not None:
-                        # If we were censored by the next lot date
-                        censored = "new_therapy_start"
+                    if next_split_date is not None:
+                        # If we were censored by the next split date
+                        censored = "new_split_date_start"
 
                     elif next_death_date is not None:
                         # If death occurred then not censored, since this is the only time we

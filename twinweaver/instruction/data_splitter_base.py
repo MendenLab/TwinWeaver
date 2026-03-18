@@ -15,8 +15,6 @@ class BaseDataSplitter:
         data_manager: DataManager,
         config: Config,
         max_split_length_after_split_event: pd.Timedelta = pd.Timedelta(days=90),
-        max_lookback_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
-        max_forecast_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
     ):
         """
         Constructor for the BaseDataSplitter class.
@@ -30,12 +28,6 @@ class BaseDataSplitter:
         max_split_length_after_split_event: pd.Timedelta
             the maximum number of days after a LoT event that we want to consider as
             a starting point.
-        max_lookback_time_for_value: pd.Timedelta
-            the maximum number of days before a certain split date where we need to see
-            the value of the target variable.
-        max_forecast_time_for_value : pd.Timedelta
-            the maximum number of days after a certain split date where we need to see
-            the value of the target variable when filtering.
         """
 
         assert config.split_event_category is not None, "config.split_event_category must be set (e.g. ['lab'])."
@@ -43,8 +35,6 @@ class BaseDataSplitter:
         self.dm = data_manager
         self.config = config
         self.max_split_length_after_split_event = max_split_length_after_split_event
-        self.max_lookback_time_for_value = max_lookback_time_for_value
-        self.max_forecast_time_for_value = max_forecast_time_for_value
 
     def _get_all_dates_within_range_of_split_event(
         self,

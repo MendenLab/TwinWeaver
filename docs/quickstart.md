@@ -33,7 +33,7 @@ config.event_category_forecast = ["lab"]
 
 # 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')
 # Only needs to be set if you want to do time to event prediction
-config.data_splitter_events_variables_category_mapping = {
+config.event_category_events_prediction_with_naming = {
     "death": "death",
     "progression": "next progression",  # Custom name in prompt
 }
@@ -48,7 +48,7 @@ dm.load_indication_data(
 )
 dm.process_indication_data()
 dm.setup_unique_mapping_of_events()
-dm.setup_dataset_splits()
+dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
 dm.infer_var_types()
 
 # Set up data splitters for different task types
@@ -63,7 +63,10 @@ data_splitter_forecasting = DataSplitterForecasting(
 )
 
 # Combined interface for both task types
-data_splitter = DataSplitter(data_splitter_events, data_splitter_forecasting)
+data_splitter = DataSplitter(
+    data_splitter_events=data_splitter_events,
+    data_splitter_forecasting=data_splitter_forecasting,
+)
 
 # Set up the text converter
 converter = ConverterInstruction(
@@ -85,7 +88,6 @@ split_idx = 0  # Use first split
 training_data = converter.forward_conversion(
     forecasting_splits=forecasting_splits[split_idx],
     event_splits=events_splits[split_idx],
-    override_mode_to_select_forecasting="both",
 )
 
 # training_data now contains (Input, Target) pairs ready for LLM fine-tuning

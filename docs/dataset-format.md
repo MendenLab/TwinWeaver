@@ -104,6 +104,10 @@ On the first visit, the patient experienced the following:
     Hemoglobin is 11.8.
 ```
 
+#### Relative Dating
+
+TwinWeaver uses **relative dating** instead of absolute dates. All calendar dates from the input data are converted into time deltas relative to the previous visit (e.g., *"2 weeks later"*) rather than being included as raw dates (e.g., *"2024-01-29"*). This serves two important purposes: first, it **anonymizes** the patient data by removing identifiable calendar dates from the training text; second, it provides the model with **clinically meaningful temporal context** — the time elapsed between visits — rather than arbitrary date strings. By default, time intervals are expressed in weeks, but this can be changed to days using `Config.set_delta_time_unit("days")`. Accumulative deltas (time since the very first visit rather than since the previous visit) are also supported.
+
 ### Final Output Structure
 
 For training, TwinWeaver produces input-target pairs:
@@ -284,7 +288,7 @@ config.event_category_forecast = ["lab"]
 
 # 3. Mapping of specific time to events to predict (e.g., we want to predict 'death' and 'progression')
 # Only needs to be set if you want to do time to event prediction
-config.data_splitter_events_variables_category_mapping = {
+config.event_category_events_prediction_with_naming = {
     "death": "death",
     "progression": "next progression",  # Custom name in prompt
 }
@@ -301,6 +305,6 @@ dm.load_indication_data(
 !!! tip "Configuration Parameters"
     - **`split_event_category`**: The event category used to anchor split points for generating training samples (required for instruction tuning)
     - **`event_category_forecast`**: Which event categories to forecast as time-series values
-    - **`data_splitter_events_variables_category_mapping`**: Maps event names to prediction tasks (e.g., survival, progression)
+    - **`event_category_events_prediction_with_naming`**: Maps event names to prediction tasks (e.g., survival, progression)
 
 See the [Raw Data Preprocessing Tutorial](examples/data_preprocessing/raw_data_preprocessing.ipynb) for transforming raw clinical data into TwinWeaver format, or the [Data Preparation Tutorial](examples/01_data_preparation_for_training.ipynb) for a complete walkthrough of instruction-tuning data generation.

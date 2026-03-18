@@ -7,7 +7,6 @@ def test_config_initialization(mock_config):
     assert mock_config.seed == 42
     assert mock_config.patient_id_col == "patientid"
     # Verify defaults used in the library
-    assert mock_config.event_category_lot == "lot"
 
 
 def test_data_manager_loading(mock_config, sample_data):
@@ -45,7 +44,7 @@ def test_data_manager_processing(mock_config, sample_data):
     # Override config
     mock_config.split_event_category = "lot"
     mock_config.event_category_forecast = ["lab"]
-    mock_config.data_splitter_events_variables_category_mapping = None
+    mock_config.event_category_events_prediction_with_naming = None
     mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
 
     dm = DataManager(config=mock_config)
@@ -54,7 +53,7 @@ def test_data_manager_processing(mock_config, sample_data):
     # Run pipeline
     dm.process_indication_data()
     dm.setup_unique_mapping_of_events()
-    dm.setup_dataset_splits()
+    dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
     dm.infer_var_types()
 
     # 1. Check Date Processing

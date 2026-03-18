@@ -245,7 +245,7 @@ class ConverterInstruction(ConverterBase):
         self,
         forecasting_splits: list[DataSplitterForecastingGroup],
         event_splits: list[DataSplitterEventsGroup],
-        override_mode_to_select_forecasting: str = None,
+        override_mode_to_select_forecasting: str = "forecasting",
     ) -> dict:
         """
         Generates a multi-task instruction prompt and target answer from patient data splits.
@@ -268,7 +268,7 @@ class ConverterInstruction(ConverterBase):
             (containing patient history up to a split date and event outcome/censoring info).
         override_mode_to_select_forecasting : str, optional
             If provided, forces the selection mode for forecasting tasks ('forecasting',
-            'forecasting_qa', or 'both'). If None, the mode is chosen randomly. Defaults to None.
+            'forecasting_qa', or 'both'). If None, the mode is chosen randomly. Defaults to "forecasting".
 
         Returns
         -------
@@ -286,6 +286,12 @@ class ConverterInstruction(ConverterBase):
             If input splits have inconsistent Line of Therapy (LOT) dates or split dates,
             or if no tasks are generated.
         """
+
+        # If events is None, set to empty list for easier processing
+        if event_splits is None:
+            event_splits = []
+        if forecasting_splits is None:
+            forecasting_splits = []
 
         #: make assertions that data has same split and lot date
         all_lot_dates_events = [x.lot_date for x in event_splits]
@@ -808,6 +814,9 @@ class ConverterInstruction(ConverterBase):
                     standard_extraction = False
                 elif inference_override is False:
                     raise ValueError("Could not determine task type")
+                else:
+                    # inference_override is True but task type is unknown – skip
+                    continue
 
             #: extract the relevant parts
             if standard_extraction:

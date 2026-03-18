@@ -22,11 +22,7 @@ class DataManager:
     def __init__(
         self,
         config: Config,  # Added config parameter
-        train_split_min: float = 0.8,
-        validation_split_max: float = 0.1,
-        test_split_max: float = 0.1,
-        max_val_test_nr_patients: int = 500,
-        replace_special_symbols_override: list = None,
+        replace_special_symbols: list = None,
     ) -> None:
         """
         Initializes the DataManager for a specific indication.
@@ -39,53 +35,19 @@ class DataManager:
         config : Config
             A configuration object containing paths, column names, category names,
             and other constants used throughout the data management process.
-        train_split_min : float, optional
-            The minimum proportion of patients to allocate to the training set.
-            Defaults to 0.8. The actual number will be the remainder after
-            allocating validation and test sets.
-        validation_split_max : float, optional
-            The maximum proportion of the total patients to allocate to the
-            validation set. The actual number is capped by
-            `max_val_test_nr_patients`. Defaults to 0.1.
-        test_split_max : float, optional
-            The maximum proportion of the total patients to allocate to the
-            test set. The actual number is capped by `max_val_test_nr_patients`.
-            Defaults to 0.1.
-        max_val_test_nr_patients : int, optional
-            The absolute maximum number of patients to include in the validation
-            and test sets combined. Defaults to 500.
-        replace_special_symbols_override : list, optional
+        replace_special_symbols : list, optional
             A list of tuples to override the default special character replacements
             in event descriptive names. Each tuple should be in the format
             `(event_category, (string_to_replace, replacement_string))`. If None,
-            default replacements specified in the method are used. Defaults to None.
+            an empty list is used (no replacements). Defaults to None.
         """
 
         #: initialize the data manager
         self.config = config  # Store config object
-        self.train_split = train_split_min
-        self.validation_split = validation_split_max
-        self.test_split = test_split_max
-        self.max_val_test_nr_patients = max_val_test_nr_patients
         self.variable_types = {}  # event_name -> "numeric" / "categorical"
 
         # Setup replacing of special symbol, format is event_category : (<string_to_replace>, <replacement_string>)
-        if replace_special_symbols_override is not None:
-            self.replace_special_symbols = replace_special_symbols_override
-        else:
-            # Use config constants for event categories where available
-            self.replace_special_symbols = [
-                (self.config.event_category_labs, ("/", " per ")),
-                (self.config.event_category_labs, (".", " ")),
-                (
-                    "drug",
-                    ("/", " "),
-                ),  # "drug" category not explicitly in Config constants provided
-                (
-                    self.config.event_category_lot,
-                    ("/", " "),
-                ),  # Use config for 'lot' category
-            ]
+        self.replace_special_symbols = replace_special_symbols if replace_special_symbols is not None else []
 
         # Setup indication
         self.data_frames = None
@@ -184,16 +146,43 @@ class DataManager:
         Performs initial processing on the loaded indication data.
 
         Requires `load_indication_data` to be called first.
-        This method converts the date columns (specified by `config.date_col`)
-        in the 'events' DataFrame to datetime objects.
-        It also checks for and removes rows with missing dates in these tables,
-        logging an error if any are found, unless `skip_missing_dates` is True.
+        This method performs the following steps:
+
+        1. Converts the date column (specified by `config.date_col`) in the
+           'events' DataFrame to datetime objects.
+        2. Checks for and removes rows with missing dates, raising a
+           ``ValueError`` unless `skip_missing_dates` is True.
+        3. Checks for missing event values and either drops them (if
+           `drop_missing_event_values` is True) or raises a ``ValueError``.
+        4. Validates that there are no missing values in
+           ``event_descriptive_name``, ``event_name``, and ``event_category``
+           columns, raising a ``ValueError`` if any are found.
+        5. Converts event values, descriptive names, event names, and event
+           categories to string type.
+        6. Validates that all columns listed in
+           ``config.constant_columns_to_use`` are present in the
+           ``constant_description`` dataframe.
+        7. Computes ``self.all_patientids`` as the intersection of patient IDs
+           appearing in both the constant and events tables.
+
+        Parameters
+        ----------
+        skip_missing_dates : bool, optional
+            If True, rows with missing dates are silently dropped instead of
+            raising an error. Defaults to False.
+        drop_missing_event_values : bool, optional
+            If True, rows with missing event values are dropped with a warning
+            instead of raising an error. Defaults to False.
 
         Raises
         ------
         ValueError
             If `load_indication_data` has not been successfully called before
-            this method, or if missing dates are found and `skip_missing_dates` is False.
+            this method, if missing dates are found and `skip_missing_dates`
+            is False, if missing event values are found and
+            `drop_missing_event_values` is False, if missing values are found
+            in event name columns, or if constant columns are missing from
+            the constant_description dataframe.
         """
 
         # Check that we already have self.data_frames
@@ -240,10 +229,53 @@ class DataManager:
                     "please fix the data or set drop_missing_event_values=True"
                 )
 
+        # Check for missing values in event_descriptive_name, event_name, and event_category columns
+        for col in [
+            self.config.event_descriptive_name_col,
+            self.config.event_name_col,
+            self.config.event_category_col,
+        ]:
+            missing_count = self.data_frames[events_table_key][col].isnull().sum()
+            if missing_count > 0:
+                total = len(self.data_frames[events_table_key])
+                raise ValueError(
+                    f"Found {missing_count} out of {total} missing values in '{col}' column "
+                    f"in events table - please fix the data before proceeding"
+                )
+
         # Convert all event values to string
         self.data_frames[events_table_key][self.config.event_value_col] = self.data_frames[events_table_key][
             self.config.event_value_col
         ].astype(str)
+
+        # Convert event_descriptive_name, event_name, event_category to string as well to avoid issues later on
+        self.data_frames[events_table_key][self.config.event_descriptive_name_col] = self.data_frames[events_table_key][
+            self.config.event_descriptive_name_col
+        ].astype(str)
+        self.data_frames[events_table_key][self.config.event_name_col] = self.data_frames[events_table_key][
+            self.config.event_name_col
+        ].astype(str)
+        self.data_frames[events_table_key][self.config.event_category_col] = self.data_frames[events_table_key][
+            self.config.event_category_col
+        ].astype(str)
+
+        # Check that every column selected in config for constant is also in constant descriptive df
+        constant_desc_variables = set(self.data_frames["constant_description"]["variable"].unique())
+        missing_in_description = [
+            col for col in self.config.constant_columns_to_use if col not in constant_desc_variables
+        ]
+        if missing_in_description:
+            raise ValueError(
+                f"The following columns are listed in config.constant_columns_to_use but are not "
+                f"present in the constant_description 'variable' column: {missing_in_description}. "
+                f"Please add them to the constant_description dataframe or remove them from "
+                f"config.constant_columns_to_use."
+            )
+
+        # Add all unique patientids overlapping constant and events to self.all_patientids
+        constant_patientids = set(self.data_frames["constant"]["patientid"].unique())
+        event_patientids = set(self.data_frames["events"]["patientid"].unique())
+        self.all_patientids = list(constant_patientids.intersection(event_patientids))
 
         logging.info("Data processed")
 
@@ -298,6 +330,7 @@ class DataManager:
         # Extract corresponding event_name and event_category
         filtered_events = self.unique_events[event_desc_name_col]
         non_unique_events = self.unique_events[filtered_events.isin(non_unique_events.index)].copy()
+        non_unique_descriptive_names = non_unique_events[event_desc_name_col].unique().tolist()
 
         # create mapping for all non-unique descriptive names, and
         # then add event_name to those, and apply across entire dataset
@@ -319,6 +352,15 @@ class DataManager:
         # Use config constant
         events_df[event_desc_name_col] = events_df[new_desc_name].fillna(events_df[event_desc_name_col])
         self.data_frames[events_table_key] = self.data_frames[events_table_key].drop(columns=["new_descriptive_name"])
+
+        # Warn if there were any non-unique descriptive names
+        num_renamed = len(non_unique_events)
+        if num_renamed > 0:
+            logging.warning(
+                f"Found {len(non_unique_descriptive_names)} non-unique descriptive name(s) "
+                f"({num_renamed} event mappings total) that were disambiguated "
+                f"by appending the event_name: {non_unique_descriptive_names}"
+            )
 
         #: first convert special symbols in event_descriptive_name to alternatives, using self.replace_special_symbols
         for event_category, (
@@ -346,10 +388,20 @@ class DataManager:
 
         # Assert that all unique now
         # Use config constant
-        assert len(self.unique_events) == len(self.data_frames[events_table_key][event_desc_name_col].unique())
+        assert len(self.unique_events) == len(self.data_frames[events_table_key][event_desc_name_col].unique()), (
+            "Each descriptive name needs a unique mapping to an event name/category"
+            f" Found this many unique descriptive names: "
+            f"{len(self.data_frames[events_table_key][event_desc_name_col].unique())} "
+            f"but this many unique combinations of event name, descriptive name, and "
+            f"category: {len(self.unique_events)}. Please ensure that after processing, each descriptive name maps "
+            f"to exactly one event name within its category."
+        )
 
-    def setup_dataset_splits(
+    def setup_hold_out_sets(
         self,
+        validation_split: float,
+        test_split: float,
+        max_val_test_nr_patients: int = None,
     ) -> None:
         """
         Assigns each patient to a data split (train, validation, or test).
@@ -358,8 +410,8 @@ class DataManager:
         The method determines the split assignment for each patient.
         It retrieves all unique patient IDs from the 'constant' data table.
         It calculates the number of patients for validation and test sets based on
-        the `validation_split_max`, `test_split_max`, and `max_val_test_nr_patients`
-        parameters set during initialization. The remaining patients are assigned to the training set #
+        the `validation_split`, `test_split`, and `max_val_test_nr_patients`
+        parameters. The remaining patients are assigned to the training set
         (calculated as the remainder after validation and test sets are allocated). Patients are randomly
         shuffled (with a fixed seed for reproducibility) before assignment.
 
@@ -367,6 +419,20 @@ class DataManager:
         constant dataframe. It also stores all patient IDs in
         `self.all_patientids`. Asserts are performed to ensure the mapping covers
         all patients without overlap and that the split sizes match calculations.
+
+        Parameters
+        ----------
+        validation_split : float
+            The proportion of the total patients to allocate to the
+            validation set. The actual number is capped by
+            `max_val_test_nr_patients` if provided.
+        test_split : float
+            The proportion of the total patients to allocate to the
+            test set. The actual number is capped by
+            `max_val_test_nr_patients` if provided.
+        max_val_test_nr_patients : int, optional
+            The absolute maximum number of patients to include in the validation
+            and test sets individually. Defaults to None.
 
         Raises
         ------
@@ -398,13 +464,17 @@ class DataManager:
 
         #: get min(self.validation_split * num_patients, self.max_val_test_nr_patients)
         validation_nr_patients = min(
-            int(self.validation_split * len(all_patients)),
-            self.max_val_test_nr_patients,
+            int(validation_split * len(all_patients)),
+            max_val_test_nr_patients
+            if max_val_test_nr_patients is not None
+            else int(validation_split * len(all_patients)),
         )
 
         #: then the same for test
-        test_nr_patients = min(int(self.test_split * len(all_patients)), self.max_val_test_nr_patients)
-
+        test_nr_patients = min(
+            int(test_split * len(all_patients)),
+            max_val_test_nr_patients if max_val_test_nr_patients is not None else int(test_split * len(all_patients)),
+        )
         #: randomly shuffle with seed and split into train/val/test, using df.sample
         np.random.seed(self.config.seed)
         all_patients = np.random.permutation(all_patients)
@@ -459,7 +529,7 @@ class DataManager:
             patient_id_col
         ].map(patient_to_split_mapping)
 
-    def get_all_patientids_in_split(self, split: str) -> str:
+    def get_all_patientids_in_split(self, split: str) -> list:
         """
         Retrieves all patient IDs belonging to a specific data split.
 
@@ -574,7 +644,7 @@ class DataManager:
 
     def infer_var_types(self):
         """
-        Fills self.dm.variable_types for every candidate forecasting variable.
+        Fills self.variable_types for every candidate forecasting variable.
         Classifies as "numeric" if at least `self.config.numeric_detect_min_fraction` of values
         can be parsed as numeric, otherwise "categorical".
         """

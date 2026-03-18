@@ -113,10 +113,11 @@ class ConverterBase:
             self.config.event_category_and_name_replace_override
             if self.config.event_category_and_name_replace_override is not None
             else {
+                # Death specific overrides, using config constants for category and event name
                 self.config.event_category_death: {  # Use config constant
-                    "death": {  # Assuming 'death' is the event_name associated with this category
-                        "full_replacement_string": "death",
-                        "reverse_string_value": "death",
+                    self.config.event_category_death: {
+                        "full_replacement_string": self.config.event_category_death,
+                        "reverse_string_value": self.config.event_category_death,
                     }
                 }
             }
@@ -175,7 +176,12 @@ class ConverterBase:
                 constant[self.config.constant_birthdate_column] = (
                     constant[self.config.constant_birthdate_column].astype(int).astype(str) + " years"
                 )
-                print(f"Using provided ages in {self.config.constant_birthdate_column} as age format")
+                if not self.config.constant_birthdate_columns_silence_print:
+                    print(
+                        f"Using provided ages in {self.config.constant_birthdate_column} as age format."
+                        "To silence this print statement, set constant_birthdate_columns_silence_print to True"
+                        "in the config."
+                    )
             else:
                 # Check if the column contains integer ages (not birthdates)
                 try:
@@ -184,7 +190,12 @@ class ConverterBase:
                         constant[self.config.constant_birthdate_column] = pd.to_datetime(
                             constant[self.config.constant_birthdate_column].astype(int).astype(str) + "-01-01"
                         )
-                        print(f"Converted integer ages in {self.config.constant_birthdate_column} to age format")
+                        if not self.config.constant_birthdate_columns_silence_print:
+                            print(
+                                f"Converted integer ages in {self.config.constant_birthdate_column} to age format."
+                                " To silence this print statement set constant_birthdate_columns_silence_print to True"
+                                " in the config."
+                            )
 
                     # Try converting the column to datetime if it is not already, if doesn't work then just keep it
                     elif not pd.api.types.is_datetime64_any_dtype(constant[self.config.constant_birthdate_column]):
@@ -286,6 +297,12 @@ class ConverterBase:
         events[self.config.event_value_col] = events[self.config.event_value_col].apply(
             round_and_strip, args=(self.decimal_precision,)
         )
+
+        # Exclude specified event categories from the input if configured
+        if self.config.event_categories_to_exclude_from_input:
+            events = events[
+                ~events[self.config.event_category_col].isin(self.config.event_categories_to_exclude_from_input)
+            ]
 
         return events
 
@@ -1043,7 +1060,14 @@ class ConverterBase:
         #: return events
         return events_final.reset_index(drop=True)  # Reset index for clean output
 
-    def _generate_summarized_row_string(self, input_event_data, combined_target_meta: dict) -> str:
+    def _generate_summarized_row_string(
+        self,
+        input_event_data,
+        combined_target_meta: dict,
+        lot_event_name: str = "lot",
+        event_value_lot_start: str = "LoT Start",
+        event_category_lot: str = "lot",
+    ) -> str:
         """
         Creates a summary string containing the most recent genetic, LoT, and target variable values.
 
@@ -1119,18 +1143,16 @@ class ConverterBase:
 
         #: add most recent LoT info using config constants
         ret_prompt += self.config.forecasting_prompt_summarized_lot  # Using config attribute
-        lot_info = input_event_data[input_event_data[self.config.event_category_col] == self.config.event_category_lot]
+        lot_info = input_event_data[input_event_data[self.config.event_category_col] == event_category_lot]
 
         # Ensure lot_info is sorted by date to correctly find the last one
         lot_info = lot_info.sort_values(self.config.date_col)
 
         # Create selections based on event name and event value using config constants
-        if self.config.lot_event_name is not None and self.config.event_value_lot_start is not None:
-            lot_selection_1 = lot_info[
-                lot_info[self.config.event_name_col] == self.config.lot_event_name
-            ]  # Using config attribute
+        if lot_event_name is not None and event_value_lot_start is not None:
+            lot_selection_1 = lot_info[lot_info[self.config.event_name_col] == lot_event_name]  # Using config attribute
             lot_selection_2 = lot_info[
-                lot_info[self.config.event_value_col] == self.config.event_value_lot_start
+                lot_info[self.config.event_value_col] == event_value_lot_start
             ]  # Using config attribute
         else:
             # Just use all lot_info if no specific columns are defined

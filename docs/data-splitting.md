@@ -9,7 +9,7 @@ TwinWeaver provides specialized splitters for two complementary clinical predict
 | `DataSplitterForecasting` | Forecasting continuous or categorical variables | Predict hemoglobin values over the next 90 days |
 | `DataSplitterEvents` | Landmark event prediction (time-to-event) | Did the patient progress within 52 weeks? |
 
-A unified `DataSplitter` interface combines both, ensuring they share the same split dates for multi-task training.
+A unified `DataSplitter` interface combines one or both splitters into a single entry point. When both are supplied, it ensures they share the same split dates for multi-task training. Either splitter can also be used individually.
 
 ---
 
@@ -33,7 +33,7 @@ Patient timeline
 Split dates are anchored to **split events** — a configurable event category (typically Line of Therapy, `"lot"`). The framework:
 
 1. **Finds all split-event start dates** in the patient's history (e.g., every LoT start).
-2. **Identifies candidate dates** within a window around each split event (controlled by `max_split_length_after_split_event`, default 90 days).
+2. **Identifies candidate dates** within a window around each split event (controlled by `max_split_length_after_split_event`, default 0 days).
 3. **Randomly samples** one or more candidate dates per split event (`max_num_splits_per_split_event`).
 
 This anchoring ensures that training examples are centered on clinically meaningful time points rather than arbitrary dates.
@@ -67,7 +67,7 @@ For each candidate split date, the forecasting splitter:
 
 1. **Checks variable eligibility**: A variable is valid at a given date only if it has at least `min_nr_variable_seen_previously` occurrences in the lookback window and `min_nr_variable_seen_after` occurrences in the forecast window.
 2. **Samples variables**: Between `min_nr_variables_to_sample` and `max_nr_variables_to_sample` variables are selected per task, using weighted proportional sampling based on pre-computed statistics (optionally uniform sampling).
-3. **Creates the split**: Events before the split date form the input; future values of the sampled variables (within `max_forecast_time_for_value`) form the target.
+3. **Creates the split**: Events before the split date form the input; future values of the sampled variables (within `max_forecasted_trajectory_length`) form the target.
 4. **Filters future LoT overlap**: Target events occurring after the next Line of Therapy start are excluded to avoid data leakage.
 
 ### Variable Statistics & Sampling
@@ -96,13 +96,13 @@ When `filter_outliers=True`, the **3-sigma strategy** clips target values to the
 data_splitter_forecasting = DataSplitterForecasting(
     data_manager=dm,
     config=config,
-    max_split_length_after_split_event=pd.Timedelta(days=90),  # Window after split event
+    max_forecasted_trajectory_length=pd.Timedelta(days=90),     # Forecast horizon (required)
+    max_split_length_after_split_event=pd.Timedelta(days=90),   # Window after split event
     max_lookback_time_for_value=pd.Timedelta(days=90),          # Lookback for variable history
-    max_forecast_time_for_value=pd.Timedelta(days=90),          # Forecast horizon
     min_nr_variable_seen_previously=1,                          # Min past occurrences
     min_nr_variable_seen_after=1,                               # Min future occurrences
     min_nr_variables_to_sample=1,                               # Min variables per task
-    max_nr_variables_to_sample=3,                               # Max variables per task
+    max_nr_variables_to_sample=1,                               # Max variables per task
     filtering_strategy="3-sigma",                               # Outlier handling
     sampling_strategy="proportional",                           # Weighted or uniform sampling
 )
@@ -124,7 +124,7 @@ flowchart TD
     D --> E{Event occurred<br>within window <br> and before censoring event?}
     E -->|Yes| F[occurred = True]
     E -->|No| G{Censored by<br>next LoT or data end?}
-    G -->|Next LoT| H[censored = new_therapy_start]
+    G -->|Next LoT| H[censored = new_split_date_start]
     G -->|End of data| I[censored = end_of_data]
     G -->|No censoring| J[censored = None<br>Event truly did not occur]
     F --> K[Create DataSplitterEventsOption]
@@ -136,7 +136,7 @@ flowchart TD
 For each candidate split date, the event splitter:
 
 1. **Samples an event category** from the configured mapping (e.g., `"death"` or `"progression"`), avoiding duplicate categories per split.
-2. **Samples a prediction window** of random duration between `min_length_to_sample` (default: 1 week) and `max_length_to_sample` (default: 104 weeks). This trains the model to handle variable-length horizons.
+2. **Samples a prediction window** of random duration between `min_length_to_sample` and `max_length_to_sample` (both required, no defaults). This trains the model to handle variable-length horizons.
 3. **Determines the outcome**:
     - **Occurred**: The event was observed within the window before any censoring events.
     - **Censored**: The observation was cut short by a new therapy start, end of data, or a data cutoff date.
@@ -149,8 +149,8 @@ For each candidate split date, the event splitter:
 data_splitter_events = DataSplitterEvents(
     data_manager=dm,
     config=config,
-    max_length_to_sample=pd.Timedelta(weeks=104),               # Max prediction window
-    min_length_to_sample=pd.Timedelta(weeks=1),                  # Min prediction window
+    max_length_to_sample=pd.Timedelta(weeks=104),               # Max prediction window (required)
+    min_length_to_sample=pd.Timedelta(weeks=1),                  # Min prediction window (required)
     unit_length_to_sample="weeks",                               # Window sampling unit
     max_split_length_after_split_event=pd.Timedelta(days=90),    # Window after split event
 )
@@ -161,7 +161,7 @@ data_splitter_events = DataSplitterEvents(
 The event-to-prediction mapping is configured via:
 
 ```python
-config.data_splitter_events_variables_category_mapping = {
+config.event_category_events_prediction_with_naming = {
     "death": "death",                  # event_category → descriptive name in prompt
     "progression": "next progression", # custom prompt label
 }
@@ -171,14 +171,20 @@ config.data_splitter_events_variables_category_mapping = {
 
 ## Combined Splitting with `DataSplitter`
 
-The `DataSplitter` class provides a unified interface that coordinates both splitters. This is the **recommended approach** for generating multi-task training data, as it ensures forecasting and event prediction tasks share the same split dates.
+The `DataSplitter` class provides a unified interface that coordinates one or both splitters. At least one of `data_splitter_events` or `data_splitter_forecasting` must be provided. When both are supplied, it ensures they share the same split dates for multi-task training. When only one is supplied, the methods return `None` for the missing task type.
 
-### Training Workflow
+!!! tip "Single-task usage"
+    You don't need both splitters. Pass only `data_splitter_forecasting` for forecasting-only pipelines, or only `data_splitter_events` for event-prediction-only pipelines. See [Forecasting-Only](#forecasting-only) and [Events-Only](#events-only) below.
+
+### Training Workflow (Both Tasks)
 
 ```python
 from twinweaver import DataSplitter
 
-data_splitter = DataSplitter(data_splitter_events, data_splitter_forecasting)
+data_splitter = DataSplitter(
+    data_splitter_events=data_splitter_events,
+    data_splitter_forecasting=data_splitter_forecasting,
+)
 
 # Generate aligned splits for both tasks
 forecasting_splits, events_splits, reference_dates = \
@@ -187,14 +193,47 @@ forecasting_splits, events_splits, reference_dates = \
 
 Internally, `get_splits_from_patient_with_target`:
 
-1. Calls `DataSplitterForecasting.get_splits_from_patient()` to determine split dates and generate forecasting tasks.
-2. Passes those same split dates (`reference_dates`) to `DataSplitterEvents.get_splits_from_patient()` to generate aligned event prediction tasks.
+1. Calls `DataSplitterForecasting.get_splits_from_patient()` (if available) to determine split dates and generate forecasting tasks.
+2. Passes those same split dates (`reference_dates`) to `DataSplitterEvents.get_splits_from_patient()` (if available) to generate aligned event prediction tasks.
+3. If only one splitter is provided, the other returns `None`. When only the events splitter is used, `reference_dates` are extracted from the generated event splits.
 
-This alignment is critical: both task types see the same patient history up to the same point in time, enabling consistent multi-task learning.
+This alignment is critical: when both task types are active, they see the same patient history up to the same point in time, enabling consistent multi-task learning.
+
+### Forecasting-Only
+
+```python
+# Only forecasting — no event prediction splitter needed
+data_splitter = DataSplitter(data_splitter_forecasting=data_splitter_forecasting)
+
+forecasting_splits, events_splits, reference_dates = \
+    data_splitter.get_splits_from_patient_with_target(patient_data)
+# events_splits is None
+
+converter.forward_conversion(
+    forecasting_splits=forecasting_splits[0],
+    event_splits=None,  # No event splits available
+)
+```
+
+### Events-Only
+
+```python
+# Only event prediction — no forecasting splitter needed
+data_splitter = DataSplitter(data_splitter_events=data_splitter_events)
+
+forecasting_splits, events_splits, reference_dates = \
+    data_splitter.get_splits_from_patient_with_target(patient_data)
+# forecasting_splits is None
+
+converter.forward_conversion(
+    forecasting_splits=None,  # No forecasting splits available
+    event_splits=events_splits[0],
+)
+```
 
 ### Inference Workflow
 
-For inference, use `get_splits_from_patient_inference`, which anchors the split at the **last available date** in the patient's record:
+For inference, use `get_splits_from_patient_inference`, which anchors the split at the **last available date** in the patient's record. The `inference_type` parameter controls which tasks to generate — it defaults to `"both"` but gracefully handles the case when only one splitter is available:
 
 ```python
 forecast_split, events_split = data_splitter.get_splits_from_patient_inference(
@@ -205,6 +244,9 @@ forecast_split, events_split = data_splitter.get_splits_from_patient_inference(
     events_override_observation_time_delta=pd.Timedelta(weeks=52),
 )
 ```
+
+!!! note
+    When `inference_type="both"` and only one splitter is provided, the missing task simply returns `None` without raising an error. If you request a specific `inference_type` (e.g., `"forecasting"`) but the corresponding splitter was not provided, a `ValueError` is raised.
 
 ---
 
@@ -217,7 +259,7 @@ A single patient can yield many training examples through several sources of var
 | Multiple split events (e.g., LoTs) | Patient history | One split per LoT by default |
 | Multiple dates per split event | `max_num_splits_per_split_event` | Random dates within the LoT window |
 | Different variable subsets | `min/max_nr_variables_to_sample` | Different forecasting questions per date |
-| Different event categories | `data_splitter_events_variables_category_mapping` | Death vs. progression predictions |
+| Different event categories | `event_category_events_prediction_with_naming` | Death vs. progression predictions |
 | Different prediction windows | `min/max_length_to_sample` | 1-week to 104-week horizons |
 
 This diversity encourages the model to generalize across time points, variables, and prediction tasks.
@@ -238,7 +280,7 @@ from twinweaver import (
 config = Config()
 config.split_event_category = "lot"
 config.event_category_forecast = ["lab"]
-config.data_splitter_events_variables_category_mapping = {
+config.event_category_events_prediction_with_naming = {
     "death": "death",
     "progression": "next progression",
 }
@@ -249,7 +291,7 @@ dm.load_indication_data(df_events=df_events, df_constant=df_constant,
                         df_constant_description=df_constant_description)
 dm.process_indication_data()
 dm.setup_unique_mapping_of_events()
-dm.setup_dataset_splits()
+dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
 dm.infer_var_types()
 
 # 3. Initialize splitters
@@ -259,7 +301,10 @@ data_splitter_events.setup_variables()
 data_splitter_forecasting = DataSplitterForecasting(data_manager=dm, config=config)
 data_splitter_forecasting.setup_statistics()  # Compute variable scores
 
-data_splitter = DataSplitter(data_splitter_events, data_splitter_forecasting)
+data_splitter = DataSplitter(
+    data_splitter_events=data_splitter_events,
+    data_splitter_forecasting=data_splitter_forecasting,
+)
 
 # 4. Generate splits for a patient
 patient_data = dm.get_patient_data(dm.all_patientids[0])
@@ -275,7 +320,6 @@ converter = ConverterInstruction(
 result = converter.forward_conversion(
     forecasting_splits=forecasting_splits[0],
     event_splits=events_splits[0],
-    override_mode_to_select_forecasting="both",
 )
 
 print(result["instruction"][:500])
@@ -290,4 +334,6 @@ print(result["answer"])
 - **[Framework Overview](framework.md)**: Learn about TwinWeaver's architecture and task types
 - **[Data Preparation Tutorial](examples/01_data_preparation_for_training.ipynb)**: Step-by-step notebook walkthrough
 - **[Custom Splitting (Training)](examples/advanced/custom_splitting/training_individual_splitters.ipynb)**: Advanced splitting with individual splitters
+- **[Forecasting-Only Splitting](examples/advanced/custom_splitting/training_forecasting_splitter_only.ipynb)**: Using `DataSplitter` with only the forecasting splitter
+- **[Custom Split Events](examples/advanced/custom_splitting/training_custom_split_events.ipynb)**: Using `DataSplitter` with custom split events
 - **[API Reference — Data Splitters](reference/instruction/data_splitters.md)**: Full API documentation

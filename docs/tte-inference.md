@@ -41,7 +41,7 @@ Patient data ──► DataSplitter (events) ──► ConverterInstruction
                      ▼
      compute_length_normalized_probabilities()
                      │
-            calibrated probabilities
+            probabilities
             + hard predictions (DataFrame)
 ```
 

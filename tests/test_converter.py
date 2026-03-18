@@ -13,7 +13,7 @@ def setup_components(mock_config, sample_data):
     df_events, df_constant, df_constant_desc = sample_data
     mock_config.split_event_category = "lot"
     mock_config.event_category_forecast = ["lab"]
-    mock_config.data_splitter_events_variables_category_mapping = {"death": "death", "progression": "next progression"}
+    mock_config.event_category_events_prediction_with_naming = {"death": "death", "progression": "next progression"}
     mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
     mock_config.constant_birthdate_column = "birthyear"
 
@@ -21,13 +21,24 @@ def setup_components(mock_config, sample_data):
     dm.load_indication_data(df_events, df_constant, df_constant_desc)
     dm.process_indication_data()
     dm.setup_unique_mapping_of_events()
-    dm.setup_dataset_splits()
+    dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
     dm.infer_var_types()
 
-    splitter_events = DataSplitterEvents(dm, config=mock_config)
+    splitter_events = DataSplitterEvents(
+        dm,
+        config=mock_config,
+        max_length_to_sample=pd.Timedelta(weeks=104),
+        min_length_to_sample=pd.Timedelta(weeks=1),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
     splitter_events.setup_variables()
 
-    splitter_forecast = DataSplitterForecasting(data_manager=dm, config=mock_config)
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=dm,
+        config=mock_config,
+        max_forecasted_trajectory_length=pd.Timedelta(days=90),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
     splitter_forecast.setup_statistics()
 
     data_splitter = DataSplitter(splitter_events, splitter_forecast)
@@ -89,6 +100,152 @@ def test_forward_conversion_training(setup_components):
     assert "Task 2 is forecasting:" in answer
     assert "hemoglobin - 718-7 is e." in answer  # Known bin for p0
     assert "hemoglobin - 718-7 is 14.01." in answer  # Known value for p0
+
+
+def test_event_categories_to_exclude_from_input(mock_config, sample_data):
+    """Test that event_categories_to_exclude_from_input removes specified categories from generated text."""
+    df_events, df_constant, df_constant_desc = sample_data
+
+    # Configure with drug events excluded
+    mock_config.split_event_category = "lot"
+    mock_config.event_category_forecast = ["lab"]
+    mock_config.event_category_events_prediction_with_naming = {"death": "death", "progression": "next progression"}
+    mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
+    mock_config.constant_birthdate_column = "birthyear"
+    mock_config.event_categories_to_exclude_from_input = ["drug"]
+
+    dm = DataManager(config=mock_config)
+    dm.load_indication_data(df_events, df_constant, df_constant_desc)
+    dm.process_indication_data()
+    dm.setup_unique_mapping_of_events()
+    dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
+    dm.infer_var_types()
+
+    splitter_events = DataSplitterEvents(
+        dm,
+        config=mock_config,
+        max_length_to_sample=pd.Timedelta(weeks=104),
+        min_length_to_sample=pd.Timedelta(weeks=1),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
+    splitter_events.setup_variables()
+
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=dm,
+        config=mock_config,
+        max_forecasted_trajectory_length=pd.Timedelta(days=90),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
+    splitter_forecast.setup_statistics()
+
+    data_splitter = DataSplitter(splitter_events, splitter_forecast)
+
+    converter = ConverterInstruction(
+        nr_tokens_budget_total=4096, config=mock_config, dm=dm, variable_stats=splitter_forecast.variable_stats
+    )
+
+    patient_data = dm.get_patient_data("p0")
+    f_splits, e_splits, _ = data_splitter.get_splits_from_patient_with_target(patient_data)
+
+    result = converter.forward_conversion(
+        forecasting_splits=f_splits[0],
+        event_splits=e_splits[0],
+        override_mode_to_select_forecasting="both",
+    )
+
+    instruction = result["instruction"]
+
+    # Drug events (e.g. "drug pemetrexed is administered") should be excluded
+    assert "drug pemetrexed is administered" not in instruction
+    assert (
+        "drug" not in instruction.lower().split("demographic")[0].split("\n")[-1]
+        if "demographic" in instruction
+        else True
+    )
+
+    # Other event categories should still be present
+    assert "Starting with demographic data:" in instruction
+    assert "hemoglobin" in instruction  # lab events still present
+
+
+def test_event_categories_to_exclude_multiple(mock_config, sample_data):
+    """Test excluding multiple event categories from input."""
+    df_events, df_constant, df_constant_desc = sample_data
+
+    mock_config.split_event_category = "lot"
+    mock_config.event_category_forecast = ["lab"]
+    mock_config.event_category_events_prediction_with_naming = {"death": "death", "progression": "next progression"}
+    mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
+    mock_config.constant_birthdate_column = "birthyear"
+    mock_config.event_categories_to_exclude_from_input = ["drug", "ecog"]
+
+    dm = DataManager(config=mock_config)
+    dm.load_indication_data(df_events, df_constant, df_constant_desc)
+    dm.process_indication_data()
+    dm.setup_unique_mapping_of_events()
+    dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
+    dm.infer_var_types()
+
+    splitter_events = DataSplitterEvents(
+        dm,
+        config=mock_config,
+        max_length_to_sample=pd.Timedelta(weeks=104),
+        min_length_to_sample=pd.Timedelta(weeks=1),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
+    splitter_events.setup_variables()
+
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=dm,
+        config=mock_config,
+        max_forecasted_trajectory_length=pd.Timedelta(days=90),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
+    splitter_forecast.setup_statistics()
+
+    data_splitter = DataSplitter(splitter_events, splitter_forecast)
+
+    converter = ConverterInstruction(
+        nr_tokens_budget_total=4096, config=mock_config, dm=dm, variable_stats=splitter_forecast.variable_stats
+    )
+
+    patient_data = dm.get_patient_data("p0")
+    f_splits, e_splits, _ = data_splitter.get_splits_from_patient_with_target(patient_data)
+
+    result = converter.forward_conversion(
+        forecasting_splits=f_splits[0],
+        event_splits=e_splits[0],
+        override_mode_to_select_forecasting="both",
+    )
+
+    instruction = result["instruction"]
+
+    # Both drug and ecog events should be absent
+    assert "drug pemetrexed is administered" not in instruction
+    assert "ECOG" not in instruction
+
+    # Lab events should still be present
+    assert "hemoglobin" in instruction
+
+
+def test_event_categories_to_exclude_empty_list(setup_components):
+    """Test that an empty exclude list leaves all events intact (default behavior)."""
+    dm, data_splitter, converter = setup_components
+    assert dm.config.event_categories_to_exclude_from_input == []
+
+    patient_data = dm.get_patient_data("p0")
+    f_splits, e_splits, _ = data_splitter.get_splits_from_patient_with_target(patient_data)
+
+    result = converter.forward_conversion(
+        forecasting_splits=f_splits[0],
+        event_splits=e_splits[0],
+        override_mode_to_select_forecasting="both",
+    )
+
+    instruction = result["instruction"]
+
+    # Drug events should be present when nothing is excluded
+    assert "drug pemetrexed is administered" in instruction
 
 
 def test_forward_conversion_inference(setup_components):
@@ -162,3 +319,185 @@ def test_reverse_conversion(setup_components):
     assert e_res["task_type"] == task_events
     assert e_res["result"]["censoring"].iloc[0].item() is False
     assert e_res["result"]["occurred"].iloc[0].item() is False
+
+
+# ── Tests for forecasting-only and events-only conversion ──────────────────
+
+
+@pytest.fixture
+def setup_forecasting_only(mock_config, sample_data):
+    """Helper to set up components with only a forecasting splitter (no events splitter)."""
+    df_events, df_constant, df_constant_desc = sample_data
+    mock_config.split_event_category = "lot"
+    mock_config.event_category_forecast = ["lab"]
+    mock_config.event_category_events_prediction_with_naming = {"death": "death", "progression": "next progression"}
+    mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
+    mock_config.constant_birthdate_column = "birthyear"
+
+    dm = DataManager(config=mock_config)
+    dm.load_indication_data(df_events, df_constant, df_constant_desc)
+    dm.process_indication_data()
+    dm.setup_unique_mapping_of_events()
+    dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
+    dm.infer_var_types()
+
+    splitter_forecast = DataSplitterForecasting(
+        data_manager=dm,
+        config=mock_config,
+        max_forecasted_trajectory_length=pd.Timedelta(days=90),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
+    splitter_forecast.setup_statistics()
+
+    data_splitter = DataSplitter(data_splitter_forecasting=splitter_forecast)
+
+    converter = ConverterInstruction(
+        nr_tokens_budget_total=4096, config=mock_config, dm=dm, variable_stats=splitter_forecast.variable_stats
+    )
+
+    return dm, data_splitter, converter, splitter_forecast
+
+
+@pytest.fixture
+def setup_events_only(mock_config, sample_data):
+    """Helper to set up components with only an events splitter (no forecasting splitter)."""
+    df_events, df_constant, df_constant_desc = sample_data
+    mock_config.split_event_category = "lot"
+    mock_config.event_category_forecast = ["lab"]
+    mock_config.event_category_events_prediction_with_naming = {"death": "death", "progression": "next progression"}
+    mock_config.constant_columns_to_use = ["birthyear", "gender", "histology", "smoking_history"]
+    mock_config.constant_birthdate_column = "birthyear"
+
+    dm = DataManager(config=mock_config)
+    dm.load_indication_data(df_events, df_constant, df_constant_desc)
+    dm.process_indication_data()
+    dm.setup_unique_mapping_of_events()
+    dm.setup_hold_out_sets(validation_split=0.1, test_split=0.1)
+    dm.infer_var_types()
+
+    splitter_events = DataSplitterEvents(
+        dm,
+        config=mock_config,
+        max_length_to_sample=pd.Timedelta(weeks=104),
+        min_length_to_sample=pd.Timedelta(weeks=1),
+        max_split_length_after_split_event=pd.Timedelta(days=90),
+    )
+    splitter_events.setup_variables()
+
+    data_splitter = DataSplitter(data_splitter_events=splitter_events)
+
+    converter = ConverterInstruction(nr_tokens_budget_total=4096, config=mock_config, dm=dm, variable_stats=None)
+
+    return dm, data_splitter, converter
+
+
+def test_forward_conversion_forecasting_only_training(setup_forecasting_only):
+    """Test training conversion with only forecasting splits (no events)."""
+    dm, data_splitter, converter, _ = setup_forecasting_only
+    patient_data = dm.get_patient_data("p0")
+
+    f_splits, e_splits, _ = data_splitter.get_splits_from_patient_with_target(patient_data)
+
+    assert e_splits is None  # No events splitter configured
+    assert f_splits is not None
+
+    result = converter.forward_conversion(
+        forecasting_splits=f_splits[0],
+        event_splits=None,
+        override_mode_to_select_forecasting="forecasting",
+    )
+
+    instruction = result["instruction"]
+    answer = result["answer"]
+
+    # Should contain forecasting task but no events task
+    assert "Task 1 is forecasting:" in instruction
+    assert "time to event prediction:" not in instruction
+    assert "Starting with demographic data:" in instruction
+
+    # Answer should contain exactly one task
+    assert len(answer) > 0
+    assert "Task 1 is forecasting:" in answer
+    assert "time to event prediction:" not in answer
+
+
+def test_forward_conversion_events_only_training(setup_events_only):
+    """Test training conversion with only event splits (no forecasting)."""
+    dm, data_splitter, converter = setup_events_only
+    patient_data = dm.get_patient_data("p0")
+
+    f_splits, e_splits, _ = data_splitter.get_splits_from_patient_with_target(patient_data)
+
+    assert f_splits is None  # No forecasting splitter configured
+    assert e_splits is not None
+
+    result = converter.forward_conversion(
+        forecasting_splits=None,
+        event_splits=e_splits[0],
+    )
+
+    instruction = result["instruction"]
+    answer = result["answer"]
+
+    # Should contain events task but no forecasting task
+    assert "time to event prediction:" in instruction
+    assert "forecasting:" not in instruction
+    assert "Starting with demographic data:" in instruction
+
+    # Answer should contain events task only
+    assert len(answer) > 0
+    assert "time to event prediction:" in answer
+    assert "forecasting:" not in answer
+
+
+def test_forward_conversion_inference_forecasting_only(setup_forecasting_only):
+    """Test inference conversion with only a forecasting split (no events)."""
+    dm, data_splitter, converter, _ = setup_forecasting_only
+    patient_data = dm.get_patient_data("p0")
+
+    f_split, e_split = data_splitter.get_splits_from_patient_inference(
+        patient_data,
+        inference_type="forecasting",
+        forecasting_override_variables_to_predict=["hemoglobin_-_718-7"],
+    )
+
+    assert e_split is None
+    assert f_split is not None
+
+    result = converter.forward_conversion_inference(
+        forecasting_split=f_split,
+        forecasting_future_weeks_per_variable={"hemoglobin_-_718-7": [4, 8, 12]},
+        event_split=None,
+    )
+
+    instruction = result["instruction"]
+    assert result["answer"] is None
+    assert "hemoglobin" in instruction
+    assert "future weeks 4, 8, 12" in instruction
+    assert "Task 1 is forecasting:" in instruction
+    assert "time to event prediction:" not in instruction
+
+
+def test_forward_conversion_inference_events_only(setup_events_only):
+    """Test inference conversion with only an event split (no forecasting)."""
+    dm, data_splitter, converter = setup_events_only
+    patient_data = dm.get_patient_data("p0")
+
+    f_split, e_split = data_splitter.get_splits_from_patient_inference(
+        patient_data,
+        inference_type="events",
+    )
+
+    assert f_split is None
+    assert e_split is not None
+
+    result = converter.forward_conversion_inference(
+        forecasting_split=None,
+        event_split=e_split,
+    )
+
+    instruction = result["instruction"]
+    assert result["answer"] is None
+    assert "Task 1 is time to event prediction:" in instruction
+    assert "forecasting:" not in instruction
+    assert "Starting with demographic data:" in instruction

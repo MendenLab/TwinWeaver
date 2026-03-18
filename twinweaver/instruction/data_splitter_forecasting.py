@@ -15,9 +15,9 @@ class DataSplitterForecastingOption:
 
     Attributes
     ----------
-    events_until_split : list
+    events_until_split : pd.DataFrame
         Events occurring until the split point.
-    target_events_after_split : list
+    target_events_after_split : pd.DataFrame
         Target events occurring after the split point.
     constant_data : dict
         Constant data related to the patient or context.
@@ -113,9 +113,9 @@ class DataSplitterForecasting(BaseDataSplitter):
         self,
         config: Config,
         data_manager: DataManager,
-        max_split_length_after_split_event: pd.Timedelta = pd.Timedelta(days=90),
-        max_lookback_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
-        max_forecast_time_for_value: pd.Timedelta = pd.Timedelta(days=90),
+        max_forecasted_trajectory_length: pd.Timedelta,
+        max_split_length_after_split_event: pd.Timedelta = pd.Timedelta(days=0),
+        max_lookback_time_for_value: pd.Timedelta = pd.Timedelta(days=100000),
         min_num_samples_for_statistics: int = 10,
         sampling_score_to_use: str = "score_log_nrmse_n_samples",
         min_nr_variable_seen_previously: int = 1,
@@ -123,9 +123,10 @@ class DataSplitterForecasting(BaseDataSplitter):
         list_of_valid_categories: list = None,
         save_path_for_variable_stats: str = None,
         min_nr_variables_to_sample: int = 1,
-        max_nr_variables_to_sample: int = 3,
+        max_nr_variables_to_sample: int = 1,
         filtering_strategy: str = "3-sigma",
         sampling_strategy: str = "proportional",
+        allow_forecasting_beyond_next_split_date: bool = False,
     ):
         """
         Initializes the DataSplitterForecasting instance.
@@ -136,17 +137,17 @@ class DataSplitterForecasting(BaseDataSplitter):
             Configuration object containing shared settings like column names.
         data_manager : DataManager
             Provides access to patient data for a single indication.
+        max_forecasted_trajectory_length : pd.Timedelta
+            Max time after a split date to look for future variable occurrences (target
+            data). Required, no default.
         max_split_length_after_split_event : pd.Timedelta
-            Max days after LoT start to consider for split dates. Defaults to 90.
+            Max time after LoT start to consider for split dates. Defaults to 0 days.
         max_lookback_time_for_value : pd.Timedelta
-            Max days before a split date to look for past variable occurrences.
-            Defaults to 90.
-        max_forecast_time_for_value : pd.Timedelta
-            Max days after a split date to look for future variable occurrences (target
-            data). Defaults to 90.
+            Max time before a split date to look for past variable occurrences.
+            Defaults to 100000 days (effectively no limit).
         min_num_samples_for_statistics : int
             Minimum total occurrences of a variable across the training set
-            needed to calculate statistics. Defaults to 50.
+            needed to calculate statistics. Defaults to 10.
         sampling_score_to_use : str
             Column name in the computed statistics table used for weighted sampling of variables.
             Defaults to 'score_log_nrmse_n_samples'.
@@ -164,23 +165,24 @@ class DataSplitterForecasting(BaseDataSplitter):
             None.
         min_nr_variables_to_sample : int
             The minimum number of distinct variables to attempt to sample for each
-            forecasting task. Defaults to 3.
+            forecasting task. Defaults to 1.
         max_nr_variables_to_sample : int
             The maximum number of distinct variables to attempt to sample for each
-            forecasting task. Defaults to 3.
+            forecasting task. Defaults to 1.
         filtering_strategy : str
             The strategy for handling outliers in target variable values ('3-sigma').
             Defaults to '3-sigma'.
         sampling_strategy : str
             The strategy for sampling variables ('proportional' or 'uniform').
             Defaults to 'proportional'.
+        allow_forecasting_beyond_next_split_date : bool
+            Flag indicating whether to allow forecasting of events that occur beyond the next split date
+            (e.g., next LoT event). Default: False.
         """
         super().__init__(
             data_manager,
             config,
             max_split_length_after_split_event,
-            max_lookback_time_for_value,
-            max_forecast_time_for_value,
         )
 
         assert self.config.event_category_forecast is not None or list_of_valid_categories is not None, (
@@ -188,7 +190,8 @@ class DataSplitterForecasting(BaseDataSplitter):
             "For example: ['lab']"
             " Alternatively, provide list_of_valid_categories directly."
         )
-
+        self.max_lookback_time_for_value = max_lookback_time_for_value
+        self.max_forecasted_trajectory_length = max_forecasted_trajectory_length
         self.variable_stats = None
         self.variable_type = {}  # event_name -> "numeric" / "categorical"
         self.min_num_samples_for_statistics = min_num_samples_for_statistics
@@ -204,8 +207,17 @@ class DataSplitterForecasting(BaseDataSplitter):
         self.max_nr_variables_to_sample = max_nr_variables_to_sample
         self.filtering_strategy = filtering_strategy
         self.sampling_strategy = sampling_strategy
+        self.allow_forecasting_beyond_next_split_date = allow_forecasting_beyond_next_split_date
 
         self._filtering_methods = {"3-sigma": self._filter_3_sigma}
+
+        # Check that the forecasting and split event categories do not overlap, as this could cause data leakage
+        if self.config.event_category_forecast is not None and self.config.split_event_category is not None:
+            overlap = set(self.config.event_category_forecast).intersection(set(self.config.split_event_category))
+            if overlap:
+                raise ValueError(
+                    f"Forecasting and split event categories overlap: {overlap}. This could cause data leakage."
+                )
 
     def setup_statistics(self, train_patientids: list = None):
         """
@@ -254,7 +266,7 @@ class DataSplitterForecasting(BaseDataSplitter):
             temp_splits = self._get_all_dates_within_range_of_split_event(
                 temp_patient_data,
                 time_before_lot_start=self.max_lookback_time_for_value,
-                max_split_length_after_split_event=self.max_forecast_time_for_value,
+                max_split_length_after_split_event=self.max_forecasted_trajectory_length,
             )
             temp_splits[self.config.patient_id_col] = patientid
             temp_splits = temp_splits[[self.config.date_col, self.config.patient_id_col]]
@@ -652,7 +664,7 @@ class DataSplitterForecasting(BaseDataSplitter):
 
         # Pre-compute date ranges for lookback and forecast
         lookback_range = self.max_lookback_time_for_value
-        forecast_range = self.max_forecast_time_for_value
+        forecast_range = self.max_forecasted_trajectory_length
 
         # Initialize the return_splits list
         return_splits = []
@@ -854,19 +866,21 @@ class DataSplitterForecasting(BaseDataSplitter):
             events_before_split = events[events[self.config.date_col] <= curr_date]
             events_after_split = events[events[self.config.date_col] > curr_date]
             events_after_split = events_after_split[
-                events_after_split[self.config.date_col] <= curr_date + self.max_forecast_time_for_value
+                events_after_split[self.config.date_col] <= curr_date + self.max_forecasted_trajectory_length
             ]
             events_after_split = events_after_split[
                 events_after_split[self.config.event_name_col].isin(sampled_variables)
             ]
 
-            #: filter so that we do not overlap with next LoT, since that will invalidate the results
-            lots = events[events[self.config.event_category_col] == self.config.event_category_lot]
-            lots = lots[lots[self.config.date_col] > curr_date]
-            lots = lots.sort_values(self.config.date_col)
-            if lots.shape[0] > 0 and not self.config.skip_future_lot_filtering:
-                date_of_next_lot = lots[self.config.date_col].iloc[0]
-                events_after_split = events_after_split[events_after_split[self.config.date_col] < date_of_next_lot]
+            #: filter so that we do not overlap with next split event, since that will invalidate the results
+            next_split_events = events[events[self.config.event_category_col] == self.config.split_event_category]
+            next_split_events = next_split_events[next_split_events[self.config.date_col] > curr_date]
+            next_split_events = next_split_events.sort_values(self.config.date_col)
+            if next_split_events.shape[0] > 0 and not self.allow_forecasting_beyond_next_split_date:
+                date_of_next_split_event = next_split_events[self.config.date_col].iloc[0]
+                events_after_split = events_after_split[
+                    events_after_split[self.config.date_col] < date_of_next_split_event
+                ]
 
             #: if apply_filtering, apply 3-sigma filtering (only to target) and drop any bad rows
             if apply_filtering:
@@ -973,8 +987,8 @@ class DataSplitterForecasting(BaseDataSplitter):
 
         # Do some quick sanity checks
         if self.config.warning_for_splitters_patient_without_splits:
-            lot_events = events[events[self.config.event_category_col] == self.config.event_category_lot]
-            if lot_events.shape[0] == 0:
+            split_events = events[events[self.config.event_category_col] == self.config.split_event_category]
+            if split_events.shape[0] == 0:
                 logging.warning(
                     "Patient "
                     + str(patient_data["constant"][self.config.patient_id_col].iloc[0])
