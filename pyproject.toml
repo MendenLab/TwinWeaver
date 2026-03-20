@@ -46,7 +46,7 @@ classifiers = [
 # dependencies
 dependencies = [
     "numpy",
-    "pandas",
+    "pandas<3.0.0",
     "transformers",
     "scikit-learn",
     "jupyter",
@@ -58,7 +58,7 @@ dependencies = [
 dev = [
     "pytest",
     "numpy",
-    "pandas",
+    "pandas<3.0.0",
     "transformers",
     "scikit-learn",
     "ruff",
