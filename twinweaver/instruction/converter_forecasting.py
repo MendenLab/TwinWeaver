@@ -127,7 +127,7 @@ class ConverterForecasting(ConverterBase):
 
         #: preprocess:
         target_data = patient_split.target_events_after_split.copy()
-        target_cleaned = self._preprocess_events(target_data.copy())
+        target_cleaned = self._preprocess_events(target_data.copy(), is_input=False)
 
         #: get delta between split and first target
         target_first_day = target_cleaned[self.config.date_col].min()
