@@ -15,7 +15,7 @@ build-backend = "setuptools.build_meta" # Standard entry point for setuptools bu
 
 [project]
 name = "twinweaver"
-version = "0.3.3"
+version = "0.3.4"
 description = "Converting longitudinal patient data into text for LLM-based event prediction and forecasting."
 
 # --- NEW/UPDATED FIELDS ---
@@ -46,7 +46,7 @@ classifiers = [
 # dependencies
 dependencies = [
     "numpy",
-    "pandas<3.0.0",
+    "pandas",
     "transformers",
     "scikit-learn",
     "jupyter",
@@ -58,7 +58,7 @@ dependencies = [
 dev = [
     "pytest",
     "numpy",
-    "pandas<3.0.0",
+    "pandas",
     "transformers",
     "scikit-learn",
     "ruff",

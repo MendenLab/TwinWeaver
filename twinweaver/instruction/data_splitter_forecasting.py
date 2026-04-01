@@ -274,6 +274,8 @@ class DataSplitterForecasting(BaseDataSplitter):
             del temp_patient_data
 
         all_possible_split_dates = pd.concat(all_possible_split_dates, axis=0, ignore_index=True)
+        # In case pandas 3.0.0 causes issues
+        all_possible_split_dates[self.config.date_col] = pd.to_datetime(all_possible_split_dates[self.config.date_col])
         all_possible_split_dates = all_possible_split_dates.drop_duplicates()
 
         #: filter to only train patients
