@@ -264,7 +264,7 @@ class ConverterBase:
 
         return constant_string
 
-    def _preprocess_events(self, events: pd.DataFrame) -> pd.DataFrame:
+    def _preprocess_events(self, events: pd.DataFrame, is_input: bool = True) -> pd.DataFrame:
         """
         Performs initial preprocessing on the time-series event data.
 
@@ -299,11 +299,11 @@ class ConverterBase:
         )
 
         # Exclude specified event categories from the input if configured
-        if self.config.event_categories_to_exclude_from_input:
-            events = events[
-                ~events[self.config.event_category_col].isin(self.config.event_categories_to_exclude_from_input)
-            ]
-
+        if is_input:
+            if self.config.event_categories_to_exclude_from_input:
+                events = events[
+                    ~events[self.config.event_category_col].isin(self.config.event_categories_to_exclude_from_input)
+                ]
         return events
 
     def _get_event_string(
