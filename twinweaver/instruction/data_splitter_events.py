@@ -33,6 +33,11 @@ class DataSplitterEventsOption:
         The end of the prediction window.
     lot_date : pd.Timestamp
         The Line of Therapy (LoT) start date associated with this split point.
+    unit_length_to_sample : str or None
+        The time unit used by the DataSplitterEvents when sampling the observation
+        window (e.g. ``"weeks"``, ``"days"``, ``"hours"``).  Propagated so that
+        downstream converters can express the delta time in the same unit,
+        regardless of ``config.delta_time_unit``.
     """
 
     def __init__(
@@ -46,6 +51,7 @@ class DataSplitterEventsOption:
         sampled_category: str,
         sampled_category_name: str,
         lot_date: pd.Timestamp,
+        unit_length_to_sample: str = None,
     ):
         self.events_until_split = events_until_split
         self.constant_data = constant_data
@@ -56,6 +62,7 @@ class DataSplitterEventsOption:
         self.sampled_category = sampled_category
         self.sampled_category_name = sampled_category_name
         self.lot_date = lot_date
+        self.unit_length_to_sample = unit_length_to_sample
 
 
 class DataSplitterEventsGroup:
@@ -501,6 +508,7 @@ class DataSplitterEvents(BaseDataSplitter):
                         sampled_category=str(sampled_cateogry),
                         sampled_category_name=sampled_var_name,
                         lot_date=lot_date,
+                        unit_length_to_sample=self.unit_length_to_sample,
                     )
                 )
 
