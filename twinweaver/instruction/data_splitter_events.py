@@ -109,7 +109,8 @@ class DataSplitterEvents(BaseDataSplitter):
             The minimum length of time into the future to sample for event prediction.
             Required, no default.
         unit_length_to_sample : str
-            The unit of time for the length to sample (e.g. "weeks").
+            The unit of time for the length to sample (e.g. "weeks", "days", "hours",
+            "minutes", or "seconds").
         max_split_length_after_split_event : pd.Timedelta, optional
             The maximum number of days after the split event (e.g. line of therapy) to consider for split points.
             Defaults to 0 days.
@@ -389,26 +390,32 @@ class DataSplitterEvents(BaseDataSplitter):
                     continue
                 prev_sampled_category.append(sampled_cateogry)
 
-                # Determine how many weeks to predict into the future
+                # Determine how many units to predict into the future
                 if override_observation_time_delta is None:
                     #: randomly sample end date -> so that we also get random values in between for consistency
                     # This is so that the model can learn different time values for the same variable
-                    #: To not bias the model, we select a random nr time as max end date``
+                    #: To not bias the model, we select a random nr time as max end date
 
-                    if self.unit_length_to_sample == "days":
-                        max_units = self.max_length_to_sample.days
-                        min_units = self.min_length_to_sample.days
-                        random_units = np.random.randint(min_units, max_units + 1)
-                        end_time_delta = pd.Timedelta(days=random_units)
-                    elif self.unit_length_to_sample == "weeks":
-                        max_units = self.max_length_to_sample.days // 7
-                        min_units = self.min_length_to_sample.days // 7
-                        random_units = np.random.randint(min_units, max_units + 1)
-                        end_time_delta = pd.Timedelta(weeks=random_units)
-                    else:
+                    # Mapping from unit name to the divisor that converts a Timedelta (in seconds)
+                    # to integer units, plus the pd.Timedelta keyword for reconstruction.
+                    _unit_info = {
+                        "days": (86400, "days"),
+                        "weeks": (86400 * 7, "weeks"),
+                        "hours": (3600, "hours"),
+                        "minutes": (60, "minutes"),
+                        "seconds": (1, "seconds"),
+                    }
+                    unit = self.unit_length_to_sample
+                    if unit not in _unit_info:
                         raise NotImplementedError(
-                            f"Unit length to sample {self.unit_length_to_sample} not implemented."
+                            f"Unit length to sample '{unit}' not implemented. "
+                            f"Supported units: {list(_unit_info.keys())}"
                         )
+                    divisor, td_kwarg = _unit_info[unit]
+                    max_units = int(self.max_length_to_sample.total_seconds() // divisor)
+                    min_units = int(self.min_length_to_sample.total_seconds() // divisor)
+                    random_units = np.random.randint(min_units, max_units + 1)
+                    end_time_delta = pd.Timedelta(**{td_kwarg: random_units})
                 else:
                     end_time_delta = override_observation_time_delta
 

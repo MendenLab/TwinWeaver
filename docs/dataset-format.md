@@ -106,7 +106,7 @@ On the first visit, the patient experienced the following:
 
 #### Relative Dating
 
-TwinWeaver uses **relative dating** instead of absolute dates. All calendar dates from the input data are converted into time deltas relative to the previous visit (e.g., *"2 weeks later"*) rather than being included as raw dates (e.g., *"2024-01-29"*). This serves two important purposes: first, it **anonymizes** the patient data by removing identifiable calendar dates from the training text; second, it provides the model with **clinically meaningful temporal context** — the time elapsed between visits — rather than arbitrary date strings. By default, time intervals are expressed in weeks, but this can be changed to days using `Config.set_delta_time_unit("days")`. Accumulative deltas (time since the very first visit rather than since the previous visit) are also supported.
+TwinWeaver uses **relative dating** instead of absolute dates. All calendar dates from the input data are converted into time deltas relative to the previous visit (e.g., *"2 weeks later"*) rather than being included as raw dates (e.g., *"2024-01-29"*). This serves two important purposes: first, it anonymizes the patient data by removing identifiable calendar dates from the training text; second, it prevents model overfitting on specific timestamps. By default, time intervals are expressed in weeks, but this can be changed using `Config.set_delta_time_unit()`. Supported units are `"days"`, `"weeks"`, `"hours"`, `"minutes"`, and `"seconds"`. Fractional values are naturally supported for every unit (e.g. *"0.5 days later"* for events 12 hours apart). Accumulative deltas (time since the very first visit rather than since the previous visit) are also supported.
 
 ### Final Output Structure
 

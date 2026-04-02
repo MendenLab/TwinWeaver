@@ -132,7 +132,7 @@ class ConverterForecasting(ConverterBase):
         #: get delta between split and first target
         target_first_day = target_cleaned[self.config.date_col].min()
         split_date = patient_split.split_date_included_in_input
-        delta_days = (target_first_day - split_date).days / self._time_divisor
+        delta_days = (target_first_day - split_date).total_seconds() / (86400.0 * self._time_divisor)
 
         #: convert to string using default approach
         target_str = self._get_event_string(
@@ -151,7 +151,9 @@ class ConverterForecasting(ConverterBase):
             # Ensure dates is a pd.Series or pd.DatetimeIndex for subtraction
             if not isinstance(dates, (pd.Series, pd.DatetimeIndex)):
                 dates = pd.to_datetime(dates)
-            future_prediction_time_per_variable[variable] = (dates - split_date).days / self._time_divisor
+            future_prediction_time_per_variable[variable] = (dates - split_date).total_seconds() / (
+                86400.0 * self._time_divisor
+            )
 
             # Get descriptive name
             curr_var = target_cleaned[target_cleaned[self.config.event_name_col] == variable]
@@ -166,7 +168,7 @@ class ConverterForecasting(ConverterBase):
         # Ensure dates_to_forecast is pd.DatetimeIndex for subtraction
         if not isinstance(dates_to_forecast, pd.DatetimeIndex):
             dates_to_forecast = pd.to_datetime(dates_to_forecast)
-        future_weeks_to_forecast = (dates_to_forecast - split_date).days / self._time_divisor
+        future_weeks_to_forecast = (dates_to_forecast - split_date).total_seconds() / (86400.0 * self._time_divisor)
 
         #: add last observed values of each variable from input history
         input_history = patient_split.events_until_split
@@ -374,9 +376,7 @@ class ConverterForecasting(ConverterBase):
             # Ensure weeks is iterable
             if not hasattr(weeks, "__iter__"):
                 weeks = [weeks]
-            dates_per_variable[variable] = [
-                split_date + pd.Timedelta(days=float(w) * self._time_divisor) for w in weeks
-            ]
+            dates_per_variable[variable] = [split_date + self._delta_to_timedelta(float(w)) for w in weeks]
         target_pseudo_meta["dates_per_variable"] = dates_per_variable
 
         #: make target_meta["variable_name_mapping"] by looking up in input events

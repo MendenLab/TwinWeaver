@@ -129,13 +129,42 @@ class ConverterBase:
         self.always_keep_first_visit = None
 
         # Handles time division depending on config
-        if self.config.delta_time_unit in ["weeks", "week(s)"]:
-            self._time_divisor = 7.0
-        elif self.config.delta_time_unit in ["days", "day(s)"]:
-            self._time_divisor = 1.0
+        # _time_divisor converts a timedelta expressed in *days* into the
+        # desired unit.  For sub-day units we use fractional-day arithmetic
+        # (e.g. 1 hour = 1/24 day, so divisor = 1/24).
+        _unit_to_divisor = {
+            "weeks": 7.0,
+            "week(s)": 7.0,
+            "days": 1.0,
+            "day(s)": 1.0,
+            "hours": 1.0 / 24.0,
+            "hour(s)": 1.0 / 24.0,
+            "minutes": 1.0 / (24.0 * 60.0),
+            "minute(s)": 1.0 / (24.0 * 60.0),
+            "seconds": 1.0 / (24.0 * 60.0 * 60.0),
+            "second(s)": 1.0 / (24.0 * 60.0 * 60.0),
+        }
+        unit = self.config.delta_time_unit
+        if unit in _unit_to_divisor:
+            self._time_divisor = _unit_to_divisor[unit]
         else:
             self._time_divisor = None
-            raise ValueError(f"Unsupported delta_time_unit: {self.config.delta_time_unit}")
+            raise ValueError(f"Unsupported delta_time_unit: {unit}. Supported values: {list(_unit_to_divisor.keys())}")
+
+        # Whether the configured unit is sub-day (hours, minutes, seconds)
+        self._sub_day_unit = unit in ("hours", "hour(s)", "minutes", "minute(s)", "seconds", "second(s)")
+
+    def _delta_to_timedelta(self, delta: float) -> pd.Timedelta:
+        """Convert a delta value (in the configured time unit) back to a :class:`pd.Timedelta`.
+
+        For day-level units (days, weeks) the result is rounded to whole days so
+        that the original day-level data precision is preserved.  For sub-day
+        units (hours, minutes, seconds) the full resolution is kept.
+        """
+        days_float = delta * self._time_divisor
+        if self._sub_day_unit:
+            return pd.to_timedelta(days_float, unit="D")
+        return pd.to_timedelta(round(days_float), unit="D")
 
     def _preprocess_constant_date(
         self,
@@ -347,8 +376,9 @@ class ConverterBase:
         #: sort by date using config constant
         events = events.sort_values(self.config.date_col).reset_index(drop=True)
 
-        #: for every visit get delta to previous in days or weeks, starting with 0 using config constant
-        events_delta = events[self.config.date_col].diff().dt.days / self._time_divisor
+        #: for every visit get delta to previous in the configured time unit, starting with 0
+        #  Use total_seconds() instead of .dt.days so fractional days and sub-day units are preserved.
+        events_delta = events[self.config.date_col].diff().dt.total_seconds() / (86400.0 * self._time_divisor)
         events_delta[0] = events_delta_0
         events["delta"] = events_delta
 
@@ -910,7 +940,11 @@ class ConverterBase:
         source_value = self.config.source_genetic if event_category == "unknown - genetic" else "events"
 
         new_event = {
-            self.config.date_col: prev_date + pd.to_timedelta(round(delta * self._time_divisor), unit="D"),
+            # Convert delta (in the configured time unit) back to a Timedelta.
+            # For day-level units (days, weeks) round to whole days to preserve
+            # the original day-level data precision.  For sub-day units
+            # (hours, minutes, seconds) keep the full resolution.
+            self.config.date_col: prev_date + self._delta_to_timedelta(delta),
             self.config.event_category_col: event_category,
             self.config.event_name_col: event_name,
             self.config.event_descriptive_name_col: event_descriptive_name,

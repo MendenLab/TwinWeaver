@@ -163,7 +163,7 @@ class ConverterEvents(ConverterBase):
         #: get delta in time in config.delta_time_unit, rounded using round_and_strip
         delta_time_numeric = patient_split.observation_end_date - patient_split.split_date_included_in_input
 
-        delta_time_numeric = delta_time_numeric.days / self._time_divisor
+        delta_time_numeric = delta_time_numeric.total_seconds() / (86400.0 * self._time_divisor)
 
         delta_time = round_and_strip(delta_time_numeric, self.decimal_precision)
 
