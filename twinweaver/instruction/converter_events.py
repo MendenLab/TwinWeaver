@@ -139,9 +139,13 @@ class ConverterEvents(ConverterBase):
 
         Constructs a prompt asking the language model to predict the time until a
         specific event occurs. It calculates the time difference between the patient's
-        split date (last date included in input) and the actual event date, converts
-        it to weeks if config.delta_time_unit is "weeks", rounds it, and formats it into the prompt string using
-        templates from the config (e.g., `self.forecasting_prompt_start`).
+        split date (last date included in input) and the actual event date.
+
+        When the *patient_split* carries a ``unit_length_to_sample`` (propagated from
+        :class:`DataSplitterEvents`), the delta time is expressed in that unit and
+        the prompt text is adjusted accordingly, regardless of
+        ``config.delta_time_unit``.  If the attribute is ``None`` the behaviour
+        falls back to the global ``config.delta_time_unit``.
 
         Parameters
         ----------
@@ -154,22 +158,52 @@ class ConverterEvents(ConverterBase):
             The formatted prompt string, e.g.:
             "Predict the time in weeks until event Event A occurs: 12.3 weeks. Input data:\n"
         delta_time_numeric : float
-            The calculated time difference in config.delta_time_unit (numeric, before rounding/formatting).
+            The calculated time difference (numeric, before rounding/formatting)
+            expressed in the effective unit.
         """
 
         #: Get event name descriptive
         curr_event_name = patient_split.sampled_category_name
 
-        #: get delta in time in config.delta_time_unit, rounded using round_and_strip
+        #: Determine the effective unit and time divisor.
+        #  If the split carries unit_length_to_sample we honour it; otherwise
+        #  fall back to the config-level delta_time_unit via self._time_divisor.
+        split_unit = getattr(patient_split, "unit_length_to_sample", None)
+        if split_unit is not None:
+            _unit_to_divisor = {
+                "weeks": 7.0,
+                "week(s)": 7.0,
+                "days": 1.0,
+                "day(s)": 1.0,
+                "hours": 1.0 / 24.0,
+                "hour(s)": 1.0 / 24.0,
+                "minutes": 1.0 / (24.0 * 60.0),
+                "minute(s)": 1.0 / (24.0 * 60.0),
+                "seconds": 1.0 / (24.0 * 60.0 * 60.0),
+                "second(s)": 1.0 / (24.0 * 60.0 * 60.0),
+            }
+            if split_unit not in _unit_to_divisor:
+                raise ValueError(
+                    f"Unsupported unit_length_to_sample on split: '{split_unit}'. "
+                    f"Supported values: {list(_unit_to_divisor.keys())}"
+                )
+            effective_divisor = _unit_to_divisor[split_unit]
+            # Re-render the mid prompt template with the split's unit
+            effective_prompt_mid = self.config._forecasting_tte_prompt_mid_template.format(unit=split_unit)
+        else:
+            effective_divisor = self._time_divisor
+            effective_prompt_mid = self.forecasting_prompt_mid
+
+        #: get delta in time, rounded using round_and_strip
         delta_time_numeric = patient_split.observation_end_date - patient_split.split_date_included_in_input
 
-        delta_time_numeric = delta_time_numeric.total_seconds() / (86400.0 * self._time_divisor)
+        delta_time_numeric = delta_time_numeric.total_seconds() / (86400.0 * effective_divisor)
 
         delta_time = round_and_strip(delta_time_numeric, self.decimal_precision)
 
         #: construct prompt using config attributes accessed via self
         ret_prompt = self.forecasting_prompt_start + str(delta_time)
-        ret_prompt += self.forecasting_prompt_mid + curr_event_name
+        ret_prompt += effective_prompt_mid + curr_event_name
         ret_prompt += self.forecasting_prompt_end
 
         #: return

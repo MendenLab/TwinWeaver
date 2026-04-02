@@ -726,3 +726,226 @@ def test_forecasting_truncation_allow_beyond_next_split_date():
         base_date + pd.Timedelta(days=25),
     ]
     assert target[cfg.date_col].tolist() == expected_dates
+
+
+# ────────────────────────────────────────────────────────────────────────────
+# Test that DataSplitterEvents respects unit_length_to_sample
+# ────────────────────────────────────────────────────────────────────────────
+
+
+def test_events_splitter_respects_unit_length_to_sample():
+    """
+    Verify that the observation_end_date produced by DataSplitterEvents is
+    bounded by ``max_length_to_sample`` expressed in the correct
+    ``unit_length_to_sample``, and is NOT pushed forward to the next event
+    when that event lies beyond the sampled prediction window.
+
+    Scenario (unit_length_to_sample = "days", max = 7 days, min = 1 day):
+      Timeline for patient p_test:
+        Day 0   - lot event            (split event)
+        Day 0   - lab measurement      (input – at the split date)
+        Day 100 - death event          (far in the future)
+
+      We split at Day 0 and predict "death" with a window of at most 7 days.
+      The observation_end_date must be <= Day 0 + 7 days.  Before the fix
+      it would jump to Day 100 (the next event), violating the window.
+    """
+    from twinweaver.common.config import Config
+
+    cfg = Config()
+    cfg.seed = 42
+    cfg.split_event_category = "lot"
+    cfg.event_category_events_prediction_with_naming = {"death": "death"}
+    cfg.constant_columns_to_use = []
+
+    base_date = pd.Timestamp("2020-01-01")
+
+    events = pd.DataFrame(
+        {
+            cfg.date_col: [
+                base_date,
+                base_date,
+                base_date + pd.Timedelta(days=100),
+            ],
+            cfg.event_category_col: ["lot", "lab", "death"],
+            cfg.event_name_col: ["line_number", "hemoglobin", "death"],
+            cfg.event_value_col: ["1", "13.0", "deceased"],
+            cfg.event_descriptive_name_col: ["line number", "hemoglobin", "death"],
+            cfg.source_col: ["events"] * 3,
+            cfg.meta_data_col: [pd.NA] * 3,
+        }
+    )
+
+    constant = pd.DataFrame(
+        {
+            cfg.patient_id_col: ["p_test"],
+            cfg.constant_split_col: ["train"],
+        }
+    )
+
+    patient_data = {"events": events, "constant": constant}
+
+    # Create a minimal DataManager stub
+    dm = DataManager.__new__(DataManager)
+    dm.config = cfg
+    dm.data_frames = {"events": events}
+    dm.all_patientids = ["p_test"]
+
+    max_length = pd.Timedelta(days=7)
+    min_length = pd.Timedelta(days=1)
+
+    splitter = DataSplitterEvents(
+        data_manager=dm,
+        config=cfg,
+        max_length_to_sample=max_length,
+        min_length_to_sample=min_length,
+        unit_length_to_sample="days",
+        max_split_length_after_split_event=pd.Timedelta(days=0),
+    )
+    splitter.setup_variables()
+
+    np.random.seed(cfg.seed)
+
+    # Use override split dates and category to make the test deterministic
+    splits = splitter.get_splits_from_patient(
+        patient_data,
+        max_nr_samples_per_split=1,
+        override_split_dates=[base_date],
+        override_category="death",
+    )
+
+    assert len(splits) == 1
+    assert len(splits[0]) == 1
+
+    option = splits[0][0]
+
+    # The critical assertion: observation_end_date must respect the sampled
+    # window which is at most base_date + 7 days.  Before the fix it was
+    # pushed to base_date + 100 days (the death event).
+    assert option.observation_end_date <= base_date + max_length, (
+        f"observation_end_date ({option.observation_end_date}) exceeded the "
+        f"maximum prediction window ({base_date + max_length}).  "
+        f"unit_length_to_sample is not being respected."
+    )
+
+    # The event (death) is at Day 100, well outside the 7-day window,
+    # so it should NOT have occurred.
+    assert option.event_occurred is False
+
+    # The end_date is within the data range (data goes to Day 100), so the
+    # event simply did not occur within the prediction window — not censored.
+    assert option.event_censored is None
+
+
+def test_events_splitter_unit_days_vs_weeks():
+    """
+    Verify that changing ``unit_length_to_sample`` between 'days' and 'weeks'
+    actually produces different observation windows when
+    ``max_length_to_sample`` is the same Timedelta.
+
+    With max_length_to_sample = 14 days:
+      - unit='days'  → random window in [1 … 14] days
+      - unit='weeks' → random window in [1 … 2]  weeks (= 7 or 14 days)
+
+    By running many samples we can verify the units produce the expected
+    granularity.
+    """
+    from twinweaver.common.config import Config
+
+    cfg = Config()
+    cfg.seed = 123
+    cfg.split_event_category = "lot"
+    cfg.event_category_events_prediction_with_naming = {"death": "death"}
+    cfg.constant_columns_to_use = []
+
+    base_date = pd.Timestamp("2020-01-01")
+    far_future = base_date + pd.Timedelta(days=365)
+
+    events = pd.DataFrame(
+        {
+            cfg.date_col: [base_date, base_date, far_future],
+            cfg.event_category_col: ["lot", "lab", "death"],
+            cfg.event_name_col: ["line_number", "hemoglobin", "death"],
+            cfg.event_value_col: ["1", "13.0", "deceased"],
+            cfg.event_descriptive_name_col: ["line number", "hemoglobin", "death"],
+            cfg.source_col: ["events"] * 3,
+            cfg.meta_data_col: [pd.NA] * 3,
+        }
+    )
+
+    constant = pd.DataFrame(
+        {
+            cfg.patient_id_col: ["p_test"],
+            cfg.constant_split_col: ["train"],
+        }
+    )
+    patient_data = {"events": events, "constant": constant}
+
+    dm = DataManager.__new__(DataManager)
+    dm.config = cfg
+    dm.data_frames = {"events": events}
+    dm.all_patientids = ["p_test"]
+
+    max_td = pd.Timedelta(days=14)
+    min_td = pd.Timedelta(days=1)
+
+    # --- unit = "days" ---
+    splitter_days = DataSplitterEvents(
+        data_manager=dm,
+        config=cfg,
+        max_length_to_sample=max_td,
+        min_length_to_sample=min_td,
+        unit_length_to_sample="days",
+        max_split_length_after_split_event=pd.Timedelta(days=0),
+    )
+    splitter_days.setup_variables()
+
+    day_deltas = set()
+    for i in range(200):
+        np.random.seed(i)
+        splits = splitter_days.get_splits_from_patient(
+            patient_data,
+            max_nr_samples_per_split=1,
+            override_split_dates=[base_date],
+            override_category="death",
+        )
+        delta = (splits[0][0].observation_end_date - base_date).days
+        day_deltas.add(delta)
+
+    # With unit="days" and range [1..14], we expect many distinct day values
+    assert len(day_deltas) > 2, f"With unit='days', expected many distinct day offsets but got {day_deltas}"
+    # All values should be within [1, 14]
+    assert min(day_deltas) >= 1
+    assert max(day_deltas) <= 14
+
+    # --- unit = "weeks" ---
+    splitter_weeks = DataSplitterEvents(
+        data_manager=dm,
+        config=cfg,
+        max_length_to_sample=max_td,
+        min_length_to_sample=min_td,
+        unit_length_to_sample="weeks",
+        max_split_length_after_split_event=pd.Timedelta(days=0),
+    )
+    splitter_weeks.setup_variables()
+
+    week_deltas = set()
+    for i in range(200):
+        np.random.seed(i)
+        splits = splitter_weeks.get_splits_from_patient(
+            patient_data,
+            max_nr_samples_per_split=1,
+            override_split_dates=[base_date],
+            override_category="death",
+        )
+        delta = (splits[0][0].observation_end_date - base_date).days
+        week_deltas.add(delta)
+
+    # With unit="weeks", min_units=0 (1 day // 7 = 0), max_units=2 (14 days // 7 = 2)
+    # So we get 0, 1, or 2 weeks → 0, 7, or 14 days
+    # All offsets must be multiples of 7
+    for d in week_deltas:
+        assert d % 7 == 0, (
+            f"With unit='weeks', got a non-week-multiple offset of {d} days. "
+            f"unit_length_to_sample is not being respected."
+        )
