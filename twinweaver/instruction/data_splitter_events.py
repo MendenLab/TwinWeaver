@@ -421,7 +421,6 @@ class DataSplitterEvents(BaseDataSplitter):
 
                 # Process the actual end date
                 end_date = curr_date + end_time_delta
-                end_date = max(end_date, events_after_split[self.config.date_col].min())
                 end_date_within_data = end_date <= events[self.config.date_col].max()
                 events_limited_after_split = events_after_split[events_after_split[self.config.date_col] <= end_date]
 
