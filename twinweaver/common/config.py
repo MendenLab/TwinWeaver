@@ -20,8 +20,10 @@ class Config:
     date_cutoff : str | None
         If set, only use data before this date (format: "YYYY-MM-DD"), censored after. Default: None.
     delta_time_unit : str
-        Unit of time used to express intervals between patient visits in the generated text. Options are "days" or
-        "weeks". Default: "weeks".
+        Unit of time used to express intervals between patient visits in the generated text. Options are "days",
+        "weeks", "hours", "minutes", or "seconds" (and their parenthesised plurals like "day(s)").
+        Fractional days are naturally supported when using "days" (e.g. 0.5 days).
+        Default: "weeks".
     numeric_detect_min_fraction: float
         Fraction of values that must be numeric to classify a variable as numeric. Defaults to 0.99.
     date_col : str
@@ -254,7 +256,7 @@ class Config:
         # --- Import data parameters ---
         self.date_cutoff = None  # If set, only use data before this date (format: "YYYY-MM-DD"), censored after
         self.delta_time_unit: str = (
-            "weeks"  # Either "days" or "weeks" - if you change this, you need to call set_delta_time_unit
+            "weeks"  # "days", "weeks", "hours", "minutes", or "seconds" - if you change this, call set_delta_time_unit
         )
         self.numeric_detect_min_fraction: float = (
             0.99  # Fraction of numeric values required to consider an event as numeric
@@ -437,14 +439,47 @@ class Config:
             "progression": "death",
         }
 
+    # Valid plural and parenthesised-plural forms for delta_time_unit
+    VALID_DELTA_UNITS_PLURAL = (
+        "days",
+        "weeks",
+        "hours",
+        "minutes",
+        "seconds",
+        "day(s)",
+        "week(s)",
+        "hour(s)",
+        "minute(s)",
+        "second(s)",
+    )
+    # Valid singular forms (used for prompts where singular reads better)
+    VALID_DELTA_UNITS_SINGULAR = ("day", "week", "hour", "minute", "second")
+
     def set_delta_time_unit(self, unit: str, unit_sing=None):
         """
-        Set the time unit for delta time representation in text conversion. Possible to set either
-        "days" (and "day(s)") or "weeks" (and "week(s)"). Optionally, a singular form can be provided
-        for use in specific prompts. If not provided, the plural form will be used.
+        Set the time unit for delta time representation in text conversion.
+
+        Supported plural forms: ``"days"``, ``"weeks"``, ``"hours"``, ``"minutes"``,
+        ``"seconds"`` (and their parenthesised variants like ``"day(s)"``).
+        Fractional values are naturally supported for every unit – e.g. ``0.5``
+        days will appear as ``"0.5 days later …"`` in the generated text.
+
+        Optionally, a singular form can be provided for use in specific prompts.
+        If not provided, the plural form will be used.
+
+        Parameters
+        ----------
+        unit : str
+            Plural (or parenthesised-plural) time unit.
+        unit_sing : str or None
+            Optional singular form of the unit (e.g. ``"hour"``).
         """
-        assert unit in ("days", "weeks", "day(s)", "week(s)"), "unit must be either 'days' or 'weeks'"
-        assert unit_sing in (None, "day", "week"), "unit_sing must be either None, 'day' or 'week'"
+        assert unit in self.VALID_DELTA_UNITS_PLURAL, (
+            f"unit must be one of {self.VALID_DELTA_UNITS_PLURAL}, got '{unit}'"
+        )
+        assert unit_sing in (None, *self.VALID_DELTA_UNITS_SINGULAR), (
+            f"unit_sing must be None or one of {self.VALID_DELTA_UNITS_SINGULAR}, got '{unit_sing}'"
+        )
         self.delta_time_unit = unit
         if unit_sing is None:
             unit_sing = unit

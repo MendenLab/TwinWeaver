@@ -129,7 +129,7 @@ A comprehensive tutorial on customizing **every textual component** of the instr
 - Customizing preamble and introduction text
 - Modifying demographics section formatting
 - Changing event day and time interval descriptions
-- Switching time units between days and weeks
+- Switching time units between days, weeks, hours, minutes, and seconds
 - Customizing genetic data tags and placeholder text
 - Modifying forecasting, time-to-event, and QA task prompts
 - Configuring multi-task instruction formatting
