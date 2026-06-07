@@ -25,3 +25,4 @@ examples/advanced/pretraining/results/
 .venv*
 gdt_only*
 core.*
+.claude/

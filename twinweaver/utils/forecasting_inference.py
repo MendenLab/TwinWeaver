@@ -450,7 +450,13 @@ def parse_forecasting_results(
                     for si in task_subset["sample_idx"].unique()
                 ]
                 try:
-                    agg_df, _meta = converter.aggregate_multiple_responses(per_sample)
+                    # ``per_sample`` is a list[pd.DataFrame] (one reverse-converted
+                    # forecasting frame per sample), which matches the signature of the
+                    # forecasting sub-converter — not ``ConverterInstruction`` (which expects
+                    # list[list[dict]]). Route to the forecasting sub-converter when present,
+                    # and fall back to the converter itself for a bare ``ConverterForecasting``.
+                    agg_converter = getattr(converter, "converter_forecasting", converter)
+                    agg_df, _meta = agg_converter.aggregate_multiple_responses(per_sample)
                     agg_df["task_type"] = tt
                     agg_df["patientid"] = patientid
                     agg_parts.append(agg_df)

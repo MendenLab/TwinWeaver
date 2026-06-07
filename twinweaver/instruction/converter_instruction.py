@@ -553,6 +553,9 @@ class ConverterInstruction(ConverterBase):
         budget_total -= self.get_nr_tokens(prompt)
         budget_total -= self.get_nr_tokens(constant_string)
         budget_total -= self.get_nr_tokens(summarized_row_string)
+        # The final string prepends ``preamble_text`` (see ``input_string`` below), so it must
+        # also be charged against the budget to avoid overshooting ``nr_tokens_budget_total``.
+        budget_total -= self.get_nr_tokens(self.config.preamble_text)
         budget_total -= self.nr_tokens_budget_padding
 
         #: select events within token budget
@@ -561,7 +564,7 @@ class ConverterInstruction(ConverterBase):
         #: generate history string
         patient_history_processed = patient_history.copy()
         patient_history_processed = self._preprocess_events(patient_history_processed)
-        history_str = self._get_event_string(patient_history, use_accumulative_dates=False)
+        history_str = self._get_event_string(patient_history_processed, use_accumulative_dates=False)
 
         #: generate final string
         input_string = self.config.preamble_text + constant_string + history_str + summarized_row_string + prompt
