@@ -5,6 +5,7 @@ from twinweaver.instruction.data_splitter_forecasting import DataSplitterForecas
 from twinweaver.instruction.data_splitter_events import DataSplitterEvents
 from twinweaver.instruction.data_splitter import DataSplitter
 from twinweaver.common.data_manager import DataManager
+from twinweaver.utils.forecasting_inference import parse_forecasting_results
 
 
 @pytest.fixture
@@ -559,3 +560,96 @@ def test_forward_conversion_inference_events_only(setup_events_only):
     assert "Task 1 is time to event prediction:" in instruction
     assert "forecasting:" not in instruction
     assert "Starting with demographic data:" in instruction
+
+
+# ── Regression tests for forecasting inference bugs ─────────────────────────
+
+
+def test_parse_forecasting_results_aggregates_samples(setup_components, capsys):
+    """Bug A: sample aggregation must route to the forecasting sub-converter.
+
+    Previously ``parse_forecasting_results`` called
+    ``ConverterInstruction.aggregate_multiple_responses`` (which expects
+    ``list[list[dict]]``) with a ``list[pd.DataFrame]``, so every aggregation
+    threw, was swallowed, and silently fell back to "keep first sample". This
+    test feeds two forecasting samples with the same (date, event) but different
+    numeric values and asserts the result is their mean (not the first sample).
+    """
+    dm, _data_splitter, converter = setup_components
+
+    split_date = pd.Timestamp("2016-01-01")
+
+    def _forecast_text(value):
+        return (
+            "Task 1 is forecasting:\n"
+            "3 weeks later, the patient visited and experienced the following: "
+            f"\n\themoglobin - 718-7 is {value}.\n\n"
+        )
+
+    # Two samples: hemoglobin 13.0 and 15.0 -> mean 14.0
+    payload = {
+        "patientid": "p0",
+        "split_date": split_date,
+        "generated_texts": [_forecast_text("13.0"), _forecast_text("15.0")],
+    }
+
+    df = parse_forecasting_results([payload], converter, dm, aggregate_samples=True)
+
+    captured = capsys.readouterr()
+    assert "aggregation failed" not in captured.out, captured.out
+
+    assert not df.empty
+    # Single (date, event) group across the two samples -> one aggregated row.
+    hemo = df[df["event_name"].str.contains("hemoglobin", case=False, na=False)]
+    assert len(hemo) == 1
+    assert float(hemo["event_value"].iloc[0]) == pytest.approx(14.0)
+    # No per-sample fan-out should survive aggregation.
+    assert "sample_idx" not in df.columns
+
+
+def test_inference_history_uses_preprocessed_events(setup_forecasting_only):
+    """Bug B: inference must render the *preprocessed* history, like training.
+
+    ``forward_conversion_inference`` computed ``patient_history_processed`` and
+    then rendered the raw ``patient_history`` instead. ``_preprocess_events``
+    drops ``event_categories_to_exclude_from_input`` (and round/strips + sorts),
+    so the rendered history differed from the training path. Here we exclude a
+    category present in the patient's history and assert it does not leak into
+    the inference prompt, and that the inference history block exactly equals the
+    rendering of the preprocessed frame.
+    """
+    dm, data_splitter, converter, _ = setup_forecasting_only
+
+    # Exclude a category that is present in p0's input history.
+    converter.config.event_categories_to_exclude_from_input = ["biomarker"]
+
+    patient_data = dm.get_patient_data("p0")
+    f_split, _e_split = data_splitter.get_splits_from_patient_inference(
+        patient_data,
+        inference_type="forecasting",
+        forecasting_override_variables_to_predict=["hemoglobin_-_718-7"],
+    )
+
+    result = converter.forward_conversion_inference(
+        forecasting_split=f_split,
+        forecasting_future_weeks_per_variable={"hemoglobin_-_718-7": [4, 8, 12]},
+        event_split=None,
+    )
+
+    instruction = result["instruction"]
+    raw_history = result["meta"]["history_data"]
+
+    # Render both the processed (correct) and raw (buggy) history frames.
+    processed = converter._preprocess_events(raw_history.copy())
+    expected_history = converter._get_event_string(processed, use_accumulative_dates=False)
+    raw_history_str = converter._get_event_string(raw_history.copy(), use_accumulative_dates=False)
+
+    # The exclusion must actually change the rendering (otherwise the test is vacuous).
+    assert "Epidermal Growth Factor Receptor" in raw_history_str
+    assert "Epidermal Growth Factor Receptor" not in expected_history
+    assert expected_history != raw_history_str
+
+    # Post-fix: the prompt contains the preprocessed rendering and the excluded
+    # category does not leak in. Pre-fix this fails (raw frame was rendered).
+    assert expected_history in instruction
+    assert "Epidermal Growth Factor Receptor" not in instruction
