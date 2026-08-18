@@ -61,7 +61,10 @@ dev = [
     "pandas",
     "transformers",
     "scikit-learn",
-    "ruff",
+    # Pinned to the same version as the ruff-pre-commit hook in .pre-commit-config.yaml.
+    # An unpinned ruff makes CI lint against whatever version is newest on the day it runs,
+    # which fails the build on new rules that were not enabled when the code was written.
+    "ruff==0.9.3",
     "jupyter",
 ]
 

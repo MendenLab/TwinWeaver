@@ -463,7 +463,7 @@ class ConverterForecasting(ConverterBase):
         known_variables = set(input_events[self.config.event_name_col].unique().tolist())
         if patient_split.sampled_variables is not None:
             known_variables |= set(patient_split.sampled_variables)
-        unknown_variables = [var for var in future_weeks_per_variable.keys() if var not in known_variables]
+        unknown_variables = [var for var in future_weeks_per_variable if var not in known_variables]
         if unknown_variables:
             logging.warning(
                 f"The following variables of future_weeks_per_variable are neither part of the split's "

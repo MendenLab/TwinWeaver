@@ -175,7 +175,7 @@ def test_forward_conversion_yields_one_task_per_endpoint():
     option = _make_option(cfg)
 
     for endpoint in _ENDPOINTS:
-        prompt, target, meta = converter.forward_conversion(option, variables_to_convert=[endpoint])
+        prompt, _target, meta = converter.forward_conversion(option, variables_to_convert=[endpoint])
         assert _prompted_endpoints(prompt) == {endpoint}
         assert set(meta["target_data_processed"][cfg.event_name_col].unique()) == {endpoint}
 
