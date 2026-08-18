@@ -34,7 +34,8 @@ Split dates are anchored to **split events** — a configurable event category (
 
 1. **Finds all split-event start dates** in the patient's history (e.g., every LoT start).
 2. **Identifies candidate dates** within a window around each split event (controlled by `max_split_length_after_split_event`, default 0 days).
-3. **Randomly samples** one or more candidate dates per split event (`max_num_splits_per_split_event`).
+3. **Optionally applies a gate**: with `no_split_before_events`, candidate dates before an index event (e.g., treatment start) are discarded — see [Gating splits on an event](#gating-splits-on-an-event).
+4. **Randomly samples** up to `max_num_splits_per_split_event` candidate dates per split event, **without replacement** — the same date is never returned twice, and if a split event has fewer candidates than requested, all of them are used. The draw is seeded from `Config.seed` — see [Reproducibility and seeding](#reproducibility-and-seeding).
 
 This anchoring ensures that training examples are centered on clinically meaningful time points rather than arbitrary dates.
 
@@ -42,6 +43,46 @@ This anchoring ensures that training examples are centered on clinically meaning
     ```python
     config.split_event_category = "lot"  # Anchor splits to Line of Therapy starts
     ```
+
+### Gating Splits on an Event
+
+Some studies have an index event — treatment start, enrolment, first dose — before which a split makes no clinical sense. `no_split_before_events` restricts every split date to be **on or after** the earliest such event:
+
+```python
+data_splitter_forecasting = DataSplitterForecasting(
+    ...,
+    no_split_before_events=["treatment"],   # or ["tx_start"], or a mix of both
+)
+```
+
+Each entry is matched against **both** `config.event_category_col` and `config.event_name_col`, so the gate can be given as an event category (e.g. `"lot"`) or as a specific event name (e.g. `"tx_start"`).
+
+!!! warning "Patients without the gate event"
+    A patient who never has any of the listed events yields **no splits at all** — every split has to be anchored after the gate, so such a patient cannot contribute one. `DataSplitterForecasting.get_splits_from_patient` returns `[None]` for them and logs an info message.
+
+The parameter is available on **both** splitters (it lives on `BaseDataSplitter`), so pass the same value to each when you use them together, keeping their split dates aligned:
+
+```python
+data_splitter_events = DataSplitterEvents(..., no_split_before_events=["treatment"])
+```
+
+### Reproducibility and Seeding
+
+Split-date sampling uses the global NumPy random stream, which `Config` seeds from `Config.seed`:
+
+```python
+config.seed = 1234   # re-seeds numpy and random immediately
+```
+
+Changing the seed changes which candidate dates are drawn, and re-running with the same seed reproduces them. Each patient advances the stream, so different patients get different relative split positions.
+
+To decouple split-date sampling from the global stream (e.g. when other code consumes random numbers in between), pass an explicit `random_state`:
+
+```python
+data_splitter_forecasting = DataSplitterForecasting(..., random_state=1234)
+```
+
+It accepts an `int`, a `numpy.random.Generator`, or a `numpy.random.RandomState`.
 
 ---
 
@@ -65,10 +106,11 @@ flowchart TD
 
 For each candidate split date, the forecasting splitter:
 
-1. **Checks variable eligibility**: A variable is valid at a given date only if it has at least `min_nr_variable_seen_previously` occurrences in the lookback window and `min_nr_variable_seen_after` occurrences in the forecast window.
-2. **Samples variables**: Between `min_nr_variables_to_sample` and `max_nr_variables_to_sample` variables are selected per task, using weighted proportional sampling based on pre-computed statistics (optionally uniform sampling).
+1. **Checks variable eligibility**: A variable is valid at a given date only if it has at least `min_nr_variable_seen_previously` occurrences in the lookback window, `min_nr_variable_seen_after` occurrences in the forecast window, and — when `min_total_horizon` is set — at least one occurrence at or beyond that horizon.
+2. **Samples variables**: Between `min_nr_variables_to_sample` and `max_nr_variables_to_sample` variables are selected per task (both bounds inclusive), using weighted proportional sampling based on pre-computed statistics (optionally uniform sampling).
 3. **Creates the split**: Events before the split date form the input; future values of the sampled variables (within `max_forecasted_trajectory_length`) form the target.
 4. **Filters future LoT overlap**: Target events occurring after the next Line of Therapy start are excluded to avoid data leakage.
+5. **Re-checks the horizon**: If truncation or outlier filtering shortened the target below `min_total_horizon`, the split is discarded and another candidate date is tried.
 
 ### Variable Statistics & Sampling
 
@@ -86,9 +128,81 @@ Variables with higher variability (harder to predict with copy-forward) receive 
 !!! note "Numeric vs. Categorical Variables"
     TwinWeaver automatically detects variable types via `DataManager.infer_var_types()`. Numeric variables get full statistical analysis; categorical variables receive placeholder statistics and uniform sampling weights.
 
+### Minimum Forecast Horizon
+
+By default a split is valid as soon as a variable has *any* future measurement inside `max_forecasted_trajectory_length` — even one three days ahead, which makes for a near-trivial forecasting task. `min_total_horizon` sets a floor on how far a split has to actually reach:
+
+```python
+data_splitter_forecasting = DataSplitterForecasting(
+    ...,
+    max_forecasted_trajectory_length=pd.Timedelta(days=180),
+    min_total_horizon=pd.Timedelta(days=30),   # at least one target value ≥ 30 days out
+)
+```
+
+A split then requires **at least one target observation at or after `split_date + min_total_horizon`**. The requirement is enforced twice:
+
+1. During **variable eligibility**, so variables whose future values all fall inside the horizon are never offered at that date.
+2. On the **finished split**, because truncation at the next split event and outlier filtering can shorten a target that passed eligibility. Rejected splits fall back to another candidate date within the same split event.
+
+`min_total_horizon` must be positive and no larger than `max_forecasted_trajectory_length`, otherwise no split could ever satisfy it and a `ValueError` is raised at construction time. It is not applied when `override_split_dates` is given (inference), since there is no target to measure.
+
 ### Outlier Filtering
 
 When `filter_outliers=True`, the **3-sigma strategy** clips target values to the $[\mu - 3\sigma, \mu + 3\sigma]$ range based on training-set statistics. This prevents extreme outliers from dominating the training signal.
+
+Only variables with usable numeric statistics are filtered. Categorical variables (whose statistics hold no mean/std) and variables with fewer than `min_num_samples_for_statistics` samples are passed through untouched, with a warning naming them — filtering them would empty their target.
+
+### Forecasting Many Endpoints
+
+A single split can carry many endpoints at once — for example 15 clinical endpoints forecast from the same split date. Ask for them by raising both sampling bounds:
+
+```python
+data_splitter_forecasting = DataSplitterForecasting(
+    data_manager=dm,
+    config=config,
+    max_forecasted_trajectory_length=pd.Timedelta(days=180),
+    min_nr_variables_to_sample=15,
+    max_nr_variables_to_sample=15,
+)
+```
+
+Both bounds are inclusive, so `max_nr_variables_to_sample=15` is reachable. When fewer than `min_nr_variables_to_sample` variables are eligible at a date, all eligible ones are used and a warning reports how many were available — a 15-endpoint request that yields 4 is never silent. With `nr_samples_per_split > 1`, each sample draws from the variables not yet used at that date, so the samples cover different endpoints instead of repeating the same ones.
+
+#### Selecting the Endpoint for the Conversion
+
+By default the converter turns *all* of a split's endpoints into one prompt and one target. Pass `variables_to_convert` to convert only a subset — so one 15-endpoint split can produce several narrower training examples:
+
+```python
+# All 15 endpoints in one prompt
+prompt, target, meta = converter.converter_forecasting.forward_conversion(forecasting_split)
+
+# One example per endpoint
+for endpoint in forecasting_split.sampled_variables:
+    prompt, target, meta = converter.converter_forecasting.forward_conversion(
+        forecasting_split, variables_to_convert=[endpoint]
+    )
+```
+
+The same selection is available on the multi-task converter, for training and for inference:
+
+```python
+# Training
+result = converter.forward_conversion(
+    forecasting_splits=f_splits[0],
+    event_splits=e_splits[0],
+    forecasting_variables_to_convert=["hemoglobin_-_718-7"],
+)
+
+# Inference: pick one endpoint out of a shared horizon specification
+result = converter.forward_conversion_inference(
+    forecasting_split=forecast_split,
+    forecasting_future_weeks_per_variable={endpoint: [4, 8, 12] for endpoint in all_endpoints},
+    forecasting_variables_to_convert=["hemoglobin_-_718-7"],
+)
+```
+
+Endpoints that are not part of the split are dropped with a warning; if none of the requested endpoints matches, a `ValueError` is raised rather than a prompt asking for something the split cannot answer. The input split is never modified.
 
 ### Key Parameters
 
@@ -101,10 +215,14 @@ data_splitter_forecasting = DataSplitterForecasting(
     max_lookback_time_for_value=pd.Timedelta(days=90),          # Lookback for variable history
     min_nr_variable_seen_previously=1,                          # Min past occurrences
     min_nr_variable_seen_after=1,                               # Min future occurrences
-    min_nr_variables_to_sample=1,                               # Min variables per task
-    max_nr_variables_to_sample=1,                               # Max variables per task
+    min_total_horizon=pd.Timedelta(days=30),                    # Min horizon a split must cover
+    min_nr_variables_to_sample=1,                               # Min variables (endpoints) per task
+    max_nr_variables_to_sample=1,                               # Max variables (endpoints) per task
     filtering_strategy="3-sigma",                               # Outlier handling
     sampling_strategy="proportional",                           # Weighted or uniform sampling
+    allow_forecasting_beyond_next_split_date=False,             # Forecast past the next split event
+    no_split_before_events=["treatment"],                       # Gate: no split before this event
+    random_state=None,                                          # None → global RNG (Config.seed)
 )
 ```
 
@@ -153,6 +271,8 @@ data_splitter_events = DataSplitterEvents(
     min_length_to_sample=pd.Timedelta(weeks=1),                  # Min prediction window (required)
     unit_length_to_sample="weeks",                               # Window sampling unit
     max_split_length_after_split_event=pd.Timedelta(days=90),    # Window after split event
+    no_split_before_events=["treatment"],                        # Gate: no split before this event
+    random_state=None,                                           # None → global RNG (Config.seed)
 )
 ```
 
@@ -257,8 +377,9 @@ A single patient can yield many training examples through several sources of var
 | Source of Variation | Controlled By | Effect |
 |---------------------|---------------|--------|
 | Multiple split events (e.g., LoTs) | Patient history | One split per LoT by default |
-| Multiple dates per split event | `max_num_splits_per_split_event` | Random dates within the LoT window |
+| Multiple dates per split event | `max_num_splits_per_split_event` | Distinct random dates within the LoT window |
 | Different variable subsets | `min/max_nr_variables_to_sample` | Different forecasting questions per date |
+| Different endpoint subsets per split | `variables_to_convert` / `forecasting_variables_to_convert` | Several narrower examples from one multi-endpoint split |
 | Different event categories | `event_category_events_prediction_with_naming` | Death vs. progression predictions |
 | Different prediction windows | `min/max_length_to_sample` | 1-week to 104-week horizons |
 

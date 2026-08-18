@@ -99,6 +99,8 @@ class DataSplitterEvents(BaseDataSplitter):
         min_length_to_sample: pd.Timedelta,
         unit_length_to_sample: str = "weeks",
         max_split_length_after_split_event: pd.Timedelta = pd.Timedelta(days=0),
+        no_split_before_events: list = None,
+        random_state=None,
     ):
         """
         Initialize the DataSplitterEvents class.
@@ -121,11 +123,21 @@ class DataSplitterEvents(BaseDataSplitter):
         max_split_length_after_split_event : pd.Timedelta, optional
             The maximum number of days after the split event (e.g. line of therapy) to consider for split points.
             Defaults to 0 days.
+        no_split_before_events : list[str], optional
+            Optional list of gate events before which no split may happen. Entries are matched against
+            both the event category and the event name column. Splits are only allowed on or after the
+            earliest matching event; patients without any matching event produce no splits.
+            Defaults to None (no gating).
+        random_state : int | np.random.Generator | np.random.RandomState, optional
+            Random state used when sampling split dates. Defaults to None, which uses the global NumPy
+            random stream (seeded from `Config.seed`).
         """
         super().__init__(
             data_manager,
             config,
             max_split_length_after_split_event,
+            no_split_before_events=no_split_before_events,
+            random_state=random_state,
         )
         self.max_length_to_sample = max_length_to_sample
         self.min_length_to_sample = min_length_to_sample

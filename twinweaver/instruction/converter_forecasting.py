@@ -96,6 +96,74 @@ class ConverterForecasting(ConverterBase):
         self.nr_tokens_budget_padding = self.config.nr_tokens_budget_padding
         self.always_keep_first_visit = self.config.always_keep_first_visit
 
+    def _subset_split_variables(
+        self, patient_split: DataSplitterForecastingOption, variables_to_convert: list
+    ) -> DataSplitterForecastingOption:
+        """
+        Restricts a forecasting split to a subset of its variables (endpoints).
+
+        A single split can carry many forecasted variables (e.g. 15 clinical endpoints). This helper
+        narrows such a split down to the selected variables, so that the generated prompt and target
+        only cover those. The input split is not modified - a new
+        :class:`DataSplitterForecastingOption` is returned instead.
+
+        Parameters
+        ----------
+        patient_split : DataSplitterForecastingOption
+            The split to narrow down.
+        variables_to_convert : list[str] or None
+            The `event_name` values to keep. Names which are not present in the split's target are
+            dropped with a warning. When None, the split is returned unchanged.
+
+        Returns
+        -------
+        DataSplitterForecastingOption
+            A new split option restricted to `variables_to_convert`, or the original split when
+            `variables_to_convert` is None.
+
+        Raises
+        ------
+        ValueError
+            If none of the requested variables is present in the split's target data.
+        """
+
+        if variables_to_convert is None:
+            return patient_split
+
+        if isinstance(variables_to_convert, str):
+            variables_to_convert = [variables_to_convert]
+
+        target_data = patient_split.target_events_after_split
+        available_variables = target_data[self.config.event_name_col].unique().tolist()
+
+        #: keep the requested order, but only variables which are actually in the target
+        kept_variables = [var for var in variables_to_convert if var in available_variables]
+        missing_variables = [var for var in variables_to_convert if var not in available_variables]
+
+        if missing_variables:
+            logging.warning(
+                f"Skipping variables which are not part of the forecasting split at date "
+                f"{patient_split.split_date_included_in_input}: {missing_variables}. "
+                f"Available variables: {available_variables}."
+            )
+
+        if len(kept_variables) == 0:
+            raise ValueError(
+                f"None of the requested variables_to_convert {list(variables_to_convert)} is part of the "
+                f"forecasting split at date {patient_split.split_date_included_in_input}. "
+                f"Available variables: {available_variables}."
+            )
+
+        #: build a new option, so the caller's split stays untouched
+        return DataSplitterForecastingOption(
+            events_until_split=patient_split.events_until_split,
+            target_events_after_split=target_data[target_data[self.config.event_name_col].isin(kept_variables)].copy(),
+            constant_data=patient_split.constant_data,
+            split_date_included_in_input=patient_split.split_date_included_in_input,
+            sampled_variables=kept_variables,
+            lot_date=patient_split.lot_date,
+        )
+
     def _generate_target_string(self, patient_split: DataSplitterForecastingOption) -> tuple[str, dict]:
         """
         Generates the target forecast string and associated metadata.
@@ -288,7 +356,9 @@ class ConverterForecasting(ConverterBase):
         #: return the fully constructed prompt
         return ret_prompt
 
-    def forward_conversion(self, patient_split: DataSplitterForecastingOption) -> tuple[str, str, dict]:
+    def forward_conversion(
+        self, patient_split: DataSplitterForecastingOption, variables_to_convert: list = None
+    ) -> tuple[str, str, dict]:
         """
         Performs the primary conversion from a data split to prompt and target strings.
 
@@ -305,6 +375,10 @@ class ConverterForecasting(ConverterBase):
         ----------
         patient_split : DataSplitterForecastingOption
             DataSplitterForecastingOption containing the data for a single split.
+        variables_to_convert : list[str], optional
+            If provided, only these variables (endpoints) of the split are converted into the prompt
+            and target. Useful when a split carries many endpoints and separate, narrower training
+            examples are wanted. Defaults to None (convert all variables of the split).
 
         Returns
         -------
@@ -317,6 +391,9 @@ class ConverterForecasting(ConverterBase):
             Metadata associated with the generated target string
             (output from `_generate_target_string`).
         """
+
+        #: optionally restrict the split to a subset of its variables (endpoints)
+        patient_split = self._subset_split_variables(patient_split, variables_to_convert)
 
         #: generate target string and associated metadata
         target_str, target_meta = self._generate_target_string(patient_split)
@@ -379,9 +456,24 @@ class ConverterForecasting(ConverterBase):
             dates_per_variable[variable] = [split_date + self._delta_to_timedelta(float(w)) for w in weeks]
         target_pseudo_meta["dates_per_variable"] = dates_per_variable
 
+        #: warn about variables which cannot be resolved to a descriptive name. Without a descriptive
+        # name the prompt would ask for the raw internal name, which the reverse conversion cannot map
+        # back to a known event.
+        input_events = patient_split.events_until_split
+        known_variables = set(input_events[self.config.event_name_col].unique().tolist())
+        if patient_split.sampled_variables is not None:
+            known_variables |= set(patient_split.sampled_variables)
+        unknown_variables = [var for var in future_weeks_per_variable if var not in known_variables]
+        if unknown_variables:
+            logging.warning(
+                f"The following variables of future_weeks_per_variable are neither part of the split's "
+                f"sampled_variables nor observed in the input history: {unknown_variables}. "
+                "Their raw internal name will be used in the prompt, which the reverse conversion "
+                "will not be able to map back to a known event."
+            )
+
         #: make target_meta["variable_name_mapping"] by looking up in input events
         variable_name_mapping = {}
-        input_events = patient_split.events_until_split
         for variable in future_weeks_per_variable.keys():
             # Get descriptive name from input history
             curr_var = input_events[input_events[self.config.event_name_col] == variable]
