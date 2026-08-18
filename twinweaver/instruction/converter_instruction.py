@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 import numpy as np
 from transformers import AutoTokenizer
@@ -246,6 +247,7 @@ class ConverterInstruction(ConverterBase):
         forecasting_splits: list[DataSplitterForecastingGroup],
         event_splits: list[DataSplitterEventsGroup],
         override_mode_to_select_forecasting: str = "forecasting",
+        forecasting_variables_to_convert: list[str] = None,
     ) -> dict:
         """
         Generates a multi-task instruction prompt and target answer from patient data splits.
@@ -269,6 +271,11 @@ class ConverterInstruction(ConverterBase):
         override_mode_to_select_forecasting : str, optional
             If provided, forces the selection mode for forecasting tasks ('forecasting',
             'forecasting_qa', or 'both'). If None, the mode is chosen randomly. Defaults to "forecasting".
+        forecasting_variables_to_convert : list[str], optional
+            If provided, only these variables (endpoints) of the selected forecasting split are
+            converted into the prompt and target. Useful when a split carries many endpoints (e.g. 15)
+            and separate, narrower training examples are wanted. Defaults to None (all variables of
+            the split).
 
         Returns
         -------
@@ -327,7 +334,9 @@ class ConverterInstruction(ConverterBase):
             # Randomly select from the forecasting split
             if mode_to_select == "forecasting" or mode_to_select == "both":
                 forecasting_split_to_use = np.random.choice(forecasting_splits, 1, replace=False)[0]
-                ret_forecasting = self.converter_forecasting.forward_conversion(forecasting_split_to_use)
+                ret_forecasting = self.converter_forecasting.forward_conversion(
+                    forecasting_split_to_use, variables_to_convert=forecasting_variables_to_convert
+                )
                 prompt_forecasting, target_forecasting, target_meta_forecasting = ret_forecasting
                 forecasting_tasks.append(
                     (
@@ -341,7 +350,9 @@ class ConverterInstruction(ConverterBase):
             #: then randomly select the QA splits and generate QA
             if mode_to_select == "forecasting_qa" or mode_to_select == "both":
                 forecasting_qa_split_to_use = np.random.choice(forecasting_splits, 1, replace=False)[0]
-                ret_forecasting_qa = self.converter_forecasting_qa.forward_conversion(forecasting_qa_split_to_use)
+                ret_forecasting_qa = self.converter_forecasting_qa.forward_conversion(
+                    forecasting_qa_split_to_use, variables_to_convert=forecasting_variables_to_convert
+                )
                 (
                     prompt_forecasting_qa,
                     target_forecasting_qa,
@@ -437,6 +448,7 @@ class ConverterInstruction(ConverterBase):
         forecasting_future_weeks_per_variable: dict = None,
         event_split: DataSplitterEventsOption = None,
         custom_tasks: list = None,
+        forecasting_variables_to_convert: list[str] = None,
     ) -> dict:
         """
         Generates a multi-task instruction prompt suitable for inference.
@@ -458,6 +470,10 @@ class ConverterInstruction(ConverterBase):
         custom_tasks : list[str], optional
             A list of strings, each representing a custom task/question to include
             in the prompt. Defaults to None.
+        forecasting_variables_to_convert : list[str], optional
+            If provided, `forecasting_future_weeks_per_variable` is restricted to these variables
+            (endpoints) before building the prompt. Useful to select a single endpoint out of a shared
+            multi-endpoint horizon specification. Defaults to None (all variables in the dict).
 
         Returns
         -------
@@ -490,6 +506,35 @@ class ConverterInstruction(ConverterBase):
         #: convert forecasting, if needed
         forecasting_prompt_str = forecasting_meta = None
         if forecasting_split is not None:
+            #: optionally restrict the requested endpoints to a subset
+            if forecasting_variables_to_convert is not None:
+                if forecasting_future_weeks_per_variable is None:
+                    raise ValueError(
+                        "forecasting_variables_to_convert was provided, but "
+                        "forecasting_future_weeks_per_variable is None - there is nothing to select from."
+                    )
+                selected_weeks_per_variable = {
+                    var: weeks
+                    for var, weeks in forecasting_future_weeks_per_variable.items()
+                    if var in forecasting_variables_to_convert
+                }
+                missing_variables = [
+                    var for var in forecasting_variables_to_convert if var not in forecasting_future_weeks_per_variable
+                ]
+                if missing_variables:
+                    logging.warning(
+                        "Skipping variables of forecasting_variables_to_convert which are not in "
+                        f"forecasting_future_weeks_per_variable: {missing_variables}."
+                    )
+                if len(selected_weeks_per_variable) == 0:
+                    raise ValueError(
+                        f"None of the requested forecasting_variables_to_convert "
+                        f"{list(forecasting_variables_to_convert)} is present in "
+                        f"forecasting_future_weeks_per_variable "
+                        f"(available: {list(forecasting_future_weeks_per_variable.keys())})."
+                    )
+                forecasting_future_weeks_per_variable = selected_weeks_per_variable
+
             f_ret = self.converter_forecasting.forward_conversion_inference(
                 forecasting_split,
                 future_weeks_per_variable=forecasting_future_weeks_per_variable,

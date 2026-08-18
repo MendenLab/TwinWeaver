@@ -78,27 +78,29 @@ def test_forward_conversion_training(setup_components):
     assert "The most recent line of therapy:" in instruction
     assert "LoT - pemetrexed" in instruction  # Known LoT for p0
     assert "The last values of the variables in the input data are:" in instruction
-    assert "hemoglobin - 718-7 was 14.13" in instruction  # Known last value for p0
+    assert "hemoglobin - 718-7 was 14.36" in instruction  # Known last value for p0
     assert instruction.count("</genetic>") == 2  # Two genetic markers for p0 (main + recap)
     assert instruction.count("ALK is Wild Type,") == 2
     assert instruction.count("PD-L1 Expression (TPS) is 1-49%,") == 2
-    assert instruction.count("drug pemetrexed is administered") == 4
+    assert instruction.count("drug pemetrexed is administered") == 2
     assert "Age of patient at first event is 50 years," in instruction
     assert "Adenocarcinoma" in instruction
 
-    # Specific task checks for this patient (randomly selects forecasting QA, forecasting, no events here)
+    # Specific task checks for this patient (randomly selects forecasting QA, forecasting and one event task)
     assert "Task 1 is forecasting QA:" in instruction
     assert "Task 2 is forecasting:" in instruction
-    assert "Task 3" not in instruction  # No events task here
+    assert "Task 3 is time to event prediction:" in instruction
+    assert "Task 4" not in instruction  # Only one event task here
     assert "hemoglobin - 718-7 the future weeks 3, 6, 9, 12" in instruction  # Forecasting QA content
     assert "The possible bins are: a: bin (-inf, 12.56], b: bin (12.56, 12.85],"
 
     # 2. Check Answer Content
     assert "Task" in answer
     assert len(answer) > 0
-    assert answer.count("Task") == 2  # Two tasks here
+    assert answer.count("Task") == 3  # Three tasks here
     assert "Task 1 is forecasting QA:" in answer
     assert "Task 2 is forecasting:" in answer
+    assert "Task 3 is time to event prediction:" in answer
     assert "hemoglobin - 718-7 is e." in answer  # Known bin for p0
     assert "hemoglobin - 718-7 is 14.01." in answer  # Known value for p0
 

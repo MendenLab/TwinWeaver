@@ -55,9 +55,14 @@ class ConverterForecastingQA(ConverterForecasting):
 
         for var in all_variables:
             # Check if variable is numeric or categorical
-            is_numeric = self.variable_stats.loc[
-                self.variable_stats[self.config.event_name_col] == var, "is_numeric"
-            ].values[0]
+            var_stats = self.variable_stats.loc[self.variable_stats[self.config.event_name_col] == var, "is_numeric"]
+            if var_stats.shape[0] == 0:
+                raise ValueError(
+                    f"No variable statistics available for variable {var}, cannot bin for QA forecasting. "
+                    "This usually means it has fewer than min_num_samples_for_statistics valid samples - "
+                    "either lower min_num_samples_for_statistics or exclude the variable from QA forecasting."
+                )
+            is_numeric = var_stats.values[0]
             if not is_numeric:
                 raise ValueError(f"Variable {var} is not numeric, cannot bin for QA forecasting.")
 
@@ -163,7 +168,9 @@ class ConverterForecastingQA(ConverterForecasting):
         #: return
         return ret_prompt
 
-    def forward_conversion(self, patient_split: DataSplitterForecastingOption) -> tuple:
+    def forward_conversion(
+        self, patient_split: DataSplitterForecastingOption, variables_to_convert: list = None
+    ) -> tuple:
         """
         Converts the patient data into a format suitable for the forecasting model,
         including preprocessing and prompt generation.
@@ -172,6 +179,9 @@ class ConverterForecastingQA(ConverterForecasting):
         ----------
         patient_split : DataSplitterForecastingOption
             A data splitter object containing patient data split into events and target variables.
+        variables_to_convert : list[str], optional
+            If provided, only these variables (endpoints) of the split are converted. Defaults to None
+            (convert all variables of the split).
 
         Returns
         -------
@@ -182,6 +192,9 @@ class ConverterForecastingQA(ConverterForecasting):
         target_meta : dict
             Metadata associated with the target.
         """
+
+        #: optionally restrict the split to a subset of its variables (endpoints)
+        patient_split = self._subset_split_variables(patient_split, variables_to_convert)
 
         #: preprocess target data into categories
         raw_target = patient_split.target_events_after_split.copy()

@@ -95,6 +95,9 @@ class DataSplitterForecasting(BaseDataSplitter):
         Minimum occurrences of a variable required within the lookback period before a split date.
     min_nr_variable_seen_after : int
         Minimum occurrences of a variable required within the forecast period after a split date.
+    min_total_horizon : pd.Timedelta | None
+        Minimum forecast horizon that a split has to cover: at least one target observation must
+        occur at or after `split_date + min_total_horizon`. None disables the requirement.
     list_of_valid_categories : list
         Event categories (e.g., ['lab']) to consider for forecasting tasks.
     save_path_for_variable_stats : str | None
@@ -120,6 +123,7 @@ class DataSplitterForecasting(BaseDataSplitter):
         sampling_score_to_use: str = "score_log_nrmse_n_samples",
         min_nr_variable_seen_previously: int = 1,
         min_nr_variable_seen_after: int = 1,
+        min_total_horizon: pd.Timedelta = None,
         list_of_valid_categories: list = None,
         save_path_for_variable_stats: str = None,
         min_nr_variables_to_sample: int = 1,
@@ -127,6 +131,8 @@ class DataSplitterForecasting(BaseDataSplitter):
         filtering_strategy: str = "3-sigma",
         sampling_strategy: str = "proportional",
         allow_forecasting_beyond_next_split_date: bool = False,
+        no_split_before_events: list = None,
+        random_state=None,
     ):
         """
         Initializes the DataSplitterForecasting instance.
@@ -157,6 +163,13 @@ class DataSplitterForecasting(BaseDataSplitter):
         min_nr_variable_seen_after : int
             Min occurrences of a variable required in the forecast window for a split to be
             valid for that variable. Defaults to 1.
+        min_total_horizon : pd.Timedelta, optional
+            Minimum forecast horizon that a split has to cover. A variable is only valid at a split
+            date if it has at least one occurrence at or after `split_date + min_total_horizon`, and
+            the generated split is discarded again if its final target (after truncation at the next
+            split event and after outlier filtering) no longer reaches that horizon. Must be
+            positive and not larger than `max_forecasted_trajectory_length`. Defaults to None
+            (no minimum horizon).
         list_of_valid_categories : list
             List of event categories to consider for forecasting (e.g., ['LABS']). Defaults
             to `config.event_category_forecast`.
@@ -178,11 +191,21 @@ class DataSplitterForecasting(BaseDataSplitter):
         allow_forecasting_beyond_next_split_date : bool
             Flag indicating whether to allow forecasting of events that occur beyond the next split date
             (e.g., next LoT event). Default: False.
+        no_split_before_events : list[str], optional
+            Optional list of gate events before which no split may happen. Entries are matched
+            against both the event category and the event name column. Splits are only allowed on or
+            after the earliest matching event; patients without any matching event produce no splits.
+            Defaults to None (no gating).
+        random_state : int | np.random.Generator | np.random.RandomState, optional
+            Random state used when sampling split dates. Defaults to None, which uses the global
+            NumPy random stream (seeded from `Config.seed`).
         """
         super().__init__(
             data_manager,
             config,
             max_split_length_after_split_event,
+            no_split_before_events=no_split_before_events,
+            random_state=random_state,
         )
 
         assert self.config.event_category_forecast is not None or list_of_valid_categories is not None, (
@@ -199,6 +222,20 @@ class DataSplitterForecasting(BaseDataSplitter):
 
         self.min_nr_variable_seen_previously = min_nr_variable_seen_previously
         self.min_nr_variable_seen_after = min_nr_variable_seen_after
+
+        #: validate and store the minimum forecast horizon
+        if min_total_horizon is not None:
+            if not isinstance(min_total_horizon, pd.Timedelta):
+                raise ValueError(f"min_total_horizon must be a pd.Timedelta, got {type(min_total_horizon).__name__}.")
+            if min_total_horizon <= pd.Timedelta(0):
+                raise ValueError(f"min_total_horizon must be positive, got {min_total_horizon}.")
+            if min_total_horizon > max_forecasted_trajectory_length:
+                raise ValueError(
+                    f"min_total_horizon ({min_total_horizon}) must not be larger than "
+                    f"max_forecasted_trajectory_length ({max_forecasted_trajectory_length}), "
+                    "otherwise no split can ever fulfill it."
+                )
+        self.min_total_horizon = min_total_horizon
         self.list_of_valid_categories = (
             list_of_valid_categories if list_of_valid_categories is not None else self.config.event_category_forecast
         )
@@ -213,7 +250,12 @@ class DataSplitterForecasting(BaseDataSplitter):
 
         # Check that the forecasting and split event categories do not overlap, as this could cause data leakage
         if self.config.event_category_forecast is not None and self.config.split_event_category is not None:
-            overlap = set(self.config.event_category_forecast).intersection(set(self.config.split_event_category))
+            #: split_event_category is documented as a single string, but a list is also accepted here.
+            # Wrapping a plain string avoids comparing it character by character.
+            split_event_categories = self.config.split_event_category
+            if isinstance(split_event_categories, str):
+                split_event_categories = [split_event_categories]
+            overlap = set(self.config.event_category_forecast).intersection(set(split_event_categories))
             if overlap:
                 raise ValueError(
                     f"Forecasting and split event categories overlap: {overlap}. This could cause data leakage."
@@ -529,6 +571,40 @@ class DataSplitterForecasting(BaseDataSplitter):
 
         return sampled_var
 
+    def _get_numerically_filterable_variables(self, variables: list) -> list:
+        """
+        Determines which of the given variables can be filtered with numeric statistics.
+
+        A variable can only be filtered if it has a row in `self.variable_stats` with a usable
+        (finite) mean and standard deviation. Categorical variables get placeholder statistics with
+        NaN mean/std, and variables with fewer than `min_num_samples_for_statistics` samples get no
+        row at all - neither can be filtered.
+
+        Args:
+            variables: List of variable names (event_name) to check.
+
+        Returns:
+            The subset of `variables` which has usable numeric statistics. If no statistics were
+            computed at all, all variables are returned, so that the assertion inside the filtering
+            method reports the missing statistics to the user.
+        """
+
+        if self.variable_stats is None:
+            return list(variables)
+
+        filterable = []
+        for variable in variables:
+            stats = self.variable_stats[self.variable_stats[self.config.event_name_col] == variable]
+            if stats.shape[0] == 0:
+                continue
+            mean_val = pd.to_numeric(stats["mean"].values[0], errors="coerce")
+            std_val = pd.to_numeric(stats["std"].values[0], errors="coerce")
+            if pd.isna(mean_val) or pd.isna(std_val):
+                continue
+            filterable.append(variable)
+
+        return filterable
+
     def _filter_3_sigma(self, events: pd.DataFrame) -> pd.DataFrame:
         """
         Filters or clips event values based on the 3-sigma rule.
@@ -557,13 +633,32 @@ class DataSplitterForecasting(BaseDataSplitter):
         #: group by event name
         events = events.copy()
         grouped_events = events.groupby(self.config.event_name_col)
+        filtered_variables = []
 
         #: loop through every group
         for event_name, event_data in grouped_events:
             #: get the mean and std
             stats = self.variable_stats[self.variable_stats[self.config.event_name_col] == event_name]
-            mean_val = stats["mean"].values[0]
-            std_val = stats["std"].values[0]
+
+            #: variables without statistics (e.g. too few samples to reach min_num_samples_for_statistics)
+            # or without usable numeric statistics (e.g. categorical variables) cannot be filtered.
+            # Leaving them untouched is much better than dropping the whole target for them.
+            if stats.shape[0] == 0:
+                logging.warning(
+                    f"No variable statistics available for '{event_name}', skipping outlier filtering for it. "
+                    "This usually means it has fewer than min_num_samples_for_statistics valid samples."
+                )
+                continue
+
+            mean_val = pd.to_numeric(stats["mean"].values[0], errors="coerce")
+            std_val = pd.to_numeric(stats["std"].values[0], errors="coerce")
+
+            if pd.isna(mean_val) or pd.isna(std_val):
+                logging.warning(
+                    f"Variable statistics for '{event_name}' contain no usable mean/std "
+                    "(expected for categorical variables), skipping outlier filtering for it."
+                )
+                continue
 
             #: filter
             event_data[self.config.event_value_col] = event_data[self.config.event_value_col].apply(
@@ -572,12 +667,17 @@ class DataSplitterForecasting(BaseDataSplitter):
                 else np.clip(x, mean_val - 3 * std_val, mean_val + 3 * std_val)
             )
 
-            #: update, convert to float the event value column
-            events[self.config.event_value_col] = events[self.config.event_value_col].astype(float)
-            events.loc[event_data.index, self.config.event_value_col] = event_data[self.config.event_value_col]
+            #: update, only the values of the current variable, keeping other variables untouched
+            events.loc[event_data.index, self.config.event_value_col] = event_data[self.config.event_value_col].astype(
+                float
+            )
+            filtered_variables.append(event_name)
 
-        # Drop nan values in value column
-        events = events.dropna(subset=[self.config.event_value_col])
+        # Drop nan values in value column, but only for variables which were actually filtered.
+        # Variables that were skipped above (no/unusable statistics) are kept as they are.
+        if filtered_variables:
+            was_filtered = events[self.config.event_name_col].isin(filtered_variables)
+            events = events[~was_filtered | events[self.config.event_value_col].notna()]
 
         return events
 
@@ -602,6 +702,8 @@ class DataSplitterForecasting(BaseDataSplitter):
            within the `max_lookback_for_value` period before the date.
         4. The variable has at least `min_nr_variable_seen_after` occurrences
            within the `max_forecast_for_value` period after the date.
+        5. If `min_total_horizon` is set, the variable has at least one occurrence at or after
+           `date + min_total_horizon`.
 
         If `subselect_random_within_lot` is True, it first identifies all potential
         split dates per LoT using `_get_all_dates_within_range_of_split_event` and then
@@ -696,10 +798,19 @@ class DataSplitterForecasting(BaseDataSplitter):
                 prev_events_count = prev_events.shape[0]
                 future_events_count = future_events.shape[0]
 
+                #: if requested, at least one future occurrence must reach the minimum horizon
+                if self.min_total_horizon is not None:
+                    reaches_min_horizon = bool(
+                        (future_events[self.config.date_col] >= curr_date + self.min_total_horizon).any()
+                    )
+                else:
+                    reaches_min_horizon = True
+
                 # Check conditions and add to return_splits if valid
                 if (
                     prev_events_count >= min_nr_variable_seen_previously
                     and future_events_count >= min_nr_variable_seen_after
+                    and reaches_min_horizon
                 ):
                     return_splits.append(
                         {
@@ -799,9 +910,6 @@ class DataSplitterForecasting(BaseDataSplitter):
               the date/variable combinations that were successfully used.
         """
 
-        # Get current date -> can be multiple dates per lot
-        possible_variables = all_possible_split_dates[all_possible_split_dates[self.config.date_col] == curr_date]
-        possible_variables = possible_variables[self.config.event_name_col].tolist()
         date_splits = DataSplitterForecastingGroup()
         valid_sample_date = False
 
@@ -821,13 +929,31 @@ class DataSplitterForecasting(BaseDataSplitter):
         valid_sample_date = True
 
         # Try generating samples
-        for _ in range(nr_samples):
+        for sample_idx in range(nr_samples):
+            #: get the variables which are still available at the current date. This is re-read every
+            # iteration, since already sampled variables are removed from all_possible_split_dates below,
+            # so that multiple samples for the same date do not repeat the same variables.
+            possible_variables = all_possible_split_dates[all_possible_split_dates[self.config.date_col] == curr_date]
+            possible_variables = possible_variables[self.config.event_name_col].tolist()
+
+            #: nothing left to sample at this date
+            if len(possible_variables) == 0 and override_variables_to_predict is None:
+                break
+
             #: uniformly sample nr of variables to sample in
-            # range(min_nr_variables_to_sample, max_nr_variables_to_sample)
+            # range(min_nr_variables_to_sample, max_nr_variables_to_sample), inclusive on both ends
             max_nr_variables_to_sample = min(len(possible_variables), self.max_nr_variables_to_sample)
             min_nr_variables_to_sample = min(len(possible_variables), self.min_nr_variables_to_sample)
+            if min_nr_variables_to_sample < self.min_nr_variables_to_sample and sample_idx == 0:
+                #: only warn for the first sample - later samples legitimately see a smaller pool,
+                # since the variables used by earlier samples have been removed
+                logging.warning(
+                    f"Only {len(possible_variables)} variable(s) are eligible for forecasting at date {curr_date}, "
+                    f"which is fewer than min_nr_variables_to_sample={self.min_nr_variables_to_sample}. "
+                    "Sampling all eligible variables instead."
+                )
             if max_nr_variables_to_sample > min_nr_variables_to_sample:
-                nr_variables_to_sample = np.random.randint(min_nr_variables_to_sample, max_nr_variables_to_sample)
+                nr_variables_to_sample = np.random.randint(min_nr_variables_to_sample, max_nr_variables_to_sample + 1)
             else:
                 nr_variables_to_sample = min_nr_variables_to_sample
 
@@ -884,17 +1010,45 @@ class DataSplitterForecasting(BaseDataSplitter):
                     events_after_split[self.config.date_col] < date_of_next_split_event
                 ]
 
-            #: if apply_filtering, apply 3-sigma filtering (only to target) and drop any bad rows
-            if apply_filtering:
-                events_after_split[self.config.event_value_col] = pd.to_numeric(
-                    events_after_split[self.config.event_value_col], errors="coerce"
-                )
-                events_after_split = self._filtering_methods[self.filtering_strategy](events_after_split)
+            #: if apply_filtering, apply 3-sigma filtering (only to target) and drop any bad rows.
+            # Only variables with usable numeric statistics are filtered - categorical variables (and
+            # variables without statistics) are passed through untouched, since coercing them to numeric
+            # would turn their whole target into NaN.
+            if apply_filtering and events_after_split.shape[0] > 0:
+                variables_in_target = events_after_split[self.config.event_name_col].unique().tolist()
+                variables_to_filter = self._get_numerically_filterable_variables(variables_in_target)
+                skipped_variables = set(variables_in_target) - set(variables_to_filter)
+                if skipped_variables:
+                    logging.warning(
+                        "Skipping outlier filtering for variables without usable numeric statistics: "
+                        + ", ".join(map(str, sorted(skipped_variables)))
+                    )
+
+                if len(variables_to_filter) > 0:
+                    rows_to_filter = events_after_split[self.config.event_name_col].isin(variables_to_filter)
+                    events_to_filter = events_after_split[rows_to_filter].copy()
+                    events_to_filter[self.config.event_value_col] = pd.to_numeric(
+                        events_to_filter[self.config.event_value_col], errors="coerce"
+                    )
+                    events_to_filter = self._filtering_methods[self.filtering_strategy](events_to_filter)
+                    #: sort_index restores the original event order, since the index comes from the
+                    # patient's event table
+                    events_after_split = pd.concat(
+                        [events_to_filter, events_after_split[~rows_to_filter]], axis=0
+                    ).sort_index()
 
             #: check if still valid samples (i.e. values are not nan in output),
             # but only if no override (e.g. in inference)
             if events_after_split.shape[0] == 0 and override_split_dates is None:
                 continue
+
+            #: re-check the minimum horizon on the final target. The eligibility check in
+            # _get_all_possible_splits looked at the raw future events, but truncation at the next split
+            # event and outlier filtering can shorten the target again.
+            if self.min_total_horizon is not None and override_split_dates is None:
+                covered_horizon = (events_after_split[self.config.date_col] - curr_date).max()
+                if pd.isna(covered_horizon) or covered_horizon < self.min_total_horizon:
+                    continue
 
             #: save to a list
             new_option = DataSplitterForecastingOption(
@@ -1027,8 +1181,7 @@ class DataSplitterForecasting(BaseDataSplitter):
                     "No possible forecasting splits found for patient: "
                     + str(patient_data["constant"][self.config.patient_id_col].iloc[0])
                 )
-                ret = [None], None if include_metadata else None
-                return ret
+                return ([None], None) if include_metadata else [None]
 
         else:
             assert override_variables_to_predict is not None, (

@@ -90,8 +90,8 @@ Main converter for instruction-tuning data.
 | [`ConverterInstruction`](reference/instruction/converter_instruction.md) | Class | Converter combining forecasting and events |
 | [`ConverterInstruction.set_custom_summarized_row_fn`](reference/instruction/converter_instruction.md#twinweaver.instruction.converter_instruction.ConverterInstruction.set_custom_summarized_row_fn) | Method | Set custom function for row summarization |
 | [`ConverterInstruction.get_nr_tokens`](reference/instruction/converter_instruction.md#twinweaver.instruction.converter_instruction.ConverterInstruction.get_nr_tokens) | Method | Count tokens in a string |
-| [`ConverterInstruction.forward_conversion`](reference/instruction/converter_instruction.md#twinweaver.instruction.converter_instruction.ConverterInstruction.forward_conversion) | Method | Convert patient data to text (training) |
-| [`ConverterInstruction.forward_conversion_inference`](reference/instruction/converter_instruction.md#twinweaver.instruction.converter_instruction.ConverterInstruction.forward_conversion_inference) | Method | Convert patient data to text (inference) |
+| [`ConverterInstruction.forward_conversion`](reference/instruction/converter_instruction.md#twinweaver.instruction.converter_instruction.ConverterInstruction.forward_conversion) | Method | Convert patient data to text (training); `forecasting_variables_to_convert` selects a subset of endpoints |
+| [`ConverterInstruction.forward_conversion_inference`](reference/instruction/converter_instruction.md#twinweaver.instruction.converter_instruction.ConverterInstruction.forward_conversion_inference) | Method | Convert patient data to text (inference); `forecasting_variables_to_convert` selects a subset of endpoints |
 | [`ConverterInstruction.generate_target_manual`](reference/instruction/converter_instruction.md#twinweaver.instruction.converter_instruction.ConverterInstruction.generate_target_manual) | Method | Generate target text from reverse conversion |
 | [`ConverterInstruction.aggregate_multiple_responses`](reference/instruction/converter_instruction.md#twinweaver.instruction.converter_instruction.ConverterInstruction.aggregate_multiple_responses) | Method | Aggregate multiple LLM responses |
 | [`ConverterInstruction.reverse_conversion`](reference/instruction/converter_instruction.md#twinweaver.instruction.converter_instruction.ConverterInstruction.reverse_conversion) | Method | Convert text back to structured data |
@@ -106,7 +106,7 @@ Converter for forecasting tasks.
 | Member | Type | Description |
 |--------|------|-------------|
 | [`ConverterForecasting`](reference/instruction/converter_forecasting.md) | Class | Converter for time-series forecasting |
-| [`ConverterForecasting.forward_conversion`](reference/instruction/converter_forecasting.md#twinweaver.instruction.converter_forecasting.ConverterForecasting.forward_conversion) | Method | Convert patient split to text (training) |
+| [`ConverterForecasting.forward_conversion`](reference/instruction/converter_forecasting.md#twinweaver.instruction.converter_forecasting.ConverterForecasting.forward_conversion) | Method | Convert patient split to text (training); `variables_to_convert` selects a subset of endpoints |
 | [`ConverterForecasting.forward_conversion_inference`](reference/instruction/converter_forecasting.md#twinweaver.instruction.converter_forecasting.ConverterForecasting.forward_conversion_inference) | Method | Convert patient split to text (inference) |
 | [`ConverterForecasting.generate_target_manual`](reference/instruction/converter_forecasting.md#twinweaver.instruction.converter_forecasting.ConverterForecasting.generate_target_manual) | Method | Generate forecasting target text |
 | [`ConverterForecasting.aggregate_multiple_responses`](reference/instruction/converter_forecasting.md#twinweaver.instruction.converter_forecasting.ConverterForecasting.aggregate_multiple_responses) | Method | Aggregate multiple forecasting responses |
@@ -121,7 +121,7 @@ Converter for forecasting with Q&A format.
 | Member | Type | Description |
 |--------|------|-------------|
 | [`ConverterForecastingQA`](reference/instruction/converter_forecasting_qa.md) | Class | Q&A format forecasting converter |
-| [`ConverterForecastingQA.forward_conversion`](reference/instruction/converter_forecasting_qa.md#twinweaver.instruction.converter_forecasting_qa.ConverterForecastingQA.forward_conversion) | Method | Convert to Q&A format text |
+| [`ConverterForecastingQA.forward_conversion`](reference/instruction/converter_forecasting_qa.md#twinweaver.instruction.converter_forecasting_qa.ConverterForecastingQA.forward_conversion) | Method | Convert to Q&A format text; `variables_to_convert` selects a subset of endpoints |
 
 ---
 
@@ -159,7 +159,7 @@ Splitter for forecasting data.
 
 | Member | Type | Description |
 |--------|------|-------------|
-| [`DataSplitterForecasting`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_forecasting.DataSplitterForecasting) | Class | Forecasting-specific data splitter |
+| [`DataSplitterForecasting`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_forecasting.DataSplitterForecasting) | Class | Forecasting-specific data splitter; supports `min_total_horizon`, `no_split_before_events`, `random_state` and multi-endpoint sampling |
 | [`DataSplitterForecasting.setup_statistics`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_forecasting.DataSplitterForecasting.setup_statistics) | Method | Compute statistics for normalization |
 | [`DataSplitterForecasting.get_splits_from_patient`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_forecasting.DataSplitterForecasting.get_splits_from_patient) | Method | Generate splits for a patient |
 | [`DataSplitterForecastingOption`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_forecasting.DataSplitterForecastingOption) | Class | Configuration for forecasting splits |
@@ -174,7 +174,7 @@ Splitter for event data.
 
 | Member | Type | Description |
 |--------|------|-------------|
-| [`DataSplitterEvents`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_events.DataSplitterEvents) | Class | Event-specific data splitter |
+| [`DataSplitterEvents`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_events.DataSplitterEvents) | Class | Event-specific data splitter; supports `no_split_before_events` and `random_state` |
 | [`DataSplitterEvents.setup_variables`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_events.DataSplitterEvents.setup_variables) | Method | Setup event variables |
 | [`DataSplitterEvents.get_splits_from_patient`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_events.DataSplitterEvents.get_splits_from_patient) | Method | Generate splits for a patient |
 | [`DataSplitterEventsOption`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_events.DataSplitterEventsOption) | Class | Configuration for event splits |
@@ -189,8 +189,8 @@ Base class for all data splitters.
 
 | Member | Type | Description |
 |--------|------|-------------|
-| [`BaseDataSplitter`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_base.BaseDataSplitter) | Class | Abstract base for splitters |
-| [`BaseDataSplitter.select_random_splits`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_base.BaseDataSplitter.select_random_splits) | Method | Randomly select split points |
+| [`BaseDataSplitter`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_base.BaseDataSplitter) | Class | Abstract base for splitters; owns `no_split_before_events` and `random_state` |
+| [`BaseDataSplitter.select_random_splits`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_base.BaseDataSplitter.select_random_splits) | Method | Randomly select split points, without replacement and seeded from `Config.seed` |
 | [`BaseDataSplitter.drop_duplicates_except_na_for_date_col`](reference/instruction/data_splitters.md#twinweaver.instruction.data_splitter_base.BaseDataSplitter.drop_duplicates_except_na_for_date_col) | Method | Remove duplicates preserving NA dates |
 
 ---
