@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
     
     
       
@@ -31,10 +31,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1691,7 +1691,7 @@
   <span class="md-ellipsis">
     
   
-    Customizing the Summarized Row with
+    Customizing the Summarized Row with set_custom_summarized_row_fn
   
 
     
@@ -3211,14 +3211,14 @@
 <p>This anchoring ensures that training examples are centered on clinically meaningful time points rather than arbitrary dates.</p>
 <div class="admonition tip">
 <p class="admonition-title">Configuration</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">config</span><span class="o">.</span><span class="n">split_event_category</span> <span class="o">=</span> <span class="s2">&quot;lot&quot;</span>  <span class="c1"># Anchor splits to Line of Therapy starts</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">config</span><span class="o">.</span><span class="n">split_event_category</span> <span class="o">=</span> <span class="s2">"lot"</span>  <span class="c1"># Anchor splits to Line of Therapy starts</span>
 </span></code></pre></div>
 </div>
 <h3 id="gating-splits-on-an-event">Gating Splits on an Event<a class="headerlink" href="#gating-splits-on-an-event" title="Permanent link">&para;</a></h3>
 <p>Some studies have an index event — treatment start, enrolment, first dose — before which a split makes no clinical sense. <code>no_split_before_events</code> restricts every split date to be <strong>on or after</strong> the earliest such event:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">data_splitter_forecasting</span> <span class="o">=</span> <span class="n">DataSplitterForecasting</span><span class="p">(</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="o">...</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">no_split_before_events</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;treatment&quot;</span><span class="p">],</span>   <span class="c1"># or [&quot;tx_start&quot;], or a mix of both</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">no_split_before_events</span><span class="o">=</span><span class="p">[</span><span class="s2">"treatment"</span><span class="p">],</span>   <span class="c1"># or ["tx_start"], or a mix of both</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">)</span>
 </span></code></pre></div>
 <p>Each entry is matched against <strong>both</strong> <code>config.event_category_col</code> and <code>config.event_name_col</code>, so the gate can be given as an event category (e.g. <code>"lot"</code>) or as a specific event name (e.g. <code>"tx_start"</code>).</p>
@@ -3227,7 +3227,7 @@
 <p>A patient who never has any of the listed events yields <strong>no splits at all</strong> — every split has to be anchored after the gate, so such a patient cannot contribute one. <code>DataSplitterForecasting.get_splits_from_patient</code> returns <code>[None]</code> for them and logs an info message.</p>
 </div>
 <p>The parameter is available on <strong>both</strong> splitters (it lives on <code>BaseDataSplitter</code>), so pass the same value to each when you use them together, keeping their split dates aligned:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">data_splitter_events</span> <span class="o">=</span> <span class="n">DataSplitterEvents</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">no_split_before_events</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;treatment&quot;</span><span class="p">])</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">data_splitter_events</span> <span class="o">=</span> <span class="n">DataSplitterEvents</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">no_split_before_events</span><span class="o">=</span><span class="p">[</span><span class="s2">"treatment"</span><span class="p">])</span>
 </span></code></pre></div>
 <h3 id="reproducibility-and-seeding">Reproducibility and Seeding<a class="headerlink" href="#reproducibility-and-seeding" title="Permanent link">&para;</a></h3>
 <p>Split-date sampling uses the global NumPy random stream, which <code>Config</code> seeds from <code>Config.seed</code>:</p>
@@ -3336,14 +3336,14 @@
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion</span><span class="p">(</span>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">forecasting_splits</span><span class="o">=</span><span class="n">f_splits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">event_splits</span><span class="o">=</span><span class="n">e_splits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">forecasting_variables_to_convert</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;hemoglobin_-_718-7&quot;</span><span class="p">],</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">forecasting_variables_to_convert</span><span class="o">=</span><span class="p">[</span><span class="s2">"hemoglobin_-_718-7"</span><span class="p">],</span>
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="p">)</span>
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
 </span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="c1"># Inference: pick one endpoint out of a shared horizon specification</span>
 </span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="n">result</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">forward_conversion_inference</span><span class="p">(</span>
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    <span class="n">forecasting_split</span><span class="o">=</span><span class="n">forecast_split</span><span class="p">,</span>
 </span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="n">forecasting_future_weeks_per_variable</span><span class="o">=</span><span class="p">{</span><span class="n">endpoint</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span> <span class="k">for</span> <span class="n">endpoint</span> <span class="ow">in</span> <span class="n">all_endpoints</span><span class="p">},</span>
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="n">forecasting_variables_to_convert</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;hemoglobin_-_718-7&quot;</span><span class="p">],</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="n">forecasting_variables_to_convert</span><span class="o">=</span><span class="p">[</span><span class="s2">"hemoglobin_-_718-7"</span><span class="p">],</span>
 </span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="p">)</span>
 </span></code></pre></div>
 <p>Endpoints that are not part of the split are dropped with a warning; if none of the requested endpoints matches, a <code>ValueError</code> is raised rather than a prompt asking for something the split cannot answer. The input split is never modified.</p>
@@ -3359,10 +3359,10 @@
 </span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="n">min_total_horizon</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span>                    <span class="c1"># Min horizon a split must cover</span>
 </span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>    <span class="n">min_nr_variables_to_sample</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                               <span class="c1"># Min variables (endpoints) per task</span>
 </span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="n">max_nr_variables_to_sample</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                               <span class="c1"># Max variables (endpoints) per task</span>
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    <span class="n">filtering_strategy</span><span class="o">=</span><span class="s2">&quot;3-sigma&quot;</span><span class="p">,</span>                               <span class="c1"># Outlier handling</span>
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>    <span class="n">sampling_strategy</span><span class="o">=</span><span class="s2">&quot;proportional&quot;</span><span class="p">,</span>                           <span class="c1"># Weighted or uniform sampling</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    <span class="n">filtering_strategy</span><span class="o">=</span><span class="s2">"3-sigma"</span><span class="p">,</span>                               <span class="c1"># Outlier handling</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>    <span class="n">sampling_strategy</span><span class="o">=</span><span class="s2">"proportional"</span><span class="p">,</span>                           <span class="c1"># Weighted or uniform sampling</span>
 </span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    <span class="n">allow_forecasting_beyond_next_split_date</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>             <span class="c1"># Forecast past the next split event</span>
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>    <span class="n">no_split_before_events</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;treatment&quot;</span><span class="p">],</span>                       <span class="c1"># Gate: no split before this event</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>    <span class="n">no_split_before_events</span><span class="o">=</span><span class="p">[</span><span class="s2">"treatment"</span><span class="p">],</span>                       <span class="c1"># Gate: no split before this event</span>
 </span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>                                          <span class="c1"># None → global RNG (Config.seed)</span>
 </span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="p">)</span>
 </span></code></pre></div>
@@ -3402,17 +3402,17 @@
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="n">max_length_to_sample</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mi">104</span><span class="p">),</span>               <span class="c1"># Max prediction window (required)</span>
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="n">min_length_to_sample</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>                  <span class="c1"># Min prediction window (required)</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    <span class="n">unit_length_to_sample</span><span class="o">=</span><span class="s2">&quot;weeks&quot;</span><span class="p">,</span>                               <span class="c1"># Window sampling unit</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    <span class="n">unit_length_to_sample</span><span class="o">=</span><span class="s2">"weeks"</span><span class="p">,</span>                               <span class="c1"># Window sampling unit</span>
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="n">max_split_length_after_split_event</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">90</span><span class="p">),</span>    <span class="c1"># Window after split event</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="n">no_split_before_events</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;treatment&quot;</span><span class="p">],</span>                        <span class="c1"># Gate: no split before this event</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="n">no_split_before_events</span><span class="o">=</span><span class="p">[</span><span class="s2">"treatment"</span><span class="p">],</span>                        <span class="c1"># Gate: no split before this event</span>
 </span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>                                           <span class="c1"># None → global RNG (Config.seed)</span>
 </span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
 <p>The event-to-prediction mapping is configured via:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">config</span><span class="o">.</span><span class="n">event_category_events_prediction_with_naming</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="s2">&quot;death&quot;</span><span class="p">:</span> <span class="s2">&quot;death&quot;</span><span class="p">,</span>                  <span class="c1"># event_category → descriptive name in prompt</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="s2">&quot;progression&quot;</span><span class="p">:</span> <span class="s2">&quot;next progression&quot;</span><span class="p">,</span> <span class="c1"># custom prompt label</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="s2">"death"</span><span class="p">:</span> <span class="s2">"death"</span><span class="p">,</span>                  <span class="c1"># event_category → descriptive name in prompt</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="s2">"progression"</span><span class="p">:</span> <span class="s2">"next progression"</span><span class="p">,</span> <span class="c1"># custom prompt label</span>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="p">}</span>
 </span></code></pre></div>
 <hr />
@@ -3471,9 +3471,9 @@
 <p>For inference, use <code>get_splits_from_patient_inference</code>, which anchors the split at the <strong>last available date</strong> in the patient's record. The <code>inference_type</code> parameter controls which tasks to generate — it defaults to <code>"both"</code> but gracefully handles the case when only one splitter is available:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">forecast_split</span><span class="p">,</span> <span class="n">events_split</span> <span class="o">=</span> <span class="n">data_splitter</span><span class="o">.</span><span class="n">get_splits_from_patient_inference</span><span class="p">(</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="n">patient_data</span><span class="p">,</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">inference_type</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>  <span class="c1"># &quot;forecasting&quot;, &quot;events&quot;, or &quot;both&quot;</span>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">forecasting_override_variables_to_predict</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;HGB&quot;</span><span class="p">,</span> <span class="s2">&quot;WBC&quot;</span><span class="p">],</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="n">events_override_category</span><span class="o">=</span><span class="s2">&quot;death&quot;</span><span class="p">,</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">inference_type</span><span class="o">=</span><span class="s2">"both"</span><span class="p">,</span>  <span class="c1"># "forecasting", "events", or "both"</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">forecasting_override_variables_to_predict</span><span class="o">=</span><span class="p">[</span><span class="s2">"HGB"</span><span class="p">,</span> <span class="s2">"WBC"</span><span class="p">],</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="n">events_override_category</span><span class="o">=</span><span class="s2">"death"</span><span class="p">,</span>
 </span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    <span class="n">events_override_observation_time_delta</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mi">52</span><span class="p">),</span>
 </span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="p">)</span>
 </span></code></pre></div>
@@ -3537,11 +3537,11 @@
 </span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
 </span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="c1"># 1. Configure</span>
 </span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="n">config</span><span class="o">.</span><span class="n">split_event_category</span> <span class="o">=</span> <span class="s2">&quot;lot&quot;</span>
-</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="n">config</span><span class="o">.</span><span class="n">event_category_forecast</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lab&quot;</span><span class="p">]</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="n">config</span><span class="o">.</span><span class="n">split_event_category</span> <span class="o">=</span> <span class="s2">"lot"</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="n">config</span><span class="o">.</span><span class="n">event_category_forecast</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"lab"</span><span class="p">]</span>
 </span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="n">config</span><span class="o">.</span><span class="n">event_category_events_prediction_with_naming</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>    <span class="s2">&quot;death&quot;</span><span class="p">:</span> <span class="s2">&quot;death&quot;</span><span class="p">,</span>
-</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>    <span class="s2">&quot;progression&quot;</span><span class="p">:</span> <span class="s2">&quot;next progression&quot;</span><span class="p">,</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>    <span class="s2">"death"</span><span class="p">:</span> <span class="s2">"death"</span><span class="p">,</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>    <span class="s2">"progression"</span><span class="p">:</span> <span class="s2">"next progression"</span><span class="p">,</span>
 </span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="p">}</span>
 </span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>
 </span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="c1"># 2. Load and process data</span>
@@ -3581,8 +3581,8 @@
 </span><span id="__span-17-51"><a id="__codelineno-17-51" name="__codelineno-17-51" href="#__codelineno-17-51"></a>    <span class="n">event_splits</span><span class="o">=</span><span class="n">events_splits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
 </span><span id="__span-17-52"><a id="__codelineno-17-52" name="__codelineno-17-52" href="#__codelineno-17-52"></a><span class="p">)</span>
 </span><span id="__span-17-53"><a id="__codelineno-17-53" name="__codelineno-17-53" href="#__codelineno-17-53"></a>
-</span><span id="__span-17-54"><a id="__codelineno-17-54" name="__codelineno-17-54" href="#__codelineno-17-54"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;instruction&quot;</span><span class="p">][:</span><span class="mi">500</span><span class="p">])</span>
-</span><span id="__span-17-55"><a id="__codelineno-17-55" name="__codelineno-17-55" href="#__codelineno-17-55"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">])</span>
+</span><span id="__span-17-54"><a id="__codelineno-17-54" name="__codelineno-17-54" href="#__codelineno-17-54"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"instruction"</span><span class="p">][:</span><span class="mi">500</span><span class="p">])</span>
+</span><span id="__span-17-55"><a id="__codelineno-17-55" name="__codelineno-17-55" href="#__codelineno-17-55"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">])</span>
 </span></code></pre></div>
 <hr />
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
@@ -3679,10 +3679,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.instant", "navigation.tracking", "navigation.top", "content.code.copy", "content.code.annotate", "content.tooltips", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.instant", "navigation.tracking", "navigation.top", "content.code.copy", "content.code.annotate", "content.tooltips", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
         <script src="../javascript/mathjax.js"></script>
       
@@ -3691,5 +3691,112 @@
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
-  </body>
+  <script data-mkdocs-jupyter-mathjax="{&quot;url&quot;: &quot;https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-mml-chtml.js&quot;, &quot;version&quot;: 4}">
+/* Shared by full pages and Material's instant navigation. */
+(() => {
+  const config = JSON.parse(document.currentScript.dataset.mkdocsJupyterMathjax);
+  if (window.mkdocsJupyterMathJax) return;
+
+  let loading;
+  let queue = Promise.resolve();
+  let previous = [];
+
+  const ready = async () => {
+    if (!loading) {
+      loading = (async () => {
+        let math = window.MathJax;
+        if (!math?.typesetPromise) {
+          const url = new URL(config.url, document.baseURI).href;
+          const existing = Array.from(document.scripts).find(script =>
+            script.src && (script.src === url || script.id === 'MathJax-script' ||
+              (/mathjax/i.test(script.src) &&
+               /\/(?:MathJax|latest|(?:tex|mml)(?:-mml)?-(?:chtml|svg))\.js(?:[?#]|$)/i.test(script.src))));
+          if (existing) {
+            if (!math?.startup?.promise) {
+              await new Promise((resolve, reject) => {
+                existing.addEventListener('load', resolve, { once: true });
+                existing.addEventListener('error', reject, { once: true });
+              });
+            }
+          } else {
+            // Keep site macros, delimiters and startup hooks when supplied.
+            const options = math || {};
+            window.MathJax = {
+              ...options,
+              loader: {
+                ...options.loader,
+                load: Array.from(new Set(['ui/safe', ...(options.loader?.load || [])]))
+              },
+              startup: { typeset: false, ...options.startup },
+              tex: {
+                tags: 'ams',
+                useLabelIds: true,
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                ...options.tex
+              }
+            };
+            await new Promise((resolve, reject) => {
+              const script = document.createElement('script');
+              script.src = config.url;
+              script.id = 'MathJax-script';
+              script.async = true;
+              script.onload = resolve;
+              script.onerror = reject;
+              document.head.appendChild(script);
+            });
+          }
+        }
+        math = window.MathJax;
+        await math.startup.promise;
+        return math;
+      })();
+    }
+    const math = await loading;
+    // A site owner can extend the v3 queue again on each navigation.
+    await math.startup.promise;
+    return math;
+  };
+
+  const unrendered = node => {
+    if (node.matches('mjx-container')) return [];
+    if (!node.querySelector('mjx-container')) return [node];
+    // In v3, scanning generated assistive MathML again produces nested output.
+    return Array.from(node.children).flatMap(unrendered);
+  };
+
+  const refresh = () => {
+    // A separate chain also serializes v3, without changing v4's startup promise.
+    queue = queue.then(async () => {
+      const notebooks = Array.from(document.querySelectorAll('.jupyter-wrapper'));
+      if (!notebooks.length && !previous.length) return;
+      if (notebooks.length === previous.length &&
+          notebooks.every((node, index) => node === previous[index])) return;
+      const math = await ready();
+      if (previous.length) {
+        math.typesetClear(previous);
+        math.texReset();
+      }
+      previous = notebooks.filter(node => node.isConnected);
+      const pending = previous.flatMap(unrendered);
+      if (pending.length) await math.typesetPromise(pending);
+    }).catch(error => console.error('mkdocs-jupyter: MathJax rendering failed', error));
+    return queue;
+  };
+
+  window.mkdocsJupyterMathJax = { refresh };
+  const start = () => {
+    if (typeof document$ !== 'undefined') document$.subscribe(refresh);
+    else refresh();
+  };
+  // Theme bundles and user-provided MathJax scripts can follow notebook content.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, { once: true });
+  } else start();
+})();
+
+</script>
+</body>
 </html>
