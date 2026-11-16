@@ -5,9 +5,9 @@ TwinWeaver supports **landmark event prediction** as one of its core clinical ta
 This page explains the TTE probability inference mechanism: how it works, why length-normalised log-probabilities are used, and where future research should focus to improve calibration.
 
 !!! info "Reference"
-    The TTE probability inference approach is described in the TwinWeaver preprint:
+    The TTE probability inference approach is described in the TwinWeaver paper (ICML 2026):
 
-    > Makarov, N. et al. (2026). *TwinWeaver: An LLM-Based Foundation Model Framework for Pan-Cancer Digital Twins.* [arXiv:2601.20906](https://arxiv.org/abs/2601.20906)
+    > Makarov, N. et al. (2026). *TwinWeaver: An LLM-Based Foundation Model Framework for Pan-Cancer Digital Twins.* In Proceedings of the 43rd International Conference on Machine Learning (ICML), PMLR 306:85853–85893. [PMLR](https://proceedings.mlr.press/v306/makarov26a.html)
 
 ---
 
@@ -134,7 +134,7 @@ While the TTE probability inference pipeline provides a practical mechanism for 
 
 ### Calibration
 
-As discussed in the [TwinWeaver preprint](https://arxiv.org/abs/2601.20906), the softmax probabilities derived from length-normalised log-probs are **not well calibrated** in the statistical sense. That is, a predicted probability of 0.7 does not necessarily mean that the event occurs 70% of the time across a population of patients with similar predictions. The probabilities are useful for **ranking** patients by risk and for deriving hard predictions, but should not be interpreted as true event probabilities without further calibration.
+As discussed in the [TwinWeaver paper](https://proceedings.mlr.press/v306/makarov26a.html), the softmax probabilities derived from length-normalised log-probs are **not well calibrated** in the statistical sense. That is, a predicted probability of 0.7 does not necessarily mean that the event occurs 70% of the time across a population of patients with similar predictions. The probabilities are useful for **ranking** patients by risk and for deriving hard predictions, but should not be interpreted as true event probabilities without further calibration.
 
 ### Directions for Future Research
 
@@ -165,13 +165,15 @@ Several avenues could improve the quality and calibration of TTE probability est
 If you use TwinWeaver's TTE probability inference in your research, please cite:
 
 ```bibtex
-@misc{makarov2026twinweaver,
-      title={TwinWeaver: An LLM-Based Foundation Model Framework for Pan-Cancer Digital Twins},
+@inproceedings{makarov2026twinweaver,
+      title={{TwinWeaver}: An {LLM}-Based Foundation Model Framework for Pan-Cancer Digital Twins},
       author={Nikita Makarov and Maria Bordukova and Lena Voith von Voithenberg and Estrella Pivel-Villanueva and Sabrina Mielke and Jonathan Wickes and Hanchen Wang and Mingyu Derek Ma and Keunwoo Choi and Kyunghyun Cho and Stephen Ra and Raul Rodriguez-Esteban and Fabian Schmich and Michael Menden},
+      booktitle={Proceedings of the 43rd International Conference on Machine Learning},
+      pages={85853--85893},
       year={2026},
-      eprint={2601.20906},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2601.20906},
+      volume={306},
+      series={Proceedings of Machine Learning Research},
+      publisher={PMLR},
+      url={https://proceedings.mlr.press/v306/makarov26a.html},
 }
 ```
