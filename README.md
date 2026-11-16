@@ -10,9 +10,10 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://mendenlab.github.io/TwinWeaver/)
+[![ICML 2026](https://img.shields.io/badge/ICML-2026-blue.svg)](https://proceedings.mlr.press/v306/makarov26a.html)
 [![arXiv](https://img.shields.io/badge/arXiv-2601.20906-b31b1b.svg)](https://arxiv.org/abs/2601.20906)
 
-TwinWeaver is a longitudinal framework for LLM-based Patient Digital Twins. It serializes longitudinal patient histories into text, enabling unified event prediction as well as forecasting with large language models (LLMs). This framework transforms structured patient history—including demographics, labs, treatments, and genetics—into a single, human-readable text prompt, enabling LLMs to jointly forecast continuous biomarkers and predict discrete clinical events, initially presented in our preprint ["TwinWeaver: An LLM-Based Foundation Model Framework for Pan-Cancer Digital Twins."](https://www.arxiv.org/abs/2601.20906).
+TwinWeaver is a longitudinal framework for LLM-based Patient Digital Twins. It serializes longitudinal patient histories into text, enabling unified event prediction as well as forecasting with large language models (LLMs). This framework transforms structured patient history—including demographics, labs, treatments, and genetics—into a single, human-readable text prompt, enabling LLMs to jointly forecast continuous biomarkers and predict discrete clinical events, presented in our ICML 2026 paper ["TwinWeaver: An LLM-Based Foundation Model Framework for Pan-Cancer Digital Twins."](https://proceedings.mlr.press/v306/makarov26a.html)
 
 This project is a collaboration between Roche and Helmholtz Munich, as part of the Munich School of Data Science (MUDS) program.
 
@@ -242,21 +243,23 @@ Further details at [https://mendenlab.github.io/TwinWeaver/framework/](https://m
 
 ## 📝 Paper, Authors & Citation
 
-The paper can be found [on Arxiv](https://www.arxiv.org/abs/2601.20906).
+The paper was published at ICML 2026 and can be found [in the PMLR proceedings](https://proceedings.mlr.press/v306/makarov26a.html) (preprint [on arXiv](https://arxiv.org/abs/2601.20906)).
 
 The core authors are: Nikita Makarov, Maria Bordukova, Lena Voith von Voithenberg, Estrella Villanueva Pivel, Sabrina Mielke, Jonathan Wickes, Hanchen Wang, Derek Ma, Keunwoo Choi, Kyunghyun Cho, Stephen Ra, Raul Rodriguez-Esteban, Fabian Schmich, Michael Menden
 
 
 If you use the package, please cite
 ```bibtex
-@misc{makarov2026twinweaver,
-      title={TwinWeaver: An LLM-Based Foundation Model Framework for Pan-Cancer Digital Twins},
+@inproceedings{makarov2026twinweaver,
+      title={{TwinWeaver}: An {LLM}-Based Foundation Model Framework for Pan-Cancer Digital Twins},
       author={Nikita Makarov and Maria Bordukova and Lena Voith von Voithenberg and Estrella Pivel-Villanueva and Sabrina Mielke and Jonathan Wickes and Hanchen Wang and Mingyu Derek Ma and Keunwoo Choi and Kyunghyun Cho and Stephen Ra and Raul Rodriguez-Esteban and Fabian Schmich and Michael Menden},
+      booktitle={Proceedings of the 43rd International Conference on Machine Learning},
+      pages={85853--85893},
       year={2026},
-      eprint={2601.20906},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2601.20906},
+      volume={306},
+      series={Proceedings of Machine Learning Research},
+      publisher={PMLR},
+      url={https://proceedings.mlr.press/v306/makarov26a.html},
 }
 ```
 

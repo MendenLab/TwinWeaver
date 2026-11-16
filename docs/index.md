@@ -102,13 +102,15 @@ GDT is a pan-cancer model instantiated using TwinWeaver, trained on over 93,000 
 
 If you use TwinWeaver in your research, please cite our paper:
 ```bibtex
-@misc{makarov2026twinweaver,
-      title={TwinWeaver: An LLM-Based Foundation Model Framework for Pan-Cancer Digital Twins},
+@inproceedings{makarov2026twinweaver,
+      title={{TwinWeaver}: An {LLM}-Based Foundation Model Framework for Pan-Cancer Digital Twins},
       author={Nikita Makarov and Maria Bordukova and Lena Voith von Voithenberg and Estrella Pivel-Villanueva and Sabrina Mielke and Jonathan Wickes and Hanchen Wang and Mingyu Derek Ma and Keunwoo Choi and Kyunghyun Cho and Stephen Ra and Raul Rodriguez-Esteban and Fabian Schmich and Michael Menden},
+      booktitle={Proceedings of the 43rd International Conference on Machine Learning},
+      pages={85853--85893},
       year={2026},
-      eprint={2601.20906},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2601.20906},
+      volume={306},
+      series={Proceedings of Machine Learning Research},
+      publisher={PMLR},
+      url={https://proceedings.mlr.press/v306/makarov26a.html},
 }
 ```
